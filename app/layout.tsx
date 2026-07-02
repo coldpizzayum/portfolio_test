@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       "Product Designer based in Berlin with 5+ years of experience shaping digital products across Web3, B2B SaaS, and eCommerce.",
     url: siteUrl,
     siteName: "Yiting Huang",
-    images: [{ url: "/images/project-screenshot.png", width: 1000, height: 734 }],
+    images: [{ url: "/images/web3-hero.png", width: 1000, height: 734 }],
     locale: "en_US",
     type: "website",
   },
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Yiting Huang — Product Designer",
     description:
       "Product Designer based in Berlin with 5+ years of experience shaping digital products across Web3, B2B SaaS, and eCommerce.",
-    images: ["/images/project-screenshot.png"],
+    images: ["/images/web3-hero.png"],
   },
 };
 

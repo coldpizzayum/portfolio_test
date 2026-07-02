@@ -21,24 +21,6 @@ export const workItems: WorkItem[] = [
     caseStudySlug: "web3-marketing-dashboard",
   },
   {
-    slug: "b2b-analytics-platform-redesign",
-    year: "2022 — 2023",
-    title: "B2B Analytics Platform Redesign",
-    description:
-      "Rebuilt a legacy analytics tool from the ground up — replacing a fragmented data model with a coherent workspace that cut onboarding time by 40%.",
-    tags: ["B2B SaaS", "Data Visualization", "Research"],
-    image: "/images/project-screenshot.png",
-  },
-  {
-    slug: "ecommerce-checkout-overhaul",
-    year: "2021 — 2022",
-    title: "eCommerce Checkout Overhaul",
-    description:
-      "Redesigned a multi-step checkout into a frictionless single-page flow — lifting conversion by 23% while reducing cart abandonment through progressive disclosure.",
-    tags: ["eCommerce", "Conversion Optimization", "Mobile-first"],
-    image: "/images/project-screenshot.png",
-  },
-  {
     slug: "influencer-marketing-management-tool",
     year: "2024 — 2025",
     title: "Influencer Marketing Management Tools, B2B, SaaS",
