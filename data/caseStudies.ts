@@ -48,11 +48,22 @@ export const workItems: WorkItem[] = [
     image: "/images/influencer-marketing-hero.png",
     caseStudySlug: "influencer-marketing-tool",
   },
+  {
+    slug: "coolwallet-pro-rebrand",
+    year: "2021",
+    title: "Hardware Crypto Wallet: Branding & eCom Redesign",
+    description:
+      "I helped shape CoolWallet Pro's brand, optimize its eCommerce experience, and bridge product, marketing, and data to drive measurable growth.",
+    tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
+    image: "/images/coolwallet-hero.png",
+    caseStudySlug: "coolwallet-pro",
+  },
 ];
 
 export type CaseStudyBlock =
   | { type: "paragraph"; text: string; href?: string; linkText?: string }
   | { type: "heading"; level: 3; text: string }
+  | { type: "bulletList"; items: string[] }
   | { type: "problemCards"; cards: { title: string; description: string }[] }
   | { type: "researchSteps"; steps: { title: string; description: string }[] }
   | { type: "hmwList"; items: string[] }
@@ -561,6 +572,217 @@ export const caseStudies: CaseStudy[] = [
           {
             type: "paragraph",
             text: "Most importantly, I learned that **designing for sustained engagement** requires thinking beyond launch moments. Features need built-in mechanisms that encourage ongoing discovery and sharing, not just initial adoption.",
+          },
+        ],
+      },
+    ],
+    nextCaseStudy: {
+      label: "Next Case Study",
+      title: "Hardware Crypto Wallet: Branding & eCom Redesign",
+      href: "/case-study/coolwallet-pro",
+    },
+  },
+  {
+    slug: "coolwallet-pro",
+    title: "Hardware Crypto Wallet: Branding & eCom Redesign",
+    year: "CoolBitX/ 2021",
+    subtitle:
+      "I helped shape CoolWallet Pro's brand, optimize its eCommerce experience, and bridge product, marketing, and data to drive measurable growth.",
+    tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
+    heroImage: "/images/coolwallet-hero.png",
+    sections: [
+      {
+        id: "overview",
+        navLabel: "Overview",
+        heading: "🧩 Overview",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "CoolBitX is a growth-stage startup of secure crypto asset management. After the success of its first product(CoolWallet S), the team expanded into new verticals— **including , DeFi, NFTs, staking, and B2B solutions (CoolWallet Pro)** —aiming to **serve more advanced and diverse use cases.**",
+          },
+          {
+            type: "paragraph",
+            text: "I led design efforts on two key initiatives that supported both product evolution and company growth:",
+          },
+          {
+            type: "bulletList",
+            items: [
+              "**⚡ CoolWallet Pro Rebranding** – Crafting a distinct identity for power users and redefining the brand story",
+              "**🛒 Growth-Driven eCommerce Redesign** – Transforming a transactional site into a multifunctional growth engine for users, partners, and investors",
+            ],
+          },
+        ],
+      },
+      {
+        id: "myrole",
+        navLabel: "My Role",
+        heading: "👩🏻‍💻 My Role",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "I worked cross-functionally with teams across marketing, product, customer service, sales, and logistics. My scope covered three key areas:",
+          },
+          { type: "heading", level: 3, text: "📣 Marketing" },
+          {
+            type: "bulletList",
+            items: [
+              "Defined visual tone for global campaigns with marketing leads",
+              "Designed landing pages, in-app banners, and social assets",
+              "Managed external graphic and motion designers",
+            ],
+          },
+          { type: "heading", level: 3, text: "🛠️ Product" },
+          {
+            type: "bulletList",
+            items: [
+              "Built design system and visual identity for CoolWallet Pro",
+              "Redesigned eCommerce UX to improve onboarding and conversion",
+              "Designed reusable components for new features and product pages",
+              "Created physical product assets: card, packaging, accessories, co-branded editions",
+            ],
+          },
+          { type: "heading", level: 3, text: "📊 Data & Optimization" },
+          {
+            type: "bulletList",
+            items: [
+              "Led A/B tests and tracked performance via Google Analytics",
+              "Used heatmaps and session recordings to guide UX decisions",
+              "Improved SEO and localized content for ZH and JP audiences",
+            ],
+          },
+          { type: "heading", level: 3, text: "Tools" },
+          {
+            type: "bulletList",
+            items: [
+              "Design: Figma, Adobe Creative Suite",
+              "SEO: Semrush, Ahrefs, Google Analytics, and Google Search Console",
+              "UX Design: Hotjar, Google Analytics",
+            ],
+          },
+          { type: "heading", level: 3, text: "Team & Collaboration" },
+          {
+            type: "bulletList",
+            items: [
+              "🧠 C-Suite",
+              "🎨 Me (Web Designer) and Marketing Team",
+              "💻 Product Team",
+              "📞 Customer Service",
+              "📦 Logistics",
+              "💼 Sales",
+            ],
+          },
+        ],
+      },
+      {
+        id: "branding",
+        navLabel: "Rebranding",
+        heading: "New Product Lauch",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "To support the launch of CoolWallet Pro—a premium hardware wallet built for advanced users in DeFi, NFTs, and multi-chain ecosystems—we needed a refreshed brand that clearly distinguished it from the original CoolWallet S, not just in Taiwan and the U.S., but across a growing global audience.",
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-product-launch.png",
+            alt: "CoolWallet Pro unboxing set and card held in hand",
+          },
+          { type: "heading", level: 3, text: "Marketing Materials of global expansion" },
+          {
+            type: "bulletList",
+            items: [
+              "Aligning stakeholders, defining color, typography, packaging, and card design",
+              "**Ensured brand consistency across global digital and physical touchpoints.**",
+              "Coordinating with external agencies and freelance creatives to deliver high-quality visuals",
+            ],
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-cobranded-cards.png",
+            alt: "Fan of co-branded CoolWallet S card designs",
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-marketing-campaigns.png",
+            alt: "Grid of CoolWallet Pro marketing campaign banners and co-branded partner cards",
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-influencer-videos.png",
+            alt: "Collage of influencer and reviewer video thumbnails across multiple languages",
+          },
+        ],
+      },
+      {
+        id: "ecom-redesign",
+        navLabel: "eCom Redesign",
+        heading: "🚀 Growth-Driven eCommerce Redesign",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "With the launch of CoolWallet Pro in May 2021, we transformed our eCommerce site from a basic sales channel into a growth engine—designed to educate users, support partners, and boost conversions.",
+          },
+          {
+            type: "paragraph",
+            text: "**📈 Key Performance Metrics (June 2021 – March 2022 vs. previous year)**",
+          },
+          {
+            type: "statRow",
+            stats: [
+              { value: "+294%", label: "increase in website revenue" },
+              { value: "+21%", label: "improvement in cart conversion rate" },
+              { value: "+124.9%", label: "growth in traffic" },
+              { value: "-29.6%", label: "reduction in bounce rate" },
+            ],
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-heatmap-analysis.png",
+            alt: "Session recordings and heatmap analysis of the CoolWallet Pro product page",
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-revenue-growth.png",
+            alt: "416% revenue growth chart for the year of the CoolWallet Pro launch",
+          },
+        ],
+      },
+      {
+        id: "webdesign",
+        navLabel: "Design Process",
+        heading: "🧩 Key Web Design Enhancements",
+        blocks: [
+          {
+            type: "bulletList",
+            items: [
+              "**Mobile Optimization**: Implemented a responsive design with faster load times and intuitive navigation to cater to the increasing mobile user base.",
+              "**User Education**: Developed comprehensive product feature pages and in-app service guides to facilitate informed purchasing decisions.",
+              "**Checkout Experience**: Streamlined the buying process by simplifying checkout steps and incorporating trust elements like customer reviews.",
+              "**Partner Integration**: Highlighted collaborations with retailers and co-branded programs to build credibility and expand reach.",
+              "**Localization**: Translated key content into Chinese, Japanese, and Turkish to better serve international markets.",
+              "**Data-Driven Iteration**: Leveraged tools like Google Analytics and Clarity for behavioral analysis, enabling continuous A/B testing and SEO optimization.",
+              "**Marketing Campaign Integration**: Established a dedicated marketing campaigns section on the website, synchronized with in-app banners, to ensure consistent messaging and enhance user engagement across platforms.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "By focusing on these areas, we aligned user experience improvements directly with business growth objectives, ensuring that design decisions were informed by actionable data and user behavior insights.",
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-website-evolution.png",
+            alt: "Evolution of the CoolWallet website across 2019, 2020, and 2021 redesigns, desktop and mobile",
+          },
+        ],
+      },
+      {
+        id: "takeaway",
+        navLabel: "What I Learned",
+        heading: "🧠 What I Learned",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Coming from a design background, working closely with marketing taught me how to think beyond usability—to design with business goals in mind. I learned to use data, storytelling, and brand consistency as tools for driving growth. It pushed me to design not just for users, but for outcomes.",
           },
         ],
       },

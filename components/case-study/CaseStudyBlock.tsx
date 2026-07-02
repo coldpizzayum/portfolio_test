@@ -40,6 +40,15 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         <h3 className="mt-10 mb-3.5 text-xl font-semibold tracking-[-0.01em] text-fg">{block.text}</h3>
       );
 
+    case "bulletList":
+      return (
+        <ul className="mb-5 list-disc space-y-1.5 pl-5 text-base leading-[1.7] text-fg-secondary last:mb-0">
+          {block.items.map((item, index) => (
+            <li key={index}>{renderInline(item)}</li>
+          ))}
+        </ul>
+      );
+
     case "problemCards":
       return (
         <div className="my-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
