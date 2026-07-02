@@ -37,35 +37,37 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
               ))}
             </div>
 
-            <div className="mb-14 grid w-fit grid-cols-2 overflow-hidden rounded-lg border border-border sm:grid-cols-4">
-              <div className="border-r border-b border-border p-5 sm:border-b-0">
-                <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">My Role</p>
-                <p className="text-sm leading-[1.4] font-semibold text-fg">{caseStudy.meta.role}</p>
-              </div>
-              <div className="border-b border-border p-5 sm:border-r sm:border-b-0">
-                <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Team</p>
-                <div className="mt-1 flex gap-1">
-                  {caseStudy.meta.team.map((member) => (
-                    <div
-                      key={member.initials}
-                      title={member.label}
-                      className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-[10px] font-bold text-white"
-                      style={{ background: member.color }}
-                    >
-                      {member.initials}
-                    </div>
-                  ))}
+            {caseStudy.meta && (
+              <div className="mb-14 grid w-fit grid-cols-2 overflow-hidden rounded-lg border border-border sm:grid-cols-4">
+                <div className="border-r border-b border-border p-5 sm:border-b-0">
+                  <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">My Role</p>
+                  <p className="text-sm leading-[1.4] font-semibold text-fg">{caseStudy.meta.role}</p>
+                </div>
+                <div className="border-b border-border p-5 sm:border-r sm:border-b-0">
+                  <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Team</p>
+                  <div className="mt-1 flex gap-1">
+                    {caseStudy.meta.team.map((member) => (
+                      <div
+                        key={member.initials}
+                        title={member.label}
+                        className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-[10px] font-bold text-white"
+                        style={{ background: member.color }}
+                      >
+                        {member.initials}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="border-r border-border p-5">
+                  <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Timeline</p>
+                  <p className="text-sm leading-[1.4] font-semibold text-fg">{caseStudy.meta.timeline}</p>
+                </div>
+                <div className="p-5">
+                  <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Tools</p>
+                  <p className="text-sm leading-[1.4] font-semibold text-fg">{caseStudy.meta.tools}</p>
                 </div>
               </div>
-              <div className="border-r border-border p-5">
-                <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Timeline</p>
-                <p className="text-sm leading-[1.4] font-semibold text-fg">{caseStudy.meta.timeline}</p>
-              </div>
-              <div className="p-5">
-                <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Tools</p>
-                <p className="text-sm leading-[1.4] font-semibold text-fg">{caseStudy.meta.tools}</p>
-              </div>
-            </div>
+            )}
 
             <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-bg-alt">
               <Image
@@ -80,15 +82,17 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
           </Reveal>
         </header>
 
-        <RevealGroup className="my-16 grid grid-cols-1 gap-px overflow-hidden rounded-lg bg-border sm:grid-cols-3">
-          {caseStudy.impactStats.map((stat) => (
-            <RevealItem key={stat.label} className="bg-bg px-8 py-9">
-              <p className="mb-3 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">{stat.label}</p>
-              <p className="mb-2 text-[52px] leading-none font-bold tracking-[-0.04em] text-fg">{stat.value}</p>
-              <p className="text-sm leading-[1.55] text-fg-secondary">{stat.description}</p>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+        {caseStudy.impactStats && (
+          <RevealGroup className="my-16 grid grid-cols-1 gap-px overflow-hidden rounded-lg bg-border sm:grid-cols-3">
+            {caseStudy.impactStats.map((stat) => (
+              <RevealItem key={stat.label} className="bg-bg px-8 py-9">
+                <p className="mb-3 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">{stat.label}</p>
+                <p className="mb-2 text-[52px] leading-none font-bold tracking-[-0.04em] text-fg">{stat.value}</p>
+                <p className="text-sm leading-[1.55] text-fg-secondary">{stat.description}</p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        )}
       </div>
 
       <hr className="border-t border-border" />

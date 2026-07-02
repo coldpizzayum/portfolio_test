@@ -38,10 +38,20 @@ export const workItems: WorkItem[] = [
     tags: ["eCommerce", "Conversion Optimization", "Mobile-first"],
     image: "/images/project-screenshot.png",
   },
+  {
+    slug: "influencer-marketing-management-tool",
+    year: "2024 — 2025",
+    title: "Influencer Marketing Management Tools, B2B, SaaS",
+    description:
+      "Designing viral loops that encouraged sharing, building a browser extension as a new distribution channel, and supporting launches across platforms like Product Hunt.",
+    tags: ["Growth", "Plugin"],
+    image: "/images/influencer-marketing-hero.png",
+    caseStudySlug: "influencer-marketing-tool",
+  },
 ];
 
 export type CaseStudyBlock =
-  | { type: "paragraph"; text: string }
+  | { type: "paragraph"; text: string; href?: string; linkText?: string }
   | { type: "heading"; level: 3; text: string }
   | { type: "problemCards"; cards: { title: string; description: string }[] }
   | { type: "researchSteps"; steps: { title: string; description: string }[] }
@@ -79,8 +89,9 @@ export interface CaseStudy {
   subtitle: string;
   tags: string[];
   heroImage: string;
-  meta: CaseStudyMeta;
-  impactStats: ImpactStat[];
+  /** Not every case study has a role/team/timeline meta grid or top-line impact stats. */
+  meta?: CaseStudyMeta;
+  impactStats?: ImpactStat[];
   sections: CaseStudySection[];
   nextCaseStudy: { label: string; title: string; href: string };
 }
@@ -391,7 +402,173 @@ export const caseStudies: CaseStudy[] = [
     nextCaseStudy: {
       label: "Next Case Study",
       title: "Design for Growth: Influencer Marketing Tool",
-      href: "/#works",
+      href: "/case-study/influencer-marketing-tool",
+    },
+  },
+  {
+    slug: "influencer-marketing-tool",
+    title: "Influencer Marketing Management Tools, B2B, SaaS",
+    year: "2024 — 2025",
+    subtitle:
+      "Designing viral loops that encouraged sharing, building a browser extension as a new distribution channel, and supporting launches across platforms like Product Hunt.",
+    tags: ["Growth", "Plugin"],
+    heroImage: "/images/influencer-marketing-hero.png",
+    sections: [
+      {
+        id: "growth",
+        navLabel: "Design for Growth",
+        heading: "Design for Growth",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Based on our previous product, we already got some paid users, across East Asia, Europe, and the US. Include Flap, DOEX, PrismX, Chainfir Capital…etc.",
+          },
+          {
+            type: "paragraph",
+            text: 'While validating our "all-in-one marketing platform" idea with users, we realized that among all the features, the Influencer Matcher delivered the most value. So we decided to focus on it and turn it into an independent product.',
+          },
+          {
+            type: "paragraph",
+            text: "At the same time, we explored distribution by launching on Product Hunt and building a browser extension.",
+          },
+          {
+            type: "paragraph",
+            text: "Here, we also designed a sharing flow that lets users share their curated lists, helping the product grow organically.",
+          },
+          {
+            type: "paragraph",
+            text: "All-in-one marketing platform case study here →",
+            href: "/case-study/web3-marketing-dashboard",
+            linkText: "Link",
+          },
+          {
+            type: "image",
+            src: "/images/influencer-marketing-product-hunt.png",
+            alt: "Growing3 - Influencer Matcher launch page on Product Hunt",
+          },
+          {
+            type: "image",
+            src: "/images/influencer-marketing-chrome-store.png",
+            alt: "Growing3 - Web3 Influencer Marketing Tool listing on the Chrome Web Store",
+          },
+        ],
+      },
+      {
+        id: "high-fidelity",
+        navLabel: "High-Fidelity Designs in 1 Month",
+        heading: "High-Fidelity Designs in 1 Month",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Based on the existing design system I built before, we were able to quickly translate workflows into market-ready designs within 1 month this time (last product was 6 months)",
+          },
+          {
+            type: "paragraph",
+            text: "Here are some key flows to streamline influencer outreach:",
+          },
+          {
+            type: "flowList",
+            items: [
+              {
+                name: "Search & Discover",
+                description: "Find and filter influencers that match your niche and goals.",
+              },
+              {
+                name: "Analyze Follower Networks",
+                description: "Explore followers and followings to build a tailored influencer list.",
+              },
+              {
+                name: "Track Keyword Mentions",
+                description: "Identify influencers talking about your chosen keywords on X (Twitter).",
+              },
+              {
+                name: "Bulk Outreach",
+                description: "Contact hundreds of influencers at once to save time and scale outreach.",
+              },
+              {
+                name: "🦠 Share Curated Lists",
+                description: "Easily share influencer lists with teammates or other users.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "responsive",
+        navLabel: "Responsive Design",
+        heading: "Responsive, dark/light mode",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Responsive, dark/light mode, ensure accessibility and comfort across different devices and environments.",
+          },
+        ],
+      },
+      {
+        id: "browser-plugin",
+        navLabel: "Browser Plugin",
+        heading: "Browser Plugin",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Enables users to manage influencer outreach without switching between multiple platforms.",
+          },
+          {
+            type: "paragraph",
+            text: "Published on the Chrome Web Store as a marketing channel to increase exposure.",
+          },
+        ],
+      },
+      {
+        id: "figma",
+        navLabel: "Figma Files",
+        heading: "Figma File",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Organized design system and responsive layouts.",
+          },
+          {
+            type: "paragraph",
+            text: "🔗",
+            href: "https://www.figma.com/design/ZIjrmyzkBp9SPsfQ0RPqxR/Influencer-Matcher?node-id=1069-1958&t=PUZafa6fkHXDnTim-1",
+            linkText: "Figma files",
+          },
+          {
+            type: "paragraph",
+            text: "Password: sleet-halo-weight-herbs",
+          },
+          {
+            type: "image",
+            src: "/images/influencer-marketing-figma.png",
+            alt: "Figma file showing the Influencer Matcher design system and responsive desktop, tablet, and mobile layouts",
+          },
+        ],
+      },
+      {
+        id: "takeaways",
+        navLabel: "Takeaways",
+        heading: "Takeaways",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "As a designer, this project pushed me to develop **rapid prototyping skills**—I learned to build interactive prototypes and design plugins that could be tested immediately with users, accelerating the feedback loop dramatically.",
+          },
+          {
+            type: "paragraph",
+            text: "I also honed my ability to **design for two different goals simultaneously**: refining existing user flows while exploring entirely new features. This dual-track approach became essential for growth-stage products where you can't just optimize or just innovate—you need both.",
+          },
+          {
+            type: "paragraph",
+            text: "Most importantly, I learned that **designing for sustained engagement** requires thinking beyond launch moments. Features need built-in mechanisms that encourage ongoing discovery and sharing, not just initial adoption.",
+          },
+        ],
+      },
+    ],
+    nextCaseStudy: {
+      label: "Next Case Study",
+      title: "Web3 Marketing Dashboard",
+      href: "/case-study/web3-marketing-dashboard",
     },
   },
 ];

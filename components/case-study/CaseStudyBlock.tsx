@@ -17,7 +17,22 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
   switch (block.type) {
     case "paragraph":
       return (
-        <p className="mb-5 text-base leading-[1.75] text-fg-secondary last:mb-0">{renderInline(block.text)}</p>
+        <p className="mb-5 text-base leading-[1.75] text-fg-secondary last:mb-0">
+          {renderInline(block.text)}
+          {block.href && (
+            <>
+              {" "}
+              <a
+                href={block.href}
+                target={block.href.startsWith("http") ? "_blank" : undefined}
+                rel={block.href.startsWith("http") ? "noreferrer" : undefined}
+                className="text-accent underline underline-offset-3 transition-colors duration-300 hover:text-fg"
+              >
+                {block.linkText}
+              </a>
+            </>
+          )}
+        </p>
       );
 
     case "heading":
