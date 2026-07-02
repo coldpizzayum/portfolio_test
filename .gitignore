@@ -42,3 +42,6 @@ next-env.d.ts
 
 # reference-only copy of the pre-migration static site
 /legacy-static
+
+# local agent tooling state
+/.claude
