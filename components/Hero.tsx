@@ -53,9 +53,10 @@ const FAN_CARDS: FanCard[] = [
 ];
 
 const AUDIENCE_PILLS = [
-  { label: "Web3", dot: "#6B9E85" },
   { label: "B2B SaaS", dot: "#7A8FB5" },
   { label: "eCommerce", dot: "#C97B5A" },
+  { label: "FinTech", dot: "#B08D57" },
+  { label: "MarTech", dot: "#8B7AA6" },
 ];
 
 export default function Hero() {
@@ -66,17 +67,16 @@ export default function Hero() {
 
         <div className="relative z-[1] flex flex-col items-start gap-10">
           {/* Left: headline + sub */}
-          <div className="max-w-full pb-12 md:max-w-[560px] md:pb-0">
+          <div className="max-w-full pb-12 md:pb-0">
             <h1 className="mb-7 text-[44px] leading-[0.94] font-bold tracking-[-0.03em] text-fg md:text-[clamp(44px,6.5vw,88px)]">
               Hi, I&apos;m Yiting.
               <br />
-              <span className="text-fg-secondary opacity-[0.72]">Product Designer</span>
-              <br />
-              <span className="text-fg-secondary opacity-[0.72]">&amp; Maker.</span>
+              <span className="text-fg-secondary opacity-[0.72]">Product Designer &amp; Builder.</span>
             </h1>
 
             <p className="mb-9 text-base leading-[1.45] font-medium text-fg-secondary md:text-[clamp(16px,1.8vw,22px)]">
-              5+ years shaping digital products across{" "}
+              5+ years in startups, taking products from user journey to UI, branding, and go-to-market.
+              I&apos;ve designed for{" "}
               {AUDIENCE_PILLS.map((pill) => (
                 <Link
                   key={pill.label}
@@ -87,6 +87,7 @@ export default function Hero() {
                   {pill.label}
                 </Link>
               ))}
+              .
             </p>
           </div>
 

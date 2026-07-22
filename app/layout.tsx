@@ -47,7 +47,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable}`}>
-      <body className="flex min-h-screen flex-col bg-bg text-fg font-sans text-base leading-relaxed antialiased">
+      <body
+        className="flex min-h-screen flex-col bg-bg text-fg font-sans text-base leading-relaxed antialiased"
+        suppressHydrationWarning
+      >
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
