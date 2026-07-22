@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import Button from "./Button";
 
 interface FanCard {
   key: string;
@@ -65,9 +64,9 @@ export default function Hero() {
       <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 px-7 pt-9 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:px-14 md:pt-14">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-bg" />
 
-        <div className="relative z-[1] flex flex-col items-start justify-between gap-10 md:flex-row">
-          {/* Left: headline + sub + CTAs */}
-          <div className="max-w-full pb-12 md:max-w-[560px] md:pb-14">
+        <div className="relative z-[1] flex flex-col items-start gap-10">
+          {/* Left: headline + sub */}
+          <div className="max-w-full pb-12 md:max-w-[560px] md:pb-0">
             <h1 className="mb-7 text-[44px] leading-[0.94] font-bold tracking-[-0.03em] text-fg md:text-[clamp(44px,6.5vw,88px)]">
               Hi, I&apos;m Yiting.
               <br />
@@ -88,22 +87,11 @@ export default function Hero() {
                   {pill.label}
                 </Link>
               ))}
-              <br className="mb-1.5" />
-              <span className="mt-2 inline-block">Based in Berlin. Crafting experiences that feel inevitable.</span>
             </p>
-
-            <div className="flex flex-wrap gap-3">
-              <Button href="#works" variant="primary">
-                See my work
-              </Button>
-              <Button href="#about" variant="secondary">
-                About me
-              </Button>
-            </div>
           </div>
 
-          {/* Right: fanned card deck */}
-          <div className="hidden h-[380px] items-end self-end md:flex">
+          {/* Fanned card deck */}
+          <div className="hidden h-[380px] items-end pb-14 md:flex">
             <div className="relative flex items-center">
               {FAN_CARDS.map((card, index) => (
                 <div
