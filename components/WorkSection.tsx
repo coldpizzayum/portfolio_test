@@ -1,8 +1,17 @@
 import { workItems } from "@/data/caseStudies";
 import { Reveal, RevealGroup } from "./Reveal";
 import WorkCard from "./WorkCard";
+import WorkIndexRail from "./WorkIndexRail";
+
+const ACCENT_BACKGROUNDS = ["bg-card-sand", "bg-card-sage", "bg-card-slate"];
 
 export default function WorkSection() {
+  const railItems = workItems.map((item, index) => ({
+    id: `work-${item.slug}`,
+    label: item.title,
+    index,
+  }));
+
   return (
     <section id="works" className="bg-bg py-20 md:py-30">
       <div className="mx-auto max-w-[1200px] px-8">
@@ -21,11 +30,21 @@ export default function WorkSection() {
           </a>
         </Reveal>
 
-        <RevealGroup className="flex flex-col gap-4" stagger={0.12}>
-          {workItems.map((item, index) => (
-            <WorkCard key={item.slug} item={item} reversed={index % 2 === 1} />
-          ))}
-        </RevealGroup>
+        <div className="md:flex md:items-start md:gap-8">
+          <WorkIndexRail items={railItems} />
+
+          <RevealGroup className="flex flex-1 flex-col gap-20 md:gap-28" stagger={0.12}>
+            {workItems.map((item, index) => (
+              <WorkCard
+                key={item.slug}
+                item={item}
+                reversed={index % 2 === 1}
+                accentBg={ACCENT_BACKGROUNDS[index % ACCENT_BACKGROUNDS.length]}
+                id={`work-${item.slug}`}
+              />
+            ))}
+          </RevealGroup>
+        </div>
       </div>
     </section>
   );
