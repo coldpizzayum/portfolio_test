@@ -16,92 +16,102 @@ export interface QuoteTestimonial extends TestimonialBase {
   quote: string;
   author: string;
   role: string;
-}
-
-export interface StickyTestimonial extends TestimonialBase {
-  type: "sticky";
-  text: string;
-  color: "yellow" | "green";
-  width?: number;
+  avatar: string;
+  borderColor: string;
 }
 
 export interface PhotoTestimonial extends TestimonialBase {
   type: "photo";
-  caption: string;
-  placeholderLabel: string;
+  src: string;
+  alt: string;
 }
 
-export type Testimonial = QuoteTestimonial | StickyTestimonial | PhotoTestimonial;
+export type Testimonial = QuoteTestimonial | PhotoTestimonial;
 
 export const testimonials: Testimonial[] = [
   {
     type: "quote",
-    id: "marcus",
+    id: "maxine",
     quote:
-      "Yiting has a rare ability to ask the right questions before picking up a tool. She untangled our most confusing flow in a single workshop.",
-    author: "Marcus W.",
-    role: "Head of Product, Chainlink Labs",
-    rotation: -3,
-    position: { top: 0, left: 0 },
+      "Yiting has a unique ability to translate complex ideas into intuitive, beautifully crafted designs that truly elevate the user experience.",
+    author: "Maxine",
+    role: "COO, Founder, Growing3",
+    avatar: "/images/testimonials/maxine.png",
+    borderColor: "var(--color-card-sand)",
+    rotation: -4,
+    position: { top: 0, left: 20 },
+    zIndex: 3,
+  },
+  {
+    type: "quote",
+    id: "bill",
+    quote:
+      "She has a strong understanding of engineering requirements and quickly responds to requests and questions, ensuring a smooth collaboration process.",
+    author: "Bill",
+    role: "Senior Developer, Growing3",
+    avatar: "/images/testimonials/bill.jpeg",
+    borderColor: "var(--color-card-sage)",
+    rotation: 4,
+    position: { top: 0, right: 20 },
     zIndex: 3,
   },
   {
     type: "photo",
-    id: "workshop-photo",
-    caption: "Workshop, Berlin 2024",
-    placeholderLabel: "team photo",
-    rotation: 4,
-    position: { top: 20, left: 310 },
+    id: "portrait",
+    src: "/images/self-intro-poster.jpg",
+    alt: "Yiting Huang",
+    rotation: -2,
+    position: { top: 140, left: 380 },
+    zIndex: 6,
+  },
+  {
+    type: "quote",
+    id: "kei",
+    quote:
+      "Beyond her technical skills, she is an incredible team player — always open to feedback, quick to iterate, and generous in sharing knowledge.",
+    author: "Kei",
+    role: "UXUI Designer, CoolBitX",
+    avatar: "/images/testimonials/kei.jpeg",
+    borderColor: "var(--color-card-slate)",
+    rotation: 3,
+    position: { top: 190, left: 0 },
     zIndex: 2,
   },
   {
-    type: "sticky",
-    id: "sticky-experience",
-    text: "She doesn't just design screens — she designs the whole experience.",
-    color: "yellow",
-    rotation: 2.5,
-    position: { top: 10, right: 80 },
+    type: "quote",
+    id: "henry",
+    quote: "She consistently creates the best designs to engage users and enable them to complete purchases smoothly.",
+    author: "Henry",
+    role: "Marketing Manager, CoolBitX",
+    avatar: "/images/testimonials/henry.jpeg",
+    borderColor: "var(--color-card-sand)",
+    rotation: 2,
+    position: { top: 190, right: 0 },
+    zIndex: 2,
+  },
+  {
+    type: "quote",
+    id: "james",
+    quote:
+      "Her deep understanding of Web3 and Blockchain, combined with her ability to design scalable, user-friendly solutions, helped us stand out in a competitive market.",
+    author: "James",
+    role: "Co-founder and CEO, Growing3",
+    avatar: "/images/testimonials/james.jpeg",
+    borderColor: "var(--color-card-sage)",
+    rotation: -3,
+    position: { top: 390, left: 60 },
     zIndex: 4,
   },
   {
     type: "quote",
-    id: "sophie",
-    quote:
-      "Working with Yiting felt like having a true design partner. She challenged our assumptions and brought data to every decision.",
-    author: "Sophie L.",
-    role: "CEO, Storefront Studio",
-    rotation: 1.5,
-    position: { top: 200, left: 180 },
-    zIndex: 5,
-  },
-  {
-    type: "photo",
-    id: "design-review-photo",
-    caption: "Design Review, 2023",
-    placeholderLabel: "design review",
-    rotation: -5,
-    position: { top: 310, left: 10 },
-    zIndex: 2,
-  },
-  {
-    type: "quote",
-    id: "tom",
-    quote:
-      "The analytics dashboard Yiting redesigned became our most-praised feature. Exceptional eye for hierarchy and density.",
-    author: "Tom R.",
-    role: "Engineering Lead, DataBridge",
-    rotation: -2,
-    position: { top: 310, right: 0 },
-    zIndex: 3,
-  },
-  {
-    type: "sticky",
-    id: "sticky-5star",
-    text: "5★ Would hire again and again.",
-    color: "green",
-    width: 180,
-    rotation: -1.5,
-    position: { top: 380, left: 390 },
-    zIndex: 2,
+    id: "edward",
+    quote: "When I pointed out technical limits, she was super open to feedback and quick to adjust without compromising the design…",
+    author: "Edward",
+    role: "Senior Engineer, CoolBitX",
+    avatar: "/images/testimonials/edward.jpeg",
+    borderColor: "var(--color-card-slate)",
+    rotation: 3,
+    position: { top: 390, right: 60 },
+    zIndex: 4,
   },
 ];

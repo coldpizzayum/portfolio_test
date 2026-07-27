@@ -8,16 +8,16 @@ export default function TestimonialsSection() {
     <section id="testimonials" className="overflow-hidden bg-bg py-20 md:py-30">
       <div className="mx-auto max-w-[1200px] px-8">
         <Reveal className="mb-18 text-center">
-          <h2 className="mb-3 text-[32px] font-bold tracking-[-0.03em] text-fg md:text-[clamp(32px,5vw,56px)]">
+          <h2 className="mb-3 font-serif text-[32px] font-bold tracking-[-0.03em] text-fg md:text-h1">
             What&apos;s it like working with me?
           </h2>
-          <p className="text-lg text-fg-secondary italic">
+          <p className="font-serif text-body-sm text-fg-secondary italic md:text-body">
             By working hard and being kind — amazing things happen.
           </p>
         </Reveal>
 
         {/* Desktop / tablet: scattered collage, positioned absolutely */}
-        <Reveal className="relative mx-auto hidden h-[560px] max-w-[1000px] md:block">
+        <Reveal className="relative mx-auto hidden h-[660px] max-w-[1040px] md:block">
           {testimonials.map((testimonial) => {
             const position: CSSProperties = {
               top: testimonial.position.top,

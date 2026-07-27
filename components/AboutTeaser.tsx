@@ -5,9 +5,11 @@ export default function AboutTeaser() {
   return (
     <section className="px-5 py-16 md:px-10 md:py-24">
       <Reveal className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 px-7 py-9 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:px-14 md:py-14">
-        <p className="relative mb-4 text-xs tracking-[0.1em] text-fg-secondary uppercase">A bit about me</p>
+        <p className="relative mb-4 font-serif text-caption tracking-[0.1em] text-fg-secondary uppercase">
+          A bit about me
+        </p>
 
-        <h2 className="relative mb-10 text-[32px] leading-[1.05] font-bold tracking-[-0.03em] text-accent md:mb-14 md:text-[clamp(32px,4.5vw,60px)]">
+        <h2 className="relative mb-10 font-serif text-[32px] leading-[1.05] font-bold tracking-[-0.03em] text-accent md:mb-14 md:text-h1">
           Design is how I think.
           <br />
           I build with AI to prove it.
@@ -32,7 +34,7 @@ export default function AboutTeaser() {
           </div>
 
           <div>
-            <p className="mb-7 max-w-[560px] text-[17px] leading-[1.6] text-fg md:text-[clamp(17px,1.6vw,20px)]">
+            <p className="mb-7 max-w-[560px] font-serif text-body-sm text-fg md:text-body">
               9 years shaped by design — 4 years studying industrial design, 5 years building products in the
               industry. I love figuring out what users need and making it lovable.
             </p>

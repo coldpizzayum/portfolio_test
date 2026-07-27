@@ -2,6 +2,7 @@
 
 @theme inline {
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-source-serif);
 
   --color-bg: #f7f5f2;
   --color-bg-alt: #efede9;
@@ -11,10 +12,10 @@
   --color-border: #e2dfda;
   --color-available: #5a8a60;
 
-  --color-card-sand: #f2e4d4;
+  --color-card-sand: #f5c563;
   --color-card-photo: #e2dfda;
-  --color-card-sage: #d4e0d8;
-  --color-card-slate: #ced6e0;
+  --color-card-sage: #f3a79e;
+  --color-card-slate: #74c2a0;
 
   --color-sticky-yellow: #fef3c7;
   --color-sticky-green: #d1fae5;
@@ -101,4 +102,61 @@ body {
   .collage-piece-rotate:hover {
     transform: rotate(var(--rotate, 0deg)) translateY(-6px);
   }
+}
+
+/* Text design system — named type styles built on Source Serif 4,
+   mirroring the "Portfolio" text-style set from Figma (size/line-height). */
+@utility text-display {
+  font-family: var(--font-serif);
+  font-size: 88px;
+  line-height: 88px;
+  font-weight: 700;
+}
+@utility text-h1 {
+  font-family: var(--font-serif);
+  font-size: 64px;
+  line-height: 70.4px;
+  font-weight: 700;
+}
+@utility text-h2 {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 600;
+}
+@utility text-h3 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  line-height: 28px;
+  font-weight: 600;
+}
+@utility text-body {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+}
+@utility text-body-sm {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 21.6px;
+  font-weight: 400;
+}
+@utility text-links {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 500;
+}
+@utility text-caption {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 16.8px;
+  font-weight: 400;
+}
+@utility text-meta {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 21.6px;
+  font-weight: 400;
 }

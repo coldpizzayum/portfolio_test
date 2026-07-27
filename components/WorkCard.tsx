@@ -29,11 +29,11 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
 
   const contentPanel = (
     <div className="flex flex-col justify-center rounded-[20px] border border-border bg-bg-alt p-8 md:p-12">
-      <p className="mb-4 text-xs tracking-[0.08em] text-fg-secondary">{item.year}</p>
-      <h3 className="mb-5 text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-[clamp(26px,3.2vw,40px)]">
+      <p className="mb-4 font-serif text-caption tracking-[0.08em] text-fg-secondary">{item.year}</p>
+      <h3 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
         {item.title}
       </h3>
-      <p className="mb-8 max-w-[420px] text-[15px] leading-[1.65] text-fg-secondary">{item.description}</p>
+      <p className="mb-8 max-w-[420px] font-serif text-body-sm text-fg-secondary">{item.description}</p>
       <div className="mb-8 flex flex-wrap gap-2">
         {item.tags.map((tag) => (
           <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs text-fg-secondary">
@@ -42,7 +42,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
         ))}
       </div>
       {href && (
-        <span className="mt-auto inline-flex w-fit items-center gap-1.5 text-[13px] font-medium text-fg transition-[gap] duration-300 group-hover:gap-3">
+        <span className="mt-auto inline-flex w-fit items-center gap-1.5 font-serif text-links font-medium text-fg transition-[gap] duration-300 group-hover:gap-3">
           View case study →
         </span>
       )}

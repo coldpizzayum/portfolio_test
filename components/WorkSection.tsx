@@ -17,14 +17,12 @@ export default function WorkSection() {
       <div className="mx-auto max-w-[1200px] px-8">
         <Reveal className="mb-16 flex flex-wrap items-baseline justify-between gap-8">
           <div>
-            <p className="mb-4 text-xs tracking-[0.1em] text-fg-secondary uppercase">Portfolio</p>
-            <h2 className="text-[28px] font-bold tracking-[-0.03em] text-fg md:text-[clamp(28px,4vw,44px)]">
-              Selected Works
-            </h2>
+            <p className="mb-4 font-serif text-caption tracking-[0.1em] text-fg-secondary uppercase">Portfolio</p>
+            <h2 className="font-serif text-[28px] font-bold tracking-[-0.03em] text-fg md:text-h2">Selected Works</h2>
           </div>
           <a
             href="#"
-            className="text-sm text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
+            className="font-serif text-links text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
           >
             View all projects
           </a>
