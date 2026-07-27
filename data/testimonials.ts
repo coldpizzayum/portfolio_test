@@ -13,11 +13,15 @@ interface TestimonialBase {
 
 export interface QuoteTestimonial extends TestimonialBase {
   type: "quote";
+  /** Supports `**bold**` markdown-style spans for emphasis within the quote. */
   quote: string;
   author: string;
   role: string;
-  avatar: string;
-  borderColor: string;
+  company?: string;
+  avatar?: string;
+  borderColor?: string;
+  /** "sticky" renders as a flat colored note (no border/avatar/quote mark), role-first attribution. */
+  variant?: "sticky";
 }
 
 export interface PhotoTestimonial extends TestimonialBase {
@@ -39,7 +43,7 @@ export const testimonials: Testimonial[] = [
     avatar: "/images/testimonials/maxine.png",
     borderColor: "var(--color-card-sand)",
     rotation: -4,
-    position: { top: 0, left: 20 },
+    position: { top: 0, left: 40 },
     zIndex: 3,
   },
   {
@@ -52,16 +56,16 @@ export const testimonials: Testimonial[] = [
     avatar: "/images/testimonials/bill.jpeg",
     borderColor: "var(--color-card-sage)",
     rotation: 4,
-    position: { top: 0, right: 20 },
+    position: { top: 0, right: 40 },
     zIndex: 3,
   },
   {
     type: "photo",
     id: "portrait",
-    src: "/images/self-intro-poster.jpg",
-    alt: "Yiting Huang",
+    src: "/images/yiting_laptop.png",
+    alt: "Yiting Huang working at her laptop",
     rotation: -2,
-    position: { top: 140, left: 380 },
+    position: { top: 120, left: 340 },
     zIndex: 6,
   },
   {
@@ -74,7 +78,7 @@ export const testimonials: Testimonial[] = [
     avatar: "/images/testimonials/kei.jpeg",
     borderColor: "var(--color-card-slate)",
     rotation: 3,
-    position: { top: 190, left: 0 },
+    position: { top: 160, left: 0 },
     zIndex: 2,
   },
   {
@@ -86,7 +90,7 @@ export const testimonials: Testimonial[] = [
     avatar: "/images/testimonials/henry.jpeg",
     borderColor: "var(--color-card-sand)",
     rotation: 2,
-    position: { top: 190, right: 0 },
+    position: { top: 160, right: 0 },
     zIndex: 2,
   },
   {
@@ -99,8 +103,8 @@ export const testimonials: Testimonial[] = [
     avatar: "/images/testimonials/james.jpeg",
     borderColor: "var(--color-card-sage)",
     rotation: -3,
-    position: { top: 390, left: 60 },
-    zIndex: 4,
+    position: { top: 300, left: 60 },
+    zIndex: 5,
   },
   {
     type: "quote",
@@ -111,7 +115,33 @@ export const testimonials: Testimonial[] = [
     avatar: "/images/testimonials/edward.jpeg",
     borderColor: "var(--color-card-slate)",
     rotation: 3,
-    position: { top: 390, right: 60 },
-    zIndex: 4,
+    position: { top: 300, right: 60 },
+    zIndex: 5,
+  },
+  {
+    type: "quote",
+    id: "zoe",
+    quote:
+      "Growing3 is one of the few marketing tools on the market specifically designed for KOL marketing. It offers highly practical features like client mapping, filtering, and one-click bulk messaging... with one-click bulk messaging, everything is done within 10 minutes, greatly improving my efficiency. **Additionally, the website's UI/UX, keyword research, and its understanding of user logic are exceptionally well-designed.** I've already recommended it to other friends and colleagues.",
+    author: "Zoe Yang",
+    role: "BD Lead",
+    company: "Flap",
+    variant: "sticky",
+    rotation: 2,
+    position: { top: 430, left: 280 },
+    zIndex: 7,
+  },
+  {
+    type: "quote",
+    id: "vincent",
+    quote:
+      "Growing3 is a tool that has significantly benefited my work, providing a **seamless overall product experience, especially in terms of user experience**, which left a strong impression on me!",
+    author: "Vincent",
+    role: "Project Manager",
+    company: "PrismX",
+    variant: "sticky",
+    rotation: -3,
+    position: { top: 470, right: 40 },
+    zIndex: 8,
   },
 ];

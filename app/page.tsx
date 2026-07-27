@@ -2,7 +2,6 @@ import Hero from "@/components/Hero";
 import AboutTeaser from "@/components/AboutTeaser";
 import WorkSection from "@/components/WorkSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   return (
@@ -11,10 +10,9 @@ export default function Home() {
       <AboutTeaser />
       <hr className="border-t border-border" />
       <WorkSection />
-      <hr className="border-t border-border" />
+      <hr className="border-t-0 border-border" />
       <TestimonialsSection />
-      <hr className="border-t border-border" />
-      <ContactSection />
+      <hr className="border-t-0 border-border" />
     </>
   );
 }

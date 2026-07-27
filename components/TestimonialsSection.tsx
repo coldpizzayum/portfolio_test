@@ -17,7 +17,7 @@ export default function TestimonialsSection() {
         </Reveal>
 
         {/* Desktop / tablet: scattered collage, positioned absolutely */}
-        <Reveal className="relative mx-auto hidden h-[660px] max-w-[1040px] md:block">
+        <Reveal className="relative mx-auto hidden h-[820px] max-w-[1040px] md:block">
           {testimonials.map((testimonial) => {
             const position: CSSProperties = {
               top: testimonial.position.top,

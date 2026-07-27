@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,9 +11,10 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
+  { label: "Home", href: "/" },
   { label: "Works", href: "/works" },
   { label: "Ai Projects", href: "/ai-projects" },
-  { label: "About", href: "/about" },
+  { label: "About Me", href: "/about" },
 ];
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/yiting1995/";
@@ -81,10 +83,10 @@ export default function Header() {
             href="/"
             className="flex shrink-0 items-center gap-2.5 text-fg transition-colors duration-[180ms] hover:text-fg-secondary"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card-sage text-[13px] font-semibold text-fg">
-              YH
+            <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-sage">
+              <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
             </span>
-            <span className="text-base font-bold tracking-tight whitespace-nowrap">Yiting Huang</span>
+            <span className="text-base font-bold tracking-tight whitespace-nowrap">Yiting H.</span>
           </Link>
 
           <Link href="/#contact" className={`${DARK_BUTTON} gap-2 px-4 text-sm font-medium md:hidden`}>
@@ -97,7 +99,7 @@ export default function Header() {
           <div ref={trackRef} className="relative flex items-center gap-0 p-1">
             {indicatorStyle && (
               <div
-                className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-fg transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
+                className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-[#E8735C] transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
                 style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
               />
             )}
@@ -111,7 +113,7 @@ export default function Header() {
                     if (el) linkRefs.current.set(link.href, el);
                   }}
                   className={`relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium transition-colors duration-[180ms] ${
-                    isActive ? "text-bg" : "text-fg-secondary hover:text-fg"
+                    isActive ? "text-white" : "text-fg-secondary hover:text-fg"
                   }`}
                 >
                   {link.label}
