@@ -41,14 +41,25 @@ function BerlinClock() {
   const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
-    const update = () =>
-      setTime(
-        new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Berlin", hour: "numeric", minute: "2-digit" }).format(
-          new Date()
-        )
-      );
+    const update = () => {
+      const now = new Date();
+      const timeStr = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Europe/Berlin",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }).format(now);
+      const offset = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Europe/Berlin",
+        timeZoneName: "shortOffset",
+      })
+        .formatToParts(now)
+        .find((part) => part.type === "timeZoneName")?.value;
+      setTime(offset ? `${timeStr} ${offset}` : timeStr);
+    };
     update();
-    const id = setInterval(update, 30000);
+    const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, []);
 
@@ -94,8 +105,8 @@ export default function Footer() {
             </button>
           </div>
 
-          <p className="text-[13px] text-fg-secondary">
-            Berlin, Germany · <BerlinClock />
+          <p className="text-[13px] font-semibold text-fg-secondary">
+            Berlin <BerlinClock />
           </p>
         </div>
 

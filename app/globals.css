@@ -3,6 +3,7 @@
 @theme inline {
   --font-sans: var(--font-inter);
   --font-serif: var(--font-source-serif);
+  --font-mono: var(--font-jetbrains-mono);
 
   --color-bg: #f7f5f2;
   --color-bg-alt: #efede9;

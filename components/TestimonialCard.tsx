@@ -61,6 +61,7 @@ function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestim
 
 export default function TestimonialCard({ testimonial, position }: TestimonialCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const style: CSSProperties = {
     ...position,
@@ -71,11 +72,15 @@ export default function TestimonialCard({ testimonial, position }: TestimonialCa
     ? "collage-piece-rotate absolute"
     : "collage-piece-rotate relative shrink-0 snap-center";
 
+  const zIndex = isHovered ? 100 : testimonial.zIndex;
+
   if (testimonial.type === "photo") {
     return (
       <div
         className={`${wrapperClassName} h-[220px] w-[300px] overflow-hidden rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.12)]`}
-        style={{ ...style, zIndex: testimonial.zIndex }}
+        style={{ ...style, zIndex }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <Image src={testimonial.src} alt={testimonial.alt} fill sizes="300px" className="object-cover" />
       </div>
@@ -83,15 +88,15 @@ export default function TestimonialCard({ testimonial, position }: TestimonialCa
   }
 
   const isSticky = testimonial.variant === "sticky";
-  const cardStyle = isSticky
-    ? { ...style, zIndex: testimonial.zIndex }
-    : { ...style, zIndex: testimonial.zIndex, borderColor: testimonial.borderColor };
+  const cardStyle = isSticky ? { ...style, zIndex } : { ...style, zIndex, borderColor: testimonial.borderColor };
 
   return (
     <>
       <button
         type="button"
         onClick={() => setIsExpanded(true)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         aria-label={`Expand testimonial from ${testimonial.author}`}
         className={`${wrapperClassName} w-[280px] cursor-pointer rounded-2xl p-7 pb-6 text-left shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-transform duration-300 hover:scale-[1.03] ${
           isSticky ? "bg-sticky-blue" : "border-2 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.07)]"
