@@ -16,13 +16,18 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
   const caseStudy = getCaseStudy(slug);
   if (!caseStudy) return {};
 
+  const description = caseStudy.metaDescription ?? caseStudy.subtitle;
+
   return {
     title: caseStudy.title,
-    description: caseStudy.subtitle,
+    description,
     openGraph: {
       title: `${caseStudy.title} — Yiting Huang`,
-      description: caseStudy.subtitle,
+      description,
       images: [{ url: caseStudy.heroImage, width: 1000, height: 734 }],
+    },
+    twitter: {
+      description,
     },
   };
 }

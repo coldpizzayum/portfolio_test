@@ -3,8 +3,14 @@ import Image from "next/image";
 import JourneyTimeline from "@/components/JourneyTimeline";
 import OutsideWork from "@/components/OutsideWork";
 
+const DESCRIPTION =
+  "Yiting Huang, Product Designer in Berlin with 5 years of industry experience and a design education. Open to full-time, founding, and freelance roles.";
+
 export const metadata: Metadata = {
   title: "About",
+  description: DESCRIPTION,
+  openGraph: { description: DESCRIPTION },
+  twitter: { description: DESCRIPTION },
 };
 
 export default function AboutPage() {

@@ -80,6 +80,8 @@ export interface CaseStudy {
   title: string;
   year: string;
   subtitle: string;
+  /** SEO meta/OG/Twitter description — falls back to `subtitle` when not set. */
+  metaDescription?: string;
   tags: string[];
   heroImage: string;
   /** Not every case study has a role/team/timeline meta grid or top-line impact stats. */
@@ -96,6 +98,8 @@ export const caseStudies: CaseStudy[] = [
     year: "2023 — 2024",
     subtitle:
       "As the Founding Product Designer, I led the MVP design from concept to launch, contributing to the team's $1.2M seed funding round.",
+    metaDescription:
+      "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
     tags: ["MVP", "Design System", "User Research"],
     heroImage: "/images/web3-hero.png",
     sections: [
@@ -366,6 +370,8 @@ export const caseStudies: CaseStudy[] = [
     year: "2024 — 2025",
     subtitle:
       "Designing viral loops that encouraged sharing, building a browser extension as a new distribution channel, and supporting launches across platforms like Product Hunt.",
+    metaDescription:
+      "For this B2B SaaS platform, I designed viral growth loops and a browser extension distribution channel, supporting a successful Product Hunt launch.",
     tags: ["Growth", "Plugin"],
     heroImage: "/images/influencer-marketing-hero.png",
     sections: [
@@ -532,6 +538,8 @@ export const caseStudies: CaseStudy[] = [
     year: "CoolBitX/ 2021",
     subtitle:
       "I helped shape CoolWallet Pro's brand, optimize its eCommerce experience, and bridge product, marketing, and data to drive measurable growth.",
+    metaDescription:
+      "I redesigned the brand and eCommerce experience for CoolWallet Pro, a Series B crypto hardware wallet, driving growth across Europe, Japan, Korea, Americas.",
     tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
     heroImage: "/images/coolwallet-hero.png",
     sections: [
