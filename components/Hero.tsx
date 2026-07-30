@@ -17,7 +17,7 @@ const FAN_CARDS: FanCard[] = [
     key: "work",
     bg: "bg-card-sand",
     rotation: 6.5,
-    href: "/works",
+    href: "/#works",
     title: "Recent work",
     description:
       "My career's mostly in blockchain and Web3. I take complex tech problems and turn them into something people actually understand and like.",
@@ -57,7 +57,7 @@ const AUDIENCE_PILLS = ["eCom", "B2B", "FinTech", "MarTech", "Web3", "Blockchain
 
 export default function Hero() {
   return (
-    <section id="hero" className="px-5 pt-[90px] md:px-10 md:pt-[100px]">
+    <section id="hero" className="px-5 pt-[90px] pb-10 md:px-10 md:pt-[100px] md:pb-15">
       <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 px-7 pt-9 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:px-14 md:pt-14">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-bg" />
 

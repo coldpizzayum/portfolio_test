@@ -12,13 +12,12 @@ interface NavLink {
 
 const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Works", href: "/works" },
+  { label: "Works", href: "/#works" },
   { label: "Ai Projects", href: "/ai-projects" },
   { label: "About Me", href: "/about" },
 ];
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/yiting1995/";
-const RESUME_URL = "https://drive.google.com/file/d/1XynSSZhJOwGmKKukWlngmdwRWqP6Z-9l/view";
 
 const PILL_SURFACE =
   "rounded-full bg-[rgba(255,253,250,0.78)] shadow-[0_0_0_1px_rgba(0,0,0,0.07),0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-[16px]";
@@ -39,18 +38,6 @@ function LinkedInIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1-.001-4.124 2.062 2.062 0 0 1 .001 4.124zM7.114 20.452H3.558V9h3.556v11.452z" />
-    </svg>
-  );
-}
-
-function ResumeIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
-      <path
-        fillRule="evenodd"
-        d="M4.5 2A1.5 1.5 0 0 0 3 3.5v13A1.5 1.5 0 0 0 4.5 18h11a1.5 1.5 0 0 0 1.5-1.5V7.621a1.5 1.5 0 0 0-.44-1.06l-4.12-4.122A1.5 1.5 0 0 0 11.378 2H4.5Zm4.75 6a.75.75 0 0 0-1.5 0v4.19L6.03 10.47a.75.75 0 0 0-1.06 1.06l2.5 2.5a.75.75 0 0 0 1.06 0l2.5-2.5a.75.75 0 1 0-1.06-1.06L8.5 12.19V8Z"
-        clipRule="evenodd"
-      />
     </svg>
   );
 }
@@ -76,7 +63,7 @@ export default function Header() {
   }, [activeHref]);
 
   return (
-    <div className="fixed inset-x-0 top-5 z-[100] px-5 md:px-10">
+    <div className="fixed inset-x-0 top-5 z-[100] px-5 md:static md:inset-auto md:top-auto md:z-auto md:px-10 md:pt-5">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-3 md:flex-row md:justify-between">
         <div className="flex w-full items-center justify-between gap-3 md:contents">
           <Link
@@ -95,7 +82,9 @@ export default function Header() {
           </Link>
         </div>
 
-        <nav className={`${PILL_SURFACE} flex items-center px-2 py-1`}>
+        <nav
+          className={`${PILL_SURFACE} flex items-center px-2 py-1 md:fixed md:top-5 md:left-1/2 md:z-[100] md:-translate-x-1/2`}
+        >
           <div ref={trackRef} className="relative flex items-center gap-0 p-1">
             {indicatorStyle && (
               <div
@@ -124,9 +113,6 @@ export default function Header() {
         </nav>
 
         <div className="hidden shrink-0 items-center gap-2 md:flex">
-          <a href={RESUME_URL} target="_blank" rel="noreferrer" aria-label="Resume" className={`${DARK_BUTTON} w-10`}>
-            <ResumeIcon />
-          </a>
           <a
             href={LINKEDIN_URL}
             target="_blank"

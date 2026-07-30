@@ -99,9 +99,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
         )}
       </div>
 
-      <hr className="border-t border-border" />
-
-      <div className="mx-auto max-w-[1100px] px-8 pt-16">
+      <div className="mx-auto max-w-[1100px] px-8 pt-10">
         <div className="grid grid-cols-1 items-start gap-20 md:grid-cols-[200px_1fr]">
           <CaseStudySideNav sections={caseStudy.sections} extraItem={{ id: "next", navLabel: "Next Up" }} />
 

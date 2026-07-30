@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const CONTACT_EMAIL = "yitinghuang.design@gmail.com";
 const CAL_URL = "https://cal.com/yiting-huang";
 const LINKEDIN_URL = "https://www.linkedin.com/in/yiting1995/";
-const RESUME_URL = "https://drive.google.com/file/d/1XynSSZhJOwGmKKukWlngmdwRWqP6Z-9l/view";
+const RESUME_URL = "https://drive.google.com/file/d/1KM6TpI6lt9DeF4MrBPkeSC7PpCNzwrxZ/view?usp=sharing";
 const GITHUB_URL = "#";
 
 const LINK_COLUMNS = [
@@ -21,7 +21,7 @@ const LINK_COLUMNS = [
   {
     heading: "Nav.",
     items: [
-      { label: "Works", href: "/works" },
+      { label: "Works", href: "/#works" },
       { label: "Ai Projects", href: "/ai-projects" },
       { label: "About Me", href: "/about" },
     ],

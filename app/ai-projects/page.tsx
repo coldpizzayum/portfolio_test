@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import AiProjectsSection from "@/components/AiProjectsSection";
+import ComingSoon from "@/components/ComingSoon";
 
 export const metadata: Metadata = {
   title: "Ai Projects",
 };
 
 export default function AiProjectsPage() {
-  return <AiProjectsSection />;
+  return (
+    <ComingSoon
+      eyebrow="Ai Projects"
+      description="I'm putting together a collection of AI-related experiments and case studies. Check back shortly."
+    />
+  );
 }

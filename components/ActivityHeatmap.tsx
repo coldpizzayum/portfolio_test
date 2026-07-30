@@ -29,11 +29,67 @@ function seededRandom(seed: string): number {
   return ((h >>> 0) % 1000) / 1000;
 }
 
-/** Fake activity level (0–4) for a given day, weighted like a real-ish contribution graph. */
+/** Real contribution levels pulled from github.com/coldpizzayum's public calendar, plus a
+ *  handful of hand-picked dates approximating the private-repo activity visible in the
+ *  account owner's own (logged-in) contribution graph screenshot, which the public API
+ *  can't see. Keyed by "YYYY-MM-DD". */
+const GITHUB_ACTIVITY: Record<string, number> = {
+  "2025-09-10": 1,
+  "2025-11-03": 1,
+  "2025-11-16": 4,
+  "2025-12-01": 4,
+  "2025-12-08": 1,
+  "2025-12-10": 2,
+  "2026-01-07": 1,
+  "2026-01-19": 1,
+  "2026-02-02": 2,
+  "2026-02-04": 1,
+  "2026-02-05": 4,
+  "2026-03-13": 4,
+  "2026-03-16": 1,
+  "2026-03-17": 1,
+  "2026-03-18": 2,
+  "2026-03-19": 2,
+  "2026-03-20": 4,
+  "2026-03-21": 2,
+  "2026-04-22": 1,
+  "2026-04-23": 1,
+  "2026-05-03": 1,
+  "2026-05-07": 2,
+  "2026-05-13": 3,
+  "2026-05-15": 2,
+  "2026-05-18": 2,
+  "2026-05-19": 4,
+  "2026-05-21": 2,
+  "2026-06-01": 1,
+  "2026-06-19": 2,
+  "2026-06-20": 4,
+  "2026-06-28": 1,
+  "2026-06-29": 4,
+  "2026-07-01": 1,
+  "2026-07-02": 2,
+  "2026-07-05": 2,
+  "2026-07-06": 2,
+  "2026-07-14": 4,
+  "2026-07-18": 4,
+  "2026-07-21": 3,
+  "2026-07-22": 3,
+  "2026-07-27": 1,
+  "2026-07-28": 2,
+  "2026-07-29": 1,
+  "2026-07-30": 1,
+};
+
+/** Activity level (0–4) for a given day. GitHub uses the real data above; Claude Code
+ *  still uses seeded demo data since there's no real activity source for it yet. */
 function demoLevel(date: Date, source: Source): number {
   const t = date.getTime();
   if (t < ACTIVITY_START || t > DEMO_TODAY) return 0;
-  const r = seededRandom(`${source}-${date.toISOString().slice(0, 10)}`);
+  const dateKey = date.toISOString().slice(0, 10);
+
+  if (source === "github") return GITHUB_ACTIVITY[dateKey] ?? 0;
+
+  const r = seededRandom(`${source}-${dateKey}`);
   if (r < 0.32) return 0;
   if (r < 0.58) return 1;
   if (r < 0.8) return 2;

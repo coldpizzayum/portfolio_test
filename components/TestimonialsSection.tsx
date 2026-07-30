@@ -5,7 +5,7 @@ import TestimonialCard from "./TestimonialCard";
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="overflow-hidden bg-bg py-20 md:py-30">
+    <section id="testimonials" className="overflow-hidden bg-bg py-10 md:py-15">
       <div className="mx-auto max-w-[1200px] px-8">
         <Reveal className="mb-18 text-center">
           <h2 className="mb-3 font-serif text-[32px] font-bold tracking-[-0.03em] text-fg md:text-h1">

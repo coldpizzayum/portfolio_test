@@ -9,7 +9,7 @@ const ABOUT_DETAILS = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="bg-bg-alt py-20 md:py-30">
+    <section id="about" className="bg-bg-alt py-10 md:py-15">
       <div className="mx-auto max-w-[1200px] px-8">
         <Reveal className="mb-16">
           <p className="mb-4 font-serif text-caption tracking-[0.1em] text-fg-secondary uppercase">Background</p>

@@ -13,7 +13,7 @@ export default function WorkSection() {
   }));
 
   return (
-    <section id="works" className="bg-bg py-20 md:py-30">
+    <section id="works" className="bg-bg py-10 md:py-15">
       <div className="mx-auto max-w-[1200px] px-8">
         <Reveal className="mb-16 flex flex-wrap items-baseline justify-between gap-8">
           <div>

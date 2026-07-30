@@ -10,11 +10,8 @@ export default function Home() {
       <Hero />
       <AiProjectsSection headingAs="h2" />
       <WorkSection />
-      <hr className="border-t-0 border-border" />
       <TestimonialsSection />
-      <hr className="border-t-0 border-border" />
       <AboutTeaser />
-      <hr className="border-t-0 border-border" />
     </>
   );
 }
