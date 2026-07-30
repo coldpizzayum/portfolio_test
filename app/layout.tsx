@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://portfolio-test-steel-nine.vercel.app";
+const siteUrl = "https://yiting.space";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
