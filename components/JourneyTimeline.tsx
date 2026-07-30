@@ -8,8 +8,6 @@ const RESUME_URL = "https://drive.google.com/file/d/1KM6TpI6lt9DeF4MrBPkeSC7PpCN
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 interface JourneyEntry {
-  badge?: string;
-  badgeFilled?: boolean;
   dateRange: string;
   title: string;
   description: string;
@@ -18,8 +16,6 @@ interface JourneyEntry {
 
 const JOURNEY: JourneyEntry[] = [
   {
-    badge: "25~",
-    badgeFilled: true,
     dateRange: "11/2025 – Present | Berlin, Germany",
     title: "Product Designer & Builder, Freelance",
     description:
@@ -30,8 +26,6 @@ const JOURNEY: JourneyEntry[] = [
     ],
   },
   {
-    badge: "23-25",
-    badgeFilled: false,
     dateRange: "03/2023 – 03/2025 | Taipei, Taiwan",
     title: "Founding Product Designer, Growing3",
     description:
@@ -91,7 +85,6 @@ export default function JourneyTimeline() {
           </div>
 
           <RevealGroup className="relative flex-1" stagger={0.12}>
-            <div className="absolute top-4 bottom-4 left-4 w-px bg-border md:left-5" />
             <div className="flex flex-col gap-2">
               {JOURNEY.map((entry, index) => {
                 const isOpen = openIndex === index;
@@ -103,18 +96,6 @@ export default function JourneyTimeline() {
                       aria-expanded={isOpen}
                       className="-mx-3 flex w-[calc(100%+24px)] cursor-pointer items-center gap-4 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-bg-alt/60"
                     >
-                      <span
-                        className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-mono text-[11px] md:h-10 md:w-10 ${
-                          entry.badge
-                            ? entry.badgeFilled
-                              ? "bg-fg text-bg"
-                              : "border border-border bg-white text-fg-secondary"
-                            : "invisible"
-                        }`}
-                      >
-                        {entry.badge}
-                      </span>
-
                       <span className="min-w-0 flex-1">
                         <p className="font-mono text-xs text-fg-secondary">{entry.dateRange}</p>
                         <h3 className="font-serif text-h3 text-fg">{entry.title}</h3>
@@ -130,7 +111,7 @@ export default function JourneyTimeline() {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.35, ease: EASE }}
-                          className="overflow-hidden pl-12 md:pl-14"
+                          className="overflow-hidden"
                         >
                           <p className="pt-2 pb-3 font-serif text-body-sm text-fg">{entry.description}</p>
                           {entry.bullets && entry.bullets.length > 0 && (
