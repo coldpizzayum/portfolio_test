@@ -81,9 +81,12 @@ export default function Footer() {
       <div className="mx-auto flex max-w-[1200px] flex-col justify-between gap-14 px-8 md:flex-row">
         <div>
           <h2 className="mb-5 font-serif text-h1 text-fg">Let&apos;s connect!</h2>
+          <p className="mb-5 max-w-[480px] font-serif text-body-sm text-fg-secondary">
+            I enjoy building cool products with cool humans, and wearing different hats to ship the best product. I
+            don&apos;t like to be limited by the label &quot;Designer.&quot; :)
+          </p>
           <p className="mb-8 max-w-[480px] font-serif text-body-sm text-fg-secondary">
-            Whether it&apos;s a full-time role, a contract project, or just a design conversation — my inbox is
-            always open.
+            I&apos;m a bit shy, but I&apos;m always excited to learn about new ideas.
           </p>
 
           <div className="mb-6 flex flex-wrap gap-3">

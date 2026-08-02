@@ -21,21 +21,20 @@ export default function AboutPage() {
           <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
             <div className="max-w-[640px]">
               <p className="mb-5 font-serif text-body-sm text-fg">
-                👋 Hello everyone,
+                👋 Hi, I&apos;m Yiting.
                 <br />
-                After graduating from design school, I started my career at a tech startup with an international
-                team building products in emerging technologies, particularly blockchain. Working with people from
-                diverse backgrounds pushed me to learn fast, think broadly, and grow both professionally and
-                personally.
+                After design school, I started my career at a tech startup with an international team, building
+                products in emerging tech, blockchain especially. Working with people from so many different
+                backgrounds pushed me to learn fast, think broadly, and grow both professionally and personally.
               </p>
               <p className="mb-5 font-serif text-body-sm text-fg">
-                In 2022, I joined a fully remote team, which gave me the opportunity to travel and explore different
-                cultures and tech ecosystems. Over the next two years, I lived and worked in New York 🗽, Amsterdam
-                🇳🇱, Berlin 🇩🇪, and Tokyo 🇯🇵, staying in each city for one to three months.
+                In 2022, I joined a fully remote team, which gave me the freedom to travel and explore new cultures
+                and tech ecosystems. Over the next two years, I lived and worked in New York, Amsterdam, Berlin, and
+                Tokyo, spending one to three months in each city.
               </p>
               <p className="font-serif text-body-sm text-fg">
-                In 2025, inspired by the people I met and the connections I built along the way, I moved to Berlin
-                🇩🇪 to focus, build, and start the next chapter of my career.
+                In 2025, inspired by the people I met and the connections I made along the way, I moved to Berlin to
+                focus, build, and start the next chapter of my career.
               </p>
             </div>
 

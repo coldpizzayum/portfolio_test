@@ -18,26 +18,34 @@ const JOURNEY: JourneyEntry[] = [
   {
     dateRange: "11/2025 – Present | Berlin, Germany",
     title: "Product Designer & Builder, Freelance",
-    description:
-      "Working Holiday Visa in Germany,  I spent some time traveling around Europe, along the way, I freelance and built.",
+    description: "I've been traveling around Europe, and along the way, learning to build products with AI.",
     bullets: [
       "Built an AI inventory management system for a metal manufacturer.",
-      'Won "Best Use of AskNews API" at AI Builders Hackathon Berlin.',
+      'Won "Best Use of AskNews API" at the Berlin AI Builders Hackathon.',
     ],
   },
   {
     dateRange: "03/2023 – 03/2025 | Taipei, Taiwan",
     title: "Founding Product Designer, Growing3",
     description:
-      "Working as a founding product designer in pre-seed startup, I helped them build their first MVP, building design system, marketing, and constantly building prototype to explore business 機會",
-    bullets: ["Design AD targeting platform", "Design Influencer Marketing platfrom"],
+      "As the first designer at a pre-seed startup, I established the product design and research foundation from scratch.",
+    bullets: [
+      "Designed the first MVP of their Web3 marketing product",
+      "Built the design system and improved UX consistency",
+      "Ran prototypes and user research to uncover new business opportunities",
+    ],
   },
   {
     dateRange: "03/2023 – 03/2025 | Taipei, Taiwan",
     title: "UXUI Designer, CoolBitX",
     description:
-      "As a UXUI designer in a series B startup, I help them redesign eCom website, localize product experience and create conhensive visual design system across differenct channel.",
-    bullets: ["CoolWallet Pro launch branding", "eCommerce redesign"],
+      "As a UX/UI Designer at a Series B startup, I supported their global expansion into the EU, Japan, Korea, and South America.",
+    bullets: [
+      "Introduced Hotjar and A/B testing to improve eCommerce performance",
+      "Localized the eCommerce and product experience for different markets",
+      "Built a comprehensive visual design system across different channels",
+      "Grew monthly ecommerce traffic from 20K to 50K and drove 4x revenue growth in the first year after launching",
+    ],
   },
   {
     dateRange: "03/2023 – 03/2025 | Taipei, Taiwan",
@@ -66,8 +74,8 @@ export default function JourneyTimeline() {
   return (
     <section className="px-5 py-10 md:px-10 md:py-15">
       <Reveal className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
-        <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:gap-16">
-          <div className="md:sticky md:top-32 md:max-w-[300px] md:shrink-0 md:self-start">
+        <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:gap-16">
+          <div className="md:max-w-[300px] md:shrink-0 md:self-start">
             <h2 className="mb-5 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
               My journey
             </h2>

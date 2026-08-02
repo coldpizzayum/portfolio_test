@@ -15,17 +15,16 @@ export default function WorkSection() {
   return (
     <section id="works" className="bg-bg py-10 md:py-15">
       <div className="mx-auto max-w-[1200px] px-8">
-        <Reveal className="mb-16 flex flex-wrap items-baseline justify-between gap-8">
-          <div>
-            <p className="mb-4 font-serif text-caption tracking-[0.1em] text-fg-secondary uppercase">Portfolio</p>
-            <h2 className="font-serif text-[28px] font-bold tracking-[-0.03em] text-fg md:text-h2">Selected Works</h2>
-          </div>
-          <a
-            href="#"
-            className="font-serif text-links text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
-          >
-            View all projects
-          </a>
+        <Reveal className="mb-16">
+          <h2 className="mb-4 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
+            Selected works{" "}
+            <span className="font-serif text-lg font-normal text-fg-secondary md:text-body">from full-time jobs</span>
+          </h2>
+          <p className="max-w-[640px] font-serif text-body-sm text-fg-secondary">
+            From user journey mapping and information architecture, to design systems and GTM support.
+            <br />
+            I&apos;ve always enjoyed designing with business impact in mind.
+          </p>
         </Reveal>
 
         <div className="md:flex md:items-start md:gap-8">

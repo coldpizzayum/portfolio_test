@@ -2,12 +2,8 @@ import Image from "next/image";
 
 const PARAGRAPHS = [
   {
-    heading: "I'm a Hustle Dancer",
-    body: "I started dancing at 20, and I found Hustle in 2020, since than I have been traveling around the world for communities.\nI'm a bit shy, but through learning and building things with other passionate people,  I connect, grow, and find meaning in my life. That sense of progress and shared energy is what keeps me motivated over time.",
-  },
-  {
-    heading: "I enjoy explore different way of human movements",
-    body: "Start with dancing, I find the beauty of exploring different ways of movements, I have spent years training Capoeira, acrobatics, CrossFit and lately, I started rock climbing.",
+    heading: "I'm a Hustle dancer, and I love exploring different ways humans move.",
+    body: "I'm a bit shy, but learning and building things with other passionate people is how I connect, grow, and find meaning. That sense of progress and shared energy is what keeps me motivated. From dance, I fell in love with exploring different ways of moving. I've spent years training in Capoeira, acrobatics, and CrossFit, and lately, I've started rock climbing.",
   },
 ];
 
