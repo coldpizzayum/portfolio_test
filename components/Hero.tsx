@@ -38,7 +38,7 @@ const FAN_CARDS: FanCard[] = [
     bg: "bg-card-sage",
     rotation: 5,
     href: "/ai-projects",
-    title: "Build with Ai",
+    title: "Build with AI",
     description: "I use AI to build prototypes and full products. Recently won a prize at the Berlin AI Builder Hackathon.",
     cta: "Projects I'm building",
   },

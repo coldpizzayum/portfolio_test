@@ -1,10 +1,18 @@
+export interface WorkFeature {
+  src: string;
+  alt: string;
+  title: string;
+}
+
 export interface WorkItem {
   slug: string;
+  company: string;
   year: string;
   title: string;
   description: string;
   tags: string[];
   image: string;
+  features: WorkFeature[];
   /** If set, the work card links to /case-study/[caseStudySlug]. */
   caseStudySlug?: string;
 }
@@ -12,32 +20,53 @@ export interface WorkItem {
 export const workItems: WorkItem[] = [
   {
     slug: "web3-wallet-defi-dashboard",
-    year: "2023 — 2024",
-    title: "Web3 Marketing Dashboard, B2B, SaaS",
+    company: "Growing3",
+    year: "2023 - 2025",
+    title: "Blockchain Marketing Data Dashboard",
     description:
-      "As the Founding Product Designer, I led the MVP design from concept to launch, contributing to the team's $1.2M seed funding round.",
-    tags: ["MVP", "Design System", "User Research"],
+      "As the Founding Product Designer, I led MVP design from concept to launch, helping the team close a $1.2M seed round and acquire 9 paying customers within 6 months.\nGrowing3 is an ad-targeting SaaS for Web3 and blockchain project owners. By mapping on-chain behavior to social media accounts, we helped clients cut CPA by 79% and boost conversions by 376%.",
+    tags: ["B2B SaaS", "9 paying customers", "Pre-seed", "MVP"],
     image: "/images/web3-hero.png",
+    features: [
+      { src: "/images/web3-hero.png", alt: "Growing3 blockchain marketing dashboard", title: "Blockchain data dashboard" },
+      { src: "/images/web3-market-research.png", alt: "Competitor ad platform research", title: "Ad campaign outreach" },
+      { src: "/images/web3-value-vs-effort.png", alt: "Feature architecture and prioritization diagram", title: "Tracking" },
+      { src: "/images/web3-design-system-components.png", alt: "Atomic design system component library", title: "Design system" },
+    ],
     caseStudySlug: "web3-marketing-dashboard",
   },
   {
     slug: "influencer-marketing-management-tool",
+    company: "Growing3",
     year: "2024 — 2025",
     title: "Influencer Marketing Management Tools, B2B, SaaS",
     description:
       "Designing viral loops that encouraged sharing, building a browser extension as a new distribution channel, and supporting launches across platforms like Product Hunt.",
     tags: ["Growth", "Plugin"],
     image: "/images/influencer-marketing-hero.png",
+    features: [
+      { src: "/images/influencer-marketing-hero.png", alt: "Influencer Matcher product hero", title: "Hero" },
+      { src: "/images/influencer-marketing-product-hunt.png", alt: "Influencer Matcher launch page on Product Hunt", title: "Product Hunt launch" },
+      { src: "/images/influencer-marketing-chrome-store.png", alt: "Influencer Matcher Chrome Web Store listing", title: "Chrome extension" },
+      { src: "/images/influencer-marketing-figma.png", alt: "Influencer Matcher Figma design system", title: "Figma design system" },
+    ],
     caseStudySlug: "influencer-marketing-tool",
   },
   {
     slug: "coolwallet-pro-rebrand",
+    company: "CoolBitX",
     year: "2021",
     title: "Hardware Crypto Wallet: Branding & eCom Redesign",
     description:
       "I helped shape CoolWallet Pro's brand, optimize its eCommerce experience, and bridge product, marketing, and data to drive measurable growth.",
     tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
     image: "/images/coolwallet-hero.png",
+    features: [
+      { src: "/images/coolwallet-hero.png", alt: "CoolWallet Pro hero", title: "Hero" },
+      { src: "/images/coolwallet-product-launch.png", alt: "CoolWallet Pro unboxing set and card held in hand", title: "Product launch" },
+      { src: "/images/coolwallet-marketing-campaigns.png", alt: "CoolWallet Pro marketing campaign banners", title: "Marketing campaigns" },
+      { src: "/images/coolwallet-website-evolution.png", alt: "Evolution of the CoolWallet website across redesigns", title: "Website evolution" },
+    ],
     caseStudySlug: "coolwallet-pro",
   },
 ];

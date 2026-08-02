@@ -22,7 +22,7 @@ const LINK_COLUMNS = [
     heading: "Nav.",
     items: [
       { label: "Works", href: "/#works" },
-      { label: "Ai Projects", href: "/ai-projects" },
+      { label: "AI Projects", href: "/ai-projects" },
       { label: "About Me", href: "/about" },
     ],
   },
