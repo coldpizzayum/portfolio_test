@@ -82,7 +82,8 @@ export type CaseStudyBlock =
   | { type: "flowList"; items: { name: string; description: string }[] }
   | { type: "image"; src: string; alt: string; caption?: string }
   | { type: "outcomeGrid"; items: { emoji: string; stat: string; label: string }[] }
-  | { type: "impactList"; items: { icon: string; text: string; href?: string; linkText?: string }[] };
+  | { type: "impactList"; items: { icon: string; text: string; href?: string; linkText?: string }[] }
+  | { type: "videoGrid"; videos: { youtubeId: string; title: string; caption?: string }[] };
 
 export interface CaseStudySection {
   id: string;
@@ -100,8 +101,8 @@ export interface CaseStudyMeta {
 
 export interface ImpactStat {
   label: string;
-  value: string;
-  description: string;
+  /** One sentence, supports `**bold**` for the embedded number/stat. */
+  text: string;
 }
 
 export interface CaseStudy {
@@ -123,268 +124,141 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "web3-marketing-dashboard",
-    title: "Web3 Marketing Dashboard, B2B, SaaS",
+    title: "Team's first MVP: All-in-one Marketing Dashboard",
     year: "2023 — 2024",
     subtitle:
-      "As the Founding Product Designer, I led the MVP design from concept to launch, contributing to the team's $1.2M seed funding round.",
+      "This case study is about turning our idea into first product, letting investors and users to get what we built and our value fast!",
     metaDescription:
       "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
-    tags: ["MVP", "Design System", "User Research"],
+    tags: ["B2B SaaS", "MarTech", "Data", "Web3", "Blockchain"],
     heroImage: "/images/web3-hero.png",
+    meta: {
+      role: "I led end-to-end product design. From competitor research, user interviews, to user journey mapping. From building the design system to final MVP delivery.",
+      team: [
+        { initials: "PM", label: "Product Manager", color: "#f5c563" },
+        { initials: "YH", label: "Me (Product Designer)", color: "#c9a96e" },
+        { initials: "DC", label: "Developer + CTO", color: "#74c2a0" },
+      ],
+      timeline: "2023 — 2024",
+      tools: "Figma, Notion, ChatGPT, MidJourney",
+    },
+    impactStats: [
+      {
+        label: "$1.2M seed round",
+        text: "Followed with couple angel rounds. Investors saw what the MVP could do, and backed it.",
+      },
+      {
+        label: "9 paid customers",
+        text: "Within 6 months, we landed 9 paid customers across 3 continents, including XREX and Sorare, plus early adopters like Flap, DOEX, PrismX, and Chainfir Capital.",
+      },
+    ],
     sections: [
       {
-        id: "overview",
-        navLabel: "My Goal & Role",
-        heading: "Goal: First MVP",
+        id: "problem",
+        navLabel: "The Problem",
+        heading: "The Problem",
         blocks: [
           {
             type: "paragraph",
-            text: "The team reached out to me to help turn their manual agency service into a SaaS tool.",
+            text: "There was nothing like this on the market. No one had built a tool that let Web3 marketers target ads using wallet behavior.",
           },
           {
             type: "paragraph",
-            text: "The goal is to build a platform for Web3 project owners or marketers to streamlines their marketing workflow, all in one place.",
+            text: "That meant we couldn't just copy an existing product. **We had to help users trust something they'd never seen before, what our filtering meant, and why wallet data actually worked.**",
           },
-          { type: "heading", level: 3, text: "👩🏻‍💻 My Role" },
           {
-            type: "bulletList",
-            items: [
-              "Supported product discovery and competitor research",
-              "Designed MVP for first proof-of-concept (POC)",
-              "Ran testing sessions with early users",
-              "Built the design system from scratch",
-            ],
-          },
-          { type: "heading", level: 3, text: "Tools" },
-          {
-            type: "bulletList",
-            items: ["Figma", "Notion", "ChatGPT", "MidJourney"],
-          },
-          { type: "heading", level: 3, text: "Team" },
-          {
-            type: "bulletList",
-            items: ["🧠 1 Product Manager", "🎨 Me (Product Designer)", "💻 1 Engineer"],
+            type: "paragraph",
+            text: "Before this, our team built audience lists by hand and handed them off to clients. Our job was to turn that manual hand-off into something users could do on their own.",
           },
         ],
       },
       {
-        id: "discovery",
-        navLabel: "Market Research",
-        heading: "🔍 Discovery & Market Research",
+        id: "research",
+        navLabel: "Research",
+        heading: "Research",
         blocks: [
+          { type: "heading", level: 3, text: "We borrowed patterns marketers already knew" },
           {
             type: "paragraph",
-            text: "To validate the opportunity and know what to build, my product manager and I had:",
+            text: "We didn't want users to learn a whole new tool just because it was Web3. So we based our UI on ad platforms marketers already used every day, like Web2 tools they were familiar with.",
           },
-          {
-            type: "researchSteps",
-            steps: [
-              {
-                title: "Demo calls with competitors and related products",
-                description:
-                  "Ad management platforms (e.g., Meta Ads Manager, Twitter Ads, Google Ads), marketing automation tools (e.g., HubSpot, Mailchimp, ActiveCampaign), Customer Data Platforms (CDPs) (e.g., Segment, Amplitude, 神策數據), growth marketing tools (e.g., Branch, AppsFlyer, Mixpanel), and Web3 marketing dashboards (e.g., DappRadar, Galxe, Zapper).",
-              },
-              {
-                title: "Analysis of public customer reviews",
-                description: "From G2 and X.",
-              },
-              {
-                title: "Feedbacks from investors, accelerator mentors, and existing clients",
-                description: "",
-              },
-            ],
-          },
-          {
-            type: "image",
-            src: "/images/web3-market-research.png",
-            alt: "Competitor tool screenshots and public customer reviews from G2",
-          },
-          { type: "heading", level: 3, text: "Takeaways" },
+          { type: "heading", level: 3, text: "Talking to users, over and over" },
           {
             type: "paragraph",
-            text: "Users were frustrated with switching between different platforms—some were synced, others weren't. This highlighted the need for a single place to manage ad audiences, campaigns, and performance tracking, fully in sync with X (Twitter).",
-          },
-        ],
-      },
-      {
-        id: "features",
-        navLabel: "Value vs. Effort",
-        heading: "📊 Value vs. Effort",
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Before moving forward, the PM, a developer, and I met to evaluate the technical and business feasibility of each feature, ensuring we were building something both valuable and achievable.",
-          },
-          {
-            type: "image",
-            src: "/images/web3-value-vs-effort.png",
-            alt: "Feature architecture diagram and value vs. effort prioritization matrix",
-          },
-        ],
-      },
-      {
-        id: "prototype",
-        navLabel: "Prototype & User Testing",
-        heading: "🧪 Prototyping & User Testing",
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Rather than a Figma prototype, I directly work with our developer to build a interactive prototype that users could test hands-on.",
-          },
-          {
-            type: "paragraph",
-            text: "*2026 update: I now use Lovable to build interactive prototype.",
-          },
-          { type: "heading", level: 3, text: "Key Flows:" },
-          {
-            type: "flowList",
-            items: [
-              {
-                name: "Select Cohort",
-                description: "Define audience filters across wallets, behaviors, and social metrics",
-              },
-              {
-                name: "Assign to Twitter Audience",
-                description: "Sync directly with Twitter Ads Manager",
-              },
-              {
-                name: "Launch & Monitor Campaign",
-                description: "Track conversions and engagement",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "challenge",
-        navLabel: "Desin Challenges",
-        heading: "😵 Design Challenge: Once Real Data Came In",
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Once real data was entered and users started using the product in real scenarios, many unexpected issues surfaced. For example, some data fields were much longer than anticipated, and the original vertical stacking caused the layout to break on smaller screens.",
-          },
-          {
-            type: "paragraph",
-            text: "To address this, we revisited the UI and reorganized the data structure.",
-          },
-          {
-            type: "bulletList",
-            items: [
-              "**Switched from vertical stacking to horizontal scrolling** to save space and improve usability on limited screen sizes.",
-              "**Redesigned filters to be scrollable and logically chunked**, making it easier for users to scan and adjust complex conditions.",
-            ],
-          },
-          {
-            type: "paragraph",
-            text: 'Clients described the experience as **"surprisingly easy,"** even though the underlying workflow was highly complex.',
-          },
-          {
-            type: "image",
-            src: "/images/web3-design-challenge.png",
-            alt: "Before and after redesigning the filter conditions layout from vertical stacking to horizontal scrolling",
-          },
-        ],
-      },
-      {
-        id: "design-system",
-        navLabel: "Design System",
-        heading: "🧱 Design System & Branding",
-        blocks: [
-          {
-            type: "paragraph",
-            text: "I created a design system with Material Design UI to ensure visual consistency and better design handoff.",
-          },
-          {
-            type: "bulletList",
-            items: [
-              "**Customized atomic components **(cards, filters, inputs)",
-              "Used **MidJourney** to generate custom 3D, C4D graphics to create a **futuristic brand feelings.**",
-            ],
-          },
-          {
-            type: "image",
-            src: "/images/web3-design-system-components.png",
-            alt: "Atomic component library: badges, checkboxes, menus, buttons, bottom app bars, navigation bars, dialogs, search, and cards",
-          },
-          {
-            type: "image",
-            src: "/images/web3-design-system-tokens.png",
-            alt: "Typography scale and light/dark theme color tokens",
-          },
-          {
-            type: "image",
-            src: "/images/web3-design-system-3d-product.png",
-            alt: "All-in-One Marketing Tool product screens styled with custom 3D MidJourney graphics",
-          },
-          {
-            type: "image",
-            src: "/images/web3-design-system-3d-moodboard.png",
-            alt: "MidJourney-generated iridescent 3D object mood board",
-          },
-          {
-            type: "image",
-            src: "/images/web3-design-system-brand-refs.png",
-            alt: "Competitor brand identity references",
-          },
-          {
-            type: "image",
-            src: "/images/web3-design-system-dashboard-refs.png",
-            alt: "Dashboard UI pattern references",
+            text: "The hardest part was explaining how our on-chain filtering worked, in a way non-technical marketers could actually get. So we ran a lot of user interviews. We also built a simple design system that let us snap different UI flows together fast, like Lego, and test them with real users right away. That's how we turned a messy, confusing user journey into something we could actually design for.",
           },
         ],
       },
       {
         id: "results",
-        navLabel: "Outcomes & Business Impacts",
-        heading: "Design Impact on Users",
+        navLabel: "Results",
+        heading: "Results",
         blocks: [
           {
-            type: "bulletList",
+            type: "paragraph",
+            text: "We broke the whole journey down into 3 simple steps, so users never felt lost:",
+          },
+          {
+            type: "flowList",
             items: [
-              "✅ **Reduced onboarding time** by simplifying complex Web3 workflows",
-              "✅ **Improved campaign setup success rate** through intuitive data visualization",
-              "✅ **Validated with 8 users** in live prototype testing",
+              {
+                name: "Select Cohort",
+                description: "Set filters by wallet, behavior, and social activity",
+              },
+              {
+                name: "Assign to Twitter Audience",
+                description: "Sync it straight to Twitter Ads Manager",
+              },
+              {
+                name: "Launch & Monitor Campaign",
+                description: "Watch conversions and engagement roll in",
+              },
             ],
           },
-          { type: "heading", level: 3, text: "Design Impact on Business" },
           {
-            type: "impactList",
-            items: [
+            type: "videoGrid",
+            videos: [
               {
-                icon: "💰",
-                text: "**Directly contributed to $1.2M seed funding**, investors saw the product's potential through the working MVP",
-                href: "https://findit.org.tw/researchPageV2.aspx?pageId=2283",
-                linkText: "Read the announcement",
+                youtubeId: "KyDXsbJS2mY",
+                title: "Select Cohort demo",
+                caption: "**Select Cohort** — Set filters by wallet, behavior, and social activity",
               },
               {
-                icon: "🌍",
-                text: "**Enabled client acquisition across 3 continents** — the intuitive interface attracted Web3 founders, marketing managers, and BD teams who previously found on-chain advertising too complex",
+                youtubeId: "e5tQmLoRowQ",
+                title: "Assign to Twitter Audience demo",
+                caption: "**Assign to Twitter Audience** — Sync it straight to Twitter Ads Manager",
               },
               {
-                icon: "🏢",
-                text: "**Early adopters:** Flap, DOEX, PrismX, Chainfir Capital",
+                youtubeId: "rAn4oDx5_WQ",
+                title: "Launch & Monitor Campaign demo",
+                caption: "**Launch & Monitor Campaign** — Watch conversions and engagement roll in",
               },
             ],
           },
         ],
       },
       {
-        id: "next-up",
-        navLabel: "Next Up: Design for Growth",
-        heading: "📌 Next Up: Design for Growth",
+        id: "what-we-got-wrong",
+        navLabel: "Iterations",
+        heading: "Iterations",
         blocks: [
+          { type: "heading", level: 3, text: "Filters: vertical vs. horizontal" },
           {
             type: "paragraph",
-            text: "After establishing the product foundation, I shifted focus to growth-stage design challenges—optimizing existing experiences and exploring new features to expand the user base.",
+            text: 'Our first version stacked filters vertically. It looked clean. But users got confused, they couldn\'t tell if the conditions were "and this too" or "then this next." Once real data came in, things got messier. The algorithm and the UI were being built at the same time, so every change on one side meant more changes on the other. We ended up rebuilding the filter layout more than once to keep up.',
           },
+          { type: "heading", level: 3, text: "Branding, added last" },
           {
             type: "paragraph",
-            text: "→ See how I approached this in the",
-            href: "/case-study/influencer-marketing-tool",
-            linkText: "Influencer Marketing Tool case study",
+            text: "Once the core flow felt right, we layered the branding on top. For a Web3 audience, this mattered more than it might for other products. Look too generic, and people don't trust you with their wallet.",
           },
         ],
+      },
+      {
+        id: "feedback-impact",
+        navLabel: "Feedback",
+        heading: "Feedback",
+        blocks: [],
       },
     ],
     nextCaseStudy: {

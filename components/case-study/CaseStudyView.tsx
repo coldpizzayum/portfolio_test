@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { CaseStudy } from "@/data/caseStudies";
 import { Reveal, RevealGroup, RevealItem } from "../Reveal";
 import CaseStudySideNav from "./CaseStudySideNav";
-import CaseStudyBlock from "./CaseStudyBlock";
+import CaseStudyBlock, { renderInline } from "./CaseStudyBlock";
 
 export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
   return (
@@ -21,17 +21,12 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
           </Link>
 
           <Reveal>
-            <p className="mb-4 font-serif text-caption tracking-[0.1em] text-fg-secondary uppercase">
-              {caseStudy.year}
-            </p>
-            <h1 className="mb-6 font-serif text-4xl leading-none font-bold tracking-[-0.03em] text-fg md:text-h1">
+            <h1 className="mb-4 font-serif text-4xl leading-none font-bold tracking-[-0.03em] text-fg md:text-h1">
               {caseStudy.title}
             </h1>
-            <p className="mb-8 max-w-[600px] font-serif text-body-sm text-fg-secondary md:text-body">
-              {caseStudy.subtitle}
-            </p>
 
-            <div className="mb-14 flex flex-wrap gap-2">
+            <div className="mb-10 flex flex-wrap items-center gap-3">
+              <p className="font-serif text-caption text-fg-secondary">{caseStudy.year}</p>
               {caseStudy.tags.map((tag) => (
                 <span key={tag} className="rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-fg-secondary">
                   {tag}
@@ -40,34 +35,46 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
             </div>
 
             {caseStudy.meta && (
-              <div className="mb-14 grid w-fit grid-cols-2 overflow-hidden rounded-lg border border-border sm:grid-cols-4">
-                <div className="border-r border-b border-border p-5 sm:border-b-0">
-                  <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">My Role</p>
-                  <p className="font-serif text-caption font-semibold text-fg">{caseStudy.meta.role}</p>
-                </div>
-                <div className="border-b border-border p-5 sm:border-r sm:border-b-0">
-                  <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Team</p>
-                  <div className="mt-1 flex gap-1">
-                    {caseStudy.meta.team.map((member) => (
-                      <div
-                        key={member.initials}
-                        title={member.label}
-                        className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-[10px] font-bold text-white"
-                        style={{ background: member.color }}
-                      >
-                        {member.initials}
-                      </div>
-                    ))}
+              <div className="mb-14 rounded-2xl bg-white p-8">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+                  <div>
+                    <p className="mb-2 font-serif text-h3 text-fg">Overview</p>
+                    <p className="font-serif text-caption text-fg">{caseStudy.subtitle}</p>
+                  </div>
+                  <div>
+                    <p className="mb-2 font-serif text-h3 text-fg">My role</p>
+                    <p className="font-serif text-caption text-fg">{caseStudy.meta.role}</p>
+                  </div>
+                  <div>
+                    <p className="mb-2 font-serif text-h3 text-fg">Team</p>
+                    <div className="mt-1 flex gap-1">
+                      {caseStudy.meta.team.map((member) => (
+                        <div
+                          key={member.initials}
+                          title={member.label}
+                          className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-[10px] font-bold text-white"
+                          style={{ background: member.color }}
+                        >
+                          {member.initials}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="border-r border-border p-5">
-                  <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Timeline</p>
-                  <p className="font-serif text-caption font-semibold text-fg">{caseStudy.meta.timeline}</p>
-                </div>
-                <div className="p-5">
-                  <p className="mb-2 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">Tools</p>
-                  <p className="font-serif text-caption font-semibold text-fg">{caseStudy.meta.tools}</p>
-                </div>
+
+                {caseStudy.impactStats && (
+                  <div className="mt-8 rounded-xl bg-bg p-6">
+                    <p className="mb-5 font-serif text-h3 text-fg">Impact Overview</p>
+                    <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                      {caseStudy.impactStats.map((stat) => (
+                        <RevealItem key={stat.label} className="rounded-lg border-2 border-[#017D18] bg-bg p-5">
+                          <p className="mb-3 font-serif text-h3 text-fg">{stat.label}</p>
+                          <p className="font-serif text-caption text-fg-secondary">{renderInline(stat.text)}</p>
+                        </RevealItem>
+                      ))}
+                    </RevealGroup>
+                  </div>
+                )}
               </div>
             )}
 
@@ -83,59 +90,39 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
             </div>
           </Reveal>
         </header>
-
-        {caseStudy.impactStats && (
-          <RevealGroup className="my-16 grid grid-cols-1 gap-px overflow-hidden rounded-lg bg-border sm:grid-cols-3">
-            {caseStudy.impactStats.map((stat) => (
-              <RevealItem key={stat.label} className="bg-bg px-8 py-9">
-                <p className="mb-3 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">{stat.label}</p>
-                <p className="mb-2 font-serif text-[52px] leading-none font-bold tracking-[-0.04em] text-fg">
-                  {stat.value}
-                </p>
-                <p className="font-serif text-caption text-fg-secondary">{stat.description}</p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        )}
       </div>
 
+      <CaseStudySideNav sections={caseStudy.sections} extraItem={{ id: "next", navLabel: "Next Up" }} />
+
       <div className="mx-auto max-w-[1100px] px-8 pt-10">
-        <div className="grid grid-cols-1 items-start gap-20 md:grid-cols-[200px_1fr]">
-          <CaseStudySideNav sections={caseStudy.sections} extraItem={{ id: "next", navLabel: "Next Up" }} />
+        <article className="min-w-0">
+          {caseStudy.sections.map((section, index) => (
+            <Reveal key={section.id} id={section.id} className={`scroll-mt-24 ${index === 0 ? "pt-0" : "pt-20"}`}>
+              <h2 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
+                {section.heading}
+              </h2>
+              {section.blocks.map((block, blockIndex) => (
+                <CaseStudyBlock key={blockIndex} block={block} />
+              ))}
+            </Reveal>
+          ))}
 
-          <article className="min-w-0">
-            {caseStudy.sections.map((section, index) => (
-              <Reveal
-                key={section.id}
-                id={section.id}
-                className={`scroll-mt-24 ${index === 0 ? "pt-0" : "pt-20"}`}
-              >
-                <h2 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
-                  {section.heading}
-                </h2>
-                {section.blocks.map((block, blockIndex) => (
-                  <CaseStudyBlock key={blockIndex} block={block} />
-                ))}
-              </Reveal>
-            ))}
-
-            <div
-              id="next"
-              className="mt-20 mb-20 scroll-mt-24 flex flex-col items-start gap-8 rounded-[20px] bg-fg p-8 text-bg sm:flex-row sm:items-center sm:justify-between md:p-12"
-            >
-              <div>
-                <p className="mb-2 text-[11px] tracking-[0.1em] text-white/50 uppercase">{caseStudy.nextCaseStudy.label}</p>
-                <p className="font-serif text-h3 tracking-[-0.02em] text-white">{caseStudy.nextCaseStudy.title}</p>
-              </div>
-              <Link
-                href={caseStudy.nextCaseStudy.href}
-                className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold whitespace-nowrap text-fg transition-opacity duration-200 hover:opacity-85"
-              >
-                Read Case Study →
-              </Link>
+          <div
+            id="next"
+            className="mt-20 mb-20 scroll-mt-24 flex flex-col items-start gap-8 rounded-[20px] bg-fg p-8 text-bg sm:flex-row sm:items-center sm:justify-between md:p-12"
+          >
+            <div>
+              <p className="mb-2 text-[11px] tracking-[0.1em] text-white/50 uppercase">{caseStudy.nextCaseStudy.label}</p>
+              <p className="font-serif text-h3 tracking-[-0.02em] text-white">{caseStudy.nextCaseStudy.title}</p>
             </div>
-          </article>
-        </div>
+            <Link
+              href={caseStudy.nextCaseStudy.href}
+              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold whitespace-nowrap text-fg transition-opacity duration-200 hover:opacity-85"
+            >
+              Read Case Study →
+            </Link>
+          </div>
+        </article>
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import type { CaseStudyBlock as CaseStudyBlockType } from "@/data/caseStudies";
 
 /** Renders `**bold**` segments as <strong>, everything else as plain text. */
-function renderInline(text: string) {
+export function renderInline(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
@@ -17,7 +17,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
   switch (block.type) {
     case "paragraph":
       return (
-        <p className="mb-5 font-serif text-body-sm text-fg-secondary last:mb-0">
+        <p className="mb-5 font-serif text-body-sm text-fg last:mb-0">
           {renderInline(block.text)}
           {block.href && (
             <>
@@ -42,7 +42,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "bulletList":
       return (
-        <ul className="mb-5 list-disc space-y-1.5 pl-5 font-serif text-body-sm text-fg-secondary last:mb-0">
+        <ul className="mb-5 list-disc space-y-1.5 pl-5 font-serif text-body-sm text-fg last:mb-0">
           {block.items.map((item, index) => (
             <li key={index}>{renderInline(item)}</li>
           ))}
@@ -183,6 +183,30 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
                 )}
               </span>
             </div>
+          ))}
+        </div>
+      );
+
+    case "videoGrid":
+      return (
+        <div className="my-8 flex flex-col gap-10">
+          {block.videos.map((video) => (
+            <figure key={video.youtubeId} className="rounded-2xl bg-white p-6 md:p-8">
+              <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
+                <iframe
+                  className="absolute inset-0 h-full w-full"
+                  src={`https://www.youtube.com/embed/${video.youtubeId}?iv_load_policy=3&rel=0&modestbranding=1&playsinline=1&autoplay=1&mute=1&loop=1&playlist=${video.youtubeId}`}
+                  title={video.title}
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              {video.caption && (
+                <figcaption className="mt-6 text-center font-serif text-caption text-fg">
+                  {renderInline(video.caption)}
+                </figcaption>
+              )}
+            </figure>
           ))}
         </div>
       );
