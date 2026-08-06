@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Fragment } from "react";
 import type { CaseStudyBlock as CaseStudyBlockType } from "@/data/caseStudies";
+import ImageCollage from "./ImageCollage";
 
 /** Renders `**bold**` segments as <strong>, everything else as plain text. */
 export function renderInline(text: string) {
@@ -208,6 +209,79 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
               )}
             </figure>
           ))}
+        </div>
+      );
+
+    case "imageCollage":
+      return <ImageCollage items={block.items} />;
+
+    case "feedbackGrid":
+      return (
+        <div className="my-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {block.cards.map((card, index) => {
+            const isTestimonial = card.rating !== undefined;
+            const content = (
+              <div className="relative flex h-full flex-col rounded-2xl bg-white p-6">
+                {card.photo && (
+                  <div className="absolute -top-4 -right-4 h-14 w-14 overflow-hidden rounded-full ring-4 ring-white shadow-md">
+                    <Image src={card.photo} alt={card.photoAlt ?? ""} fill className="object-cover" />
+                  </div>
+                )}
+                {isTestimonial ? (
+                  <p className="mb-3 text-sm tracking-wider text-[#f5a623]" aria-hidden="true">
+                    {"★".repeat(card.rating ?? 0)}
+                  </p>
+                ) : (
+                  card.eyebrow && (
+                    <p
+                      className={`mb-2 font-serif text-[11px] tracking-[0.04em] text-fg-secondary ${card.photo ? "pr-14" : ""}`}
+                    >
+                      {card.eyebrow}
+                    </p>
+                  )
+                )}
+                {card.headline && (
+                  <p className={`mb-3 font-serif text-caption font-semibold text-fg ${card.photo ? "pr-10" : ""}`}>
+                    {card.headline}
+                  </p>
+                )}
+                {card.quote && (
+                  <p className="mb-4 flex-1 font-serif text-caption text-fg">{renderInline(card.quote)}</p>
+                )}
+                <div className="mt-auto border-t border-dashed border-border pt-4">
+                  {isTestimonial ? (
+                    <>
+                      <p className="font-serif text-caption font-semibold text-fg">{card.name}</p>
+                      <p className="font-serif text-xs text-fg-secondary">{card.role}</p>
+                    </>
+                  ) : (
+                    <div className="flex items-center justify-between">
+                      <p className="font-serif text-xs text-fg-secondary">Date: {card.date}</p>
+                      {card.href && (
+                        <span className="text-fg-secondary" aria-hidden="true">
+                          ↗
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+
+            return card.href ? (
+              <a
+                key={index}
+                href={card.href}
+                target="_blank"
+                rel="noreferrer"
+                className="block transition-transform duration-300 hover:-translate-y-0.5"
+              >
+                {content}
+              </a>
+            ) : (
+              <div key={index}>{content}</div>
+            );
+          })}
         </div>
       );
 

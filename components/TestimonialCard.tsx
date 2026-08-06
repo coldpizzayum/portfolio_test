@@ -60,7 +60,6 @@ function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestim
 }
 
 export default function TestimonialCard({ testimonial, position }: TestimonialCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const style: CSSProperties = {
@@ -91,47 +90,15 @@ export default function TestimonialCard({ testimonial, position }: TestimonialCa
   const cardStyle = isSticky ? { ...style, zIndex } : { ...style, zIndex, borderColor: testimonial.borderColor };
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => setIsExpanded(true)}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        aria-label={`Expand testimonial from ${testimonial.author}`}
-        className={`${wrapperClassName} w-[280px] cursor-pointer rounded-2xl p-7 pb-6 text-left shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-transform duration-300 hover:scale-[1.03] ${
-          isSticky ? "bg-sticky-blue" : "border-2 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.07)]"
-        }`}
-        style={cardStyle}
-      >
-        <QuoteCardContent testimonial={testimonial} sizeClass="text-caption" />
-      </button>
-
-      {isExpanded && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 p-6"
-          onClick={() => setIsExpanded(false)}
-        >
-          <button
-            type="button"
-            aria-label="Close"
-            onClick={() => setIsExpanded(false)}
-            className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-          >
-            ✕
-          </button>
-          <div
-            className={`max-h-[85vh] w-[90vw] max-w-[560px] overflow-y-auto rounded-2xl p-9 text-left shadow-[0_20px_60px_rgba(0,0,0,0.3)] ${
-              isSticky ? "bg-sticky-blue" : "border-2 bg-white"
-            }`}
-            style={isSticky ? undefined : { borderColor: testimonial.borderColor }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <QuoteCardContent testimonial={testimonial} sizeClass="text-body-sm" />
-          </div>
-        </div>
-      )}
-    </>
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`${wrapperClassName} w-[280px] rounded-2xl p-7 pb-6 text-left shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-transform duration-300 hover:scale-[1.03] ${
+        isSticky ? "bg-sticky-blue" : "border-2 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.07)]"
+      }`}
+      style={cardStyle}
+    >
+      <QuoteCardContent testimonial={testimonial} sizeClass="text-caption" />
+    </div>
   );
 }

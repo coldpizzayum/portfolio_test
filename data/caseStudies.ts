@@ -83,7 +83,28 @@ export type CaseStudyBlock =
   | { type: "image"; src: string; alt: string; caption?: string }
   | { type: "outcomeGrid"; items: { emoji: string; stat: string; label: string }[] }
   | { type: "impactList"; items: { icon: string; text: string; href?: string; linkText?: string }[] }
-  | { type: "videoGrid"; videos: { youtubeId: string; title: string; caption?: string }[] };
+  | { type: "videoGrid"; videos: { youtubeId: string; title: string; caption?: string }[] }
+  | {
+      type: "imageCollage";
+      items: { src: string; alt: string; top: string; left: string; width: string; rotate: number; z: number }[];
+    }
+  | {
+      type: "feedbackGrid";
+      cards: {
+        /** Star rating (1-5) — presence of this field marks the card as a testimonial rather than a press mention. */
+        rating?: number;
+        eyebrow?: string;
+        headline?: string;
+        /** Supports `**bold**` markdown-style spans. */
+        quote?: string;
+        photo?: string;
+        photoAlt?: string;
+        name?: string;
+        role?: string;
+        date?: string;
+        href?: string;
+      }[];
+    };
 
 export interface CaseStudySection {
   id: string;
@@ -199,23 +220,6 @@ export const caseStudies: CaseStudy[] = [
             text: "We broke the whole journey down into 3 simple steps, so users never felt lost:",
           },
           {
-            type: "flowList",
-            items: [
-              {
-                name: "Select Cohort",
-                description: "Set filters by wallet, behavior, and social activity",
-              },
-              {
-                name: "Assign to Twitter Audience",
-                description: "Sync it straight to Twitter Ads Manager",
-              },
-              {
-                name: "Launch & Monitor Campaign",
-                description: "Watch conversions and engagement roll in",
-              },
-            ],
-          },
-          {
             type: "videoGrid",
             videos: [
               {
@@ -252,13 +256,89 @@ export const caseStudies: CaseStudy[] = [
             type: "paragraph",
             text: "Once the core flow felt right, we layered the branding on top. For a Web3 audience, this mattered more than it might for other products. Look too generic, and people don't trust you with their wallet.",
           },
+          {
+            type: "imageCollage",
+            items: [
+              {
+                src: "/images/branding_iteration.png",
+                alt: "Branding iteration: light vs. dark theme comparison",
+                top: "2%",
+                left: "2%",
+                width: "44%",
+                rotate: -3,
+                z: 1,
+              },
+              {
+                src: "/images/web3-design-system-components.png",
+                alt: "Design system component library",
+                top: "0%",
+                left: "48%",
+                width: "46%",
+                rotate: 1,
+                z: 2,
+              },
+              {
+                src: "/images/filter.png",
+                alt: "Filter layout before/after with iteration notes",
+                top: "46%",
+                left: "4%",
+                width: "46%",
+                rotate: -2,
+                z: 4,
+              },
+              {
+                src: "/images/web3-design-system-tokens.png",
+                alt: "Design system color and type tokens",
+                top: "50%",
+                left: "50%",
+                width: "44%",
+                rotate: 2,
+                z: 3,
+              },
+            ],
+          },
         ],
       },
       {
         id: "feedback-impact",
-        navLabel: "Feedback",
-        heading: "Feedback",
-        blocks: [],
+        navLabel: "Feedbacks and Impacts",
+        heading: "Feedbacks and Impacts",
+        blocks: [
+          {
+            type: "feedbackGrid",
+            cards: [
+              {
+                rating: 5,
+                quote:
+                  "Growing3 is a tool that has significantly benefited my work, providing a **seamless overall product experience, especially in terms of user experience**, which left a strong impression on me!",
+                name: "Project Manager",
+                role: "Vincent@PrismX",
+              },
+              {
+                eyebrow: "AppWorks (Demo Day #26 Press Release)",
+                headline: "Growing3 Selected for AppWorks Accelerator #26",
+                quote:
+                  "[...] As part of AppWorks Accelerator #26, Growing3 leverages on-chain data analytics and marketing technology to help clients improve conversion performance and reduce acquisition costs, showcasing the growth potential of web3 marketing applications.",
+                date: "Jul 4, 2023",
+                href: "https://appworks.tw/demo-day-26-en/",
+              },
+              {
+                eyebrow: "Alibaba Cloud Project",
+                headline: "Growing3 was selected in the Alibaba Cloud Global Startup Accelerator",
+                date: "May 24, 2023",
+                href: "https://kr-asia.com/intelligence-indeed-and-feiliu-tech-named-asia-stars-of-the-alibaba-cloud-x-krasia-global-startup-accelerator-hangzhou-demo-day",
+              },
+              {
+                eyebrow: "500 Global",
+                headline: "Growing3 was selected for the startup accelerator program run by 500 Global",
+                quote:
+                  "[...] The team provides growth solutions for Web3 projects (such as blockchain, games, DApps, and NFTs), leveraging on-chain and off-chain data analytics to help projects acquire and retain quality users across marketing, growth strategy, analytics, and marTech.",
+                date: "Jul 4, 2023",
+                href: "https://www.media-outreach.com/news/taiwan/2023/07/18/233599/500-global-and-taiwan-tech-arena-tta-to-power-third-cohort-of-startups-to-aim-for-next-level-growth/",
+              },
+            ],
+          },
+        ],
       },
     ],
     nextCaseStudy: {
