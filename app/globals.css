@@ -110,8 +110,12 @@ body {
    mirroring the "Portfolio" text-style set from Figma (size/line-height). */
 @utility text-display {
   font-family: var(--font-serif);
-  font-size: 88px;
-  line-height: 88px;
+  /* Reduced from 88px — Source Serif 4 Bold runs wider per character than
+     the sans typeface it was originally sized against, so 88px wrapped
+     "Product Designer & Builder." onto a 3rd line. 68px is the closest
+     estimate back to 88px that still fits it on one line. */
+  font-size: 68px;
+  line-height: 68px;
   font-weight: 700;
 }
 @utility text-h1 {

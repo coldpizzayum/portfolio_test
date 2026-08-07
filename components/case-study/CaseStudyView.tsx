@@ -1,15 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { CaseStudy } from "@/data/caseStudies";
+import { caseStudies, type CaseStudy } from "@/data/caseStudies";
 import { Reveal, RevealGroup, RevealItem } from "../Reveal";
 import CaseStudySideNav from "./CaseStudySideNav";
 import CaseStudyBlock, { renderInline } from "./CaseStudyBlock";
+import MoreCaseStudies from "./MoreCaseStudies";
 
 export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
+  const otherCaseStudies = caseStudies
+    .filter((cs) => cs.slug !== caseStudy.slug)
+    .map((cs) => ({ slug: cs.slug, title: cs.title, description: cs.subtitle, image: cs.heroImage }));
+
   return (
     <>
       <div className="mx-auto max-w-[1100px] px-8">
-        <header className="pt-[140px] pb-16 md:pt-[120px]">
+        <header className="pt-[45px] pb-16 md:pt-[50px]">
           <Link
             href="/#works"
             className="group mb-12 inline-flex items-center gap-2 font-serif text-links text-fg-secondary transition-colors duration-300 hover:text-fg"
@@ -47,16 +52,11 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                   </div>
                   <div>
                     <p className="mb-2 font-serif text-h3 text-fg">Team</p>
-                    <div className="mt-1 flex gap-1">
+                    <div className="flex flex-col gap-1">
                       {caseStudy.meta.team.map((member) => (
-                        <div
-                          key={member.initials}
-                          title={member.label}
-                          className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-[10px] font-bold text-white"
-                          style={{ background: member.color }}
-                        >
-                          {member.initials}
-                        </div>
+                        <p key={member.initials} className="font-serif text-caption text-fg">
+                          {member.label}
+                        </p>
                       ))}
                     </div>
                   </div>
@@ -92,9 +92,12 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
         </header>
       </div>
 
-      <CaseStudySideNav sections={caseStudy.sections} extraItem={{ id: "next", navLabel: "Next Up" }} />
+      <CaseStudySideNav sections={caseStudy.sections} />
 
       <div className="mx-auto max-w-[1100px] px-8 pt-10">
+        {/* Marks where the hero ends and section content begins — the side
+            nav fades in once this scrolls out of view (see CaseStudySideNav). */}
+        <div id="toc-trigger" aria-hidden="true" className="h-px" />
         <article className="min-w-0">
           {caseStudy.sections.map((section, index) => (
             <Reveal key={section.id} id={section.id} className={`scroll-mt-24 ${index === 0 ? "pt-0" : "pt-20"}`}>
@@ -107,21 +110,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
             </Reveal>
           ))}
 
-          <div
-            id="next"
-            className="mt-20 mb-20 scroll-mt-24 flex flex-col items-start gap-8 rounded-[20px] bg-fg p-8 text-bg sm:flex-row sm:items-center sm:justify-between md:p-12"
-          >
-            <div>
-              <p className="mb-2 text-[11px] tracking-[0.1em] text-white/50 uppercase">{caseStudy.nextCaseStudy.label}</p>
-              <p className="font-serif text-h3 tracking-[-0.02em] text-white">{caseStudy.nextCaseStudy.title}</p>
-            </div>
-            <Link
-              href={caseStudy.nextCaseStudy.href}
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold whitespace-nowrap text-fg transition-opacity duration-200 hover:opacity-85"
-            >
-              Read Case Study →
-            </Link>
-          </div>
+          <MoreCaseStudies items={otherCaseStudies} />
         </article>
       </div>
     </>

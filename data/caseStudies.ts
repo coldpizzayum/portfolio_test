@@ -139,7 +139,6 @@ export interface CaseStudy {
   meta?: CaseStudyMeta;
   impactStats?: ImpactStat[];
   sections: CaseStudySection[];
-  nextCaseStudy: { label: string; title: string; href: string };
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -254,7 +253,7 @@ export const caseStudies: CaseStudy[] = [
           { type: "heading", level: 3, text: "Branding, added last" },
           {
             type: "paragraph",
-            text: "Once the core flow felt right, we layered the branding on top. For a Web3 audience, this mattered more than it might for other products. Look too generic, and people don't trust you with their wallet.",
+            text: "Once the core flow felt right, we layered the branding on top. For a Web3 audience, this mattered more than it might for other products.",
           },
           {
             type: "imageCollage",
@@ -318,7 +317,7 @@ export const caseStudies: CaseStudy[] = [
                 eyebrow: "AppWorks (Demo Day #26 Press Release)",
                 headline: "Growing3 Selected for AppWorks Accelerator #26",
                 quote:
-                  "[...] As part of AppWorks Accelerator #26, Growing3 leverages on-chain data analytics and marketing technology to help clients improve conversion performance and reduce acquisition costs, showcasing the growth potential of web3 marketing applications.",
+                  "Growing3 leverages on-chain data analytics and marketing technology to help clients improve conversion performance and reduce acquisition costs, showcasing the growth potential of web3 marketing applications.",
                 date: "Jul 4, 2023",
                 href: "https://appworks.tw/demo-day-26-en/",
               },
@@ -333,7 +332,7 @@ export const caseStudies: CaseStudy[] = [
                 headline: "Growing3 was selected for the startup accelerator program run by 500 Global",
                 quote:
                   "[...] The team provides growth solutions for Web3 projects (such as blockchain, games, DApps, and NFTs), leveraging on-chain and off-chain data analytics to help projects acquire and retain quality users across marketing, growth strategy, analytics, and marTech.",
-                date: "Jul 4, 2023",
+                date: "Jul 18, 2023",
                 href: "https://www.media-outreach.com/news/taiwan/2023/07/18/233599/500-global-and-taiwan-tech-arena-tta-to-power-third-cohort-of-startups-to-aim-for-next-level-growth/",
               },
             ],
@@ -341,11 +340,6 @@ export const caseStudies: CaseStudy[] = [
         ],
       },
     ],
-    nextCaseStudy: {
-      label: "Next Case Study",
-      title: "Influencer Marketing Management Tools, B2B, SaaS",
-      href: "/case-study/influencer-marketing-tool",
-    },
   },
   {
     slug: "influencer-marketing-tool",
@@ -509,11 +503,6 @@ export const caseStudies: CaseStudy[] = [
         ],
       },
     ],
-    nextCaseStudy: {
-      label: "Next Case Study",
-      title: "Hardware Crypto Wallet: Branding & eCom Redesign",
-      href: "/case-study/coolwallet-pro",
-    },
   },
   {
     slug: "coolwallet-pro",
@@ -722,11 +711,6 @@ export const caseStudies: CaseStudy[] = [
         ],
       },
     ],
-    nextCaseStudy: {
-      label: "Next Case Study",
-      title: "Web3 Marketing Dashboard, B2B, SaaS",
-      href: "/case-study/web3-marketing-dashboard",
-    },
   },
 ];
 

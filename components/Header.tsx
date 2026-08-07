@@ -66,14 +66,13 @@ export default function Header() {
     <div className="fixed inset-x-0 top-5 z-[100] px-5 md:static md:inset-auto md:top-auto md:z-auto md:px-10 md:pt-5">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-3 md:flex-row md:justify-between">
         <div className="flex w-full items-center justify-between gap-3 md:contents">
-          <Link
-            href="/"
-            className="flex shrink-0 items-center gap-2.5 text-fg transition-colors duration-[180ms] hover:text-fg-secondary"
-          >
-            <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-sage">
+          <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
+            <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-sage transition-transform duration-300 group-hover:scale-110">
               <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
             </span>
-            <span className="text-base font-bold tracking-tight whitespace-nowrap">Yiting H.</span>
+            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-[#003F0C]">
+              Yiting H.
+            </span>
           </Link>
 
           <Link href="/#contact" className={`${DARK_BUTTON} gap-2 px-4 text-sm font-medium md:hidden`}>

@@ -217,16 +217,24 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "feedbackGrid":
       return (
-        <div className="my-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="my-8 mr-[calc(-50vw+50%)] overflow-x-auto pb-2">
+          <div className="flex w-max gap-5 pr-8">
           {block.cards.map((card, index) => {
             const isTestimonial = card.rating !== undefined;
-            const content = (
-              <div className="relative flex h-full flex-col rounded-2xl bg-white p-6">
+            return (
+              <div key={index} className="relative flex h-full w-[280px] shrink-0 flex-col rounded-2xl bg-white p-6">
                 {card.photo && (
                   <div className="absolute -top-4 -right-4 h-14 w-14 overflow-hidden rounded-full ring-4 ring-white shadow-md">
                     <Image src={card.photo} alt={card.photoAlt ?? ""} fill className="object-cover" />
                   </div>
                 )}
+                <span
+                  className={`mb-3 inline-flex w-fit items-center rounded-full px-3 py-1 font-serif text-[11px] font-semibold ${
+                    isTestimonial ? "bg-card-sand text-[#5c4108]" : "bg-card-sage text-[#7a1f22]"
+                  }`}
+                >
+                  {isTestimonial ? "Customer Review" : "Investment"}
+                </span>
                 {isTestimonial ? (
                   <p className="mb-3 text-sm tracking-wider text-[#f5a623]" aria-hidden="true">
                     {"★".repeat(card.rating ?? 0)}
@@ -258,30 +266,23 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
                     <div className="flex items-center justify-between">
                       <p className="font-serif text-xs text-fg-secondary">Date: {card.date}</p>
                       {card.href && (
-                        <span className="text-fg-secondary" aria-hidden="true">
+                        <a
+                          href={card.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Read more: ${card.headline ?? card.eyebrow ?? ""}`}
+                          className="text-fg-secondary transition-colors duration-300 hover:text-fg"
+                        >
                           ↗
-                        </span>
+                        </a>
                       )}
                     </div>
                   )}
                 </div>
               </div>
             );
-
-            return card.href ? (
-              <a
-                key={index}
-                href={card.href}
-                target="_blank"
-                rel="noreferrer"
-                className="block transition-transform duration-300 hover:-translate-y-0.5"
-              >
-                {content}
-              </a>
-            ) : (
-              <div key={index}>{content}</div>
-            );
           })}
+          </div>
         </div>
       );
 

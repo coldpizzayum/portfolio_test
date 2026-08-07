@@ -41,10 +41,6 @@ export default function AiProjectsSection({ headingAs = "h1" }: AiProjectsSectio
               GitHub
             </a>
           </div>
-
-          <p className="font-serif text-body-sm text-fg-secondary italic">
-            What I&apos;ve been shipping lately, pulled from GitHub and Claude Code.
-          </p>
         </div>
 
         <div className="relative z-[1] mt-12">

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="px-5 pt-[90px] pb-10 md:px-10 md:pt-[100px] md:pb-15">
+      <section className="px-5 pt-[45px] pb-10 md:px-10 md:pt-[50px] md:pb-15">
         <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
           <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
             <div className="max-w-[640px]">
