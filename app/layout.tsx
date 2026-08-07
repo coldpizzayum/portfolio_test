@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
+import { Inter, JetBrains_Mono, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -20,6 +20,15 @@ const sourceSerif = Source_Serif_4({
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+// "Source Sans Pro" was renamed/merged into "Source Sans 3" in the Google
+// Fonts catalog — this is the current name for the same typeface family.
+const sourceSans = Source_Sans_3({
+  variable: "--font-source-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -60,7 +69,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sourceSerif.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} ${sourceSans.variable}`}
+    >
       <body
         className="flex min-h-screen flex-col bg-bg text-fg font-sans text-base leading-relaxed antialiased"
         suppressHydrationWarning

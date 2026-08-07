@@ -18,7 +18,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
   switch (block.type) {
     case "paragraph":
       return (
-        <p className="mb-5 font-serif text-body-sm text-fg last:mb-0">
+        <p className="mb-5 text-body-sm text-fg last:mb-0">
           {renderInline(block.text)}
           {block.href && (
             <>
@@ -43,7 +43,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "bulletList":
       return (
-        <ul className="mb-5 list-disc space-y-1.5 pl-5 font-serif text-body-sm text-fg last:mb-0">
+        <ul className="mb-5 list-disc space-y-1.5 pl-5 text-body-sm text-fg last:mb-0">
           {block.items.map((item, index) => (
             <li key={index}>{renderInline(item)}</li>
           ))}
@@ -55,8 +55,8 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         <div className="my-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {block.cards.map((card) => (
             <div key={card.title} className="rounded-lg bg-bg-alt p-6">
-              <p className="mb-2 font-serif text-caption font-semibold text-fg">{card.title}</p>
-              <p className="font-serif text-caption text-fg-secondary">{card.description}</p>
+              <p className="mb-2 text-caption font-semibold text-fg">{card.title}</p>
+              <p className="text-caption text-fg-secondary">{card.description}</p>
             </div>
           ))}
         </div>
@@ -71,8 +71,8 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
                 {index + 1}
               </div>
               <div>
-                <p className="mb-1 font-serif text-caption font-semibold text-fg">{step.title}</p>
-                <p className="font-serif text-caption text-fg-secondary">{step.description}</p>
+                <p className="mb-1 text-caption font-semibold text-fg">{step.title}</p>
+                <p className="text-caption text-fg-secondary">{step.description}</p>
               </div>
             </div>
           ))}
@@ -85,7 +85,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
           {block.items.map((item) => (
             <div
               key={item}
-              className="flex items-start gap-2.5 rounded-lg border border-border bg-white px-5 py-4 font-serif text-caption text-fg"
+              className="flex items-start gap-2.5 rounded-lg border border-border bg-white px-5 py-4 text-caption text-fg"
             >
               <span className="mt-px flex-shrink-0 text-base text-accent">→</span>
               <span>{item}</span>
@@ -102,7 +102,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
               <p className="mb-1.5 font-serif text-[42px] leading-none font-bold tracking-[-0.04em] text-fg">
                 {stat.value}
               </p>
-              <p className="font-serif text-caption text-fg-secondary">{stat.label}</p>
+              <p className="text-caption text-fg-secondary">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -114,7 +114,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
           {block.items.map((item, index) => (
             <div
               key={item.name}
-              className="flex items-center gap-4 border-b border-border px-6 py-[18px] font-serif text-caption text-fg last:border-b-0"
+              className="flex items-center gap-4 border-b border-border px-6 py-[18px] text-caption text-fg last:border-b-0"
             >
               <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-bg-alt text-xs font-bold">
                 {index + 1}
@@ -135,7 +135,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
             <Image src={block.src} alt={block.alt} fill sizes="(min-width: 900px) 900px, 100vw" className="object-cover" />
           </div>
           {block.caption && (
-            <figcaption className="mt-2.5 text-center font-serif text-caption text-fg-secondary italic">
+            <figcaption className="mt-2.5 text-center text-caption text-fg-secondary italic">
               {block.caption}
             </figcaption>
           )}
@@ -153,7 +153,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
               <p className="mb-2 font-serif text-[36px] leading-none font-bold tracking-[-0.03em] text-fg">
                 {item.stat}
               </p>
-              <p className="font-serif text-caption text-fg-secondary">{item.label}</p>
+              <p className="text-caption text-fg-secondary">{item.label}</p>
             </div>
           ))}
         </div>
@@ -165,7 +165,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
           {block.items.map((item) => (
             <div
               key={item.text}
-              className="flex gap-3 rounded-lg border border-border bg-white px-5 py-[18px] font-serif text-caption text-fg"
+              className="flex gap-3 rounded-lg border border-border bg-white px-5 py-[18px] text-caption text-fg"
             >
               <span className="flex-shrink-0 text-lg" aria-hidden="true">
                 {item.icon}
@@ -203,7 +203,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
                 />
               </div>
               {video.caption && (
-                <figcaption className="mt-6 text-center font-serif text-caption text-fg">
+                <figcaption className="mt-6 text-center text-caption text-fg">
                   {renderInline(video.caption)}
                 </figcaption>
               )}
@@ -249,17 +249,17 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
                   )
                 )}
                 {card.headline && (
-                  <p className={`mb-3 font-serif text-caption font-semibold text-fg ${card.photo ? "pr-10" : ""}`}>
+                  <p className={`mb-3 text-caption font-semibold text-fg ${card.photo ? "pr-10" : ""}`}>
                     {card.headline}
                   </p>
                 )}
                 {card.quote && (
-                  <p className="mb-4 flex-1 font-serif text-caption text-fg">{renderInline(card.quote)}</p>
+                  <p className="mb-4 flex-1 text-caption text-fg">{renderInline(card.quote)}</p>
                 )}
                 <div className="mt-auto border-t border-dashed border-border pt-4">
                   {isTestimonial ? (
                     <>
-                      <p className="font-serif text-caption font-semibold text-fg">{card.name}</p>
+                      <p className="text-caption font-semibold text-fg">{card.name}</p>
                       <p className="font-serif text-xs text-fg-secondary">{card.role}</p>
                     </>
                   ) : (

@@ -20,19 +20,19 @@ export default function AboutPage() {
         <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
           <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
             <div className="max-w-[640px]">
-              <p className="mb-5 font-serif text-body-sm text-fg">
+              <p className="mb-5 text-body-sm text-fg">
                 👋 Hi, I&apos;m Yiting.
                 <br />
                 After design school, I started my career at a tech startup with an international team, building
                 products in emerging tech, blockchain especially. Working with people from so many different
                 backgrounds pushed me to learn fast, think broadly, and grow both professionally and personally.
               </p>
-              <p className="mb-5 font-serif text-body-sm text-fg">
+              <p className="mb-5 text-body-sm text-fg">
                 In 2022, I joined a fully remote team, which gave me the freedom to travel and explore new cultures
                 and tech ecosystems. Over the next two years, I lived and worked in New York, Amsterdam, Berlin, and
                 Tokyo, spending one to three months in each city.
               </p>
-              <p className="font-serif text-body-sm text-fg">
+              <p className="text-body-sm text-fg">
                 In 2025, inspired by the people I met and the connections I made along the way, I moved to Berlin to
                 focus, build, and start the next chapter of my career.
               </p>

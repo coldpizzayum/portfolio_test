@@ -17,8 +17,7 @@ export default function WorkSection() {
       <div className="mx-auto max-w-[1200px] px-8">
         <Reveal className="mb-16">
           <h2 className="font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
-            Selected works{" "}
-            <span className="font-serif text-lg font-normal text-fg-secondary md:text-body">from full-time jobs</span>
+            Selected works
           </h2>
         </Reveal>
 

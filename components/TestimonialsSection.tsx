@@ -11,8 +11,8 @@ export default function TestimonialsSection() {
           <h2 className="mb-3 font-serif text-[32px] font-bold tracking-[-0.03em] text-fg md:text-h1">
             What&apos;s it like working with me?
           </h2>
-          <p className="font-serif text-body-sm text-fg-secondary italic md:text-body">
-            By working hard and being kind — amazing things happen.
+          <p className="text-body-sm text-fg md:text-body">
+            I believe that if you work hard and stay kind, amazing things happen. :)
           </p>
         </Reveal>
 

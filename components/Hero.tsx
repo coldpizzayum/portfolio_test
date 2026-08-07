@@ -53,8 +53,6 @@ const FAN_CARDS: FanCard[] = [
   },
 ];
 
-const AUDIENCE_PILLS = ["eCom", "B2B SaaS", "B2C", "FinTech", "MarTech", "Web3", "Blockchain"];
-
 export default function Hero() {
   return (
     <section id="hero" className="px-5 pt-[45px] pb-10 md:px-10 md:pt-[50px] md:pb-15">
@@ -70,30 +68,17 @@ export default function Hero() {
               Product Designer &amp; Builder.
             </h1>
 
-            <p className="mb-2 font-serif text-base leading-[1.45] font-medium text-[#1A1A1A] md:text-body-sm">
+            <p className="mb-2 font-source-sans-pro text-[24px] leading-[1.45] font-medium text-[#1A1A1A]">
               5+ years in startups, from pre-seed to Series B. I prototype, code, market, and ship ideas.
             </p>
-
-            <div className="flex flex-wrap items-center gap-2 font-serif text-base leading-[1.45] font-medium text-[#1A1A1A] md:text-body-sm">
-              <span>I&apos;ve designed for:</span>
-              {AUDIENCE_PILLS.map((pill) => (
-                <Link
-                  key={pill}
-                  href="#works"
-                  className="inline-flex items-center rounded-full border border-border px-3 py-1 font-mono text-xs text-fg-secondary transition-colors duration-200 hover:border-fg hover:text-fg"
-                >
-                  {pill}
-                </Link>
-              ))}
-            </div>
           </div>
 
           {/* Fanned card deck */}
-          <div className="relative hidden h-[340px] w-full items-center md:flex xl:h-[420px]">
+          <div className="fan-card-deck relative hidden h-[340px] w-full items-center md:flex xl:h-[420px]">
             {FAN_CARDS.map((card, index) => (
               <div
                 key={card.key}
-                className="relative flex h-[310px] w-[280px] flex-shrink-0 items-center justify-center -mr-7 last:mr-0 hover:z-10 xl:h-[386px] xl:w-[350px] xl:-mr-[40px]"
+                className="fan-card-item relative flex h-[310px] w-[280px] flex-shrink-0 items-center justify-center -mr-7 last:mr-0 hover:z-10 xl:h-[386px] xl:w-[350px] xl:-mr-[40px]"
                 style={{ zIndex: FAN_CARDS.length - index }}
               >
                 {card.isPhoto ? (
@@ -103,7 +88,7 @@ export default function Hero() {
                   >
                     <video
                       src="/videos/self-intro.mp4"
-                      poster="/images/self-intro-poster.jpg"
+                      poster="/images/self-intro-poster.png"
                       controls
                       playsInline
                       preload="none"

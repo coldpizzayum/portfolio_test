@@ -7,7 +7,7 @@ const CONTACT_EMAIL = "yitinghuang.design@gmail.com";
 const CAL_URL = "https://cal.com/yiting-huang";
 const LINKEDIN_URL = "https://www.linkedin.com/in/yiting1995/";
 const RESUME_URL = "https://drive.google.com/file/d/1KM6TpI6lt9DeF4MrBPkeSC7PpCNzwrxZ/view?usp=sharing";
-const GITHUB_URL = "#";
+const GITHUB_URL = "https://github.com/coldpizzayum";
 
 const LINK_COLUMNS = [
   {
@@ -77,15 +77,15 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="border-t border-border bg-bg py-16 md:py-20">
+    <footer id="contact" className="bg-bg py-16 md:py-20">
       <div className="mx-auto flex max-w-[1200px] flex-col justify-between gap-14 px-8 md:flex-row">
         <div>
           <h2 className="mb-5 font-serif text-h1 text-fg">Let&apos;s connect!</h2>
-          <p className="mb-5 max-w-[480px] font-serif text-body-sm text-fg-secondary">
+          <p className="mb-5 max-w-[480px] text-body-sm text-fg">
             I enjoy building cool products with cool humans, and wearing different hats to ship the best product. I
             don&apos;t like to be limited by the label &quot;Designer.&quot; :)
           </p>
-          <p className="mb-8 max-w-[480px] font-serif text-body-sm text-fg-secondary">
+          <p className="mb-8 max-w-[480px] text-body-sm text-fg">
             I&apos;m a bit shy, but I&apos;m always excited to learn about new ideas.
           </p>
 

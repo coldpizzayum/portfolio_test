@@ -79,7 +79,7 @@ export default function JourneyTimeline() {
             <h2 className="mb-5 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
               My journey
             </h2>
-            <p className="mb-7 font-serif text-body-sm text-fg-secondary">
+            <p className="mb-7 text-body-sm text-fg-secondary">
               I&apos;m a Product Designer from Taiwan 🇹🇼. Now based in Berlin 🇩🇪.
             </p>
             <a
@@ -121,9 +121,9 @@ export default function JourneyTimeline() {
                           transition={{ duration: 0.35, ease: EASE }}
                           className="overflow-hidden"
                         >
-                          <p className="pt-2 pb-3 font-serif text-body-sm text-fg">{entry.description}</p>
+                          <p className="pt-2 pb-3 text-body-sm text-fg">{entry.description}</p>
                           {entry.bullets && entry.bullets.length > 0 && (
-                            <ul className="list-disc space-y-1 pb-1 pl-5 font-serif text-body-sm text-fg">
+                            <ul className="list-disc space-y-1 pb-1 pl-5 text-body-sm text-fg">
                               {entry.bullets.map((bullet) => (
                                 <li key={bullet}>{bullet}</li>
                               ))}

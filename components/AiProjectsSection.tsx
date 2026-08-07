@@ -1,6 +1,6 @@
 import ActivityHeatmap from "@/components/ActivityHeatmap";
 
-const GITHUB_URL = "#";
+const GITHUB_URL = "https://github.com/coldpizzayum";
 
 interface AiProjectsSectionProps {
   /** Heading tag to render — pages should only have one h1, so callers embedding
@@ -20,7 +20,7 @@ export default function AiProjectsSection({ headingAs = "h1" }: AiProjectsSectio
             <br />
             build prototype
           </Heading>
-          <p className="mb-8 font-serif text-body-sm text-fg-secondary">
+          <p className="mb-8 text-body-sm text-fg">
             I use AI to build fast, from prototype to real product, with real users. I&apos;m always exploring how AI
             can change how I work. I recently won a prize at the Berlin AI Builders Hackathon.
           </p>

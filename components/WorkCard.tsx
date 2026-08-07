@@ -14,35 +14,32 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
   const href = item.caseStudySlug ? `/case-study/${item.caseStudySlug}` : undefined;
 
   const imagePanel = (
-    <div className={`relative h-full min-h-[260px] overflow-hidden rounded-[20px] p-6 md:p-10 ${accentBg}`}>
-      <div className="relative h-full min-h-[200px] overflow-hidden rounded-[14px] shadow-[0_12px_32px_rgba(16,24,40,0.14)]">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          sizes="(min-width: 768px) 45vw, 100vw"
-          className="object-cover"
-        />
-      </div>
+    <div className={`relative h-full min-h-[260px] overflow-hidden rounded-[20px] ${accentBg}`}>
+      <Image
+        src={item.image}
+        alt={item.title}
+        fill
+        sizes="(min-width: 768px) 45vw, 100vw"
+        className="object-cover"
+      />
     </div>
   );
 
   const contentPanel = (
-    <div className="flex flex-col justify-center rounded-[20px] border border-border bg-bg-alt p-8 md:p-12">
-      <p className="mb-4 font-serif text-caption tracking-[0.08em] text-fg-secondary">{item.year}</p>
+    <div className="flex flex-col justify-center rounded-[20px] bg-white p-8 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] md:p-12">
       <h3 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
         {item.title}
       </h3>
-      <p className="mb-8 max-w-[420px] font-serif text-body-sm text-fg-secondary">{item.description}</p>
-      <div className="mb-8 flex flex-wrap gap-2">
+      <div className="mb-5 flex flex-wrap gap-2">
         {item.tags.map((tag) => (
           <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs text-fg-secondary">
             {tag}
           </span>
         ))}
       </div>
-      <span className="mt-auto inline-flex w-fit items-center gap-1.5 font-serif text-links font-medium text-fg transition-[gap] duration-300 group-hover:gap-3">
-        View case study →
+      <p className="mb-8 max-w-[420px] text-body-sm text-fg-secondary">{item.description}</p>
+      <span className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FF6553] px-5 py-2.5 text-sm font-semibold text-white transition-opacity duration-200 group-hover:opacity-85">
+        Read case study
       </span>
     </div>
   );

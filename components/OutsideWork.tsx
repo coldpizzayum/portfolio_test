@@ -86,7 +86,7 @@ export default function OutsideWork() {
             {PARAGRAPHS.map((section) => (
               <div key={section.heading}>
                 <h3 className="mb-2 font-serif text-h3 text-fg">{section.heading}</h3>
-                <p className="font-serif text-body-sm whitespace-pre-line text-fg">{section.body}</p>
+                <p className="text-body-sm whitespace-pre-line text-fg">{section.body}</p>
               </div>
             ))}
           </div>

@@ -4,6 +4,7 @@
   --font-sans: var(--font-inter);
   --font-serif: var(--font-source-serif);
   --font-mono: var(--font-jetbrains-mono);
+  --font-source-sans-pro: var(--font-source-sans);
 
   --color-bg: #f7f5f2;
   --color-bg-alt: #efede9;
@@ -92,7 +93,78 @@ body {
       box-shadow 320ms ease;
   }
   .fan-card-rotate:hover {
-    transform: rotate(var(--rotate, 0deg)) translateY(-18px);
+    transform: rotate(0deg) scale(1.02);
+  }
+
+  /* Hovering one fan card pushes the others apart and fades them, mirroring
+     benshih.design's card-deck interaction. Written per nth-child pair
+     (rather than a generic sibling combinator) since CSS has no selector
+     for "siblings before this one". */
+  .fan-card-item {
+    --push: 24px;
+    transition:
+      transform 320ms cubic-bezier(0.34, 1.4, 0.64, 1),
+      opacity 320ms ease;
+  }
+
+  .fan-card-deck:has(.fan-card-item:nth-child(1):hover) .fan-card-item:nth-child(2),
+  .fan-card-deck:has(.fan-card-item:nth-child(1):hover) .fan-card-item:nth-child(3),
+  .fan-card-deck:has(.fan-card-item:nth-child(1):hover) .fan-card-item:nth-child(4) {
+    opacity: 0.5;
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(1):hover) .fan-card-item:nth-child(2) {
+    transform: translateX(var(--push));
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(1):hover) .fan-card-item:nth-child(3) {
+    transform: translateX(calc(var(--push) * 1.6));
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(1):hover) .fan-card-item:nth-child(4) {
+    transform: translateX(calc(var(--push) * 2.2));
+  }
+
+  .fan-card-deck:has(.fan-card-item:nth-child(2):hover) .fan-card-item:nth-child(1),
+  .fan-card-deck:has(.fan-card-item:nth-child(2):hover) .fan-card-item:nth-child(3),
+  .fan-card-deck:has(.fan-card-item:nth-child(2):hover) .fan-card-item:nth-child(4) {
+    opacity: 0.5;
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(2):hover) .fan-card-item:nth-child(1) {
+    transform: translateX(calc(var(--push) * -1));
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(2):hover) .fan-card-item:nth-child(3) {
+    transform: translateX(var(--push));
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(2):hover) .fan-card-item:nth-child(4) {
+    transform: translateX(calc(var(--push) * 1.6));
+  }
+
+  .fan-card-deck:has(.fan-card-item:nth-child(3):hover) .fan-card-item:nth-child(1),
+  .fan-card-deck:has(.fan-card-item:nth-child(3):hover) .fan-card-item:nth-child(2),
+  .fan-card-deck:has(.fan-card-item:nth-child(3):hover) .fan-card-item:nth-child(4) {
+    opacity: 0.5;
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(3):hover) .fan-card-item:nth-child(1) {
+    transform: translateX(calc(var(--push) * -1.6));
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(3):hover) .fan-card-item:nth-child(2) {
+    transform: translateX(calc(var(--push) * -1));
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(3):hover) .fan-card-item:nth-child(4) {
+    transform: translateX(var(--push));
+  }
+
+  .fan-card-deck:has(.fan-card-item:nth-child(4):hover) .fan-card-item:nth-child(1),
+  .fan-card-deck:has(.fan-card-item:nth-child(4):hover) .fan-card-item:nth-child(2),
+  .fan-card-deck:has(.fan-card-item:nth-child(4):hover) .fan-card-item:nth-child(3) {
+    opacity: 0.5;
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(4):hover) .fan-card-item:nth-child(1) {
+    transform: translateX(calc(var(--push) * -2.2));
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(4):hover) .fan-card-item:nth-child(2) {
+    transform: translateX(calc(var(--push) * -1.6));
+  }
+  .fan-card-deck:has(.fan-card-item:nth-child(4):hover) .fan-card-item:nth-child(3) {
+    transform: translateX(calc(var(--push) * -1));
   }
 
   .collage-piece-rotate {
@@ -110,12 +182,8 @@ body {
    mirroring the "Portfolio" text-style set from Figma (size/line-height). */
 @utility text-display {
   font-family: var(--font-serif);
-  /* Reduced from 88px — Source Serif 4 Bold runs wider per character than
-     the sans typeface it was originally sized against, so 88px wrapped
-     "Product Designer & Builder." onto a 3rd line. 68px is the closest
-     estimate back to 88px that still fits it on one line. */
-  font-size: 68px;
-  line-height: 68px;
+  font-size: 84px;
+  line-height: 84px;
   font-weight: 700;
 }
 @utility text-h1 {
@@ -137,32 +205,26 @@ body {
   font-weight: 600;
 }
 @utility text-body {
-  font-family: var(--font-serif);
+  font-family: var(--font-source-sans-pro);
   font-size: 20px;
   line-height: 28px;
   font-weight: 400;
 }
 @utility text-body-sm {
-  font-family: var(--font-serif);
+  font-family: var(--font-source-sans-pro);
   font-size: 18px;
   line-height: 21.6px;
   font-weight: 400;
 }
 @utility text-links {
-  font-family: var(--font-serif);
+  font-family: var(--font-source-sans-pro);
   font-size: 18px;
   line-height: 18px;
   font-weight: 500;
 }
 @utility text-caption {
-  font-family: var(--font-serif);
+  font-family: var(--font-source-sans-pro);
   font-size: 14px;
   line-height: 16.8px;
-  font-weight: 400;
-}
-@utility text-meta {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  line-height: 21.6px;
   font-weight: 400;
 }

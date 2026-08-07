@@ -12,7 +12,7 @@ export default function AboutSection() {
     <section id="about" className="bg-bg-alt py-10 md:py-15">
       <div className="mx-auto max-w-[1200px] px-8">
         <Reveal className="mb-16">
-          <p className="mb-4 font-serif text-caption tracking-[0.1em] text-fg-secondary uppercase">Background</p>
+          <p className="mb-4 text-caption tracking-[0.1em] text-fg-secondary uppercase">Background</p>
           <h2 className="font-serif text-[28px] font-bold tracking-[-0.03em] text-fg md:text-h2">About me</h2>
         </Reveal>
 
@@ -44,17 +44,17 @@ export default function AboutSection() {
           </Reveal>
 
           <Reveal className="pt-4" delay={0.1}>
-            <p className="mb-6 font-serif text-body-sm text-fg md:text-body">
+            <p className="mb-6 text-body-sm text-fg md:text-body">
               I&apos;m a Product Designer based in Berlin with over five years of experience designing digital
               products that people genuinely enjoy using. My work spans Web3, B2B SaaS, and eCommerce — always
               centred on the intersection of clear thinking, visual craft, and user empathy.
             </p>
-            <p className="mb-6 font-serif text-body-sm text-fg md:text-body">
+            <p className="mb-6 text-body-sm text-fg md:text-body">
               I believe great design is quiet. It doesn&apos;t shout — it makes complex things feel obvious, and
               ordinary interactions feel considered. I work closely with engineers and product managers to bring
               ideas from messy ambiguity to shipped reality.
             </p>
-            <p className="mb-6 font-serif text-body-sm text-fg-secondary">
+            <p className="mb-6 text-body-sm text-fg-secondary">
               When I&apos;m not at my desk I&apos;m wandering Berlin&apos;s flea markets, hunting for mid-century
               furniture, or exploring a new country with an embarrassingly full camera roll.
             </p>
@@ -63,7 +63,7 @@ export default function AboutSection() {
               {ABOUT_DETAILS.map((detail) => (
                 <div key={detail.label}>
                   <p className="mb-1.5 text-[11px] tracking-[0.1em] text-fg-secondary uppercase">{detail.label}</p>
-                  <p className="font-serif text-body-sm font-medium text-fg">{detail.value}</p>
+                  <p className="text-body-sm font-medium text-fg">{detail.value}</p>
                 </div>
               ))}
             </div>

@@ -90,12 +90,12 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
               <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 text-left sm:pl-5">
                 <div className="flex-1 space-y-2">
                   <p className="font-serif text-h3 leading-tight tracking-[-0.02em] text-fg">{item.title}</p>
-                  <p className="line-clamp-2 font-serif text-caption text-fg-secondary">{item.description}</p>
+                  <p className="line-clamp-2 text-caption text-fg-secondary">{item.description}</p>
                 </div>
                 {isFront && (
                   <Link
                     href={`/case-study/${item.slug}`}
-                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#e8836c] px-5 py-2.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-85"
+                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FF6553] px-5 py-2.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-85"
                   >
                     Read case study
                   </Link>

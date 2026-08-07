@@ -17,7 +17,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
         <header className="pt-[45px] pb-16 md:pt-[50px]">
           <Link
             href="/#works"
-            className="group mb-12 inline-flex items-center gap-2 font-serif text-links text-fg-secondary transition-colors duration-300 hover:text-fg"
+            className="group mb-12 inline-flex items-center gap-2 text-links text-fg-secondary transition-colors duration-300 hover:text-fg"
           >
             <span className="transition-[margin] duration-300 group-hover:mr-1" aria-hidden="true">
               ←
@@ -31,7 +31,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
             </h1>
 
             <div className="mb-10 flex flex-wrap items-center gap-3">
-              <p className="font-serif text-caption text-fg-secondary">{caseStudy.year}</p>
+              <p className="text-caption text-fg-secondary">{caseStudy.year}</p>
               {caseStudy.tags.map((tag) => (
                 <span key={tag} className="rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-fg-secondary">
                   {tag}
@@ -44,17 +44,17 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
                   <div>
                     <p className="mb-2 font-serif text-h3 text-fg">Overview</p>
-                    <p className="font-serif text-caption text-fg">{caseStudy.subtitle}</p>
+                    <p className="text-caption text-fg">{caseStudy.subtitle}</p>
                   </div>
                   <div>
                     <p className="mb-2 font-serif text-h3 text-fg">My role</p>
-                    <p className="font-serif text-caption text-fg">{caseStudy.meta.role}</p>
+                    <p className="text-caption text-fg">{caseStudy.meta.role}</p>
                   </div>
                   <div>
                     <p className="mb-2 font-serif text-h3 text-fg">Team</p>
                     <div className="flex flex-col gap-1">
                       {caseStudy.meta.team.map((member) => (
-                        <p key={member.initials} className="font-serif text-caption text-fg">
+                        <p key={member.initials} className="text-caption text-fg">
                           {member.label}
                         </p>
                       ))}
@@ -69,7 +69,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                       {caseStudy.impactStats.map((stat) => (
                         <RevealItem key={stat.label} className="rounded-lg border-2 border-[#017D18] bg-bg p-5">
                           <p className="mb-3 font-serif text-h3 text-fg">{stat.label}</p>
-                          <p className="font-serif text-caption text-fg-secondary">{renderInline(stat.text)}</p>
+                          <p className="text-caption text-fg-secondary">{renderInline(stat.text)}</p>
                         </RevealItem>
                       ))}
                     </RevealGroup>

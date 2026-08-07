@@ -10,12 +10,11 @@ interface ButtonProps {
 }
 
 export default function Button({ href, variant, children, className = "", newTab = false }: ButtonProps) {
-  const base =
-    "inline-flex items-center gap-2 rounded-[4px] px-7 py-3.5 text-sm font-medium transition-colors duration-300";
+  const base = "inline-flex items-center gap-2 rounded-[4px] px-7 py-3.5 text-sm font-medium duration-300";
   const styles =
     variant === "primary"
-      ? "bg-fg text-bg hover:bg-[#333333]"
-      : "bg-transparent text-fg border border-border hover:border-fg";
+      ? "bg-[#FF6553] text-white transition-opacity hover:opacity-85"
+      : "bg-transparent text-fg border border-border transition-colors hover:border-fg";
 
   const content = (
     <>
