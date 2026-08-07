@@ -40,7 +40,7 @@ function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestim
 
   return (
     <>
-      <span aria-hidden="true" className="mb-1.5 block text-[28px] leading-[0.8] text-[#f5c563]">
+      <span aria-hidden="true" className="mb-1.5 block text-[28px] leading-[0.8] text-[#02594E]">
         &ldquo;
       </span>
       <p className={`mb-4 font-serif text-fg ${sizeClass}`}>{renderInline(testimonial.quote)}</p>

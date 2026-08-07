@@ -12,7 +12,6 @@ interface NavLink {
 
 const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Works", href: "/#works" },
   { label: "AI Projects", href: "/ai-projects" },
   { label: "About Me", href: "/about" },
 ];
@@ -70,7 +69,7 @@ export default function Header() {
             <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-sage transition-transform duration-300 group-hover:scale-110">
               <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
             </span>
-            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-[#003F0C]">
+            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-[#02594E]">
               Yiting H.
             </span>
           </Link>
@@ -87,7 +86,7 @@ export default function Header() {
           <div ref={trackRef} className="relative flex items-center gap-0 p-1">
             {indicatorStyle && (
               <div
-                className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-[#E8735C] transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
+                className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-[#FF6553] transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
                 style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
               />
             )}
@@ -101,7 +100,7 @@ export default function Header() {
                     if (el) linkRefs.current.set(link.href, el);
                   }}
                   className={`relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium transition-colors duration-[180ms] ${
-                    isActive ? "text-white" : "text-fg-secondary hover:text-fg"
+                    isActive ? "text-white" : "text-fg-secondary hover:bg-bg-alt hover:text-fg"
                   }`}
                 >
                   {link.label}

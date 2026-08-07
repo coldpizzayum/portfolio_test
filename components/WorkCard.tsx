@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { WorkItem } from "@/data/caseStudies";
+import { renderInline } from "./case-study/CaseStudyBlock";
 import { RevealItem } from "./Reveal";
 
 interface WorkCardProps {
@@ -17,7 +18,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
     <div className={`relative h-full min-h-[260px] overflow-hidden rounded-[20px] ${accentBg}`}>
       <Image
         src={item.image}
-        alt={item.title}
+        alt={item.title.replace(/\*\*/g, "")}
         fill
         sizes="(min-width: 768px) 45vw, 100vw"
         className="object-cover"
@@ -28,7 +29,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
   const contentPanel = (
     <div className="flex flex-col justify-center rounded-[20px] bg-white p-8 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] md:p-12">
       <h3 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
-        {item.title}
+        {renderInline(item.title)}
       </h3>
       <div className="mb-5 flex flex-wrap gap-2">
         {item.tags.map((tag) => (

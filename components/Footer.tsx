@@ -21,7 +21,6 @@ const LINK_COLUMNS = [
   {
     heading: "Nav.",
     items: [
-      { label: "Works", href: "/#works" },
       { label: "AI Projects", href: "/ai-projects" },
       { label: "About Me", href: "/about" },
     ],
@@ -77,77 +76,77 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="bg-bg py-16 md:py-20">
-      <div className="mx-auto flex max-w-[1200px] flex-col justify-between gap-14 px-8 md:flex-row">
-        <div>
-          <h2 className="mb-5 font-serif text-h1 text-fg">Let&apos;s connect!</h2>
-          <p className="mb-5 max-w-[480px] text-body-sm text-fg">
-            I enjoy building cool products with cool humans, and wearing different hats to ship the best product. I
-            don&apos;t like to be limited by the label &quot;Designer.&quot; :)
-          </p>
-          <p className="mb-8 max-w-[480px] text-body-sm text-fg">
-            I&apos;m a bit shy, but I&apos;m always excited to learn about new ideas.
-          </p>
+    <footer id="contact" className="px-5 py-10 md:px-10 md:py-15">
+      <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
+        <div className="relative z-[1] flex flex-col justify-between gap-14 md:flex-row">
+          <div>
+            <h2 className="mb-5 font-serif text-h1 text-fg">Let&apos;s connect!</h2>
+            <p className="mb-5 max-w-[480px] text-body-sm text-fg">
+              I enjoy building cool products with cool humans, and wearing different hats to ship the best product. I
+              don&apos;t like to be limited by the label &quot;Designer.&quot; :)
+            </p>
+            <p className="mb-8 max-w-[480px] text-body-sm text-fg">
+              I&apos;m a bit shy, but I&apos;m always excited to learn about new ideas.
+            </p>
 
-          <div className="mb-6 flex flex-wrap gap-3">
-            <a
-              href={CAL_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-[4px] bg-fg px-7 py-3.5 text-sm font-medium text-bg transition-colors duration-300 hover:bg-[#333333]"
-            >
-              Schedule a chat
-            </a>
-            <button
-              type="button"
-              onClick={handleCopyEmail}
-              className="inline-flex items-center gap-2 rounded-[4px] border border-border px-7 py-3.5 text-sm font-medium text-fg transition-colors duration-300 hover:border-fg"
-            >
-              <CopyIcon />
-              {copied ? "Copied!" : "Copy my email"}
-            </button>
+            <div className="mb-6 flex flex-wrap gap-3">
+              <a
+                href={CAL_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-[#FF6553] px-7 py-3.5 text-sm font-medium text-white transition-opacity duration-300 hover:opacity-85"
+              >
+                Schedule a chat
+              </a>
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-medium text-fg transition-colors duration-300 hover:border-fg"
+              >
+                <CopyIcon />
+                {copied ? "Copied!" : "Copy my email"}
+              </button>
+            </div>
+
+            <p className="text-[13px] font-semibold text-fg-secondary">
+              Berlin <BerlinClock />
+            </p>
           </div>
 
-          <p className="text-[13px] font-semibold text-fg-secondary">
-            Berlin <BerlinClock />
-          </p>
+          <div className="flex gap-16">
+            {LINK_COLUMNS.map((column) => (
+              <div key={column.heading}>
+                <h3 className="mb-4 font-serif text-h3 text-fg">{column.heading}</h3>
+                <ul className="flex flex-col gap-2.5">
+                  {column.items.map((item) => (
+                    <li key={item.label}>
+                      {item.href.startsWith("http") ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[13px] text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
+                        >
+                          {item.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className="text-[13px] text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="flex gap-16">
-          {LINK_COLUMNS.map((column) => (
-            <div key={column.heading}>
-              <h3 className="mb-4 font-serif text-h3 text-fg">{column.heading}</h3>
-              <ul className="flex flex-col gap-2.5">
-                {column.items.map((item) => (
-                  <li key={item.label}>
-                    {item.href.startsWith("http") ? (
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[13px] text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
-                      >
-                        {item.label}
-                      </a>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className="text-[13px] text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
-                      >
-                        {item.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        <p className="relative z-[1] mt-14 text-[13px] text-fg-secondary">© 2026 Yiting Huang. All rights reserved.</p>
       </div>
-
-      <p className="mx-auto mt-14 max-w-[1200px] px-8 text-[13px] text-fg-secondary">
-        © 2026 Yiting Huang. All rights reserved.
-      </p>
     </footer>
   );
 }

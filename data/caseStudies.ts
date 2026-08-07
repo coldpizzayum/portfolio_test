@@ -22,9 +22,9 @@ export const workItems: WorkItem[] = [
     slug: "web3-wallet-defi-dashboard",
     company: "Growing3",
     year: "2023 - 2025",
-    title: "Blockchain Marketing Data Dashboard",
+    title: "Team's First MVP: Web3 data marketing dashboard",
     description:
-      "As the Founding Product Designer, I led MVP design from concept to launch, helping the team close a $1.2M seed round and acquire 9 paying customers within 6 months.\nGrowing3 is an ad-targeting SaaS for Web3 and blockchain project owners. By mapping on-chain behavior to social media accounts, we helped clients cut CPA by 79% and boost conversions by 376%.",
+      "Designed a B2B SaaS platform from 0 to 1, translating complex on-chain data into a product Web3 marketers could use and investors could believe in.",
     tags: ["B2B SaaS", "9 paying customers", "Pre-seed", "MVP"],
     image: "/images/web3-hero.png",
     features: [
@@ -39,9 +39,9 @@ export const workItems: WorkItem[] = [
     slug: "influencer-marketing-management-tool",
     company: "Growing3",
     year: "2024 — 2025",
-    title: "Influencer Marketing Management Tools, B2B, SaaS",
+    title: "Business Pivot: Influencer marketing tool",
     description:
-      "Designing viral loops that encouraged sharing, building a browser extension as a new distribution channel, and supporting launches across platforms like Product Hunt.",
+      "When user behavior signaled a new opportunity, I used our existing design system to help the team pivot fast, shipping a standalone product in a fraction of the usual time.",
     tags: ["Growth", "Plugin"],
     image: "/images/influencer-marketing-hero.png",
     features: [
@@ -56,9 +56,8 @@ export const workItems: WorkItem[] = [
     slug: "coolwallet-pro-rebrand",
     company: "CoolBitX",
     year: "2021",
-    title: "Hardware Crypto Wallet: Branding & eCom Redesign",
-    description:
-      "I helped shape CoolWallet Pro's brand, optimize its eCommerce experience, and bridge product, marketing, and data to drive measurable growth.",
+    title: "Global Expansion: branding & eCommerce redesign",
+    description: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
     tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
     image: "/images/coolwallet-hero.png",
     features: [
@@ -144,10 +143,10 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "web3-marketing-dashboard",
-    title: "Team's first MVP: All-in-one Marketing Dashboard",
+    title: "Team's First MVP: Web3 data marketing dashboard",
     year: "2023 — 2024",
     subtitle:
-      "This case study is about turning our idea into first product, letting investors and users to get what we built and our value fast!",
+      "Designed a B2B SaaS platform from 0 to 1, translating complex on-chain data into a product Web3 marketers could use and investors could believe in.",
     metaDescription:
       "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
     tags: ["B2B SaaS", "MarTech", "Data", "Web3", "Blockchain"],
@@ -343,10 +342,10 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "influencer-marketing-tool",
-    title: "Influencer Marketing Management Tools, B2B, SaaS",
+    title: "Business Pivot: Influencer marketing tool",
     year: "2024 — 2025",
     subtitle:
-      "Designing viral loops that encouraged sharing, building a browser extension as a new distribution channel, and supporting launches across platforms like Product Hunt.",
+      "When user behavior signaled a new opportunity, I used our existing design system to help the team pivot fast, shipping a standalone product in a fraction of the usual time.",
     metaDescription:
       "For this B2B SaaS platform, I designed viral growth loops and a browser extension distribution channel, supporting a successful Product Hunt launch.",
     tags: ["Growth", "Plugin"],
@@ -506,10 +505,9 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "coolwallet-pro",
-    title: "Hardware Crypto Wallet: Branding & eCom Redesign",
+    title: "Global Expansion: branding & eCommerce redesign",
     year: "CoolBitX/ 2021",
-    subtitle:
-      "I helped shape CoolWallet Pro's brand, optimize its eCommerce experience, and bridge product, marketing, and data to drive measurable growth.",
+    subtitle: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
     metaDescription:
       "I redesigned the brand and eCommerce experience for CoolWallet Pro, a Series B crypto hardware wallet, driving growth across Europe, Japan, Korea, Americas.",
     tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
