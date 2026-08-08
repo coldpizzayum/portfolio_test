@@ -94,7 +94,10 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
 
       <CaseStudySideNav sections={caseStudy.sections} />
 
-      <div className="mx-auto max-w-[1100px] px-8 pt-10">
+      {/* Narrower than the hero above (1100px) so the fixed left-side TOC
+          (visible from here down) has clear room and never overlaps the
+          reading column, mirroring benshih.design's layout. */}
+      <div className="mx-auto max-w-[760px] px-8 pt-10">
         {/* Marks where the hero ends and section content begins — the side
             nav fades in once this scrolls out of view (see CaseStudySideNav). */}
         <div id="toc-trigger" aria-hidden="true" className="h-px" />

@@ -59,11 +59,14 @@ export default function CaseStudySideNav({ sections }: CaseStudySideNavProps) {
 
     // Same "sentinel scrolls past the fixed nav's own offset" trick used
     // for sticky sub-navs: visible once the marker scrolls above that line,
-    // hidden again if the reader scrolls back up past it.
-    const observer = new IntersectionObserver(([entry]) => setHasReachedContent(!entry.isIntersecting), {
-      rootMargin: "-100px 0px 0px 0px",
-      threshold: 0,
-    });
+    // hidden again if the reader scrolls back up past it. isIntersecting
+    // alone can't tell those two states apart from "hasn't reached the
+    // marker yet" (still below the fold on initial load) — both read
+    // false — so the marker's own position disambiguates which case it is.
+    const observer = new IntersectionObserver(
+      ([entry]) => setHasReachedContent(entry.isIntersecting ? false : entry.boundingClientRect.top < 100),
+      { rootMargin: "-100px 0px 0px 0px", threshold: 0 }
+    );
 
     observer.observe(trigger);
     return () => observer.disconnect();
