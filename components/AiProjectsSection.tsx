@@ -1,6 +1,8 @@
 import ActivityHeatmap from "@/components/ActivityHeatmap";
+import TextRotator from "@/components/TextRotator";
 
 const GITHUB_URL = "https://github.com/coldpizzayum";
+const ROTATING_WORDS = ["build prototypes", "ship real products", "brainstorm ideas"];
 
 export default function AiProjectsSection() {
   return (
@@ -10,7 +12,7 @@ export default function AiProjectsSection() {
           <h2 className="mb-3 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
             I work with AI to&hellip;
             <br />
-            build prototype
+            <TextRotator words={ROTATING_WORDS} />
           </h2>
           <p className="mb-8 text-body-sm text-fg">
             I use AI to build fast, from prototype to real product, with real users. I&apos;m always exploring how AI

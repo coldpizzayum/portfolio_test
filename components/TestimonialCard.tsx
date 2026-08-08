@@ -97,9 +97,9 @@ export default function TestimonialCard({ testimonial, position }: TestimonialCa
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`${wrapperClassName} w-[280px] rounded-2xl p-7 pb-6 text-left shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-transform duration-300 hover:scale-[1.03] ${
-        isSticky ? "bg-sticky-blue" : "border-2 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.07)]"
-      }`}
+      className={`${wrapperClassName} w-[280px] rounded-2xl p-7 pb-6 text-left shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-transform duration-300 ${
+        position ? "hover:scale-[1.03]" : ""
+      } ${isSticky ? "bg-sticky-blue" : "border-2 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.07)]"}`}
       style={cardStyle}
     >
       <QuoteCardContent testimonial={testimonial} sizeClass="text-caption" />

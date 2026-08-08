@@ -8,8 +8,13 @@ const YEAR = 2026;
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DAY_LABELS: Record<number, string> = { 1: "Mon", 3: "Wed", 5: "Fri" };
 
-/** GitHub's own contribution-graph palette (light mode), empty → darkest. */
-const LEVEL_COLORS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"];
+/** Level→color per source: GitHub uses GitHub's own green palette, Claude Code
+ *  uses a palette in the site's coral/red accent instead, so the two are easy
+ *  to tell apart at a glance while sharing the exact same grid/behavior. */
+const LEVEL_COLORS: Record<Source, string[]> = {
+  github: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
+  claude: ["#ebedf0", "#ffe0d6", "#ffb199", "#ff8a66", "#ff6553"],
+};
 
 /** Demo data window — placeholder activity only appears in this range, until the
  *  real GitHub / Claude Code APIs are wired up. */
@@ -153,6 +158,7 @@ export default function ActivityHeatmap() {
 
   const weeks = useMemo(() => buildWeeks(YEAR), []);
   const monthLabels = useMemo(() => monthLabelsForWeeks(weeks), [weeks]);
+  const levelColors = LEVEL_COLORS[source];
 
   return (
     <div
@@ -191,11 +197,11 @@ export default function ActivityHeatmap() {
 
       {/* Cell colors are seeded demo data (Sep 2025–today) — real GitHub / Claude Code
          activity isn't wired up yet, but the level→color mapping matches GitHub's own.
-         Cells shrink to fit the full year on-screen on mobile (no horizontal scroll
-         needed), then scale back up to their full size from sm: up. */}
+         Same grid at every viewport size; on narrow screens it just scrolls
+         horizontally rather than reflowing into a different layout. */}
       <div className="overflow-x-auto">
-        <div className="flex sm:min-w-max font-mono text-xs text-fg-secondary">
-          <div className="mr-2 hidden shrink-0 flex-col sm:flex">
+        <div className="flex min-w-max font-mono text-xs text-fg-secondary">
+          <div className="mr-2 flex shrink-0 flex-col">
             <div className="mb-2 h-[15px]" />
             <div className="flex flex-col gap-[3px]">
               {[0, 1, 2, 3, 4, 5, 6].map((row) => (
@@ -207,23 +213,23 @@ export default function ActivityHeatmap() {
           </div>
 
           <div>
-            <div className="mb-1 hidden gap-[3px] sm:mb-2 sm:flex">
+            <div className="mb-2 flex gap-[3px]">
               {monthLabels.map((label, i) => (
                 <span key={i} className="h-[15px] w-[15px] shrink-0 leading-[15px] whitespace-nowrap">
                   {label ?? ""}
                 </span>
               ))}
             </div>
-            <div className="flex gap-0 sm:gap-[3px]">
+            <div className="flex gap-[3px]">
               {weeks.map((week, weekIndex) => (
-                <div key={weekIndex} className="flex flex-col gap-0 sm:gap-[3px]">
+                <div key={weekIndex} className="flex flex-col gap-[3px]">
                   {week.map((day, dayIndex) => {
                     const level = day.inYear ? demoLevel(day.date, source) : 0;
                     return (
                       <div
                         key={dayIndex}
-                        className="h-1 w-1 rounded-[1px] sm:h-[15px] sm:w-[15px] sm:rounded-[3px]"
-                        style={{ backgroundColor: day.inYear ? LEVEL_COLORS[level] : "transparent" }}
+                        className="h-[15px] w-[15px] rounded-[3px]"
+                        style={{ backgroundColor: day.inYear ? levelColors[level] : "transparent" }}
                         title={day.inYear ? day.date.toDateString() : undefined}
                       />
                     );

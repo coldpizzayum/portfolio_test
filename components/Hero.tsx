@@ -68,7 +68,7 @@ export default function Hero() {
               Product Designer &amp; Builder.
             </h1>
 
-            <p className="mb-8 text-body-sm text-fg">
+            <p className="mb-8 text-body-sm text-fg md:text-[28px] md:leading-[1.4]">
               5+ years in startups, from pre-seed to Series B. I prototype, code, market, and ship ideas.
             </p>
 

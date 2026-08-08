@@ -15,7 +15,7 @@ export default function WorkSection() {
   return (
     <section id="works" className="bg-bg py-5 md:py-[30px]">
       <div className="mx-auto max-w-[1200px] px-8">
-        <Reveal className="mb-3">
+        <Reveal className="mb-10">
           <h2 className="font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
             Selected works
           </h2>
