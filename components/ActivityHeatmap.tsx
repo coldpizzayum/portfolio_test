@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 
 type Source = "github" | "claude";
 
-const YEARS = [2026, 2025, 2024];
+const YEAR = 2026;
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DAY_LABELS: Record<number, string> = { 1: "Mon", 3: "Wed", 5: "Fri" };
 
@@ -148,19 +148,10 @@ function SparkleIcon() {
   );
 }
 
-function ChevronIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-3.5 w-3.5">
-      <path strokeLinecap="round" strokeLinejoin="round" d="m5 7.5 5 5 5-5" />
-    </svg>
-  );
-}
-
 export default function ActivityHeatmap() {
   const [source, setSource] = useState<Source>("github");
-  const [year, setYear] = useState(YEARS[0]);
 
-  const weeks = useMemo(() => buildWeeks(year), [year]);
+  const weeks = useMemo(() => buildWeeks(YEAR), []);
   const monthLabels = useMemo(() => monthLabelsForWeeks(weeks), [weeks]);
 
   return (
@@ -194,22 +185,7 @@ export default function ActivityHeatmap() {
 
         <div className="flex items-center gap-3 text-sm text-fg-secondary">
           <span className="tracking-[0.1em]">YEAR</span>
-          <div className="relative">
-            <select
-              value={year}
-              onChange={(e) => setYear(Number(e.target.value))}
-              className="appearance-none rounded-lg border border-border bg-white py-2 pr-8 pl-3 font-mono text-sm text-fg outline-none"
-            >
-              {YEARS.map((y) => (
-                <option key={y} value={y}>
-                  {y}
-                </option>
-              ))}
-            </select>
-            <span className="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 text-fg-secondary">
-              <ChevronIcon />
-            </span>
-          </div>
+          <span className="rounded-lg border border-border bg-white py-2 px-3 font-mono text-sm text-fg">{YEAR}</span>
         </div>
       </div>
 

@@ -50,50 +50,6 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         </ul>
       );
 
-    case "problemCards":
-      return (
-        <div className="my-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {block.cards.map((card) => (
-            <div key={card.title} className="rounded-lg bg-bg-alt p-6">
-              <p className="mb-2 text-caption font-semibold text-fg">{card.title}</p>
-              <p className="text-caption text-fg-secondary">{card.description}</p>
-            </div>
-          ))}
-        </div>
-      );
-
-    case "researchSteps":
-      return (
-        <div className="my-7 flex flex-col gap-4">
-          {block.steps.map((step, index) => (
-            <div key={step.title} className="grid grid-cols-[40px_1fr] items-start gap-4">
-              <div className="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-fg text-sm font-bold text-bg">
-                {index + 1}
-              </div>
-              <div>
-                <p className="mb-1 text-caption font-semibold text-fg">{step.title}</p>
-                <p className="text-caption text-fg-secondary">{step.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      );
-
-    case "hmwList":
-      return (
-        <div className="my-5 flex flex-col gap-2">
-          {block.items.map((item) => (
-            <div
-              key={item}
-              className="flex items-start gap-2.5 rounded-lg border border-border bg-white px-5 py-4 text-caption text-fg"
-            >
-              <span className="mt-px flex-shrink-0 text-base text-accent">→</span>
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
-      );
-
     case "statRow":
       return (
         <div className="my-7 flex flex-col gap-4 sm:flex-row">
@@ -140,52 +96,6 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
             </figcaption>
           )}
         </figure>
-      );
-
-    case "outcomeGrid":
-      return (
-        <div className="my-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          {block.items.map((item) => (
-            <div key={item.label} className="rounded-lg bg-bg-alt px-6 py-7">
-              <p className="mb-3 text-xl" aria-hidden="true">
-                {item.emoji}
-              </p>
-              <p className="mb-2 font-serif text-[36px] leading-none font-bold tracking-[-0.03em] text-fg">
-                {item.stat}
-              </p>
-              <p className="text-caption text-fg-secondary">{item.label}</p>
-            </div>
-          ))}
-        </div>
-      );
-
-    case "impactList":
-      return (
-        <div className="my-5 flex flex-col gap-3">
-          {block.items.map((item) => (
-            <div
-              key={item.text}
-              className="flex gap-3 rounded-lg border border-border bg-white px-5 py-[18px] text-caption text-fg"
-            >
-              <span className="flex-shrink-0 text-lg" aria-hidden="true">
-                {item.icon}
-              </span>
-              <span>
-                {renderInline(item.text)}{" "}
-                {item.href && (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-accent underline underline-offset-3 transition-colors duration-300 hover:text-fg"
-                  >
-                    {item.linkText}
-                  </a>
-                )}
-              </span>
-            </div>
-          ))}
-        </div>
       );
 
     case "videoGrid":

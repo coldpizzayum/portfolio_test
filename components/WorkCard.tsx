@@ -39,7 +39,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
         ))}
       </div>
       <p className="mb-8 max-w-[420px] text-body-sm text-fg-secondary">{item.description}</p>
-      <span className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FF6553] px-5 py-2.5 text-sm font-semibold text-white transition-opacity duration-200 group-hover:opacity-85">
+      <span className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FF6553] px-5 py-2.5 text-sm font-semibold text-fg transition-opacity duration-200 group-hover:opacity-85">
         Read case study
       </span>
     </div>

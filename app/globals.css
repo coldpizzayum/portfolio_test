@@ -19,16 +19,7 @@
   --color-card-sage: #f3a79e;
   --color-card-slate: #74c2a0;
 
-  --color-sticky-yellow: #fef3c7;
-  --color-sticky-green: #d1fae5;
   --color-sticky-blue: #cbe6f7;
-
-  --spacing-xs: 8px;
-  --spacing-sm: 16px;
-  --spacing-md: 32px;
-  --spacing-lg: 64px;
-  --spacing-xl: 120px;
-  --spacing-xl-mobile: 80px;
 }
 
 html {
@@ -182,8 +173,8 @@ body {
    mirroring the "Portfolio" text-style set from Figma (size/line-height). */
 @utility text-display {
   font-family: var(--font-serif);
-  font-size: 84px;
-  line-height: 84px;
+  font-size: 80px;
+  line-height: 80px;
   font-weight: 700;
 }
 @utility text-h1 {

@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <AiProjectsSection headingAs="h2" />
+      <AiProjectsSection />
       <WorkSection />
       <TestimonialsSection />
     </>

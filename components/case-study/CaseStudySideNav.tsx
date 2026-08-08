@@ -3,15 +3,8 @@
 import { useEffect, useState } from "react";
 import type { CaseStudySection } from "@/data/caseStudies";
 
-interface NavItem {
-  id: string;
-  navLabel: string;
-}
-
 interface CaseStudySideNavProps {
   sections: CaseStudySection[];
-  /** Trailing nav entry for content outside the section list, e.g. the "Next Up" CTA. */
-  extraItem?: NavItem;
 }
 
 function ListIcon() {
@@ -30,9 +23,8 @@ function CloseIcon() {
   );
 }
 
-export default function CaseStudySideNav({ sections, extraItem }: CaseStudySideNavProps) {
-  const items: NavItem[] = extraItem ? [...sections, extraItem] : sections;
-  const [activeId, setActiveId] = useState(items[0]?.id);
+export default function CaseStudySideNav({ sections }: CaseStudySideNavProps) {
+  const [activeId, setActiveId] = useState(sections[0]?.id);
   // Always shown by default, even where it overlaps narrow content — the
   // user can collapse it to a small tab instead of it being hidden outright.
   const [isOpen, setIsOpen] = useState(true);
@@ -41,7 +33,7 @@ export default function CaseStudySideNav({ sections, extraItem }: CaseStudySideN
   const [hasReachedContent, setHasReachedContent] = useState(false);
 
   useEffect(() => {
-    const elements = items
+    const elements = sections
       .map((item) => document.getElementById(item.id))
       .filter((el): el is HTMLElement => el !== null);
 
@@ -59,8 +51,7 @@ export default function CaseStudySideNav({ sections, extraItem }: CaseStudySideN
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sections, extraItem]);
+  }, [sections]);
 
   useEffect(() => {
     const trigger = document.getElementById("toc-trigger");
@@ -116,7 +107,7 @@ export default function CaseStudySideNav({ sections, extraItem }: CaseStudySideN
         </button>
       </div>
       <nav className="mt-3 flex flex-col gap-2 text-sm">
-        {items.map((item) => {
+        {sections.map((item) => {
           const isActive = activeId === item.id;
           return (
             <a

@@ -62,13 +62,13 @@ export default function Hero() {
         <div className="relative z-[1] flex flex-col items-start gap-10">
           {/* Left: headline + sub */}
           <div className="max-w-full pb-12 md:pb-0">
-            <h1 className="mb-7 font-serif text-[44px] leading-[0.94] font-bold tracking-[-0.03em] text-[#02594E] md:text-display">
+            <h1 className="mb-7 font-serif text-[44px] leading-[0.94] font-bold tracking-[-0.03em] text-[#1A1A1A] md:text-display">
               Hi, I&apos;m Yiting.
               <br />
               Product Designer &amp; Builder.
             </h1>
 
-            <p className="mb-2 font-source-sans-pro text-[24px] leading-[1.45] font-medium text-[#02594E]">
+            <p className="mb-2 font-source-sans-pro text-[24px] leading-[1.45] font-medium text-[#1A1A1A]">
               5+ years in startups, from pre-seed to Series B. I prototype, code, market, and ship ideas.
             </p>
           </div>

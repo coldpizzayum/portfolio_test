@@ -94,7 +94,7 @@ export default function Footer() {
                 href={CAL_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-[#FF6553] px-7 py-3.5 text-sm font-medium text-white transition-opacity duration-300 hover:opacity-85"
+                className="inline-flex items-center gap-2 rounded-full bg-[#FF6553] px-7 py-3.5 text-sm font-medium text-fg transition-opacity duration-300 hover:opacity-85"
               >
                 Schedule a chat
               </a>
@@ -144,8 +144,6 @@ export default function Footer() {
             ))}
           </div>
         </div>
-
-        <p className="relative z-[1] mt-14 text-[13px] text-fg-secondary">© 2026 Yiting Huang. All rights reserved.</p>
       </div>
     </footer>
   );

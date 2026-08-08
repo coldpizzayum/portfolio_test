@@ -1,18 +1,9 @@
-export interface WorkFeature {
-  src: string;
-  alt: string;
-  title: string;
-}
-
 export interface WorkItem {
   slug: string;
-  company: string;
-  year: string;
   title: string;
   description: string;
   tags: string[];
   image: string;
-  features: WorkFeature[];
   /** If set, the work card links to /case-study/[caseStudySlug]. */
   caseStudySlug?: string;
 }
@@ -20,52 +11,28 @@ export interface WorkItem {
 export const workItems: WorkItem[] = [
   {
     slug: "web3-wallet-defi-dashboard",
-    company: "Growing3",
-    year: "2023 - 2025",
     title: "Team's First MVP: Web3 data marketing dashboard",
     description:
       "Designed a B2B SaaS platform from 0 to 1, translating complex on-chain data into a product Web3 marketers could use and investors could believe in.",
     tags: ["B2B SaaS", "9 paying customers", "Pre-seed", "MVP"],
     image: "/images/web3-hero.png",
-    features: [
-      { src: "/images/web3-hero.png", alt: "Growing3 blockchain marketing dashboard", title: "Blockchain data dashboard" },
-      { src: "/images/web3-market-research.png", alt: "Competitor ad platform research", title: "Ad campaign outreach" },
-      { src: "/images/web3-value-vs-effort.png", alt: "Feature architecture and prioritization diagram", title: "Tracking" },
-      { src: "/images/web3-design-system-components.png", alt: "Atomic design system component library", title: "Design system" },
-    ],
     caseStudySlug: "web3-marketing-dashboard",
   },
   {
     slug: "influencer-marketing-management-tool",
-    company: "Growing3",
-    year: "2024 — 2025",
     title: "Business Pivot: Influencer marketing tool",
     description:
       "When user behavior signaled a new opportunity, I used our existing design system to help the team pivot fast, shipping a standalone product in a fraction of the usual time.",
     tags: ["Growth", "Plugin"],
     image: "/images/influencer-marketing-hero.png",
-    features: [
-      { src: "/images/influencer-marketing-hero.png", alt: "Influencer Matcher product hero", title: "Hero" },
-      { src: "/images/influencer-marketing-product-hunt.png", alt: "Influencer Matcher launch page on Product Hunt", title: "Product Hunt launch" },
-      { src: "/images/influencer-marketing-chrome-store.png", alt: "Influencer Matcher Chrome Web Store listing", title: "Chrome extension" },
-      { src: "/images/influencer-marketing-figma.png", alt: "Influencer Matcher Figma design system", title: "Figma design system" },
-    ],
     caseStudySlug: "influencer-marketing-tool",
   },
   {
     slug: "coolwallet-pro-rebrand",
-    company: "CoolBitX",
-    year: "2021",
     title: "Global Expansion: branding & eCommerce redesign",
     description: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
     tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
     image: "/images/coolwallet-hero.png",
-    features: [
-      { src: "/images/coolwallet-hero.png", alt: "CoolWallet Pro hero", title: "Hero" },
-      { src: "/images/coolwallet-product-launch.png", alt: "CoolWallet Pro unboxing set and card held in hand", title: "Product launch" },
-      { src: "/images/coolwallet-marketing-campaigns.png", alt: "CoolWallet Pro marketing campaign banners", title: "Marketing campaigns" },
-      { src: "/images/coolwallet-website-evolution.png", alt: "Evolution of the CoolWallet website across redesigns", title: "Website evolution" },
-    ],
     caseStudySlug: "coolwallet-pro",
   },
 ];
@@ -74,14 +41,9 @@ export type CaseStudyBlock =
   | { type: "paragraph"; text: string; href?: string; linkText?: string }
   | { type: "heading"; level: 3; text: string }
   | { type: "bulletList"; items: string[] }
-  | { type: "problemCards"; cards: { title: string; description: string }[] }
-  | { type: "researchSteps"; steps: { title: string; description: string }[] }
-  | { type: "hmwList"; items: string[] }
   | { type: "statRow"; stats: { value: string; label: string }[] }
   | { type: "flowList"; items: { name: string; description: string }[] }
   | { type: "image"; src: string; alt: string; caption?: string }
-  | { type: "outcomeGrid"; items: { emoji: string; stat: string; label: string }[] }
-  | { type: "impactList"; items: { icon: string; text: string; href?: string; linkText?: string }[] }
   | { type: "videoGrid"; videos: { youtubeId: string; title: string; caption?: string }[] }
   | {
       type: "imageCollage";
@@ -114,7 +76,7 @@ export interface CaseStudySection {
 
 export interface CaseStudyMeta {
   role: string;
-  team: { initials: string; label: string; color: string }[];
+  team: { initials: string; label: string }[];
   timeline: string;
   tools: string;
 }
@@ -154,9 +116,9 @@ export const caseStudies: CaseStudy[] = [
     meta: {
       role: "I led end-to-end product design. From competitor research, user interviews, to user journey mapping. From building the design system to final MVP delivery.",
       team: [
-        { initials: "PM", label: "Product Manager", color: "#f5c563" },
-        { initials: "YH", label: "Me (Product Designer)", color: "#c9a96e" },
-        { initials: "DC", label: "Developer + CTO", color: "#74c2a0" },
+        { initials: "PM", label: "Product Manager" },
+        { initials: "YH", label: "Me (Product Designer)" },
+        { initials: "DC", label: "Developer + CTO" },
       ],
       timeline: "2023 — 2024",
       tools: "Figma, Notion, ChatGPT, MidJourney",

@@ -95,7 +95,7 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
                 {isFront && (
                   <Link
                     href={`/case-study/${item.slug}`}
-                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FF6553] px-5 py-2.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-85"
+                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FF6553] px-5 py-2.5 text-sm font-semibold text-fg transition-opacity duration-200 hover:opacity-85"
                   >
                     Read case study
                   </Link>
@@ -118,7 +118,7 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
           <button
             type="button"
             onClick={goNext}
-            className="rounded-full bg-fg px-6 py-2.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-85"
+            className="rounded-full bg-fg px-6 py-2.5 text-sm font-semibold text-[#FFFFFF] transition-opacity duration-200 hover:opacity-85"
           >
             Next
           </button>

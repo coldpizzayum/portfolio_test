@@ -69,7 +69,7 @@ export default function Header() {
             <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-sage transition-transform duration-300 group-hover:scale-110">
               <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
             </span>
-            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-[#02594E]">
+            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-[#1A1A1A]">
               Yiting H.
             </span>
           </Link>
@@ -100,7 +100,7 @@ export default function Header() {
                     if (el) linkRefs.current.set(link.href, el);
                   }}
                   className={`relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium transition-colors duration-[180ms] ${
-                    isActive ? "text-white" : "text-fg-secondary hover:bg-bg-alt hover:text-fg"
+                    isActive ? "text-fg" : "text-fg-secondary hover:bg-bg-alt hover:text-fg"
                   }`}
                 >
                   {link.label}
