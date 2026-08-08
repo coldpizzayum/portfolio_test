@@ -41,7 +41,13 @@ function LinkedInIcon() {
   );
 }
 
-export default function Header() {
+/**
+ * The pill nav track (with the sliding active-page indicator). Rendered
+ * twice by Header — once for mobile, once for desktop — each as its own
+ * independent instance with its own indicator measurement, since a single
+ * shared instance can't correctly track two separate DOM positions at once.
+ */
+function NavPills({ className }: { className: string }) {
   const pathname = usePathname();
   const activeHref = NAV_LINKS.find((l) => pathname === l.href || pathname.startsWith(`${l.href}/`))?.href ?? null;
 
@@ -62,7 +68,39 @@ export default function Header() {
   }, [activeHref]);
 
   return (
-    <div className="fixed inset-x-0 top-5 z-[100] px-5 md:static md:inset-auto md:top-auto md:z-auto md:px-10 md:pt-5">
+    <nav className={`${PILL_SURFACE} ${className}`}>
+      <div ref={trackRef} className="relative flex items-center gap-0 p-1">
+        {indicatorStyle && (
+          <div
+            className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-[#FF6553] transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
+            style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
+          />
+        )}
+        {NAV_LINKS.map((link) => {
+          const isActive = activeHref === link.href;
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              ref={(el) => {
+                if (el) linkRefs.current.set(link.href, el);
+              }}
+              className={`relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium transition-colors duration-[180ms] ${
+                isActive ? "text-fg" : "text-fg-secondary hover:bg-bg-alt hover:text-fg"
+              }`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+export default function Header() {
+  return (
+    <div className="px-5 pt-5 md:px-10">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-3 md:flex-row md:justify-between">
         <div className="flex w-full items-center justify-between gap-3 md:contents">
           <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
@@ -74,41 +112,29 @@ export default function Header() {
             </span>
           </Link>
 
-          <Link href="/#contact" className={`${DARK_BUTTON} gap-2 px-4 text-sm font-medium md:hidden`}>
-            <EnvelopeIcon />
-            Say Hello
-          </Link>
+          <div className="flex items-center gap-2 md:hidden">
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className={`${DARK_BUTTON} w-10`}
+            >
+              <LinkedInIcon />
+            </a>
+            <Link href="/#contact" className={`${DARK_BUTTON} gap-2 px-4 text-sm font-medium`}>
+              <EnvelopeIcon />
+              Say Hello
+            </Link>
+          </div>
         </div>
 
-        <nav
-          className={`${PILL_SURFACE} flex items-center px-2 py-1 md:fixed md:top-5 md:left-1/2 md:z-[100] md:-translate-x-1/2`}
-        >
-          <div ref={trackRef} className="relative flex items-center gap-0 p-1">
-            {indicatorStyle && (
-              <div
-                className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-[#FF6553] transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
-                style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
-              />
-            )}
-            {NAV_LINKS.map((link) => {
-              const isActive = activeHref === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  ref={(el) => {
-                    if (el) linkRefs.current.set(link.href, el);
-                  }}
-                  className={`relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium transition-colors duration-[180ms] ${
-                    isActive ? "text-fg" : "text-fg-secondary hover:bg-bg-alt hover:text-fg"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </div>
-        </nav>
+        {/* Mobile: its own independently fixed instance, pinned to the bottom
+           of the screen (clear of the iOS home-indicator safe area). */}
+        <NavPills className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] left-1/2 z-[100] flex -translate-x-1/2 items-center px-2 py-1 md:hidden" />
+
+        {/* Desktop: its own independently fixed, top-centered instance. */}
+        <NavPills className="fixed top-5 left-1/2 z-[100] hidden -translate-x-1/2 items-center px-2 py-1 md:flex" />
 
         <div className="hidden shrink-0 items-center gap-2 md:flex">
           <a

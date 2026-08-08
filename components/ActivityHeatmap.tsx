@@ -190,10 +190,12 @@ export default function ActivityHeatmap() {
       </div>
 
       {/* Cell colors are seeded demo data (Sep 2025–today) — real GitHub / Claude Code
-         activity isn't wired up yet, but the level→color mapping matches GitHub's own. */}
+         activity isn't wired up yet, but the level→color mapping matches GitHub's own.
+         Cells shrink to fit the full year on-screen on mobile (no horizontal scroll
+         needed), then scale back up to their full size from sm: up. */}
       <div className="overflow-x-auto">
-        <div className="flex min-w-max font-mono text-xs text-fg-secondary">
-          <div className="mr-2 flex shrink-0 flex-col">
+        <div className="flex sm:min-w-max font-mono text-xs text-fg-secondary">
+          <div className="mr-2 hidden shrink-0 flex-col sm:flex">
             <div className="mb-2 h-[15px]" />
             <div className="flex flex-col gap-[3px]">
               {[0, 1, 2, 3, 4, 5, 6].map((row) => (
@@ -205,22 +207,22 @@ export default function ActivityHeatmap() {
           </div>
 
           <div>
-            <div className="mb-2 flex gap-[3px]">
+            <div className="mb-1 hidden gap-[3px] sm:mb-2 sm:flex">
               {monthLabels.map((label, i) => (
                 <span key={i} className="h-[15px] w-[15px] shrink-0 leading-[15px] whitespace-nowrap">
                   {label ?? ""}
                 </span>
               ))}
             </div>
-            <div className="flex gap-[3px]">
+            <div className="flex gap-0 sm:gap-[3px]">
               {weeks.map((week, weekIndex) => (
-                <div key={weekIndex} className="flex flex-col gap-[3px]">
+                <div key={weekIndex} className="flex flex-col gap-0 sm:gap-[3px]">
                   {week.map((day, dayIndex) => {
                     const level = day.inYear ? demoLevel(day.date, source) : 0;
                     return (
                       <div
                         key={dayIndex}
-                        className="h-[15px] w-[15px] rounded-[3px]"
+                        className="h-1 w-1 rounded-[1px] sm:h-[15px] sm:w-[15px] sm:rounded-[3px]"
                         style={{ backgroundColor: day.inYear ? LEVEL_COLORS[level] : "transparent" }}
                         title={day.inYear ? day.date.toDateString() : undefined}
                       />

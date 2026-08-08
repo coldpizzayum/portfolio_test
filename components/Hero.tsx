@@ -55,7 +55,7 @@ const FAN_CARDS: FanCard[] = [
 
 export default function Hero() {
   return (
-    <section id="hero" className="px-5 pt-[45px] pb-10 md:px-10 md:pt-[50px] md:pb-15">
+    <section id="hero" className="px-5 pt-[45px] pb-5 md:px-10 md:pt-[50px] md:pb-[30px]">
       <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 px-7 pt-9 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:px-14 md:pt-14">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-bg" />
 
@@ -68,9 +68,24 @@ export default function Hero() {
               Product Designer &amp; Builder.
             </h1>
 
-            <p className="mb-2 font-source-sans-pro text-[24px] leading-[1.45] font-medium text-[#1A1A1A]">
+            <p className="mb-8 text-body-sm text-fg">
               5+ years in startups, from pre-seed to Series B. I prototype, code, market, and ship ideas.
             </p>
+
+            <div className="flex flex-col gap-3 sm:flex-row md:hidden">
+              <Link
+                href="#works"
+                className="inline-flex items-center justify-center rounded-full bg-[#FF6553] px-7 py-3.5 text-sm font-semibold text-fg transition-opacity duration-300 hover:opacity-85"
+              >
+                Check out recent work
+              </Link>
+              <Link
+                href="/about"
+                className="inline-flex items-center justify-center rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-fg transition-colors duration-300 hover:border-fg"
+              >
+                Learn more about me
+              </Link>
+            </div>
           </div>
 
           {/* Fanned card deck */}

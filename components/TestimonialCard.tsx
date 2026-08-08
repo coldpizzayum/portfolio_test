@@ -62,9 +62,13 @@ function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestim
 export default function TestimonialCard({ testimonial, position }: TestimonialCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
+  // Rotation is only meant for the desktop scattered-collage look; on the
+  // mobile snap-scroll strip it made cards' rotated corners poke past the
+  // section's `overflow-hidden` bounds and get clipped, so keep cards
+  // upright there.
   const style: CSSProperties = {
     ...position,
-    "--rotate": `${testimonial.rotation}deg`,
+    "--rotate": position ? `${testimonial.rotation}deg` : "0deg",
   } as CSSProperties;
 
   const wrapperClassName = position

@@ -76,11 +76,11 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="px-5 py-10 md:px-10 md:py-15">
+    <footer id="contact" className="px-5 py-5 md:px-10 md:py-[30px]">
       <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
         <div className="relative z-[1] flex flex-col justify-between gap-14 md:flex-row">
           <div>
-            <h2 className="mb-5 font-serif text-h1 text-fg">Let&apos;s connect!</h2>
+            <h2 className="mb-3 font-serif text-h1 text-fg">Let&apos;s connect!</h2>
             <p className="mb-5 max-w-[480px] text-body-sm text-fg">
               I enjoy building cool products with cool humans, and wearing different hats to ship the best product. I
               don&apos;t like to be limited by the label &quot;Designer.&quot; :)

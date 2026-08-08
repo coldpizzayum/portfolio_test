@@ -27,7 +27,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
   );
 
   const contentPanel = (
-    <div className="flex flex-col justify-center rounded-[20px] bg-white p-8 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] md:p-12">
+    <div className="flex flex-col justify-center rounded-[20px] bg-white p-8 shadow-none md:p-12 md:shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)]">
       <h3 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
         {renderInline(item.title)}
       </h3>
@@ -45,7 +45,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
     </div>
   );
 
-  const cardClassName = "group grid grid-cols-1 items-stretch gap-6 text-left md:grid-cols-2 md:gap-8";
+  const cardClassName = "group grid grid-cols-1 items-stretch gap-2 text-left md:grid-cols-2 md:gap-8";
 
   const panels = reversed ? (
     <>

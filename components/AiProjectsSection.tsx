@@ -4,10 +4,10 @@ const GITHUB_URL = "https://github.com/coldpizzayum";
 
 export default function AiProjectsSection() {
   return (
-    <section className="px-5 py-10 md:px-10 md:py-15">
+    <section className="px-5 py-5 md:px-10 md:py-[30px]">
       <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
         <div className="relative z-[1] mx-auto max-w-[720px] text-center">
-          <h2 className="mb-6 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
+          <h2 className="mb-3 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
             I work with AI to&hellip;
             <br />
             build prototype
