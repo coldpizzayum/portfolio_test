@@ -13,9 +13,6 @@ export const metadata: Metadata = {
 
 export default function AiProjectsPage() {
   return (
-    <ComingSoon
-      eyebrow="AI Projects"
-      description="I'm putting together a collection of AI-related experiments and case studies. Check back shortly."
-    />
+    <ComingSoon description="I'm putting together a collection of AI-related experiments and case studies. Check back shortly." />
   );
 }

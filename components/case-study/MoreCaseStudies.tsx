@@ -90,7 +90,7 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
               <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 text-left sm:pl-5">
                 <div className="flex-1 space-y-2">
                   <p className="font-serif text-h3 leading-tight tracking-[-0.02em] text-fg">{item.title}</p>
-                  <p className="line-clamp-2 text-caption text-fg-secondary">{item.description}</p>
+                  <p className="line-clamp-2 text-caption text-fg">{item.description}</p>
                 </div>
                 {isFront && (
                   <Link

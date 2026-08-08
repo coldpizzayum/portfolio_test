@@ -69,7 +69,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                       {caseStudy.impactStats.map((stat) => (
                         <RevealItem key={stat.label} className="rounded-lg border-2 border-[#017D18] bg-bg p-5">
                           <p className="mb-3 font-serif text-h3 text-fg">{stat.label}</p>
-                          <p className="text-caption text-fg-secondary">{renderInline(stat.text)}</p>
+                          <p className="text-caption text-fg">{renderInline(stat.text)}</p>
                         </RevealItem>
                       ))}
                     </RevealGroup>

@@ -79,7 +79,7 @@ export default function JourneyTimeline() {
             <h2 className="mb-5 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
               My journey
             </h2>
-            <p className="mb-7 text-body-sm text-fg-secondary">
+            <p className="mb-7 text-body-sm text-fg">
               I&apos;m a Product Designer from Taiwan 🇹🇼. Now based in Berlin 🇩🇪.
             </p>
             <a
@@ -105,7 +105,7 @@ export default function JourneyTimeline() {
                       className="-mx-3 flex w-[calc(100%+24px)] cursor-pointer items-center gap-4 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-bg-alt/60"
                     >
                       <span className="min-w-0 flex-1">
-                        <p className="font-mono text-xs text-fg-secondary">{entry.dateRange}</p>
+                        <p className="font-source-sans-pro text-xs text-fg-secondary">{entry.dateRange}</p>
                         <h3 className="font-serif text-h3 text-fg">{entry.title}</h3>
                       </span>
 

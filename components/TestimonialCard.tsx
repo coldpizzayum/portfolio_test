@@ -28,7 +28,7 @@ function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestim
   if (isSticky) {
     return (
       <>
-        <p className={`mb-5 font-serif text-fg ${sizeClass}`}>{renderInline(testimonial.quote)}</p>
+        <p className={`mb-5 text-fg ${sizeClass}`}>{renderInline(testimonial.quote)}</p>
         <p className="text-[13px] font-semibold text-fg">{testimonial.role}</p>
         <p className="text-xs text-fg-secondary">
           {testimonial.author}
@@ -43,7 +43,7 @@ function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestim
       <span aria-hidden="true" className="mb-1.5 block text-[28px] leading-[0.8] text-[#1A1A1A]">
         &ldquo;
       </span>
-      <p className={`mb-4 font-serif text-fg ${sizeClass}`}>{renderInline(testimonial.quote)}</p>
+      <p className={`mb-4 text-fg ${sizeClass}`}>{renderInline(testimonial.quote)}</p>
       <div className="flex items-center gap-2.5">
         <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-border">
           {testimonial.avatar && (
