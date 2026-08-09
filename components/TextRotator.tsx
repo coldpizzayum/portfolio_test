@@ -27,7 +27,7 @@ export default function TextRotator({ words, interval = 2200, className }: TextR
   }, [words.length, interval]);
 
   return (
-    <span className={`relative inline-grid text-left align-top ${className ?? ""}`}>
+    <span className={`relative inline-grid text-center align-top ${className ?? ""}`}>
       {words.map((word, i) => (
         <motion.span
           key={word}
