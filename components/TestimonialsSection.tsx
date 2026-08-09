@@ -8,12 +8,8 @@ export default function TestimonialsSection() {
     <section id="testimonials" className="overflow-hidden bg-bg py-5 md:py-[30px]">
       <div className="mx-auto max-w-[1200px] px-8">
         <Reveal className="mb-18 text-center">
-          <h2 className="mb-3 font-serif text-[32px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
-            What&apos;s it like working with me?
-          </h2>
-          <p className="text-body-sm text-fg md:text-body">
-            I believe that if you work hard and stay kind, amazing things happen. :)
-          </p>
+          <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">What&apos;s it like working with me?</h2>
+          <p className="text-body text-fg">I believe that if you work hard and stay kind, amazing things happen. :)</p>
         </Reveal>
 
         {/* Desktop / tablet: scattered collage, positioned absolutely */}

@@ -55,7 +55,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         <div className="my-7 flex flex-col gap-4 sm:flex-row">
           {block.stats.map((stat) => (
             <div key={stat.label} className="flex-1 rounded-lg bg-bg-alt p-6">
-              <p className="mb-1.5 font-serif text-[42px] leading-none font-bold tracking-[-0.04em] text-fg">
+              <p className="mb-1.5 font-serif text-[clamp(32px,27.86px+1.10vw,42px)] leading-none font-bold tracking-[-0.04em] text-fg">
                 {stat.value}
               </p>
               <p className="text-caption text-fg-secondary">{stat.label}</p>

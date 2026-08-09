@@ -79,7 +79,7 @@ export default function JourneyTimeline() {
         <GlassCard>
         <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:gap-16">
           <div className="md:max-w-[300px] md:shrink-0 md:self-start">
-            <h2 className="mb-3 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
+            <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">
               My journey
             </h2>
             <p className="mb-7 text-body-sm text-fg">

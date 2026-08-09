@@ -203,52 +203,65 @@ body {
 }
 
 /* Text design system — named type styles built on Source Serif 4,
-   mirroring the "Portfolio" text-style set from Figma (size/line-height). */
+   mirroring the "Portfolio" text-style set from Figma (size/line-height).
+   Font sizes are fluid: clamp(MIN, scales between 375px and 1280px
+   viewports, MAX) instead of a fixed px + a per-component md: breakpoint
+   jump — the old pattern meant tablets (many land right at md's 768px)
+   rendered the full desktop size with nothing in between. Line-heights are
+   unitless ratios (not fixed px) so they scale proportionally at every
+   point along the clamp, not just at the two endpoints.
+   text-h1/text-h2 are the "pairs with a smaller mobile fallback" family and
+   get a real fluid range; text-h3/text-body-sm/text-links/text-caption are
+   used flat (no responsive variant) in many places across the site, so
+   their range is deliberately kept small to avoid an unintended site-wide
+   size change — components that want a bigger jump than that (Hero's intro
+   paragraph, the case study impact-stat numbers) get their own local
+   clamp() instead of stretching the shared token. */
 @utility text-display {
   font-family: var(--font-serif);
-  font-size: 80px;
-  line-height: 80px;
+  font-size: clamp(44px, 29.08px + 3.98vw, 80px);
+  line-height: 1;
   font-weight: 700;
 }
 @utility text-h1 {
   font-family: var(--font-serif);
-  font-size: 64px;
-  line-height: 70.4px;
+  font-size: clamp(40px, 30.06px + 2.65vw, 64px);
+  line-height: 1.1;
   font-weight: 700;
 }
 @utility text-h2 {
   font-family: var(--font-serif);
-  font-size: 40px;
-  line-height: 40px;
+  font-size: clamp(26px, 20.2px + 1.55vw, 40px);
+  line-height: 1;
   font-weight: 600;
 }
 @utility text-h3 {
   font-family: var(--font-serif);
-  font-size: 28px;
-  line-height: 28px;
+  font-size: clamp(24px, 22.34px + 0.44vw, 28px);
+  line-height: 1;
   font-weight: 600;
 }
 @utility text-body {
   font-family: var(--font-source-sans-pro);
-  font-size: 20px;
-  line-height: 28px;
+  font-size: clamp(18px, 17.17px + 0.22vw, 20px);
+  line-height: 1.4;
   font-weight: 400;
 }
 @utility text-body-sm {
   font-family: var(--font-source-sans-pro);
-  font-size: 18px;
-  line-height: 21.6px;
+  font-size: clamp(17px, 16.59px + 0.11vw, 18px);
+  line-height: 1.2;
   font-weight: 400;
 }
 @utility text-links {
   font-family: var(--font-source-sans-pro);
-  font-size: 18px;
-  line-height: 18px;
+  font-size: clamp(17px, 16.59px + 0.11vw, 18px);
+  line-height: 1;
   font-weight: 500;
 }
 @utility text-caption {
   font-family: var(--font-source-sans-pro);
-  font-size: 14px;
-  line-height: 16.8px;
+  font-size: clamp(13px, 12.59px + 0.11vw, 14px);
+  line-height: 1.2;
   font-weight: 400;
 }

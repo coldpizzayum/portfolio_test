@@ -79,7 +79,7 @@ export default function OutsideWork() {
     <section className="px-5 py-5 md:px-10 md:py-[30px]">
       <GlassCard>
         <div className="relative z-[1]">
-          <h2 className="mb-3 font-serif text-[32px] font-bold tracking-[-0.03em] text-fg md:text-h1">
+          <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">
             What I do outside of work.
           </h2>
 

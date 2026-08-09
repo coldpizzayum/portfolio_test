@@ -82,7 +82,7 @@ export default function Footer() {
       <GlassCard>
         <div className="relative z-[1] flex flex-col justify-between gap-14 md:flex-row">
           <div>
-            <h2 className="mb-3 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
+            <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">
               Let&apos;s connect!
             </h2>
             <p className="mb-5 max-w-[480px] text-body-sm text-fg">

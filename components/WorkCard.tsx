@@ -30,7 +30,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
 
   const contentPanel = (
     <div className="flex flex-col justify-center rounded-2xl bg-white p-8 shadow-none md:rounded-[20px] md:p-12 md:shadow-card">
-      <h3 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
+      <h3 className="mb-5 text-h2 tracking-[-0.02em] text-fg">
         {renderInline(item.title)}
       </h3>
       <div className="mb-5 flex flex-wrap gap-2">

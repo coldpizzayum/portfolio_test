@@ -11,7 +11,7 @@ export default function AiProjectsSection() {
     <section className="px-5 py-5 md:px-10 md:py-[30px]">
       <GlassCard>
         <div className="relative z-[1] mx-auto max-w-[720px] text-center">
-          <h2 className="mb-3 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
+          <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">
             I work with AI to&hellip;
             <br />
             <TextRotator words={ROTATING_WORDS} />

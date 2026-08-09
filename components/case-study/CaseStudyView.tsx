@@ -16,9 +16,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
       <div className="mx-auto max-w-[1100px] px-8">
         <header className="pt-[45px] pb-16 md:pt-[50px]">
           <Reveal>
-            <h1 className="mb-4 font-serif text-4xl leading-none font-bold tracking-[-0.03em] text-fg md:text-h1">
-              {caseStudy.title}
-            </h1>
+            <h1 className="mb-4 text-h1 tracking-[-0.03em] text-fg">{caseStudy.title}</h1>
 
             <div className="mb-10 flex flex-wrap items-center gap-3">
               <p className="text-caption text-fg-secondary">{caseStudy.year}</p>
@@ -92,7 +90,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
         <article className="min-w-0">
           {caseStudy.sections.map((section, index) => (
             <Reveal key={section.id} id={section.id} className={`scroll-mt-24 ${index === 0 ? "pt-0" : "pt-20"}`}>
-              <h2 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
+              <h2 className="mb-5 text-h2 tracking-[-0.02em] text-fg">
                 {section.heading}
               </h2>
               {section.blocks.map((block, blockIndex) => (
