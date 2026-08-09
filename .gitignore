@@ -43,5 +43,11 @@ next-env.d.ts
 # reference-only copy of the pre-migration static site
 /legacy-static
 
-# local agent tooling state
-/.claude
+# local agent tooling state — machine-local settings/commands/etc stay
+# ignored by default; skills are explicitly un-ignored below since they're
+# shared project knowledge worth version-controlling. Note: the parent has
+# to be a glob (/.claude/*), not a bare directory match (/.claude) — once
+# git treats a directory itself as ignored it won't descend into it at all,
+# so a deeper "!" negation below would never even get evaluated.
+/.claude/*
+!/.claude/skills/

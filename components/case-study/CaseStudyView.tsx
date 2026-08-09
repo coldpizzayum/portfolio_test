@@ -16,7 +16,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
       <div className="mx-auto max-w-[1100px] px-8">
         <header className="pt-[45px] pb-16 md:pt-[50px]">
           <Reveal>
-            <h1 className="mb-4 text-h1 tracking-[-0.03em] text-fg">{caseStudy.title}</h1>
+            <h1 className="mb-3 text-h1 tracking-[-0.03em] text-fg">{caseStudy.title}</h1>
 
             <div className="mb-10 flex flex-wrap items-center gap-3">
               <p className="text-caption text-fg-secondary">{caseStudy.year}</p>
