@@ -3,7 +3,7 @@ import { Reveal, RevealGroup } from "./Reveal";
 import WorkCard from "./WorkCard";
 import WorkIndexRail from "./WorkIndexRail";
 
-const ACCENT_BACKGROUNDS = ["bg-card-sand", "bg-card-sage", "bg-card-slate"];
+const ACCENT_BACKGROUNDS = ["bg-card-sand", "bg-card-salmon", "bg-card-jade"];
 
 export default function WorkSection() {
   const railItems = workItems.map((item, index) => ({

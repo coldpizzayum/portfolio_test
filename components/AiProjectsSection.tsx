@@ -1,5 +1,7 @@
 import ActivityHeatmap from "@/components/ActivityHeatmap";
 import TextRotator from "@/components/TextRotator";
+import Button from "@/components/Button";
+import GlassCard from "@/components/GlassCard";
 
 const GITHUB_URL = "https://github.com/coldpizzayum";
 const ROTATING_WORDS = ["build prototypes", "ship real products", "brainstorm ideas"];
@@ -7,7 +9,7 @@ const ROTATING_WORDS = ["build prototypes", "ship real products", "brainstorm id
 export default function AiProjectsSection() {
   return (
     <section className="px-5 py-5 md:px-10 md:py-[30px]">
-      <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
+      <GlassCard>
         <div className="relative z-[1] mx-auto max-w-[720px] text-center">
           <h2 className="mb-3 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
             I work with AI to&hellip;
@@ -20,27 +22,19 @@ export default function AiProjectsSection() {
           </p>
 
           <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#activity"
-              className="inline-flex items-center rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg transition-colors duration-300 hover:bg-[#333333]"
-            >
+            <Button href="#activity" variant="dark">
               AI Project
-            </a>
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-fg transition-colors duration-300 hover:border-fg"
-            >
+            </Button>
+            <Button href={GITHUB_URL} target="_blank" rel="noreferrer" variant="secondary">
               GitHub
-            </a>
+            </Button>
           </div>
         </div>
 
         <div className="relative z-[1] mt-12">
           <ActivityHeatmap />
         </div>
-      </div>
+      </GlassCard>
     </section>
   );
 }

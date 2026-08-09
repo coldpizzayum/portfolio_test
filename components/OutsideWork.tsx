@@ -1,4 +1,5 @@
 import Image from "next/image";
+import GlassCard from "./GlassCard";
 
 const PARAGRAPHS = [
   {
@@ -76,7 +77,7 @@ const COLUMNS: GridImage[][] = [
 export default function OutsideWork() {
   return (
     <section className="px-5 py-5 md:px-10 md:py-[30px]">
-      <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
+      <GlassCard>
         <div className="relative z-[1]">
           <h2 className="mb-3 font-serif text-[32px] font-bold tracking-[-0.03em] text-fg md:text-h1">
             What I do outside of work.
@@ -113,7 +114,7 @@ export default function OutsideWork() {
             ))}
           </div>
         </div>
-      </div>
+      </GlassCard>
     </section>
   );
 }

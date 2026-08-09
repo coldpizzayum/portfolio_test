@@ -1,25 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import type { CSSProperties } from "react";
 import type { QuoteTestimonial, Testimonial } from "@/data/testimonials";
+import { renderInline } from "./case-study/CaseStudyBlock";
 
 interface TestimonialCardProps {
   testimonial: Testimonial;
   /** Absolute collage placement on desktop; omitted for the mobile scroll strip. */
   position?: CSSProperties;
-}
-
-/** Renders `**bold**` segments as <strong>, everything else as plain text. */
-function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, index) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={index}>{part.slice(2, -2)}</strong>;
-    }
-    return <Fragment key={index}>{part}</Fragment>;
-  });
 }
 
 function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestimonial; sizeClass: string }) {
@@ -40,7 +30,7 @@ function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestim
 
   return (
     <>
-      <span aria-hidden="true" className="mb-1.5 block text-[28px] leading-[0.8] text-[#1A1A1A]">
+      <span aria-hidden="true" className="mb-1.5 block text-[28px] leading-[0.8] text-fg">
         &ldquo;
       </span>
       <p className={`mb-4 text-fg ${sizeClass}`}>{renderInline(testimonial.quote)}</p>

@@ -72,7 +72,7 @@ function NavPills({ className }: { className: string }) {
       <div ref={trackRef} className="relative flex items-center gap-0 p-1">
         {indicatorStyle && (
           <div
-            className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-[#FF6553] transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
+            className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-cta transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
             style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
           />
         )}
@@ -104,10 +104,10 @@ export default function Header() {
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-3 md:flex-row md:justify-between">
         <div className="flex w-full items-center justify-between gap-3 md:contents">
           <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
-            <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-sage transition-transform duration-300 group-hover:scale-110">
+            <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
               <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
             </span>
-            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-[#1A1A1A]">
+            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg">
               Yiting H.
             </span>
           </Link>

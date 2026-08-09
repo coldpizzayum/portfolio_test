@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { WorkItem } from "@/data/caseStudies";
+import Button from "./Button";
+import TagChip from "./TagChip";
 import { renderInline } from "./case-study/CaseStudyBlock";
 import { RevealItem } from "./Reveal";
 
@@ -15,7 +17,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
   const href = item.caseStudySlug ? `/case-study/${item.caseStudySlug}` : undefined;
 
   const imagePanel = (
-    <div className={`relative h-full min-h-[260px] overflow-hidden rounded-[20px] ${accentBg}`}>
+    <div className={`relative h-full min-h-[260px] overflow-hidden rounded-2xl md:rounded-[20px] ${accentBg}`}>
       <Image
         src={item.image}
         alt={item.title.replace(/\*\*/g, "")}
@@ -27,21 +29,19 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
   );
 
   const contentPanel = (
-    <div className="flex flex-col justify-center rounded-[20px] bg-white p-8 shadow-none md:p-12 md:shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)]">
+    <div className="flex flex-col justify-center rounded-2xl bg-white p-8 shadow-none md:rounded-[20px] md:p-12 md:shadow-card">
       <h3 className="mb-5 font-serif text-[26px] leading-[1.1] font-bold tracking-[-0.02em] text-fg md:text-h2">
         {renderInline(item.title)}
       </h3>
       <div className="mb-5 flex flex-wrap gap-2">
         {item.tags.map((tag) => (
-          <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs text-fg-secondary">
-            {tag}
-          </span>
+          <TagChip key={tag}>{tag}</TagChip>
         ))}
       </div>
       <p className="mb-8 max-w-[420px] text-body-sm text-fg">{item.description}</p>
-      <span className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FF6553] px-5 py-2.5 text-sm font-semibold text-fg transition-opacity duration-200 group-hover:opacity-85">
+      <Button as="span" size="sm" hoverTrigger="group" className="mt-auto">
         Read case study
-      </span>
+      </Button>
     </div>
   );
 

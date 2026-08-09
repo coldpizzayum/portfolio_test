@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Button from "./Button";
+import GlassCard from "./GlassCard";
 
 const CONTACT_EMAIL = "yitinghuang.design@gmail.com";
 const CAL_URL = "https://cal.com/yiting-huang";
@@ -77,7 +79,7 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="px-5 py-5 md:px-10 md:py-[30px]">
-      <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
+      <GlassCard>
         <div className="relative z-[1] flex flex-col justify-between gap-14 md:flex-row">
           <div>
             <h2 className="mb-3 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
@@ -92,22 +94,13 @@ export default function Footer() {
             </p>
 
             <div className="mb-6 flex flex-wrap gap-3">
-              <a
-                href={CAL_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-[#FF6553] px-7 py-3.5 text-sm font-medium text-fg transition-opacity duration-300 hover:opacity-85"
-              >
+              <Button href={CAL_URL} target="_blank" rel="noreferrer">
                 Schedule a chat
-              </a>
-              <button
-                type="button"
-                onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-medium text-fg transition-colors duration-300 hover:border-fg"
-              >
+              </Button>
+              <Button as="button" variant="secondary" onClick={handleCopyEmail}>
                 <CopyIcon />
                 {copied ? "Copied!" : "Copy my email"}
-              </button>
+              </Button>
             </div>
 
             <p className="text-[13px] font-semibold text-fg-secondary">
@@ -146,7 +139,7 @@ export default function Footer() {
             ))}
           </div>
         </div>
-      </div>
+      </GlassCard>
     </footer>
   );
 }

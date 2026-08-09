@@ -27,7 +27,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
                 href={block.href}
                 target={block.href.startsWith("http") ? "_blank" : undefined}
                 rel={block.href.startsWith("http") ? "noreferrer" : undefined}
-                className="text-accent underline underline-offset-3 transition-colors duration-300 hover:text-fg"
+                className="text-fg underline decoration-2 underline-offset-3 transition-colors duration-300 hover:text-cta"
               >
                 {block.linkText}
               </a>
@@ -140,7 +140,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
                 )}
                 <span
                   className={`mb-3 inline-flex w-fit items-center rounded-full px-3 py-1 font-serif text-[11px] font-semibold ${
-                    isTestimonial ? "bg-card-sand text-[#5c4108]" : "bg-card-sage text-[#7a1f22]"
+                    isTestimonial ? "bg-card-sand text-card-sand-text" : "bg-card-salmon text-card-salmon-text"
                   }`}
                 >
                   {isTestimonial ? "Customer Review" : "Investment"}

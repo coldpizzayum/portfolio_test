@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
+import Button from "./Button";
+import GlassCard from "./GlassCard";
 
 const RESUME_URL = "https://drive.google.com/file/d/1KM6TpI6lt9DeF4MrBPkeSC7PpCNzwrxZ/view?usp=sharing";
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -73,7 +75,8 @@ export default function JourneyTimeline() {
 
   return (
     <section className="px-5 py-5 md:px-10 md:py-[30px]">
-      <Reveal className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
+      <Reveal>
+        <GlassCard>
         <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:gap-16">
           <div className="md:max-w-[300px] md:shrink-0 md:self-start">
             <h2 className="mb-3 font-serif text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-fg md:text-h1">
@@ -82,14 +85,9 @@ export default function JourneyTimeline() {
             <p className="mb-7 text-body-sm text-fg">
               I&apos;m a Product Designer from Taiwan 🇹🇼. Now based in Berlin 🇩🇪.
             </p>
-            <a
-              href={RESUME_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg transition-colors duration-300 hover:bg-[#333333]"
-            >
+            <Button href={RESUME_URL} target="_blank" rel="noreferrer" variant="dark">
               My Resume
-            </a>
+            </Button>
           </div>
 
           <RevealGroup className="relative flex-1" stagger={0.12}>
@@ -138,6 +136,7 @@ export default function JourneyTimeline() {
             </div>
           </RevealGroup>
         </div>
+        </GlassCard>
       </Reveal>
     </section>
   );

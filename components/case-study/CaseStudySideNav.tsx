@@ -83,7 +83,7 @@ export default function CaseStudySideNav({ sections }: CaseStudySideNavProps) {
         onClick={() => setIsOpen(true)}
         aria-label="Show on-this-page navigation"
         aria-hidden={!hasReachedContent}
-        className={`fixed top-[100px] left-[48px] z-40 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white/75 text-fg shadow-[0_12px_30px_rgba(16,24,40,0.12)] backdrop-blur-sm transition-all duration-300 hover:bg-white ${visibilityClass}`}
+        className={`fixed top-[100px] left-[48px] z-40 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white/75 text-fg shadow-float backdrop-blur-sm transition-all duration-300 hover:bg-white ${visibilityClass}`}
       >
         <ListIcon />
       </button>
@@ -96,7 +96,7 @@ export default function CaseStudySideNav({ sections }: CaseStudySideNavProps) {
     // here, with the toggle button above as the escape hatch.
     <aside
       aria-hidden={!hasReachedContent}
-      className={`fixed top-[100px] left-[48px] z-40 w-[252px] rounded-2xl border border-border bg-white/75 p-5 shadow-[0_12px_30px_rgba(16,24,40,0.12)] backdrop-blur-sm transition-all duration-300 ${visibilityClass}`}
+      className={`fixed top-[100px] left-[48px] z-40 w-[252px] rounded-2xl border border-border bg-white/75 p-5 shadow-float backdrop-blur-sm transition-all duration-300 ${visibilityClass}`}
     >
       <div className="mb-1 flex items-center justify-between gap-2">
         <p className="text-[11px] font-semibold tracking-[0.1em] text-fg uppercase">On This Page</p>

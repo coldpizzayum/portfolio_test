@@ -10,16 +10,34 @@
   --color-bg-alt: #efede9;
   --color-fg: #1a1a1a;
   --color-fg-secondary: #6b6b6b;
-  --color-accent: #c9a96e;
+  --color-cta: #ff6553;
+  --color-fg-hover: #333333;
   --color-border: #e2dfda;
   --color-available: #5a8a60;
+  --color-success: #017d18;
 
   --color-card-sand: #f5c563;
   --color-card-photo: #e2dfda;
-  --color-card-sage: #f3a79e;
-  --color-card-slate: #74c2a0;
+  --color-card-salmon: #f3a79e;
+  --color-card-jade: #74c2a0;
+  --color-card-sky: #acdbff;
+  --color-card-mint: #b9f1e4;
+  --color-card-sand-text: #5c4108;
+  --color-card-salmon-text: #7a1f22;
 
   --color-sticky-blue: #cbe6f7;
+
+  /* Semantic shadow tokens — consolidates the "glass card" family's resting
+     shadow, Hero's fan-card hover-lift, and fixed floating UI chrome into
+     one shared black base. Several other hand-rolled shadow-[...] values
+     across the codebase (ActivityHeatmap, TestimonialCard, ImageCollage,
+     MoreCaseStudies' stacked-card peek, Header's nav pill) are deliberately
+     left as-is: they don't map cleanly onto these three without a visible
+     change, and this pass is about naming existing values, not adjusting
+     visuals. */
+  --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 32px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 20px 48px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 html {

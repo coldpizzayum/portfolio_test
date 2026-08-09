@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import Button from "./Button";
+import GlassCard from "./GlassCard";
 
 interface FanCard {
   key: string;
@@ -35,7 +37,7 @@ const FAN_CARDS: FanCard[] = [
   },
   {
     key: "ai",
-    bg: "bg-[#ACDBFF]",
+    bg: "bg-card-sky",
     rotation: 5,
     href: "/ai-projects",
     title: "Build with AI",
@@ -44,7 +46,7 @@ const FAN_CARDS: FanCard[] = [
   },
   {
     key: "about",
-    bg: "bg-[#B9F1E4]",
+    bg: "bg-card-mint",
     rotation: -5,
     href: "/about",
     title: "About Me",
@@ -56,13 +58,13 @@ const FAN_CARDS: FanCard[] = [
 export default function Hero() {
   return (
     <section id="hero" className="px-5 pt-[45px] pb-5 md:px-10 md:pt-[50px] md:pb-[30px]">
-      <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 px-7 pt-9 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:px-14 md:pt-14">
+      <GlassCard padding="no-bottom">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-bg" />
 
         <div className="relative z-[1] flex flex-col items-start gap-10">
           {/* Left: headline + sub */}
           <div className="max-w-full pb-12 md:pb-0">
-            <h1 className="mb-7 font-serif text-[44px] leading-[0.94] font-bold tracking-[-0.03em] text-[#1A1A1A] md:text-display">
+            <h1 className="mb-7 font-serif text-[44px] leading-[0.94] font-bold tracking-[-0.03em] text-fg md:text-display">
               Hi, I&apos;m Yiting.
               <br />
               Product Designer &amp; Builder.
@@ -73,18 +75,10 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row md:hidden">
-              <Link
-                href="#works"
-                className="inline-flex items-center justify-center rounded-full bg-[#FF6553] px-7 py-3.5 text-sm font-semibold text-fg transition-opacity duration-300 hover:opacity-85"
-              >
-                Check out recent work
-              </Link>
-              <Link
-                href="/about"
-                className="inline-flex items-center justify-center rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-fg transition-colors duration-300 hover:border-fg"
-              >
+              <Button href="#works">Check out recent work</Button>
+              <Button href="/about" variant="secondary">
                 Learn more about me
-              </Link>
+              </Button>
             </div>
           </div>
 
@@ -98,7 +92,7 @@ export default function Hero() {
               >
                 {card.isPhoto ? (
                   <div
-                    className={`fan-card-rotate relative h-[286px] w-[256px] overflow-hidden rounded-[20px] shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_48px_rgba(16,24,40,0.14),0_0_0_1px_rgba(0,0,0,0.05)] xl:h-[360px] xl:w-[320px] xl:rounded-[24px] ${card.bg}`}
+                    className={`fan-card-rotate relative h-[286px] w-[256px] overflow-hidden rounded-[20px] shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] ${card.bg}`}
                     style={{ "--rotate": `${card.rotation}deg` } as CSSProperties}
                   >
                     <video
@@ -115,7 +109,7 @@ export default function Hero() {
                   <Link
                     href={card.href}
                     aria-label={card.title}
-                    className={`fan-card-rotate relative flex h-[286px] w-[256px] flex-col justify-between overflow-hidden rounded-[20px] p-6 pt-6 pb-7 shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_48px_rgba(16,24,40,0.14),0_0_0_1px_rgba(0,0,0,0.05)] xl:h-[360px] xl:w-[320px] xl:rounded-[24px] xl:px-8 xl:pt-8 xl:pb-10 ${card.bg}`}
+                    className={`fan-card-rotate relative flex h-[286px] w-[256px] flex-col justify-between overflow-hidden rounded-[20px] p-6 pt-6 pb-7 shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] xl:px-8 xl:pt-8 xl:pb-10 ${card.bg}`}
                     style={{ "--rotate": `${card.rotation}deg` } as CSSProperties}
                   >
                     <span className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/24 to-[60%] to-transparent" />
@@ -132,7 +126,7 @@ export default function Hero() {
             ))}
           </div>
         </div>
-      </div>
+      </GlassCard>
     </section>
   );
 }

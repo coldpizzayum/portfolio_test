@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import { caseStudies, type CaseStudy } from "@/data/caseStudies";
 import { Reveal, RevealGroup, RevealItem } from "../Reveal";
 import CaseStudySideNav from "./CaseStudySideNav";
 import CaseStudyBlock, { renderInline } from "./CaseStudyBlock";
 import MoreCaseStudies from "./MoreCaseStudies";
+import TagChip from "../TagChip";
 
 export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
   const otherCaseStudies = caseStudies
@@ -15,16 +15,6 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
     <>
       <div className="mx-auto max-w-[1100px] px-8">
         <header className="pt-[45px] pb-16 md:pt-[50px]">
-          <Link
-            href="/#works"
-            className="group mb-12 inline-flex items-center gap-2 text-links text-fg-secondary transition-colors duration-300 hover:text-fg"
-          >
-            <span className="transition-[margin] duration-300 group-hover:mr-1" aria-hidden="true">
-              ←
-            </span>
-            Back to Work
-          </Link>
-
           <Reveal>
             <h1 className="mb-4 font-serif text-4xl leading-none font-bold tracking-[-0.03em] text-fg md:text-h1">
               {caseStudy.title}
@@ -33,9 +23,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
             <div className="mb-10 flex flex-wrap items-center gap-3">
               <p className="text-caption text-fg-secondary">{caseStudy.year}</p>
               {caseStudy.tags.map((tag) => (
-                <span key={tag} className="rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-fg-secondary">
-                  {tag}
-                </span>
+                <TagChip key={tag}>{tag}</TagChip>
               ))}
             </div>
 
@@ -67,7 +55,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                     <p className="mb-5 font-serif text-h3 text-fg">Impact Overview</p>
                     <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       {caseStudy.impactStats.map((stat) => (
-                        <RevealItem key={stat.label} className="rounded-lg border-2 border-[#017D18] bg-bg p-5">
+                        <RevealItem key={stat.label} className="rounded-lg border-2 border-success bg-bg p-5">
                           <p className="mb-3 font-serif text-h3 text-fg">{stat.label}</p>
                           <p className="text-caption text-fg">{renderInline(stat.text)}</p>
                         </RevealItem>

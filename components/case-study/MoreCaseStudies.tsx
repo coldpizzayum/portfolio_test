@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef, useState } from "react";
 import type { CSSProperties, WheelEvent } from "react";
+import Button from "../Button";
 
 export interface MoreCaseStudyItem {
   slug: string;
@@ -57,7 +57,7 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
   const stageHeightSm = Math.round(maxDepth * PEEK_STEP + CARD_HEIGHT.sm * backScale);
 
   return (
-    <section id="next" className="mt-20 mb-20 scroll-mt-24 rounded-[20px] bg-white p-8 text-center md:p-12">
+    <section id="next" className="mt-20 mb-20 scroll-mt-24 rounded-2xl bg-white p-8 text-center md:rounded-[20px] md:p-12">
       <h3 className="mb-8 font-serif text-h2 tracking-[-0.02em] text-fg">More case studies</h3>
 
       <div
@@ -93,12 +93,9 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
                   <p className="line-clamp-2 text-caption text-fg">{item.description}</p>
                 </div>
                 {isFront && (
-                  <Link
-                    href={`/case-study/${item.slug}`}
-                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FF6553] px-5 py-2.5 text-sm font-semibold text-fg transition-opacity duration-200 hover:opacity-85"
-                  >
+                  <Button href={`/case-study/${item.slug}`} size="sm">
                     Read case study
-                  </Link>
+                  </Button>
                 )}
               </div>
             </div>
@@ -108,20 +105,12 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
 
       {count > 1 && (
         <div className="relative z-10 mt-6 flex items-center justify-center gap-3">
-          <button
-            type="button"
-            onClick={goBack}
-            className="rounded-full border border-border px-6 py-2.5 text-sm font-semibold text-fg transition-colors duration-300 hover:bg-bg-alt"
-          >
+          <Button as="button" variant="secondary" size="sm" onClick={goBack}>
             Back
-          </button>
-          <button
-            type="button"
-            onClick={goNext}
-            className="rounded-full bg-fg px-6 py-2.5 text-sm font-semibold text-[#FFFFFF] transition-opacity duration-200 hover:opacity-85"
-          >
+          </Button>
+          <Button as="button" variant="dark" size="sm" onClick={goNext}>
             Next
-          </button>
+          </Button>
         </div>
       )}
     </section>

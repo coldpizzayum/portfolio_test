@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import JourneyTimeline from "@/components/JourneyTimeline";
 import OutsideWork from "@/components/OutsideWork";
+import GlassCard from "@/components/GlassCard";
 
 const DESCRIPTION =
   "Yiting Huang, Product Designer in Berlin with 5 years of industry experience and a design education. Open to full-time, founding, and freelance roles.";
@@ -17,7 +18,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="px-5 pt-[45px] pb-10 md:px-10 md:pt-[50px] md:pb-15">
-        <div className="bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 p-7 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-[12px] md:rounded-[20px] md:p-14">
+        <GlassCard>
           <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
             <div className="max-w-[640px]">
               <p className="mb-5 text-body-sm text-fg">
@@ -48,7 +49,7 @@ export default function AboutPage() {
               />
             </div>
           </div>
-        </div>
+        </GlassCard>
       </section>
 
       <JourneyTimeline />
