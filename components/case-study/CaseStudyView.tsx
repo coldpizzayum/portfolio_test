@@ -30,17 +30,17 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
                   <div>
                     <p className="mb-2 font-serif text-h3 text-fg">Overview</p>
-                    <p className="text-caption text-fg">{caseStudy.subtitle}</p>
+                    <p className="text-body-sm text-fg">{caseStudy.subtitle}</p>
                   </div>
                   <div>
                     <p className="mb-2 font-serif text-h3 text-fg">My role</p>
-                    <p className="text-caption text-fg">{caseStudy.meta.role}</p>
+                    <p className="text-body-sm text-fg">{caseStudy.meta.role}</p>
                   </div>
                   <div>
                     <p className="mb-2 font-serif text-h3 text-fg">Team</p>
                     <div className="flex flex-col gap-1">
                       {caseStudy.meta.team.map((member) => (
-                        <p key={member.initials} className="text-caption text-fg">
+                        <p key={member.initials} className="text-body-sm text-fg">
                           {member.label}
                         </p>
                       ))}
@@ -55,7 +55,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                       {caseStudy.impactStats.map((stat) => (
                         <RevealItem key={stat.label} className="rounded-lg border-2 border-success bg-bg p-5">
                           <p className="mb-3 font-serif text-h3 text-fg">{stat.label}</p>
-                          <p className="text-caption text-fg">{renderInline(stat.text)}</p>
+                          <p className="text-body-sm text-fg">{renderInline(stat.text)}</p>
                         </RevealItem>
                       ))}
                     </RevealGroup>

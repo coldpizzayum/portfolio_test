@@ -11,19 +11,19 @@ export interface WorkItem {
 export const workItems: WorkItem[] = [
   {
     slug: "web3-wallet-defi-dashboard",
-    title: "Team's First MVP: Web3 data marketing dashboard",
+    title: "Designing Web3 Marketing Dashboard: 0 to 1",
     description:
-      "Designed a B2B SaaS platform from 0 to 1, translating complex on-chain data into a product Web3 marketers could use and investors could believe in.",
-    tags: ["B2B SaaS", "9 paying customers", "Pre-seed", "MVP"],
+      "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
+    tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
     image: "/images/web3-hero.png",
     caseStudySlug: "web3-marketing-dashboard",
   },
   {
     slug: "influencer-marketing-management-tool",
-    title: "Business Pivot: Influencer marketing tool",
+    title: "Turning a Feature Into a SaaS Product",
     description:
-      "When user behavior signaled a new opportunity, I used our existing design system to help the team pivot fast, shipping a standalone product in a fraction of the usual time.",
-    tags: ["Growth", "Plugin"],
+      "A self-serve tool for influencer marketing that filled a gap in the platform, complete with SaaS pricing and onboarding.",
+    tags: ["B2B", "SaaS", "Pivot"],
     image: "/images/influencer-marketing-hero.png",
     caseStudySlug: "influencer-marketing-tool",
   },
@@ -105,20 +105,20 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "web3-marketing-dashboard",
-    title: "Team's First MVP: Web3 data marketing dashboard",
+    title: "Web3 Marketing Dashboard: 0 to 1",
     year: "2023 — 2024",
     subtitle:
-      "Designed a B2B SaaS platform from 0 to 1, translating complex on-chain data into a product Web3 marketers could use and investors could believe in.",
+      "Designed a platform from 0 to 1, turning our on-chain wallet behavior analysis, mapping wallets to social accounts to build audiences, into a clear, tangible product that both users and investors could understand and use.",
     metaDescription:
       "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
-    tags: ["B2B SaaS", "MarTech", "Data", "Web3", "Blockchain"],
+    tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
     heroImage: "/images/web3-hero.png",
     meta: {
-      role: "I led end-to-end product design. From competitor research, user interviews, to user journey mapping. From building the design system to final MVP delivery.",
+      role: "I led end-to-end product design, from competitor research and user interviews, to user journey mapping, building the design system, and high-fidelity design hand-off.",
       team: [
-        { initials: "PM", label: "Product Manager" },
+        { initials: "PM", label: "1 Product Manager" },
         { initials: "YH", label: "Me (Product Designer)" },
-        { initials: "DC", label: "Developer + CTO" },
+        { initials: "DC", label: "1 Developer + CTO" },
       ],
       timeline: "2023 — 2024",
       tools: "Figma, Notion, ChatGPT, MidJourney",
@@ -126,58 +126,52 @@ export const caseStudies: CaseStudy[] = [
     impactStats: [
       {
         label: "$1.2M seed round",
-        text: "Followed with couple angel rounds. Investors saw what the MVP could do, and backed it.",
+        text: "Plus multiple angel investments.",
       },
       {
-        label: "9 paid customers",
-        text: "Within 6 months, we landed 9 paid customers across 3 continents, including XREX and Sorare, plus early adopters like Flap, DOEX, PrismX, and Chainfir Capital.",
+        label: "Traction",
+        text: "9 paid customers across 3 continents, including XREX and Sorare, plus early adopters like Flap, DOEX, PrismX, and Chainfir Capital. Clients saw 79% lower cost per acquisition and 376% more conversions.",
       },
     ],
     sections: [
       {
-        id: "problem",
-        navLabel: "The Problem",
-        heading: "The Problem",
+        id: "context",
+        navLabel: "Context",
+        heading: "Context",
         blocks: [
           {
             type: "paragraph",
-            text: "There was nothing like this on the market. No one had built a tool that let Web3 marketers target ads using wallet behavior.",
+            text: "Ad platforms like Twitter target audiences using demographics and interests, signals that come from how people behave on social media. Web3 audiences are based on what wallets actually do on-chain: what tokens they hold, what they've traded, what protocols they've used.",
+          },
+        ],
+      },
+      {
+        id: "problem",
+        navLabel: "The Problem",
+        heading: "1. The Problem",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Our team built audience packages by hand, analyzing wallet behavior and putting together a list for each client individually, then handing it off for them to run ads. My job was to turn that service into something clients could do themselves, so the company could actually scale like a SaaS product, not an agency.",
           },
           {
             type: "paragraph",
-            text: "That meant we couldn't just copy an existing product. **We had to help users trust something they'd never seen before, what our filtering meant, and why wallet data actually worked.**",
-          },
-          {
-            type: "paragraph",
-            text: "Before this, our team built audience lists by hand and handed them off to clients. Our job was to turn that manual hand-off into something users could do on their own.",
+            text: "The logic behind how we mapped wallet behavior wasn't simple to explain: what our filtering meant, and why wallet data actually worked.",
           },
         ],
       },
       {
         id: "research",
         navLabel: "Research",
-        heading: "Research",
-        blocks: [
-          { type: "heading", level: 3, text: "We borrowed patterns marketers already knew" },
-          {
-            type: "paragraph",
-            text: "We didn't want users to learn a whole new tool just because it was Web3. So we based our UI on ad platforms marketers already used every day, like Web2 tools they were familiar with.",
-          },
-          { type: "heading", level: 3, text: "Talking to users, over and over" },
-          {
-            type: "paragraph",
-            text: "The hardest part was explaining how our on-chain filtering worked, in a way non-technical marketers could actually get. So we ran a lot of user interviews. We also built a simple design system that let us snap different UI flows together fast, like Lego, and test them with real users right away. That's how we turned a messy, confusing user journey into something we could actually design for.",
-          },
-        ],
-      },
-      {
-        id: "results",
-        navLabel: "Results",
-        heading: "Results",
+        heading: "2. Research & User Interviews",
         blocks: [
           {
             type: "paragraph",
-            text: "We broke the whole journey down into 3 simple steps, so users never felt lost:",
+            text: "First we started with patterns marketers already knew from Web2 ad platforms, and used them to quickly piece together a first version to test with users.",
+          },
+          {
+            type: "paragraph",
+            text: "I broke the whole journey down into 3 simple steps:",
           },
           {
             type: "videoGrid",
@@ -202,60 +196,31 @@ export const caseStudies: CaseStudy[] = [
         ],
       },
       {
-        id: "what-we-got-wrong",
-        navLabel: "Iterations",
-        heading: "Iterations",
+        id: "challenges",
+        navLabel: "Challenges",
+        heading: "3. Challenges",
         blocks: [
-          { type: "heading", level: 3, text: "Filters: vertical vs. horizontal" },
           {
             type: "paragraph",
-            text: 'Our first version stacked filters vertically. It looked clean. But users got confused, they couldn\'t tell if the conditions were "and this too" or "then this next." Once real data came in, things got messier. The algorithm and the UI were being built at the same time, so every change on one side meant more changes on the other. We ended up rebuilding the filter layout more than once to keep up.',
+            text: "The hardest part was on-chain filtering: finding audiences based on what wallets actually do, what tokens they hold, what they've traded, what contracts they've interacted with, helping the marketers understand this and guide them through the process of setting it.",
           },
-          { type: "heading", level: 3, text: "Branding, added last" },
+          { type: "heading", level: 3, text: "#1 Select your cohorts" },
           {
             type: "paragraph",
-            text: "Once the core flow felt right, we layered the branding on top. For a Web3 audience, this mattered more than it might for other products.",
+            text: "Marketers stacked filter conditions, wallet holdings, transaction behavior, social metrics, and only found out the result at the final step. Sometimes the audience was too narrow to run a real campaign. Sometimes it was too broad to be targeted at all. Either way, they'd already spent several steps building a filter before learning it didn't work.",
           },
           {
-            type: "imageCollage",
-            items: [
-              {
-                src: "/images/branding_iteration.png",
-                alt: "Branding iteration: light vs. dark theme comparison",
-                top: "2%",
-                left: "2%",
-                width: "44%",
-                rotate: -3,
-                z: 1,
-              },
-              {
-                src: "/images/web3-design-system-components.png",
-                alt: "Design system component library",
-                top: "0%",
-                left: "48%",
-                width: "46%",
-                rotate: 1,
-                z: 2,
-              },
-              {
-                src: "/images/filter.png",
-                alt: "Filter layout before/after with iteration notes",
-                top: "46%",
-                left: "4%",
-                width: "46%",
-                rotate: -2,
-                z: 4,
-              },
-              {
-                src: "/images/web3-design-system-tokens.png",
-                alt: "Design system color and type tokens",
-                top: "50%",
-                left: "50%",
-                width: "44%",
-                rotate: 2,
-                z: 3,
-              },
-            ],
+            type: "paragraph",
+            text: "We surfaced an estimated audience size as users added each filter, instead of waiting until the end. If a combination pushed the number into a risky zone, we flagged it right there, as they were building it. And if someone still reached the end with an audience that didn't work, they didn't have to start over, they could jump back to any step and watch the estimate update live.",
+          },
+          { type: "heading", level: 3, text: "#2 A black box across systems" },
+          {
+            type: "paragraph",
+            text: "From a user's point of view, the chain from our platform to Twitter was invisible. If a sync was slow or failed partway, they had no way to tell whether the problem was ours or Twitter's, and no way to know if their audience was actually ready to run ads against.",
+          },
+          {
+            type: "paragraph",
+            text: "We designed a visible status for every audience, fetched, processed, synced, so users could see exactly where things stood.",
           },
         ],
       },
@@ -304,35 +269,47 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "influencer-marketing-tool",
-    title: "Business Pivot: Influencer marketing tool",
+    title: "Turning a Feature Into a SaaS Product",
     year: "2024 — 2025",
     subtitle:
-      "When user behavior signaled a new opportunity, I used our existing design system to help the team pivot fast, shipping a standalone product in a fraction of the usual time.",
+      "A self-serve tool for influencer marketing that filled a gap in the platform, complete with SaaS pricing and onboarding.",
     metaDescription:
       "For this B2B SaaS platform, I designed viral growth loops and a browser extension distribution channel, supporting a successful Product Hunt launch.",
-    tags: ["Growth", "Plugin"],
+    tags: ["B2B", "SaaS", "Pivot"],
     heroImage: "/images/influencer-marketing-hero.png",
+    meta: {
+      role: "I made the call to build this as a standalone product, and designed the SaaS pricing and onboarding experience that let it run as a self-serve business.",
+      team: [
+        { initials: "PM", label: "Product Manager" },
+        { initials: "YH", label: "Me (Product Designer)" },
+        { initials: "ENG", label: "Engineer" },
+      ],
+      timeline: "2024 — 2025",
+      tools: "Figma",
+    },
+    impactStats: [
+      {
+        label: "Clients across GameFi, NFT, DeFi, and crypto exchanges",
+        text: "including Gate.io",
+      },
+      {
+        label: "1 month to high-fidelity design",
+        text: "down from 6 months on the previous product, thanks to the design system already in place",
+      },
+      {
+        label: "A complete product line",
+        text: "the company could finally run as a real SaaS business; customers Sales brought in could operate the product entirely on their own",
+      },
+    ],
     sections: [
       {
-        id: "growth",
-        navLabel: "Design for Growth",
-        heading: "Design for Growth",
+        id: "context",
+        navLabel: "Context",
+        heading: "Context",
         blocks: [
           {
             type: "paragraph",
-            text: "Based on our previous product, we already got some paid users, across East Asia, Europe, and the US. Include Flap, DOEX, PrismX, Chainfir Capital…etc.",
-          },
-          {
-            type: "paragraph",
-            text: 'While validating our "all-in-one marketing platform" idea with users, we realized that among all the features, the Influencer Matcher delivered the most value. So we decided to focus on it and turn it into an independent product.',
-          },
-          {
-            type: "paragraph",
-            text: "At the same time, we explored distribution by launching on Product Hunt and building a browser extension.",
-          },
-          {
-            type: "paragraph",
-            text: "Here, we also designed a sharing flow that lets users share their curated lists, helping the product grow organically.",
+            text: "We already had the wallet-mapping tech to turn any influencer's follower list into an audience. So once a client had an influencer list, we could take that list and run ads directly against those followers. Influencer marketing was the missing piece that made the whole marketing product more powerful.",
           },
           {
             type: "paragraph",
@@ -340,26 +317,17 @@ export const caseStudies: CaseStudy[] = [
             href: "/case-study/web3-marketing-dashboard",
             linkText: "Link",
           },
-          {
-            type: "image",
-            src: "/images/influencer-marketing-product-hunt.png",
-            alt: "Growing3 - Influencer Matcher launch page on Product Hunt",
-          },
-          {
-            type: "image",
-            src: "/images/influencer-marketing-chrome-store.png",
-            alt: "Growing3 - Web3 Influencer Marketing Tool listing on the Chrome Web Store",
-          },
         ],
       },
       {
-        id: "high-fidelity",
-        navLabel: "High-Fidelity Designs in 1 Month",
-        heading: "High-Fidelity Designs in 1 Month",
+        id: "designing-the-product",
+        navLabel: "Designing the Product",
+        heading: "Part 1: Designing the Product",
         blocks: [
+          { type: "heading", level: 3, text: "Built in 1 Month, Not 6" },
           {
             type: "paragraph",
-            text: "Based on the existing design system I built before, we were able to quickly translate workflows into market-ready designs within 1 month this time (last product was 6 months)",
+            text: "Because the design system and core interaction patterns were already established from the previous product, I delivered designs in about a month, a fraction of the six months the first MVP took.",
           },
           {
             type: "paragraph",
@@ -385,36 +353,83 @@ export const caseStudies: CaseStudy[] = [
                 description: "Contact hundreds of influencers at once to save time and scale outreach.",
               },
               {
-                name: "🦠 Share Curated Lists",
+                name: "Share Curated Lists",
                 description: "Easily share influencer lists with teammates or other users.",
               },
             ],
           },
-        ],
-      },
-      {
-        id: "responsive",
-        navLabel: "Responsive Design",
-        heading: "Responsive, dark/light mode",
-        blocks: [
+          { type: "heading", level: 3, text: "Seamless Experience: The Chrome Extension" },
           {
             type: "paragraph",
-            text: "Responsive, dark/light mode, ensure accessibility and comfort across different devices and environments.",
-          },
-        ],
-      },
-      {
-        id: "browser-plugin",
-        navLabel: "Browser Plugin",
-        heading: "Browser Plugin",
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Enables users to manage influencer outreach without switching between multiple platforms.",
+            text: "I designed a Chrome Extension to reduce users' time switching between platforms, which made the whole experience more seamless.",
           },
           {
             type: "paragraph",
             text: "Published on the Chrome Web Store as a marketing channel to increase exposure.",
+          },
+          {
+            type: "image",
+            src: "/images/influencer-marketing-chrome-store.png",
+            alt: "Growing3 - Web3 Influencer Marketing Tool listing on the Chrome Web Store",
+          },
+        ],
+      },
+      {
+        id: "pivot",
+        navLabel: "The Pivot",
+        heading: "Part 2: The Pivot to a Standalone Business",
+        blocks: [
+          { type: "heading", level: 3, text: "From an All-in-One Platform to a Focused Tool" },
+          {
+            type: "paragraph",
+            text: "Through interviews, we found the customers who needed influencer marketing weren't always the same ones running paid ad campaigns.",
+          },
+          {
+            type: "paragraph",
+            text: "Rather than bolting influencer marketing on as one more feature inside the existing dashboard, I made the call to build it as its own standalone product.",
+          },
+          {
+            type: "paragraph",
+            text: "At the same time, we explored distribution by launching on Product Hunt.",
+          },
+          {
+            type: "image",
+            src: "/images/influencer-marketing-product-hunt.png",
+            alt: "Growing3 - Influencer Matcher launch page on Product Hunt",
+          },
+          { type: "heading", level: 3, text: "Designing the SaaS Experience: Credits & Onboarding" },
+          {
+            type: "paragraph",
+            text: 'Once we decided to price this on its own, the next question was how someone would actually go from "curious" to "paying" without us in the room.',
+          },
+          {
+            type: "paragraph",
+            text: "We built it around credits. New users got a small number of credits to try the core features first, run a real search, see real KOL matches, before spending anything.",
+          },
+          {
+            type: "paragraph",
+            text: "Onboarding had to carry that same weight. Since there was no sales call walking someone through it, the first few minutes in the product had to teach the tool by itself.",
+          },
+        ],
+      },
+      {
+        id: "outcome",
+        navLabel: "Outcome",
+        heading: "Outcome",
+        blocks: [
+          { type: "heading", level: 3, text: "What worked" },
+          {
+            type: "paragraph",
+            text: "The standalone pricing brought in a new kind of customer. And the design let the company start operating like a SaaS business.",
+          },
+          { type: "heading", level: 3, text: "What's still open" },
+          {
+            type: "paragraph",
+            text: "What we hadn't cracked yet was how people found the product in the first place. Neither product got much traction through organic signups. Almost every real customer still came in through B2B sales, someone on our team reaching out first. **But once they landed, they went through the exact flow we designed, not a manual workaround.**",
+          },
+          {
+            type: "paragraph",
+            text: "Good self-serve design solves what happens after someone shows up. It doesn't solve how they show up. That's still an open problem for the company, and one I'd want to be part of solving next.",
           },
         ],
       },
@@ -429,37 +444,14 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "paragraph",
-            text: "🔗",
+            text: "",
             href: "https://www.figma.com/design/ZIjrmyzkBp9SPsfQ0RPqxR/Influencer-Matcher?node-id=1069-1958&t=PUZafa6fkHXDnTim-1",
             linkText: "Figma files",
-          },
-          {
-            type: "paragraph",
-            text: "Password: sleet-halo-weight-herbs",
           },
           {
             type: "image",
             src: "/images/influencer-marketing-figma.png",
             alt: "Figma file showing the Influencer Matcher design system and responsive desktop, tablet, and mobile layouts",
-          },
-        ],
-      },
-      {
-        id: "takeaways",
-        navLabel: "Takeaways",
-        heading: "Takeaways",
-        blocks: [
-          {
-            type: "paragraph",
-            text: "As a designer, this project pushed me to develop **rapid prototyping skills**—I learned to build interactive prototypes and design plugins that could be tested immediately with users, accelerating the feedback loop dramatically.",
-          },
-          {
-            type: "paragraph",
-            text: "I also honed my ability to **design for two different goals simultaneously**: refining existing user flows while exploring entirely new features. This dual-track approach became essential for growth-stage products where you can't just optimize or just innovate—you need both.",
-          },
-          {
-            type: "paragraph",
-            text: "Most importantly, I learned that **designing for sustained engagement** requires thinking beyond launch moments. Features need built-in mechanisms that encourage ongoing discovery and sharing, not just initial adoption.",
           },
         ],
       },
