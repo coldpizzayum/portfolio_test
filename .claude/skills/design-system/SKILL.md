@@ -83,6 +83,20 @@ prop（enum）控制。
 - `text-h1`／`text-h2` 是「跟手機版配一個更小字級」的專用大字級，才給真正大幅度的縮放範圍；`text-h3`／`text-body-sm`／`text-links`／`text-caption` 因為全站到處平常直接固定使用，範圍刻意留小（1-4px），避免不小心波及全站
 - 某個元件想要比共用 token 更誇張的縮放（例如 Hero intro 文字 18→28px、案例研究數字統計 32→42px），**給它自己的獨立 `clamp()`，不要去撐大共用 token**，不然全站其他用同一個 token 的地方會被一起連動放大
 
+### 已知例外：案例研究頁縮小標題字級（三頁統一套用）
+
+`CaseStudyView.tsx` 裡的 H1（案例標題）、段落 `<h2>`、Overview/My role/Team/Impact Overview 標籤，`text-h1`／`text-h2`／`text-h3` 其實各自綁定了 `font-family`（襯線）+ `font-weight`（700/600/600）+ `line-height`，不是只有字級。這幾處已經改成各自獨立的 `clamp()`（桌機上限縮小：H1 64→52px、H2 40→32px、Overview 系列標籤 28→20px、Impact 數字卡標籤 20→18px），並**手動補回了原本 token 帶的 `font-serif` 跟對應字重**，視覺語言（襯線字/粗細層級）沒有變。
+
+`CaseStudyView.tsx`／`CaseStudyBlock.tsx` 是三個案例研究頁（`web3-marketing-dashboard`／`influencer-marketing-tool`／`coolwallet-pro`）共用的同一份元件，不是各自獨立的模板，所以這個縮小字級**自動套用到三頁,已驗證過編譯後的 class 完全一致**，不需要也不可能只套用單一頁面。`coolwallet-pro` 目前看不到 Overview/My role/Team/Impact 卡片,是因為它的資料本身沒有 `meta`／`impactStats` 欄位（整塊不會渲染），是內容差異，不是樣式不一致。
+
+### 已知例外：`FeedbackStack` 卡片的次要文字統一用 `text-caption`
+
+`FeedbackStack.tsx`（案例研究 Feedback & Impact 卡片堆）裡，Customer Review 卡片
+的 role 文字（如「Vincent@PrismX」）跟 Investment 卡片的 Date 文字，語意上是同一
+層級的「次要 meta 文字」，樣式要一致：一律用 `text-caption text-fg-secondary`。
+之前 role 文字誤用了裸的 `font-serif text-xs`——`text-xs` 不在 8 個字級 token
+清單內，是硬寫值，已經修正，不要再改回去。
+
 ### Tracking（字距）跟字級配對
 
 | 字級 | Tracking |

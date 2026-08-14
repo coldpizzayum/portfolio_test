@@ -47,7 +47,7 @@ function FeedbackCardContent({ card }: { card: FeedbackCard }) {
         {isTestimonial ? (
           <>
             <p className="text-caption font-semibold text-fg">{card.name}</p>
-            <p className="font-serif text-xs text-fg-secondary">{card.role}</p>
+            <p className="text-caption text-fg-secondary">{card.role}</p>
           </>
         ) : (
           <div className="flex items-center justify-between">

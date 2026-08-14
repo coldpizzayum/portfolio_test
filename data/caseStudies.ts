@@ -127,7 +127,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "web3-marketing-dashboard",
     title: "Web3 Marketing Dashboard: 0 to 1",
-    year: "2023 — 2024",
+    year: "2023 — 2024 | **Growing3**",
     subtitle:
       "Designed a marketing platform from 0 to 1, turning our underlying workflow, mapping wallet behavior to real identities, into a product that both users and investors could understand and use.",
     metaDescription:
@@ -234,6 +234,13 @@ export const caseStudies: CaseStudy[] = [
               },
             ],
           },
+          {
+            type: "image",
+            src: "/images/web3-design-system-components.png",
+            alt: "Design system component library",
+            width: 1200,
+            height: 675,
+          },
         ],
       },
       {
@@ -294,8 +301,8 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/web3-design-system-components.png",
-            alt: "Design system component library",
+            src: "/images/filter.png",
+            alt: "Filter layout for setting cohort conditions",
             width: 1200,
             height: 675,
           },
