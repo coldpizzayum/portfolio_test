@@ -14,9 +14,9 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
   return (
     <>
       <div className="mx-auto max-w-[1100px] px-8">
-        <header className="pt-[45px] pb-16 md:pt-[50px]">
+        <header className={`pt-[45px] md:pt-[50px] ${caseStudy.meta ? "pb-8" : "pb-16"}`}>
           <Reveal>
-            <div className="mb-10 flex flex-col gap-10 md:flex-row md:items-center">
+            <div className={`flex flex-col gap-10 md:flex-row md:items-center ${caseStudy.meta ? "mb-10" : ""}`}>
               <div className="md:w-[420px] md:shrink-0">
                 <p className="mb-3 text-caption text-fg-secondary">{renderInline(caseStudy.year)}</p>
                 <h1 className="mb-5 text-[clamp(40px,35.03px+1.33vw,52px)] leading-[1.1] font-serif font-bold tracking-[-0.03em] text-fg">
@@ -42,7 +42,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
             </div>
 
             {caseStudy.meta && (
-              <div id="overview" className="mb-14 scroll-mt-24 rounded-2xl bg-white p-8">
+              <div id="overview" className="scroll-mt-24 rounded-2xl bg-white p-8">
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
                   <div>
                     <p className="mb-2 text-[clamp(18px,17.17px+0.22vw,20px)] leading-[1] font-serif font-semibold text-fg">Overview</p>

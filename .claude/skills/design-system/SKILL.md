@@ -89,6 +89,24 @@ prop（enum）控制。
 
 `CaseStudyView.tsx`／`CaseStudyBlock.tsx` 是三個案例研究頁（`web3-marketing-dashboard`／`influencer-marketing-tool`／`coolwallet-pro`）共用的同一份元件，不是各自獨立的模板，所以這個縮小字級**自動套用到三頁,已驗證過編譯後的 class 完全一致**，不需要也不可能只套用單一頁面。`coolwallet-pro` 目前看不到 Overview/My role/Team/Impact 卡片,是因為它的資料本身沒有 `meta`／`impactStats` 欄位（整塊不會渲染），是內容差異，不是樣式不一致。
 
+### 已知例外：案例研究頁 header 結尾間距依「有無 Overview 卡片」分兩種
+
+`CaseStudyView.tsx` 把 hero 圖片搬到跟標題並排後，header 結尾（最後一個子
+元素）到第一個內文 `<h2>` 之間的間距，依該頁有沒有 `caseStudy.meta`（Overview
+卡片）分成兩種，不是同一個固定值：
+
+- **有 Overview 卡片**（`web3-marketing-dashboard`／`influencer-marketing-tool`）：
+  標題列的 `mb-10` 只在有卡片時才加（用來隔開標題列跟卡片），`header` 用
+  `pb-8`。卡片本身已經是封閉的白色色塊，收尾不需要跟滿版圖片一樣寬的呼吸空
+  間，實測間距 **73px**。
+- **沒有 Overview 卡片**（`coolwallet-pro`）：標題列不加 `mb-10`（沒有下一個
+  元素可隔），`header` 維持 `pb-16`，實測間距 **105px**。
+
+**不要**把這兩種間距改成同一個值——標題列的 `mb-10` 若沒有依 `caseStudy.meta`
+做條件判斷，會在沒有卡片的頁面變成最後一個子元素、margin 依然生效，疊加出
+多餘的 40px（曾經發生過：160px vs 145px 兩種都太空的間距，肉眼很難抓到差
+異，用 CDP 量測 `getBoundingClientRect()` 才抓出來）。
+
 ### 已知例外：`FeedbackStack` 卡片的次要文字統一用 `text-caption`
 
 `FeedbackStack.tsx`（案例研究 Feedback & Impact 卡片堆）裡，Customer Review 卡片
