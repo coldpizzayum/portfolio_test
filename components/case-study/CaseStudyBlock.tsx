@@ -2,13 +2,24 @@ import Image from "next/image";
 import { Fragment } from "react";
 import type { CaseStudyBlock as CaseStudyBlockType } from "@/data/caseStudies";
 import ImageCollage from "./ImageCollage";
+import ToggleBlock from "./ToggleBlock";
+import FeedbackStack from "./FeedbackStack";
 
-/** Renders `**bold**` segments as <strong>, everything else as plain text. */
+/** Renders `**bold**` as <strong> and `==highlight==` as coral-colored text
+ *  (the one approved exception to "cta color never in body text" — see the
+ *  design-system skill's color-token exceptions), everything else as plain text. */
 export function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|==[^=]+==)/g);
   return parts.map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("==") && part.endsWith("==")) {
+      return (
+        <span key={index} className="text-cta">
+          {part.slice(2, -2)}
+        </span>
+      );
     }
     return <Fragment key={index}>{part}</Fragment>;
   });
@@ -38,7 +49,9 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "heading":
       return (
-        <h3 className="mt-10 mb-3.5 font-serif text-h3 tracking-[-0.01em] text-fg">{block.text}</h3>
+        <h3 id={block.id} className="mt-10 mb-3.5 scroll-mt-24 font-serif text-h3 tracking-[-0.01em] text-fg">
+          {block.text}
+        </h3>
       );
 
     case "bulletList":
@@ -87,9 +100,22 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
     case "image":
       return (
         <figure className="my-8">
-          <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
-            <Image src={block.src} alt={block.alt} fill sizes="(min-width: 900px) 900px, 100vw" className="object-cover" />
-          </div>
+          {block.width && block.height ? (
+            <div className="overflow-hidden rounded-xl bg-bg-alt">
+              <Image
+                src={block.src}
+                alt={block.alt}
+                width={block.width}
+                height={block.height}
+                sizes="(min-width: 900px) 900px, 100vw"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+          ) : (
+            <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
+              <Image src={block.src} alt={block.alt} fill sizes="(min-width: 900px) 900px, 100vw" className="object-contain" />
+            </div>
+          )}
           {block.caption && (
             <figcaption className="mt-2.5 text-center text-caption text-fg-secondary italic">
               {block.caption}
@@ -122,79 +148,26 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         </div>
       );
 
+    case "embed":
+      return (
+        <figure className="my-8 rounded-2xl bg-white p-6 md:p-8">
+          <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
+            <iframe className="absolute inset-0 h-full w-full" src={block.src} title={block.title} allowFullScreen />
+          </div>
+          {block.caption && (
+            <figcaption className="mt-6 text-center text-caption text-fg">{renderInline(block.caption)}</figcaption>
+          )}
+        </figure>
+      );
+
     case "imageCollage":
       return <ImageCollage items={block.items} />;
 
+    case "toggle":
+      return <ToggleBlock id={block.id} summary={block.summary} items={block.items} text={block.text} />;
+
     case "feedbackGrid":
-      return (
-        <div className="my-8 mr-[calc(-50vw+50%)] overflow-x-auto pb-2">
-          <div className="flex w-max gap-5 pr-8">
-          {block.cards.map((card, index) => {
-            const isTestimonial = card.rating !== undefined;
-            return (
-              <div key={index} className="relative flex h-full w-[280px] shrink-0 flex-col rounded-2xl bg-white p-6">
-                {card.photo && (
-                  <div className="absolute -top-4 -right-4 h-14 w-14 overflow-hidden rounded-full ring-4 ring-white shadow-md">
-                    <Image src={card.photo} alt={card.photoAlt ?? ""} fill className="object-cover" />
-                  </div>
-                )}
-                <span
-                  className={`mb-3 inline-flex w-fit items-center rounded-full px-3 py-1 font-serif text-[11px] font-semibold ${
-                    isTestimonial ? "bg-card-sand text-card-sand-text" : "bg-card-salmon text-card-salmon-text"
-                  }`}
-                >
-                  {isTestimonial ? "Customer Review" : "Investment"}
-                </span>
-                {isTestimonial ? (
-                  <p className="mb-3 text-sm tracking-wider text-[#f5a623]" aria-hidden="true">
-                    {"★".repeat(card.rating ?? 0)}
-                  </p>
-                ) : (
-                  card.eyebrow && (
-                    <p
-                      className={`mb-2 font-serif text-[11px] tracking-[0.04em] text-fg-secondary ${card.photo ? "pr-14" : ""}`}
-                    >
-                      {card.eyebrow}
-                    </p>
-                  )
-                )}
-                {card.headline && (
-                  <p className={`mb-3 text-caption font-semibold text-fg ${card.photo ? "pr-10" : ""}`}>
-                    {card.headline}
-                  </p>
-                )}
-                {card.quote && (
-                  <p className="mb-4 flex-1 text-caption text-fg">{renderInline(card.quote)}</p>
-                )}
-                <div className="mt-auto border-t border-dashed border-border pt-4">
-                  {isTestimonial ? (
-                    <>
-                      <p className="text-caption font-semibold text-fg">{card.name}</p>
-                      <p className="font-serif text-xs text-fg-secondary">{card.role}</p>
-                    </>
-                  ) : (
-                    <div className="flex items-center justify-between">
-                      <p className="font-serif text-xs text-fg-secondary">Date: {card.date}</p>
-                      {card.href && (
-                        <a
-                          href={card.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label={`Read more: ${card.headline ?? card.eyebrow ?? ""}`}
-                          className="text-fg-secondary transition-colors duration-300 hover:text-fg"
-                        >
-                          ↗
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-          </div>
-        </div>
-      );
+      return <FeedbackStack cards={block.cards} />;
 
     default:
       return null;

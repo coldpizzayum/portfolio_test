@@ -5,6 +5,10 @@ import type { CaseStudySection } from "@/data/caseStudies";
 
 interface CaseStudySideNavProps {
   sections: CaseStudySection[];
+  /** Whether to prepend a static "Overview" entry pointing at the
+   *  Overview/My role/Team/Impact card in the header (only present when the
+   *  case study has `meta`). */
+  hasOverview?: boolean;
 }
 
 function ListIcon() {
@@ -23,8 +27,30 @@ function CloseIcon() {
   );
 }
 
-export default function CaseStudySideNav({ sections }: CaseStudySideNavProps) {
-  const [activeId, setActiveId] = useState(sections[0]?.id);
+/** A section's h3 headings and toggle blocks that carry an `id` become
+ *  clickable sub-items nested under it — mirrors benshih.design's TOC having
+ *  sub-headings under top-level items. Derived from the section's own
+ *  content instead of a separate data field, so a heading/toggle only needs
+ *  its `id` set once to show up here automatically. */
+function getSubItems(section: CaseStudySection) {
+  return section.blocks.flatMap((block) => {
+    if (block.type === "heading" && block.id) return [{ id: block.id, label: block.text }];
+    if (block.type === "toggle" && block.id) return [{ id: block.id, label: block.summary }];
+    return [];
+  });
+}
+
+export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySideNavProps) {
+  // What actually renders in the TOC: sections marked `hideFromToc` keep
+  // their content/heading on the page but are left out here, and an
+  // "Overview" entry (no sub-items — it isn't a CaseStudySection) is
+  // prepended when there's a meta card to point it at.
+  const tocItems: { id: string; navLabel: string; subItems: ReturnType<typeof getSubItems> }[] = [
+    ...(hasOverview ? [{ id: "overview", navLabel: "Overview", subItems: [] }] : []),
+    ...sections.filter((s) => !s.hideFromToc).map((s) => ({ id: s.id, navLabel: s.navLabel, subItems: getSubItems(s) })),
+  ];
+
+  const [activeId, setActiveId] = useState(tocItems[0]?.id);
   // Always shown by default, even where it overlaps narrow content — the
   // user can collapse it to a small tab instead of it being hidden outright.
   const [isOpen, setIsOpen] = useState(true);
@@ -33,13 +59,16 @@ export default function CaseStudySideNav({ sections }: CaseStudySideNavProps) {
   const [hasReachedContent, setHasReachedContent] = useState(false);
 
   useEffect(() => {
-    const elements = sections
+    const elements = tocItems
       .map((item) => document.getElementById(item.id))
       .filter((el): el is HTMLElement => el !== null);
 
     // A thin trigger line just below the fixed nav, rather than a large
     // area threshold — sections in a long-form case study are often taller
     // than the viewport, so an area-based threshold could never be crossed.
+    // Only watching the elements actually listed in the TOC means a
+    // `hideFromToc` section scrolling by just leaves the previous entry
+    // highlighted, instead of highlighting nothing.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -51,7 +80,8 @@ export default function CaseStudySideNav({ sections }: CaseStudySideNavProps) {
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [sections]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sections, hasOverview]);
 
   useEffect(() => {
     const trigger = document.getElementById("toc-trigger");
@@ -110,23 +140,38 @@ export default function CaseStudySideNav({ sections }: CaseStudySideNavProps) {
         </button>
       </div>
       <nav className="mt-3 flex flex-col gap-2 text-sm">
-        {sections.map((item) => {
+        {tocItems.map((item) => {
           const isActive = activeId === item.id;
+          const subItems = item.subItems;
           return (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={`group flex items-center gap-2 rounded-[10px] px-2 py-1.5 text-[15px] font-semibold transition-colors duration-300 ${
-                isActive ? "bg-available/10 text-available" : "text-fg hover:bg-bg-alt hover:text-available"
-              }`}
-            >
-              <span
-                className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-300 ${
-                  isActive ? "bg-available" : "bg-transparent group-hover:bg-available/40"
+            <div key={item.id}>
+              <a
+                href={`#${item.id}`}
+                className={`group flex items-center gap-2 rounded-[10px] px-2 py-1.5 text-[15px] font-semibold transition-colors duration-300 ${
+                  isActive ? "bg-available/10 text-available" : "text-fg hover:bg-bg-alt hover:text-available"
                 }`}
-              />
-              {item.navLabel}
-            </a>
+              >
+                <span
+                  className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-300 ${
+                    isActive ? "bg-available" : "bg-transparent group-hover:bg-available/40"
+                  }`}
+                />
+                {item.navLabel}
+              </a>
+              {subItems.length > 0 && (
+                <div className="mt-1 ml-[22px] flex flex-col gap-1 border-l border-border pl-3">
+                  {subItems.map((sub) => (
+                    <a
+                      key={sub.id}
+                      href={`#${sub.id}`}
+                      className="rounded-[8px] px-2 py-1 text-[13px] text-fg-secondary transition-colors duration-300 hover:text-available"
+                    >
+                      {sub.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           );
         })}
       </nav>

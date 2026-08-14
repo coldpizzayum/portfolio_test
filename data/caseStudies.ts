@@ -15,7 +15,7 @@ export const workItems: WorkItem[] = [
     description:
       "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
     tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
-    image: "/images/web3-hero.png",
+    image: "/images/web3console.png",
     caseStudySlug: "web3-marketing-dashboard",
   },
   {
@@ -39,39 +39,60 @@ export const workItems: WorkItem[] = [
 
 export type CaseStudyBlock =
   | { type: "paragraph"; text: string; href?: string; linkText?: string }
-  | { type: "heading"; level: 3; text: string }
+  /** `id` is optional — set it to make the heading a jump target, which also
+   *  surfaces it as a nested sub-item under its section in the side TOC. */
+  | { type: "heading"; level: 3; text: string; id?: string }
   | { type: "bulletList"; items: string[] }
+  /** Collapsed-by-default disclosure — a heading-style summary line that expands
+   *  to a bullet list on click. Reuses the accordion pattern already established
+   *  in JourneyTimeline (chevron icon, framer-motion height animation). `id` is
+   *  optional, same jump-target/TOC-sub-item behavior as the heading block. */
+  | { type: "toggle"; summary: string; items?: string[]; text?: string; id?: string }
   | { type: "statRow"; stats: { value: string; label: string }[] }
   | { type: "flowList"; items: { name: string; description: string }[] }
-  | { type: "image"; src: string; alt: string; caption?: string }
+  /** `width`/`height` are the source file's real pixel dimensions — when set,
+   *  the image renders at its own aspect ratio (no cropping, no letterboxing).
+   *  Omit them and it falls back to the old fixed 16:9 frame. */
+  | { type: "image"; src: string; alt: string; caption?: string; width?: number; height?: number }
   | { type: "videoGrid"; videos: { youtubeId: string; title: string; caption?: string }[] }
+  /** Embeds a live iframe (e.g. a Figma/FigJam board) — same aspect-video
+   *  card framing as videoGrid, just without the YouTube-specific params. */
+  | { type: "embed"; src: string; title: string; caption?: string }
   | {
       type: "imageCollage";
       items: { src: string; alt: string; top: string; left: string; width: string; rotate: number; z: number }[];
     }
   | {
       type: "feedbackGrid";
-      cards: {
-        /** Star rating (1-5) — presence of this field marks the card as a testimonial rather than a press mention. */
-        rating?: number;
-        eyebrow?: string;
-        headline?: string;
-        /** Supports `**bold**` markdown-style spans. */
-        quote?: string;
-        photo?: string;
-        photoAlt?: string;
-        name?: string;
-        role?: string;
-        date?: string;
-        href?: string;
-      }[];
+      cards: FeedbackCard[];
     };
+
+export interface FeedbackCard {
+  /** Star rating (1-5) — presence of this field marks the card as a testimonial rather than a press mention. */
+  rating?: number;
+  eyebrow?: string;
+  /** Supports `==highlight==` (coral) in addition to `**bold**`. */
+  headline?: string;
+  /** Supports `**bold**` markdown-style spans. */
+  quote?: string;
+  photo?: string;
+  photoAlt?: string;
+  name?: string;
+  role?: string;
+  date?: string;
+  href?: string;
+}
 
 export interface CaseStudySection {
   id: string;
   navLabel: string;
   heading: string;
   blocks: CaseStudyBlock[];
+  /** Keeps the section's content/heading in place but leaves it out of the
+   *  side TOC — for sections that don't map to one of the TOC's top-level
+   *  labels. The TOC's active-highlight simply stays on the previous visible
+   *  entry while scrolling through it. */
+  hideFromToc?: boolean;
 }
 
 export interface CaseStudyMeta {
@@ -108,13 +129,13 @@ export const caseStudies: CaseStudy[] = [
     title: "Web3 Marketing Dashboard: 0 to 1",
     year: "2023 — 2024",
     subtitle:
-      "Designed a platform from 0 to 1, turning our on-chain wallet behavior analysis, mapping wallets to social accounts to build audiences, into a clear, tangible product that both users and investors could understand and use.",
+      "Designed a marketing platform from 0 to 1, turning our underlying workflow, mapping wallet behavior to real identities, into a product that both users and investors could understand and use.",
     metaDescription:
       "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
     tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
-    heroImage: "/images/web3-hero.png",
+    heroImage: "/images/web3console.png",
     meta: {
-      role: "I led end-to-end product design, from competitor research and user interviews, to user journey mapping, building the design system, and high-fidelity design hand-off.",
+      role: "I led end-to-end product design, from competitor research and user interviews, to user journey mapping, building the design system, and final design hand-off.",
       team: [
         { initials: "PM", label: "1 Product Manager" },
         { initials: "YH", label: "Me (Product Designer)" },
@@ -129,45 +150,65 @@ export const caseStudies: CaseStudy[] = [
         text: "Plus multiple angel investments.",
       },
       {
-        label: "Traction",
-        text: "9 paid customers across 3 continents, including XREX and Sorare, plus early adopters like Flap, DOEX, PrismX, and Chainfir Capital. Clients saw 79% lower cost per acquisition and 376% more conversions.",
+        label: "9 paid customers across 3 continents",
+        text: "Including XREX and Sorare, with early adopters like Flap, DOEX, PrismX, and Chainfir Capital.",
       },
     ],
     sections: [
       {
-        id: "context",
-        navLabel: "Context",
-        heading: "Context",
+        id: "all-in-one-tool",
+        navLabel: "Problems",
+        heading: "Building an all-in-one marketing tool",
         blocks: [
           {
+            type: "embed",
+            src: "https://embed.figma.com/board/B6MIqfvztsoVLex4FqW6kB/Feature-Architecture-Diagram?node-id=0-1&embed-host=share",
+            title: "Feature Architecture Diagram",
+          },
+          {
+            type: "image",
+            src: "/images/Allinonetool.png",
+            alt: "Screenshot of the all-in-one marketing tool",
+            width: 1440,
+            height: 502,
+          },
+          {
             type: "paragraph",
-            text: "Ad platforms like Twitter target audiences using demographics and interests, signals that come from how people behave on social media. Web3 audiences are based on what wallets actually do on-chain: what tokens they hold, what they've traded, what protocols they've used.",
+            text: "I started by researching patterns marketers already knew from Web2 platforms, then came up with the information architecture diagram.",
+          },
+          {
+            type: "toggle",
+            summary: "Reference products I looked at",
+            items: [
+              "Ad management platforms (e.g., Meta Ads Manager, Twitter Ads, Google Ads)",
+              "Marketing automation tools (e.g., HubSpot, Mailchimp, ActiveCampaign)",
+              "Customer Data Platforms (CDPs) (e.g., Segment, Amplitude)",
+              "Growth marketing tools (e.g., Branch, AppsFlyer, Mixpanel)",
+              "Web3 marketing dashboards (e.g., DappRadar, Galxe, Zapper)",
+            ],
           },
         ],
       },
       {
-        id: "problem",
-        navLabel: "The Problem",
-        heading: "1. The Problem",
+        id: "ad-targeting-logic",
+        navLabel: "The logic behind our ad targeting is complicated",
+        heading: "The logic behind our ad targeting is complicated",
+        hideFromToc: true,
         blocks: [
           {
             type: "paragraph",
-            text: "Our team built audience packages by hand, analyzing wallet behavior and putting together a list for each client individually, then handing it off for them to run ads. My job was to turn that service into something clients could do themselves, so the company could actually scale like a SaaS product, not an agency.",
-          },
-          {
-            type: "paragraph",
-            text: "The logic behind how we mapped wallet behavior wasn't simple to explain: what our filtering meant, and why wallet data actually worked.",
+            text: "Before this, the team built audience packages by hand, analyzing wallet behavior and putting together a list for each client individually, then handing it off for them to run ads. My job was to turn that service into something clients could do themselves, so the company could actually scale like a SaaS product, not an agency.",
           },
         ],
       },
       {
-        id: "research",
+        id: "first-prototype",
         navLabel: "Research",
-        heading: "2. Research & User Interviews",
+        heading: "Build the first prototype",
         blocks: [
           {
             type: "paragraph",
-            text: "First we started with patterns marketers already knew from Web2 ad platforms, and used them to quickly piece together a first version to test with users.",
+            text: "First, I used **Material Design UI** patterns to quickly piece together a first version of the prototype to test with users.",
           },
           {
             type: "paragraph",
@@ -196,39 +237,101 @@ export const caseStudies: CaseStudy[] = [
         ],
       },
       {
-        id: "challenges",
-        navLabel: "Challenges",
-        heading: "3. Challenges",
+        id: "cohort-selection-ui",
+        navLabel: "Solution",
+        heading: "Designing the cohort selection UI",
         blocks: [
           {
             type: "paragraph",
-            text: "The hardest part was on-chain filtering: finding audiences based on what wallets actually do, what tokens they hold, what they've traded, what contracts they've interacted with, helping the marketers understand this and guide them through the process of setting it.",
-          },
-          { type: "heading", level: 3, text: "#1 Select your cohorts" },
-          {
-            type: "paragraph",
-            text: "Marketers stacked filter conditions, wallet holdings, transaction behavior, social metrics, and only found out the result at the final step. Sometimes the audience was too narrow to run a real campaign. Sometimes it was too broad to be targeted at all. Either way, they'd already spent several steps building a filter before learning it didn't work.",
+            text: "The hardest part was the logic behind how we found audiences, helping the marketers understand this and guiding them through the process of setting their cohorts.",
           },
           {
-            type: "paragraph",
-            text: "We surfaced an estimated audience size as users added each filter, instead of waiting until the end. If a combination pushed the number into a risky zone, we flagged it right there, as they were building it. And if someone still reached the end with an audience that didn't work, they didn't have to start over, they could jump back to any step and watch the estimate update live.",
-          },
-          { type: "heading", level: 3, text: "#2 A black box across systems" },
-          {
-            type: "paragraph",
-            text: "From a user's point of view, the chain from our platform to Twitter was invisible. If a sync was slow or failed partway, they had no way to tell whether the problem was ours or Twitter's, and no way to know if their audience was actually ready to run ads against.",
+            type: "toggle",
+            summary: "Web2 audiences vs. Web3 audiences",
+            text: "Web2 ad platforms like Twitter or Google target people using demographics and interests, signals that come from social media behavior. Web3 audiences are different. They're built from what wallets actually do on-chain: what tokens they hold, what they've traded, what protocols they've used.",
           },
           {
             type: "paragraph",
-            text: "We designed a visible status for every audience, fetched, processed, synced, so users could see exactly where things stood.",
+            text: "Marketers stacked filter conditions one after another, and only found out at the end if the audience worked. Too narrow, too broad, either way, they'd already built the whole thing before finding out it didn't.",
+          },
+          {
+            type: "paragraph",
+            text: "My first instinct was to show live wallet data on every change. But that was slow, and it cost us money in API calls.",
+          },
+          {
+            type: "paragraph",
+            text: "So I went back to a few core decisions:",
+          },
+          {
+            type: "paragraph",
+            text: "**Pre-selected category pools, not a blank slate.** Marketers started from pools scoped to the type of project they were running, GameFi, NFT, DeFi, each already narrowed to what actually mattered, instead of building a cohort from zero.",
+          },
+          {
+            type: "image",
+            src: "/images/Cohort project selection.png",
+            alt: "Screenshot of pre-selected cohort category pools by project type",
+            width: 1422,
+            height: 553,
+          },
+          {
+            type: "paragraph",
+            text: "**A slideout, not a full-page flow.** People could keep an eye on the estimate while they worked. As they added filters, the number updated in real time, pulled from our own data, not a fresh API call every time.",
+          },
+          {
+            type: "paragraph",
+            text: "**A way back, not a restart.** If someone still hit a dead end at the last step, they could open the slideout again, jump back, and watch the estimate update live from there.",
+          },
+          {
+            type: "paragraph",
+            text: '**A percentage, not an exact number.** An exact count implies precision we didn\'t have, the data was cached, not live. "1,284 wallets" sounds like right now. It might\'ve been an hour old. A percentage told users what they actually needed to know: too narrow, or too broad.',
+          },
+          {
+            type: "image",
+            src: "/images/Building Chohorts.png",
+            alt: "Screenshot of building a cohort in the slideout selector",
+            width: 1682,
+            height: 906,
+          },
+          {
+            type: "image",
+            src: "/images/web3-design-system-components.png",
+            alt: "Design system component library",
+            width: 1200,
+            height: 675,
+          },
+        ],
+      },
+      {
+        id: "design-trade-off",
+        navLabel: "Design trade-off",
+        heading: "Design trade-off",
+        hideFromToc: true,
+        blocks: [
+          {
+            type: "paragraph",
+            text: "My engineer had limited time and couldn't get deep into UI details, so the design system I'd built in Figma didn't always make it into the final build cleanly.",
+          },
+          {
+            type: "paragraph",
+            text: "That's part of why I now build my own React components with AI, so nothing gets lost between what I design and what actually ships.",
+          },
+          {
+            type: "paragraph",
+            text: "",
+            href: "/ai-projects",
+            linkText: "See what I've built with AI →",
           },
         ],
       },
       {
         id: "feedback-impact",
-        navLabel: "Feedbacks and Impacts",
-        heading: "Feedbacks and Impacts",
+        navLabel: "Outcomes",
+        heading: "Feedback",
         blocks: [
+          {
+            type: "paragraph",
+            text: 'Clients later described the experience as "surprisingly easy," even though the underlying workflow, mapping wallet behavior to real identities, was highly complex.',
+          },
           {
             type: "feedbackGrid",
             cards: [
@@ -241,7 +344,7 @@ export const caseStudies: CaseStudy[] = [
               },
               {
                 eyebrow: "AppWorks (Demo Day #26 Press Release)",
-                headline: "Growing3 Selected for AppWorks Accelerator #26",
+                headline: "Growing3 Selected for ==AppWorks== Accelerator #26",
                 quote:
                   "Growing3 leverages on-chain data analytics and marketing technology to help clients improve conversion performance and reduce acquisition costs, showcasing the growth potential of web3 marketing applications.",
                 date: "Jul 4, 2023",
@@ -249,13 +352,13 @@ export const caseStudies: CaseStudy[] = [
               },
               {
                 eyebrow: "Alibaba Cloud Project",
-                headline: "Growing3 was selected in the Alibaba Cloud Global Startup Accelerator",
+                headline: "Growing3 was selected in the ==Alibaba Cloud== Global Startup Accelerator",
                 date: "May 24, 2023",
                 href: "https://kr-asia.com/intelligence-indeed-and-feiliu-tech-named-asia-stars-of-the-alibaba-cloud-x-krasia-global-startup-accelerator-hangzhou-demo-day",
               },
               {
                 eyebrow: "500 Global",
-                headline: "Growing3 was selected for the startup accelerator program run by 500 Global",
+                headline: "Growing3 was selected for the startup accelerator - ==500 Global==",
                 quote:
                   "[...] The team provides growth solutions for Web3 projects (such as blockchain, games, DApps, and NFTs), leveraging on-chain and off-chain data analytics to help projects acquire and retain quality users across marketing, growth strategy, analytics, and marTech.",
                 date: "Jul 18, 2023",

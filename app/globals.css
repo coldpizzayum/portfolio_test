@@ -190,6 +190,86 @@ body {
     transform: translateX(-200px);
   }
 
+  /* Same fan-card mechanism as Hero (rotate via --rotate + hover push/fade
+     choreography), reused for the Feedback & Impact stack. A separate class
+     scope rather than sharing .fan-card-* because the push amounts and card
+     size differ and aren't meant to stay pixel-locked to Hero's tuning. */
+  .feedback-card-rotate {
+    transform: rotate(var(--rotate, 0deg));
+    transition:
+      transform 320ms cubic-bezier(0.34, 1.4, 0.64, 1),
+      box-shadow 320ms ease;
+  }
+  .feedback-card-rotate:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+
+  .feedback-card-item {
+    --push: 24px;
+    transition:
+      transform 320ms cubic-bezier(0.34, 1.4, 0.64, 1),
+      opacity 320ms ease;
+  }
+
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(2),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(3),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(4) {
+    opacity: 0.5;
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(2) {
+    transform: translateX(var(--push));
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(3) {
+    transform: translateX(calc(var(--push) * 1.6));
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(4) {
+    transform: translateX(calc(var(--push) * 2.2));
+  }
+
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(1),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(3),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(4) {
+    opacity: 0.5;
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(1) {
+    transform: translateX(calc(var(--push) * -1));
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(3) {
+    transform: translateX(var(--push));
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(4) {
+    transform: translateX(calc(var(--push) * 1.6));
+  }
+
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(1),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(2),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(4) {
+    opacity: 0.5;
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(1) {
+    transform: translateX(calc(var(--push) * -1.6));
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(2) {
+    transform: translateX(calc(var(--push) * -1));
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(4) {
+    transform: translateX(var(--push));
+  }
+
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(1),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(2),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(3) {
+    opacity: 0.5;
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(1) {
+    transform: translateX(calc(var(--push) * -2.2));
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(2) {
+    transform: translateX(calc(var(--push) * -1.6));
+  }
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(3) {
+    transform: translateX(calc(var(--push) * -1));
+  }
 
   .collage-piece-rotate {
     transform: rotate(var(--rotate, 0deg));

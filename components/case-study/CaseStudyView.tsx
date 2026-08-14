@@ -26,7 +26,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
             </div>
 
             {caseStudy.meta && (
-              <div className="mb-14 rounded-2xl bg-white p-8">
+              <div id="overview" className="mb-14 scroll-mt-24 rounded-2xl bg-white p-8">
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
                   <div>
                     <p className="mb-2 font-serif text-h3 text-fg">Overview</p>
@@ -54,7 +54,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                     <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       {caseStudy.impactStats.map((stat) => (
                         <RevealItem key={stat.label} className="rounded-lg border-2 border-success bg-bg p-5">
-                          <p className="mb-3 font-serif text-h3 text-fg">{stat.label}</p>
+                          <p className="mb-3 font-serif text-[20px] leading-[1.2] font-semibold text-fg">{stat.label}</p>
                           <p className="text-body-sm text-fg">{renderInline(stat.text)}</p>
                         </RevealItem>
                       ))}
@@ -78,7 +78,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
         </header>
       </div>
 
-      <CaseStudySideNav sections={caseStudy.sections} />
+      <CaseStudySideNav sections={caseStudy.sections} hasOverview={!!caseStudy.meta} />
 
       {/* Narrower than the hero above (1100px) so the fixed left-side TOC
           (visible from here down) has clear room and never overlaps the

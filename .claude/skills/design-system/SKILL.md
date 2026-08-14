@@ -31,7 +31,7 @@ prop（enum）控制。
 | `--color-fg-secondary` | `#6b6b6b` | 次要文字色 |
 | `--color-fg-hover` | `#333333` | 深色按鈕的 hover 狀態 |
 | `--color-bg` | `#f7f5f2` | 主背景 / 深色按鈕上的文字色 |
-| `--color-cta` | `#ff6553` | 品牌珊瑚色，只用於按鈕/圖形背景，**禁止用在內文文字** |
+| `--color-cta` | `#ff6553` | 品牌珊瑚色，只用於按鈕/圖形背景，**禁止用在內文文字**（唯一例外見下方「已知例外」：案例研究 Feedback 卡片標題內的關鍵字高亮） |
 | `--color-border` | `#e2dfda` | 外框線 |
 | `--color-available` | `#5a8a60` | 低調狀態指示（如 TOC 目前所在區塊），視覺任務是「安靜不搶戲」 |
 | `--color-success` | `#017d18` | 高飽和成就強調色（如 Impact Overview 數字卡外框），視覺任務是「一眼看到亮點」，不可跟 `--color-available` 共用 |
@@ -55,6 +55,7 @@ prop（enum）控制。
 ### 已知例外（刻意不 token 化）
 
 - `#f5a623`（星星評分色）：只出現一次，跟卡片配色沒有配對關係，語意是「評分」不是「卡片文字」。除非未來這個模式重複出現，否則不用建立 token。
+- **`--color-cta` 用在內文文字**：案例研究 `feedbackGrid` 卡片的 headline 裡，關鍵字（機構名稱，如「AppWorks」「Alibaba Cloud」）刻意用珊瑚色高亮，是唯一被核准的例外，不要當成可以比照辦理的先例套用到其他內文。實作是 `CaseStudyBlock.tsx` 的 `renderInline()` 新增的 `==text==` 語法（跟既有的 `**bold**`同一套 helper），只在寫 `feedbackGrid` 的 `headline` 欄位時使用。
 
 ---
 
@@ -197,7 +198,7 @@ interface TagChipProps {
 ## 禁止事項
 
 1. 不要寫死顏色/字級/間距/陰影數值，一律引用上面的 token
-2. 不要在內文文字使用 `--color-cta`，只能用在按鈕/圖形背景
+2. 不要在內文文字使用 `--color-cta`，只能用在按鈕/圖形背景（唯一例外：`feedbackGrid` headline 關鍵字高亮，見上方色彩 token 已知例外）
 3. 不要手寫「手機固定 px + `md:text-hX`」的字級跳躍寫法，直接引用流體 token
 4. 重複元件（按鈕、卡片、標籤）一律用共用元件，不要各頁各自手刻一份
 5. 不要用 `className` 覆蓋 `<GlassCard>` / `<Button>` 鎖定的 padding、字重、hover 屬性（專案沒裝 tailwind-merge，覆寫順序不保證）
