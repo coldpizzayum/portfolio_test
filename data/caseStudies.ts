@@ -350,6 +350,14 @@ export const caseStudies: CaseStudy[] = [
                 role: "Vincent@PrismX",
               },
               {
+                eyebrow: "500 Global",
+                headline: "Growing3 was selected for the startup accelerator - ==500 Global==",
+                quote:
+                  "[...] The team provides growth solutions for Web3 projects (such as blockchain, games, DApps, and NFTs), leveraging on-chain and off-chain data analytics to help projects acquire and retain quality users across marketing, growth strategy, analytics, and marTech.",
+                date: "Jul 18, 2023",
+                href: "https://www.media-outreach.com/news/taiwan/2023/07/18/233599/500-global-and-taiwan-tech-arena-tta-to-power-third-cohort-of-startups-to-aim-for-next-level-growth/",
+              },
+              {
                 eyebrow: "AppWorks (Demo Day #26 Press Release)",
                 headline: "Growing3 Selected for ==AppWorks== Accelerator #26",
                 quote:
@@ -362,14 +370,6 @@ export const caseStudies: CaseStudy[] = [
                 headline: "Growing3 was selected in the ==Alibaba Cloud== Global Startup Accelerator",
                 date: "May 24, 2023",
                 href: "https://kr-asia.com/intelligence-indeed-and-feiliu-tech-named-asia-stars-of-the-alibaba-cloud-x-krasia-global-startup-accelerator-hangzhou-demo-day",
-              },
-              {
-                eyebrow: "500 Global",
-                headline: "Growing3 was selected for the startup accelerator - ==500 Global==",
-                quote:
-                  "[...] The team provides growth solutions for Web3 projects (such as blockchain, games, DApps, and NFTs), leveraging on-chain and off-chain data analytics to help projects acquire and retain quality users across marketing, growth strategy, analytics, and marTech.",
-                date: "Jul 18, 2023",
-                href: "https://www.media-outreach.com/news/taiwan/2023/07/18/233599/500-global-and-taiwan-tech-arena-tta-to-power-third-cohort-of-startups-to-aim-for-next-level-growth/",
               },
             ],
           },

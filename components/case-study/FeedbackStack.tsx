@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import type { CSSProperties } from "react";
 import type { FeedbackCard } from "@/data/caseStudies";
 import { renderInline } from "./CaseStudyBlock";
@@ -81,6 +84,11 @@ function FeedbackCardContent({ card }: { card: FeedbackCard }) {
  * plain stacked list.
  */
 export default function FeedbackStack({ cards }: { cards: FeedbackCard[] }) {
+  // Which card is "pinned" fanned-out via the pagination dots below the
+  // deck (independent of :hover, which keeps working on its own — see
+  // .is-active in globals.css). null = nothing pinned, deck rests flat.
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   if (cards.length === 0) return null;
 
   return (
@@ -97,12 +105,14 @@ export default function FeedbackStack({ cards }: { cards: FeedbackCard[] }) {
       {/* Desktop: the fanned deck. Breaks out of the narrow article column
           (mirrors the old horizontal-scroll version's full-bleed trick) so
           the wider gaps between cards have room without cramming. */}
-      <div className="feedback-card-deck relative mr-[calc(-50vw+50%)] hidden h-[320px] w-full items-center md:flex">
+      <div className="feedback-card-deck relative mr-[calc(-50vw+50%)] hidden h-[344px] w-full items-center md:flex">
         {cards.map((card, index) => (
           <div
             key={index}
-            className="feedback-card-item relative flex h-[280px] w-[320px] flex-shrink-0 items-center justify-center -mr-2 last:mr-0 hover:z-10"
-            style={{ zIndex: index + 1 }}
+            className={`feedback-card-item relative flex h-[304px] w-[320px] flex-shrink-0 items-center justify-center -mr-2 last:mr-0 hover:z-10 ${
+              index === activeIndex ? "is-active" : ""
+            }`}
+            style={{ zIndex: index === activeIndex ? cards.length + 1 : index + 1 }}
           >
             <div
               className="feedback-card-rotate relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-hover"
@@ -113,6 +123,27 @@ export default function FeedbackStack({ cards }: { cards: FeedbackCard[] }) {
           </div>
         ))}
       </div>
+
+      {/* Pagination dots — click one to pin that card fanned-out to the
+          front, same treatment :hover already gives it. Desktop only,
+          mirrors the deck's own md:flex visibility (mobile's flat list
+          has nothing to paginate). */}
+      {cards.length > 1 && (
+        <div className="mt-5 hidden items-center justify-center gap-2 md:flex">
+          {cards.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setActiveIndex((current) => (current === index ? null : index))}
+              aria-label={`Bring card ${index + 1} to front`}
+              aria-current={activeIndex === index}
+              className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
+                activeIndex === index ? "bg-available" : "bg-border hover:bg-fg-secondary/50"
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
