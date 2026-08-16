@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
 import type { CSSProperties } from "react";
 import type { FeedbackCard } from "@/data/caseStudies";
 import { renderInline } from "./CaseStudyBlock";
@@ -18,40 +15,39 @@ function FeedbackCardContent({ card }: { card: FeedbackCard }) {
   return (
     <>
       {card.photo && (
-        <div className="absolute -top-4 -right-4 h-14 w-14 overflow-hidden rounded-full ring-4 ring-white shadow-md">
+        <div className="absolute -top-3 -right-3 h-12 w-12 overflow-hidden rounded-full ring-4 ring-white shadow-md">
           <Image src={card.photo} alt={card.photoAlt ?? ""} fill className="object-cover" />
         </div>
       )}
       <span
-        className={`mb-3 inline-flex w-fit items-center rounded-full px-3 py-1 font-serif text-[11px] font-semibold ${
+        className={`mb-2 inline-flex w-fit items-center rounded-full px-3 py-1 font-serif text-[10px] font-semibold ${
           isTestimonial ? "bg-card-sand text-card-sand-text" : "bg-card-salmon text-card-salmon-text"
         }`}
       >
         {isTestimonial ? "Customer Review" : "Investment"}
       </span>
       {isTestimonial ? (
-        <p className="mb-3 text-sm tracking-wider text-[#f5a623]" aria-hidden="true">
+        <p className="mb-2 text-xs tracking-wider text-[#f5a623]" aria-hidden="true">
           {"★".repeat(card.rating ?? 0)}
         </p>
       ) : (
         card.eyebrow && (
-          <p className={`mb-2 text-caption text-fg-secondary ${card.photo ? "pr-14" : ""}`}>{card.eyebrow}</p>
+          <p className={`mb-1.5 text-caption text-fg-secondary ${card.photo ? "pr-12" : ""}`}>{card.eyebrow}</p>
         )
       )}
       {card.headline && (
-        <p className={`mb-3 font-source-sans-pro text-[20px] leading-[1.1] font-bold text-fg ${card.photo ? "pr-10" : ""}`}>
+        <p className={`mb-2 font-source-sans-pro text-[17px] leading-[1.15] font-bold text-fg ${card.photo ? "pr-9" : ""}`}>
           {renderInline(card.headline)}
         </p>
       )}
       {/* Investment (press-mention) cards drop the quote in this design — only
           Customer Review cards show one. */}
-      {card.quote && isTestimonial && <p className="mb-4 line-clamp-6 flex-1 text-caption text-fg">{renderInline(card.quote)}</p>}
-      <div className="mt-auto pt-4">
+      {card.quote && isTestimonial && <p className="mb-3 line-clamp-4 flex-1 text-caption text-fg">{renderInline(card.quote)}</p>}
+      <div className="mt-auto pt-3">
         {isTestimonial ? (
-          <>
-            <p className="text-caption font-semibold text-fg">{card.name}</p>
-            <p className="text-caption text-fg-secondary">{card.role}</p>
-          </>
+          <p className="text-caption text-fg">
+            <span className="font-semibold">{card.name}</span> <span className="text-fg-secondary">{card.role}</span>
+          </p>
         ) : (
           <div className="flex items-center justify-between">
             <p className="text-caption text-fg-secondary">Date: {card.date}</p>
@@ -84,11 +80,6 @@ function FeedbackCardContent({ card }: { card: FeedbackCard }) {
  * plain stacked list.
  */
 export default function FeedbackStack({ cards }: { cards: FeedbackCard[] }) {
-  // Which card is "pinned" fanned-out via the pagination dots below the
-  // deck (independent of :hover, which keeps working on its own — see
-  // .is-active in globals.css). null = nothing pinned, deck rests flat.
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
   if (cards.length === 0) return null;
 
   return (
@@ -105,17 +96,15 @@ export default function FeedbackStack({ cards }: { cards: FeedbackCard[] }) {
       {/* Desktop: the fanned deck. Breaks out of the narrow article column
           (mirrors the old horizontal-scroll version's full-bleed trick) so
           the wider gaps between cards have room without cramming. */}
-      <div className="feedback-card-deck relative mr-[calc(-50vw+50%)] hidden h-[344px] w-full items-center md:flex">
+      <div className="feedback-card-deck relative mr-[calc(-50vw+50%)] hidden h-[288px] w-full items-center md:flex">
         {cards.map((card, index) => (
           <div
             key={index}
-            className={`feedback-card-item relative flex h-[304px] w-[320px] flex-shrink-0 items-center justify-center -mr-2 last:mr-0 hover:z-10 ${
-              index === activeIndex ? "is-active" : ""
-            }`}
-            style={{ zIndex: index === activeIndex ? cards.length + 1 : index + 1 }}
+            className="feedback-card-item relative flex h-[248px] w-[280px] flex-shrink-0 items-center justify-center -mr-2 last:mr-0 hover:z-10"
+            style={{ zIndex: index + 1 }}
           >
             <div
-              className="feedback-card-rotate relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-hover"
+              className="feedback-card-rotate relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white p-6 shadow-hover"
               style={{ "--rotate": `${ROTATIONS[index % ROTATIONS.length]}deg` } as CSSProperties}
             >
               <FeedbackCardContent card={card} />
@@ -123,27 +112,6 @@ export default function FeedbackStack({ cards }: { cards: FeedbackCard[] }) {
           </div>
         ))}
       </div>
-
-      {/* Pagination dots — click one to pin that card fanned-out to the
-          front, same treatment :hover already gives it. Desktop only,
-          mirrors the deck's own md:flex visibility (mobile's flat list
-          has nothing to paginate). */}
-      {cards.length > 1 && (
-        <div className="mt-5 hidden items-center justify-center gap-2 md:flex">
-          {cards.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => setActiveIndex((current) => (current === index ? null : index))}
-              aria-label={`Bring card ${index + 1} to front`}
-              aria-current={activeIndex === index}
-              className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
-                activeIndex === index ? "bg-available" : "bg-border hover:bg-fg-secondary/50"
-              }`}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

@@ -333,7 +333,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "feedback-impact",
         navLabel: "Outcomes",
-        heading: "Feedback",
+        heading: "Feedback & Impact",
         blocks: [
           {
             type: "paragraph",
@@ -347,7 +347,7 @@ export const caseStudies: CaseStudy[] = [
                 quote:
                   "Growing3 is a tool that has significantly benefited my work, providing a **seamless overall product experience, especially in terms of user experience**, which left a strong impression on me!",
                 name: "Project Manager",
-                role: "Vincent@PrismX",
+                role: "@PrismX",
               },
               {
                 eyebrow: "500 Global",
