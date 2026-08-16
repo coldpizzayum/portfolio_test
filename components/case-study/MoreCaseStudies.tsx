@@ -58,7 +58,7 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
 
   return (
     <section id="next" className="mt-20 mb-20 scroll-mt-24 rounded-2xl bg-white p-8 text-center md:rounded-[20px] md:p-12">
-      <h3 className="mb-8 font-serif text-h2 tracking-[-0.02em] text-fg">More case studies</h3>
+      <h3 className="mb-8 text-left font-serif text-h2 tracking-[-0.02em] text-fg">More case studies</h3>
 
       <div
         onWheel={handleWheel}

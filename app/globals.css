@@ -200,79 +200,76 @@ body {
       transform 320ms cubic-bezier(0.34, 1.4, 0.64, 1),
       box-shadow 320ms ease;
   }
-  .feedback-card-rotate:hover,
-  .feedback-card-item.is-active .feedback-card-rotate {
+  .feedback-card-rotate:hover {
     transform: rotate(0deg) scale(1.02);
   }
 
   .feedback-card-item {
-    --push: 24px;
+    --push: 20px;
     transition:
       transform 320ms cubic-bezier(0.34, 1.4, 0.64, 1),
       opacity 320ms ease;
   }
 
-  /* Pagination dots below the deck drive the same push/fade choreography
-     as hover, via an `.is-active` class instead of a real :hover state —
-     `:is(:hover, .is-active)` lets one card be "pinned" fanned-out by
-     click while every other card still responds to the mouse normally. */
-  .feedback-card-deck:has(.feedback-card-item:nth-child(1):is(:hover, .is-active)) .feedback-card-item:nth-child(2),
-  .feedback-card-deck:has(.feedback-card-item:nth-child(1):is(:hover, .is-active)) .feedback-card-item:nth-child(3),
-  .feedback-card-deck:has(.feedback-card-item:nth-child(1):is(:hover, .is-active)) .feedback-card-item:nth-child(4) {
+  /* Hovering one card pushes the rest apart and fades them, per nth-child
+     pair — hand-written for exactly 4 cards, mirrors Hero's fan-card-deck. */
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(2),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(3),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(4) {
     opacity: 0.5;
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(1):is(:hover, .is-active)) .feedback-card-item:nth-child(2) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(2) {
     transform: translateX(var(--push));
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(1):is(:hover, .is-active)) .feedback-card-item:nth-child(3) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(3) {
     transform: translateX(calc(var(--push) * 1.6));
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(1):is(:hover, .is-active)) .feedback-card-item:nth-child(4) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(1):hover) .feedback-card-item:nth-child(4) {
     transform: translateX(calc(var(--push) * 2.2));
   }
 
-  .feedback-card-deck:has(.feedback-card-item:nth-child(2):is(:hover, .is-active)) .feedback-card-item:nth-child(1),
-  .feedback-card-deck:has(.feedback-card-item:nth-child(2):is(:hover, .is-active)) .feedback-card-item:nth-child(3),
-  .feedback-card-deck:has(.feedback-card-item:nth-child(2):is(:hover, .is-active)) .feedback-card-item:nth-child(4) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(1),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(3),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(4) {
     opacity: 0.5;
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(2):is(:hover, .is-active)) .feedback-card-item:nth-child(1) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(1) {
     transform: translateX(calc(var(--push) * -1));
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(2):is(:hover, .is-active)) .feedback-card-item:nth-child(3) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(3) {
     transform: translateX(var(--push));
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(2):is(:hover, .is-active)) .feedback-card-item:nth-child(4) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(2):hover) .feedback-card-item:nth-child(4) {
     transform: translateX(calc(var(--push) * 1.6));
   }
 
-  .feedback-card-deck:has(.feedback-card-item:nth-child(3):is(:hover, .is-active)) .feedback-card-item:nth-child(1),
-  .feedback-card-deck:has(.feedback-card-item:nth-child(3):is(:hover, .is-active)) .feedback-card-item:nth-child(2),
-  .feedback-card-deck:has(.feedback-card-item:nth-child(3):is(:hover, .is-active)) .feedback-card-item:nth-child(4) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(1),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(2),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(4) {
     opacity: 0.5;
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(3):is(:hover, .is-active)) .feedback-card-item:nth-child(1) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(1) {
     transform: translateX(calc(var(--push) * -1.6));
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(3):is(:hover, .is-active)) .feedback-card-item:nth-child(2) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(2) {
     transform: translateX(calc(var(--push) * -1));
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(3):is(:hover, .is-active)) .feedback-card-item:nth-child(4) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(3):hover) .feedback-card-item:nth-child(4) {
     transform: translateX(var(--push));
   }
 
-  .feedback-card-deck:has(.feedback-card-item:nth-child(4):is(:hover, .is-active)) .feedback-card-item:nth-child(1),
-  .feedback-card-deck:has(.feedback-card-item:nth-child(4):is(:hover, .is-active)) .feedback-card-item:nth-child(2),
-  .feedback-card-deck:has(.feedback-card-item:nth-child(4):is(:hover, .is-active)) .feedback-card-item:nth-child(3) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(1),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(2),
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(3) {
     opacity: 0.5;
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(4):is(:hover, .is-active)) .feedback-card-item:nth-child(1) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(1) {
     transform: translateX(calc(var(--push) * -2.2));
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(4):is(:hover, .is-active)) .feedback-card-item:nth-child(2) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(2) {
     transform: translateX(calc(var(--push) * -1.6));
   }
-  .feedback-card-deck:has(.feedback-card-item:nth-child(4):is(:hover, .is-active)) .feedback-card-item:nth-child(3) {
+  .feedback-card-deck:has(.feedback-card-item:nth-child(4):hover) .feedback-card-item:nth-child(3) {
     transform: translateX(calc(var(--push) * -1));
   }
 
