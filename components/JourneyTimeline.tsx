@@ -103,7 +103,7 @@ export default function JourneyTimeline() {
                       className="-mx-3 flex w-[calc(100%+24px)] cursor-pointer items-center gap-4 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-bg-alt"
                     >
                       <span className="min-w-0 flex-1">
-                        <p className="text-caption text-fg-secondary">{entry.dateRange}</p>
+                        <p className="text-caption text-fg">{entry.dateRange}</p>
                         <h3 className="text-h4 tracking-[-0.01em] text-fg">{entry.title}</h3>
                       </span>
 

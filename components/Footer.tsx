@@ -102,7 +102,7 @@ export default function Footer() {
               </Button>
             </div>
 
-            <p className="text-caption font-semibold text-fg-secondary">
+            <p className="text-caption font-semibold text-fg">
               Berlin <BerlinClock />
             </p>
           </div>

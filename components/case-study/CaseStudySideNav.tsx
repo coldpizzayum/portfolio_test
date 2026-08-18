@@ -148,12 +148,12 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
               <a
                 href={`#${item.id}`}
                 className={`group flex items-center gap-2 rounded-[10px] px-2 py-1.5 text-[15px] font-semibold transition-colors duration-300 ${
-                  isActive ? "bg-available/10 text-available" : "text-fg hover:bg-bg-alt hover:text-available"
+                  isActive ? "bg-available/10 text-available" : "text-fg hover:bg-bg-alt"
                 }`}
               >
                 <span
                   className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-300 ${
-                    isActive ? "bg-available" : "bg-transparent group-hover:bg-available/40"
+                    isActive ? "bg-available" : "bg-transparent"
                   }`}
                 />
                 {item.navLabel}
@@ -164,7 +164,7 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
                     <a
                       key={sub.id}
                       href={`#${sub.id}`}
-                      className="rounded-[8px] px-2 py-1 text-caption text-fg-secondary transition-colors duration-300 hover:text-available"
+                      className="rounded-[8px] px-2 py-1 text-caption text-fg-secondary transition-colors duration-300 hover:bg-bg-alt"
                     >
                       {sub.label}
                     </a>

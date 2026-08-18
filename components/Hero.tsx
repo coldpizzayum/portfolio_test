@@ -70,7 +70,7 @@ export default function Hero() {
               Product Designer &amp; Builder.
             </h1>
 
-            <p className="mb-8 font-source-sans-pro text-[clamp(18px,12.2px+1.55vw,32px)] leading-[1.2] font-semibold text-fg">
+            <p className="mb-8 font-source-sans-pro text-[clamp(18px,13.86px+1.10vw,28px)] leading-[1.2] font-normal text-fg">
               5+ years in startups, from pre-seed to Series B. I prototype, code, market, and ship ideas.
             </p>
 

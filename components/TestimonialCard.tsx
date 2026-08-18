@@ -42,7 +42,7 @@ function QuoteCardContent({ testimonial, sizeClass }: { testimonial: QuoteTestim
         </span>
         <div>
           <p className="text-[13px] font-semibold text-fg">{testimonial.author}</p>
-          <p className="text-xs text-fg-secondary">{testimonial.role}</p>
+          <p className="text-xs text-fg">{testimonial.role}</p>
         </div>
       </div>
     </>

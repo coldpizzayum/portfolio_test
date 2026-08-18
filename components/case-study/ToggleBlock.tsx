@@ -13,7 +13,7 @@ function ChevronDownIcon({ open }: { open: boolean }) {
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
-      className={`h-5 w-5 shrink-0 text-fg-secondary transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+      className={`h-5 w-5 shrink-0 text-fg transition-transform duration-300 ${open ? "rotate-180" : ""}`}
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="m5 7.5 5 5 5-5" />
     </svg>
@@ -27,7 +27,7 @@ function InfoIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
-      className="h-4 w-4 shrink-0 text-fg-secondary"
+      className="h-4 w-4 shrink-0 text-fg"
     >
       <circle cx="10" cy="10" r="7" />
       <path strokeLinecap="round" d="M10 9.25v4.25" />

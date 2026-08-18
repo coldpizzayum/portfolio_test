@@ -16,6 +16,15 @@ interface ButtonProps {
    *  whole card is what's actually clickable, so it needs to react to the
    *  ancestor's hover instead of its own. */
   hoverTrigger?: "self" | "group";
+  /** Icon-only square button (h-10 w-10, no horizontal padding, no gap) —
+   *  Header's LinkedIn button, the one shape `<Button>` couldn't previously
+   *  express. Only meaningful on primary/secondary/third; ignored on
+   *  `links` (which has no shape of its own to begin with). Requires
+   *  `ariaLabel` since there's no visible text for assistive tech to read. */
+  square?: boolean;
+  /** Required when `square` is true — otherwise the button has no accessible
+   *  name. Passed through as `aria-label` regardless of `square`. */
+  ariaLabel?: string;
   /** Defaults to "a" when `href` is given, otherwise "button". WorkCard
    *  uses "span" for its decorative case (see `hoverTrigger` above — the
    *  real interactive element is its ancestor `<Link>`, not this one). */
@@ -31,8 +40,9 @@ interface ButtonProps {
 }
 
 // All three pill variants (primary/secondary/third) share one fixed compact
-// shape — rounded-lg (not a pill), fixed h-10 height + px-4, the same
-// regardless of context. This used to be a two-tier system (rounded-full +
+// shape — rounded-lg (not a pill), fixed h-10 height + px-4 (or a plain
+// w-10 square when `square` is set — see the prop and Header note below),
+// the same regardless of context. This used to be a two-tier system (rounded-full +
 // a `size` prop choosing between md/sm padding, with primary staying that
 // way "to read as the one big important action" while secondary/third had
 // already moved to this fixed shape) — but that left primary looking
@@ -43,12 +53,14 @@ interface ButtonProps {
 // the `size` prop was removed along with it.
 //
 // The shape itself (h-10 rounded-lg px-4) is copied byte-for-byte from
-// Header.tsx's hand-rolled DARK_BUTTON constant (2026-08-18, same day) —
-// this used to be px-3.5 py-2.5 instead, which was already visually close
+// Header.tsx's old hand-rolled DARK_BUTTON constant (2026-08-18, same day)
+// — this used to be px-3.5 py-2.5 instead, which was already visually close
 // to DARK_BUTTON but not identical (py-2.5 lands a hair shorter than a
-// fixed h-10). Header itself still isn't consuming <Button> — DARK_BUTTON
-// is unchanged and still hand-rolled — this only closes the remaining
-// shape gap from the <Button> side.
+// fixed h-10). DARK_BUTTON itself is gone now (2026-08-18, later same day)
+// — Header's LinkedIn/Say Hello buttons were migrated onto <Button
+// variant="secondary"> directly (LinkedIn uses the new `square` prop, since
+// it's an icon-only button with no label text), closing the loop this
+// comment used to describe as still-open.
 //
 // primary briefly carried a `border border-fg` (2026-08-18, same day) as a
 // mitigation for --color-cta (#00ffae) only having a 1.21:1 contrast ratio
@@ -63,7 +75,12 @@ interface ButtonProps {
 // sits in: CaseStudyBlock's in-body link inherits text-body-sm from its
 // parent <p>, Footer's link columns supply their own text-caption on the
 // <ul> ancestor instead).
-const COMPACT_SHAPE = "h-10 rounded-lg px-4";
+//
+// Split into a shape (height/radius, shared by every non-links button) and
+// a padding piece (px-4 + gap-2 for icon+label; swapped for a plain w-10
+// square when `square` is set — see the `square` prop and 2026-08-18
+// Header consolidation note below) so the two can vary independently.
+const COMPACT_SHAPE = "h-10 rounded-lg";
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: `${COMPACT_SHAPE} bg-cta text-fg`,
@@ -97,14 +114,18 @@ const TRANSITION_CLASSES: Record<ButtonVariant, string> = {
 /**
  * Shared CTA button — four variants (primary cta-green fill / secondary dark
  * fill / third outline / links plain text). primary/secondary/third all
- * share one fixed h-10 rounded-lg px-4 shape (COMPACT_SHAPE above, copied
- * from Header's DARK_BUTTON); links doesn't use that shape at all, relying
- * on inherited font-size instead. There's no `size` prop — every pill
- * button is the same size now.
+ * share one fixed h-10 rounded-lg shape (COMPACT_SHAPE above, copied from
+ * Header's DARK_BUTTON) with either px-4 + gap-2 padding (the normal case)
+ * or a plain w-10 square (`square`, for icon-only buttons like Header's
+ * LinkedIn link); links doesn't use that shape at all, relying on inherited
+ * font-size instead. There's no `size` prop — every pill button is the same
+ * size now.
  */
 export default function Button({
   variant = "primary",
   hoverTrigger = "self",
+  square = false,
+  ariaLabel,
   as,
   href,
   target,
@@ -117,13 +138,14 @@ export default function Button({
 }: ButtonProps) {
   const tag = as ?? (href ? "a" : "button");
   const isLinks = variant === "links";
+  const isSquare = square && !isLinks;
   const classes = isLinks
     ? `${VARIANT_CLASSES.links} ${TRANSITION_CLASSES.links} ${HOVER_CLASSES.links[hoverTrigger]} ${className}`
-    : `inline-flex w-fit items-center justify-center gap-2 text-sm font-semibold ${VARIANT_CLASSES[variant]} ${TRANSITION_CLASSES[variant]} ${HOVER_CLASSES[variant][hoverTrigger]} ${className}`;
+    : `inline-flex items-center justify-center text-sm font-semibold ${isSquare ? "w-10" : "w-fit gap-2 px-4"} ${VARIANT_CLASSES[variant]} ${TRANSITION_CLASSES[variant]} ${HOVER_CLASSES[variant][hoverTrigger]} ${className}`;
 
   if (tag === "span") {
     return (
-      <span id={id} className={classes}>
+      <span id={id} aria-label={ariaLabel} className={classes}>
         {children}
       </span>
     );
@@ -135,20 +157,20 @@ export default function Button({
     // anchors and internal routes go through next/link.
     if (href?.startsWith("http")) {
       return (
-        <a id={id} href={href} target={target} rel={rel} onClick={onClick} className={classes}>
+        <a id={id} href={href} target={target} rel={rel} onClick={onClick} aria-label={ariaLabel} className={classes}>
           {children}
         </a>
       );
     }
     return (
-      <Link id={id} href={href ?? "#"} onClick={onClick} className={classes}>
+      <Link id={id} href={href ?? "#"} onClick={onClick} aria-label={ariaLabel} className={classes}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button id={id} type={type} onClick={onClick} className={classes}>
+    <button id={id} type={type} onClick={onClick} aria-label={ariaLabel} className={classes}>
       {children}
     </button>
   );

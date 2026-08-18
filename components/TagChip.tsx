@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
  */
 export default function TagChip({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-fg-secondary">
+    <span className="rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-fg">
       {children}
     </span>
   );

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Button from "./Button";
 
 interface NavLink {
   label: string;
@@ -20,9 +21,6 @@ const LINKEDIN_URL = "https://www.linkedin.com/in/yiting1995/";
 
 const PILL_SURFACE =
   "rounded-full bg-[rgba(255,253,250,0.78)] shadow-[0_0_0_1px_rgba(0,0,0,0.07),0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-[16px]";
-
-const DARK_BUTTON =
-  "flex h-10 items-center justify-center rounded-lg bg-fg text-bg transition-colors duration-300 hover:bg-fg-hover";
 
 function EnvelopeIcon() {
   return (
@@ -85,8 +83,8 @@ function NavPills({ className }: { className: string }) {
               ref={(el) => {
                 if (el) linkRefs.current.set(link.href, el);
               }}
-              className={`relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium transition-colors duration-[180ms] ${
-                isActive ? "text-fg" : "text-fg-secondary hover:bg-bg-alt hover:text-fg"
+              className={`relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium text-fg transition-colors duration-[180ms] ${
+                isActive ? "" : "hover:bg-bg-alt"
               }`}
             >
               {link.label}
@@ -113,19 +111,13 @@ export default function Header() {
           </Link>
 
           <div className="flex items-center gap-2 md:hidden">
-            <a
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className={`${DARK_BUTTON} w-10`}
-            >
+            <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
               <LinkedInIcon />
-            </a>
-            <Link href="/#contact" className={`${DARK_BUTTON} gap-2 px-4 text-sm font-medium`}>
+            </Button>
+            <Button href="/#contact" variant="secondary">
               <EnvelopeIcon />
               Say Hello
-            </Link>
+            </Button>
           </div>
         </div>
 
@@ -137,19 +129,13 @@ export default function Header() {
         <NavPills className="fixed top-5 left-1/2 z-[100] hidden -translate-x-1/2 items-center px-2 py-1 md:flex" />
 
         <div className="hidden shrink-0 items-center gap-2 md:flex">
-          <a
-            href={LINKEDIN_URL}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn"
-            className={`${DARK_BUTTON} w-10`}
-          >
+          <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
             <LinkedInIcon />
-          </a>
-          <Link href="/#contact" className={`${DARK_BUTTON} gap-2 px-4 text-sm font-medium`}>
+          </Button>
+          <Button href="/#contact" variant="secondary">
             <EnvelopeIcon />
             Say Hello
-          </Link>
+          </Button>
         </div>
       </div>
     </div>

@@ -50,7 +50,7 @@ function FeedbackCardContent({ card }: { card: FeedbackCard }) {
           </p>
         ) : (
           <div className="flex items-center justify-between">
-            <p className="text-caption text-fg-secondary">Date: {card.date}</p>
+            <p className="text-caption text-fg">Date: {card.date}</p>
             {card.href && (
               <a
                 href={card.href}

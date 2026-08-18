@@ -352,13 +352,14 @@ body {
   line-height: 1.2;
   font-weight: 700;
 }
-/* Not fluid on purpose — min and max coincide at 32px, so this is a flat
-   size across every viewport. Promoted from CaseStudyBlock's one-off stat
-   number clamp(32px, 27.86px + 1.10vw, 42px) into a named token; the
-   fluid range was dropped along with the promotion, not kept. */
+/* Fluid again (2026-08-18) — briefly restored to the exact clamp() it was
+   promoted from (32→42px), then shifted back down the same day so the
+   desktop max tops out at 32px instead — min moved down by the same 10px
+   the max did (32→22), keeping the same clamp "shape" (same vw slope),
+   just lower on the scale. */
 @utility text-h5 {
   font-family: var(--font-source-sans-pro);
-  font-size: 32px;
+  font-size: clamp(22px, 17.86px + 1.10vw, 32px);
   line-height: 1;
   font-weight: 700;
 }
