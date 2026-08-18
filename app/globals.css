@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-source-sans);
   --font-serif: var(--font-source-serif);
   --font-mono: var(--font-jetbrains-mono);
   --font-source-sans-pro: var(--font-source-sans);
 
   --color-bg: #f7f5f2;
   --color-bg-alt: #efede9;
-  --color-fg: #1a1a1a;
-  --color-fg-secondary: #6b6b6b;
-  --color-cta: #ff6553;
-  --color-fg-hover: #333333;
+  --color-fg: #233a48;
+  --color-fg-secondary: #b2bcc2;
+  --color-cta: #00ffae;
+  --color-cta-hover: #00d994;
+  --color-fg-hover: #465761;
   --color-border: #e2dfda;
   --color-available: #5a8a60;
-  --color-success: #017d18;
 
   --color-card-sand: #f5c563;
   --color-card-photo: #e2dfda;
@@ -38,6 +38,35 @@
   --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 32px rgba(0, 0, 0, 0.05);
   --shadow-hover: 0 20px 48px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.05);
   --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.12);
+
+  /* Spacing tokens — named `--spacing-*` entries so Tailwind auto-generates
+     matching p-/m-/gap-/etc. utilities (same mechanism as --color-*, no
+     hand-written @utility needed). Fixed mobile/desktop pairs (not fluid
+     clamp() — that's a separate follow-up, not part of this pass). Each
+     pair is two tokens (base = mobile, -lg = desktop) since Tailwind
+     utilities are static per breakpoint, not continuously responsive. */
+  --spacing-shell: 20px; /* section outer horizontal padding, mobile */
+  --spacing-shell-lg: 40px; /* …desktop */
+  --spacing-section: 20px; /* section outer vertical padding, mobile */
+  --spacing-section-lg: 30px; /* …desktop */
+  --spacing-hero-top: 45px; /* page-hero top offset (Hero/About/CaseStudyView header), mobile */
+  --spacing-hero-top-lg: 50px; /* …desktop */
+  --spacing-card-glass: 28px; /* GlassCard padding, mobile */
+  --spacing-card-glass-lg: 56px; /* …desktop */
+  --spacing-card-work: 32px; /* WorkCard / MoreCaseStudies outer card padding, mobile */
+  --spacing-card-work-lg: 48px; /* …desktop */
+  --spacing-card-compact: 20px; /* ActivityHeatmap / CaseStudyBlock figures / ImageCollage padding, mobile */
+  --spacing-card-compact-lg: 32px; /* …desktop */
+  --spacing-cs-section-gap: 48px; /* case-study body section-to-section gap + More-case-studies offset, mobile */
+  --spacing-cs-section-gap-lg: 80px; /* …desktop */
+
+  /* Heading-to-its-own-content gap — one fixed value per heading tier (not
+     mobile/desktop pairs; these don't scale with viewport, only with which
+     text-h* the heading uses). WorkSection's h2 is a documented deliberate
+     exception (40px, not this token) — see design-system skill. */
+  --spacing-heading-gap-h2: 12px; /* text-h2 heading -> its content */
+  --spacing-heading-gap-h3: 20px; /* text-h3 heading -> its content */
+  --spacing-heading-gap-h4: 8px; /* text-h4 heading -> its content */
 }
 
 html {
@@ -292,54 +321,58 @@ body {
    rendered the full desktop size with nothing in between. Line-heights are
    unitless ratios (not fixed px) so they scale proportionally at every
    point along the clamp, not just at the two endpoints.
-   text-h1/text-h2 are the "pairs with a smaller mobile fallback" family and
-   get a real fluid range; text-h3/text-body-sm/text-links/text-caption are
+   text-h2/text-h3 are the "pairs with a smaller mobile fallback" family and
+   get a real fluid range; text-h4/text-body-sm/text-caption are
    used flat (no responsive variant) in many places across the site, so
    their range is deliberately kept small to avoid an unintended site-wide
    size change — components that want a bigger jump than that (Hero's intro
    paragraph, the case study impact-stat numbers) get their own local
    clamp() instead of stretching the shared token. */
-@utility text-display {
+@utility text-h1 {
   font-family: var(--font-serif);
   font-size: clamp(44px, 29.08px + 3.98vw, 80px);
   line-height: 1;
   font-weight: 700;
 }
-@utility text-h1 {
+@utility text-h2 {
   font-family: var(--font-serif);
   font-size: clamp(40px, 30.06px + 2.65vw, 64px);
   line-height: 1.1;
   font-weight: 700;
 }
-@utility text-h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(26px, 20.2px + 1.55vw, 40px);
-  line-height: 1;
-  font-weight: 600;
-}
 @utility text-h3 {
   font-family: var(--font-serif);
-  font-size: clamp(24px, 22.34px + 0.44vw, 28px);
-  line-height: 1;
+  font-size: clamp(26px, 23.51px + 0.66vw, 32px);
+  line-height: 1.2;
   font-weight: 600;
+}
+@utility text-h4 {
+  font-family: var(--font-source-sans-pro);
+  font-size: clamp(20px, 18.34px + 0.44vw, 24px);
+  line-height: 1.2;
+  font-weight: 700;
+}
+/* Not fluid on purpose — min and max coincide at 32px, so this is a flat
+   size across every viewport. Promoted from CaseStudyBlock's one-off stat
+   number clamp(32px, 27.86px + 1.10vw, 42px) into a named token; the
+   fluid range was dropped along with the promotion, not kept. */
+@utility text-h5 {
+  font-family: var(--font-source-sans-pro);
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 700;
 }
 @utility text-body {
   font-family: var(--font-source-sans-pro);
   font-size: clamp(18px, 17.17px + 0.22vw, 20px);
-  line-height: 1.4;
+  line-height: 1.5;
   font-weight: 400;
 }
 @utility text-body-sm {
   font-family: var(--font-source-sans-pro);
   font-size: clamp(17px, 16.59px + 0.11vw, 18px);
-  line-height: 1.2;
+  line-height: 1.5;
   font-weight: 400;
-}
-@utility text-links {
-  font-family: var(--font-source-sans-pro);
-  font-size: clamp(17px, 16.59px + 0.11vw, 18px);
-  line-height: 1;
-  font-weight: 500;
 }
 @utility text-caption {
   font-family: var(--font-source-sans-pro);

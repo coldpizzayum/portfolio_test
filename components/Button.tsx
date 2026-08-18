@@ -1,12 +1,16 @@
 import Link from "next/link";
 import type { MouseEventHandler, ReactNode } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "dark";
-type ButtonSize = "md" | "sm";
+// Prop values stay lowercase (matches the rest of the codebase's convention)
+// even though the design system's display names are capitalized —
+// primary=Primary, secondary=Secondary, third=Third, links=Links. Mapping
+// from the old 3-variant system: old "primary" (cta fill) is unchanged; old
+// "dark" (solid fg fill) is now called "secondary"; old "secondary" (outline)
+// is now called "third". "links" is new, no old equivalent.
+type ButtonVariant = "primary" | "secondary" | "third" | "links";
 
 interface ButtonProps {
   variant?: ButtonVariant;
-  size?: ButtonSize;
   /** Most buttons drive their own hover state. WorkCard's is a purely
    *  decorative element inside an ancestor `<Link className="group">` — the
    *  whole card is what's actually clickable, so it needs to react to the
@@ -26,39 +30,80 @@ interface ButtonProps {
   children: ReactNode;
 }
 
+// All three pill variants (primary/secondary/third) share one fixed compact
+// shape — rounded-lg (not a pill), fixed h-10 height + px-4, the same
+// regardless of context. This used to be a two-tier system (rounded-full +
+// a `size` prop choosing between md/sm padding, with primary staying that
+// way "to read as the one big important action" while secondary/third had
+// already moved to this fixed shape) — but that left primary looking
+// mismatched next to its now-compact siblings (e.g. Hero's "Check out
+// recent work" primary towering over "Learn more about me" third right next
+// to it), so primary was folded into the same COMPACT_SHAPE too
+// (2026-08-18). There's no more per-button size variance across the three —
+// the `size` prop was removed along with it.
+//
+// The shape itself (h-10 rounded-lg px-4) is copied byte-for-byte from
+// Header.tsx's hand-rolled DARK_BUTTON constant (2026-08-18, same day) —
+// this used to be px-3.5 py-2.5 instead, which was already visually close
+// to DARK_BUTTON but not identical (py-2.5 lands a hair shorter than a
+// fixed h-10). Header itself still isn't consuming <Button> — DARK_BUTTON
+// is unchanged and still hand-rolled — this only closes the remaining
+// shape gap from the <Button> side.
+//
+// primary briefly carried a `border border-fg` (2026-08-18, same day) as a
+// mitigation for --color-cta (#00ffae) only having a 1.21:1 contrast ratio
+// against --color-bg — removed again shortly after on request. The
+// underlying contrast problem was never actually fixed by the border (it
+// only made the button's edge findable, not the fill itself compliant),
+// and removing it doesn't make anything newly broken — just reverts to the
+// pre-border baseline. Still an open a11y item, see design-system skill.
+//
+// "links" is the one exception: a plain inline text link, no pill chrome,
+// no forced font-size (it needs to inherit whichever paragraph/list it
+// sits in: CaseStudyBlock's in-body link inherits text-body-sm from its
+// parent <p>, Footer's link columns supply their own text-caption on the
+// <ul> ancestor instead).
+const COMPACT_SHAPE = "h-10 rounded-lg px-4";
+
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: "bg-cta text-fg",
-  secondary: "border border-border text-fg",
-  dark: "bg-fg text-bg",
+  primary: `${COMPACT_SHAPE} bg-cta text-fg`,
+  secondary: `${COMPACT_SHAPE} bg-fg text-bg`,
+  third: `${COMPACT_SHAPE} border border-border text-fg`,
+  links: "text-fg underline decoration-2 underline-offset-3",
 };
 
 const HOVER_CLASSES: Record<ButtonVariant, { self: string; group: string }> = {
-  primary: { self: "hover:opacity-85", group: "group-hover:opacity-85" },
-  secondary: { self: "hover:border-fg", group: "group-hover:border-fg" },
-  dark: { self: "hover:bg-fg-hover", group: "group-hover:bg-fg-hover" },
+  // Real color swap, not opacity fade — kept this way even after the
+  // 2026-08-18 border removal below (see VARIANT_CLASSES comment) because
+  // opacity would fade bg-cta toward the page background, which is already
+  // the accessibility problem primary has, not a fix for it.
+  primary: { self: "hover:bg-cta-hover", group: "group-hover:bg-cta-hover" },
+  secondary: { self: "hover:bg-fg-hover", group: "group-hover:bg-fg-hover" },
+  // Border darkens AND gets a faint cta-tinted fill — the fill references
+  // --color-cta directly via the opacity modifier (bg-cta/15) instead of a
+  // separate hardcoded hex, so it re-tints automatically if --color-cta
+  // ever changes again.
+  third: { self: "hover:border-fg hover:bg-cta/15", group: "group-hover:border-fg group-hover:bg-cta/15" },
+  links: { self: "hover:text-cta", group: "group-hover:text-cta" },
 };
 
 const TRANSITION_CLASSES: Record<ButtonVariant, string> = {
-  primary: "transition-opacity duration-200",
+  primary: "transition-colors duration-200",
   secondary: "transition-colors duration-300",
-  dark: "transition-colors duration-300",
-};
-
-const SIZE_CLASSES: Record<ButtonSize, string> = {
-  md: "px-7 py-3.5",
-  sm: "px-6 py-2.5",
+  third: "transition-colors duration-300",
+  links: "transition-colors duration-300",
 };
 
 /**
- * Shared pill CTA — three color variants (primary coral / secondary outline
- * / dark) x two sizes (md for standalone section CTAs, sm for card-embedded
- * actions). Consolidated from what used to be hand-rolled per instance
- * across Hero/Footer/JourneyTimeline/AiProjectsSection/WorkCard, each with
- * its own slightly-off padding/font-weight/hover treatment.
+ * Shared CTA button — four variants (primary cta-green fill / secondary dark
+ * fill / third outline / links plain text). primary/secondary/third all
+ * share one fixed h-10 rounded-lg px-4 shape (COMPACT_SHAPE above, copied
+ * from Header's DARK_BUTTON); links doesn't use that shape at all, relying
+ * on inherited font-size instead. There's no `size` prop — every pill
+ * button is the same size now.
  */
 export default function Button({
   variant = "primary",
-  size = "md",
   hoverTrigger = "self",
   as,
   href,
@@ -71,7 +116,10 @@ export default function Button({
   children,
 }: ButtonProps) {
   const tag = as ?? (href ? "a" : "button");
-  const classes = `inline-flex w-fit items-center justify-center gap-2 rounded-full text-sm font-semibold ${VARIANT_CLASSES[variant]} ${SIZE_CLASSES[size]} ${TRANSITION_CLASSES[variant]} ${HOVER_CLASSES[variant][hoverTrigger]} ${className}`;
+  const isLinks = variant === "links";
+  const classes = isLinks
+    ? `${VARIANT_CLASSES.links} ${TRANSITION_CLASSES.links} ${HOVER_CLASSES.links[hoverTrigger]} ${className}`
+    : `inline-flex w-fit items-center justify-center gap-2 text-sm font-semibold ${VARIANT_CLASSES[variant]} ${TRANSITION_CLASSES[variant]} ${HOVER_CLASSES[variant][hoverTrigger]} ${className}`;
 
   if (tag === "span") {
     return (

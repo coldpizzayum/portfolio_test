@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 interface GlassCardProps {
   children: ReactNode;
-  /** "default" is the p-7/md:p-14 padding used everywhere except Hero,
+  /** "default" is the --spacing-card-glass (28px/56px) padding used everywhere except Hero,
    *  which needs its bottom edge padding-free so its fade-out overlay can
    *  bleed flush to the card's own bottom edge. */
   padding?: "default" | "no-bottom";
@@ -15,8 +15,11 @@ interface GlassCardProps {
 }
 
 const PADDING_CLASSES: Record<NonNullable<GlassCardProps["padding"]>, string> = {
-  default: "p-7 md:p-14",
-  "no-bottom": "px-7 pt-9 md:px-14 md:pt-14",
+  default: "p-card-glass md:p-card-glass-lg",
+  // Top padding stays a literal 36px/56px here — Hero's own variant, and the
+  // mobile value (36px) deliberately doesn't match --spacing-card-glass's
+  // 28px, so it can't be tokenized the same way as the horizontal padding.
+  "no-bottom": "px-card-glass pt-9 md:px-card-glass-lg md:pt-14",
 };
 
 /**

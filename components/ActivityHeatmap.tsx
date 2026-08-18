@@ -163,7 +163,7 @@ export default function ActivityHeatmap() {
   return (
     <div
       id="activity"
-      className="rounded-2xl border border-border bg-white/60 p-5 shadow-[0_0_0_1px_rgba(0,0,0,0.04)] backdrop-blur-[8px] md:p-8"
+      className="rounded-2xl border border-border bg-white/60 p-card-compact shadow-[0_0_0_1px_rgba(0,0,0,0.04)] backdrop-blur-[8px] md:p-card-compact-lg"
     >
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4 font-mono">
         <div className="inline-flex items-center gap-1 rounded-full border border-border bg-white p-1">

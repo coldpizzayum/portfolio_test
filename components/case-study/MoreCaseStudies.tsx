@@ -57,8 +57,8 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
   const stageHeightSm = Math.round(maxDepth * PEEK_STEP + CARD_HEIGHT.sm * backScale);
 
   return (
-    <section id="next" className="mt-20 mb-20 scroll-mt-24 rounded-2xl bg-white p-8 text-center md:rounded-[20px] md:p-12">
-      <h3 className="mb-8 text-left font-serif text-h2 tracking-[-0.02em] text-fg">More case studies</h3>
+    <section id="next" className="mt-cs-section-gap mb-cs-section-gap scroll-mt-24 rounded-2xl bg-white p-card-work text-center md:mt-cs-section-gap-lg md:mb-cs-section-gap-lg md:rounded-[20px] md:p-card-work-lg">
+      <h3 className="mb-heading-gap-h3 text-left text-h3 tracking-[-0.02em] text-fg">More case studies</h3>
 
       <div
         onWheel={handleWheel}
@@ -89,11 +89,11 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
               </div>
               <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 text-left sm:pl-5">
                 <div className="flex-1 space-y-2">
-                  <p className="font-serif text-h3 leading-tight tracking-[-0.02em] text-fg">{item.title}</p>
+                  <p className="text-h4 leading-tight tracking-[-0.01em] text-fg">{item.title}</p>
                   <p className="line-clamp-2 text-caption text-fg">{item.description}</p>
                 </div>
                 {isFront && (
-                  <Button href={`/case-study/${item.slug}`} size="sm">
+                  <Button href={`/case-study/${item.slug}`}>
                     Read case study
                   </Button>
                 )}
@@ -105,10 +105,10 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
 
       {count > 1 && (
         <div className="relative z-10 mt-6 flex items-center justify-center gap-3">
-          <Button as="button" variant="secondary" size="sm" onClick={goBack}>
+          <Button as="button" variant="third" onClick={goBack}>
             Back
           </Button>
-          <Button as="button" variant="dark" size="sm" onClick={goNext}>
+          <Button as="button" variant="secondary" onClick={goNext}>
             Next
           </Button>
         </div>

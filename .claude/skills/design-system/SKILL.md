@@ -27,14 +27,18 @@ prop（enum）控制。
 
 | Token | 色值 | 用途 |
 |---|---|---|
-| `--color-fg` | `#1a1a1a` | 主要文字色 |
-| `--color-fg-secondary` | `#6b6b6b` | 次要文字色 |
-| `--color-fg-hover` | `#333333` | 深色按鈕的 hover 狀態 |
+| `--color-fg` | `#233a48` | 主要文字色 |
+| `--color-fg-secondary` | `#b2bcc2` | 次要文字色（2026-08-17 從 `#6b6b6b` 改） |
+| `--color-fg-hover` | `#465761`（2026-08-18 從 `#333333` 改） | 深色按鈕的 hover 狀態 |
 | `--color-bg` | `#f7f5f2` | 主背景 / 深色按鈕上的文字色 |
-| `--color-cta` | `#ff6553` | 品牌珊瑚色，只用於按鈕/圖形背景，**禁止用在內文文字**（唯一例外見下方「已知例外」：案例研究 Feedback 卡片標題內的關鍵字高亮） |
+
+> `--color-fg` 曾經在一次 rewind 操作中被意外還原回舊值 `#1a1a1a`，2026-08-17 重新確認並改回 `#233a48`——這是目前的正式值，不要看到舊筆記或截圖裡的 `#1a1a1a` 就改回去。`--color-bg`／`--color-surface` 沒有一起還原（使用者這輪沒有要求），目前 `--color-bg` 仍是 rewind 前的舊值 `#f7f5f2`、`--color-surface` 這個 token 不存在，如果之後要補回來要再確認一次。
+| `--color-cta` | `#00ffae`（2026-08-18 從 `#ff6553` 珊瑚色改成螢光綠，經 Notion 標注確認） | 品牌強調色，只用於按鈕/圖形背景，**禁止用在內文文字的 resting 狀態**（見下方「已知例外」：`feedbackGrid` headline 關鍵字高亮、`<Button variant="links">` 的 hover） |
+| `--color-cta-hover` | `#00d994`（2026-08-18 新增） | `--color-cta` 的 hover 狀態，目前只有 `<Button primary>` 用（`hover:bg-cta-hover`，實色替換，取代原本的 `hover:opacity-85`） |
 | `--color-border` | `#e2dfda` | 外框線 |
-| `--color-available` | `#5a8a60` | 低調狀態指示（如 TOC 目前所在區塊），視覺任務是「安靜不搶戲」 |
-| `--color-success` | `#017d18` | 高飽和成就強調色（如 Impact Overview 數字卡外框），視覺任務是「一眼看到亮點」，不可跟 `--color-available` 共用 |
+| `--color-available` | `#5a8a60` | 低調狀態指示（如 TOC 目前所在區塊、Impact Overview 數字卡外框），視覺任務是「安靜不搶戲」 |
+
+> `--color-success`（`#017d18`）已於 2026-08-18 刪除、合併進 `--color-available`——原本唯一的用法（`CaseStudyView.tsx` 的 Impact Overview 數字卡外框）已經改成 `border-available`。不要再加回這個 token，兩個「強調用途」的色彩現在統一用 `available`。
 
 ### 卡片配色家族 `--color-card-*`
 
@@ -55,39 +59,66 @@ prop（enum）控制。
 ### 已知例外（刻意不 token 化）
 
 - `#f5a623`（星星評分色）：只出現一次，跟卡片配色沒有配對關係，語意是「評分」不是「卡片文字」。除非未來這個模式重複出現，否則不用建立 token。
-- **`--color-cta` 用在內文文字**：案例研究 `feedbackGrid` 卡片的 headline 裡，關鍵字（機構名稱，如「AppWorks」「Alibaba Cloud」）刻意用珊瑚色高亮，是唯一被核准的例外，不要當成可以比照辦理的先例套用到其他內文。實作是 `CaseStudyBlock.tsx` 的 `renderInline()` 新增的 `==text==` 語法（跟既有的 `**bold**`同一套 helper），只在寫 `feedbackGrid` 的 `headline` 欄位時使用。
+- **ActivityHeatmap 的 9 色熱力圖階梯**（`#ebedf0`／`#9be9a8`／`#40c463`／`#30a14e`／`#216e39`／`#ffe0d6`／`#ffb199`／`#ff8a66`／`#ff6553`）：GitHub 來源模仿 GitHub 自己的綠色階梯，Claude Code 來源用暖色系（最深階 `#ff6553` 是寫死值，**不是** `--color-cta` 的引用——2026-08-18 `--color-cta` 改成 `#00ffae` 之後兩者已經不再相等，這組調色盤本來就是獨立於 token 之外的，不用跟著變），程式碼裡已有註解說明用意，是資料視覺化專屬的獨立調色盤，不要拆開套用到其他地方。
+- **`--color-cta` 用在內文文字（resting 狀態）**：案例研究 `feedbackGrid` 卡片的 headline 裡，關鍵字（機構名稱，如「AppWorks」「Alibaba Cloud」）刻意用高亮，是唯一被核准的 resting 狀態例外，不要當成可以比照辦理的先例套用到其他內文。實作是 `CaseStudyBlock.tsx` 的 `renderInline()` 新增的 `==text==` 語法（跟既有的 `**bold**`同一套 helper），只在寫 `feedbackGrid` 的 `headline` 欄位時使用。
+- **`--color-cta` 用在內文文字（hover 狀態）**：`<Button variant="links">` 的 hover 統一是 `text-cta`，2026-08-18 起用在 Footer 連結欄跟 CaseStudyBlock 內文連結兩處，見下方 `<Button>` 章節，不是單一例外了。
 
 ---
 
+## 字體家族
+
+全站只剩 3 個字體：**Source Serif 4**（`font-serif`，大標題 `text-h1`~`h3`）、
+**Source Sans 3**（`font-source-sans-pro`，其他所有文字——內文、小標題
+`text-h4`/`text-h5`、UI 控制項如 Button/TagChip/nav 連結，也是 `<body>` 的
+`font-source-sans-pro` 預設字體）、**JetBrains Mono**（`font-mono`，只有
+ActivityHeatmap 跟 WorkIndexRail 用）。
+
+**Inter 已於 2026-08-17 從全站移除**：`app/layout.tsx` 不再載入 `Inter`（`next/font/google`），
+`<body>` 的 class 從 `font-sans` 改成明寫 `font-source-sans-pro`，`globals.css` 的
+`--font-sans` 也重新指向 `var(--font-source-sans)`（不是刪掉這個 CSS 變數，是改指向，
+避免 Tailwind 內部任何地方還在引用 `--font-sans` 時撞到失效的字體）。Inter 原本是
+`<body>` 的隱性預設字體，沒有任何地方明寫 `font-sans` class 之外的用法，所以拿掉
+沒有需要額外處理的殘留引用。**不要再加回 Inter**，UI 控制項文字現在統一用
+Source Sans 3。
+
 ## 字級系統
 
-8 個字級 token（`text-display`／`text-h1`／`text-h2`／`text-h3`／`text-body`／
-`text-body-sm`／`text-links`／`text-caption`）全部是 `clamp()` 流體字級，
+8 個字級 token（`text-h1`／`text-h2`／`text-h3`／`text-h4`／`text-h5`／`text-body`／
+`text-body-sm`／`text-caption`）——除了 `text-h5`，其餘全部是 `clamp()` 流體字級，
 不是固定 px，行高也是無單位比例值（不是固定 px）。
 
-| Token | `font-size` | 行高 | 定位 |
-|---|---|---|---|
-| `text-display` | `clamp(44px, 29.08px + 3.98vw, 80px)` | `1` | 只用在 Hero 主標題 |
-| `text-h1` | `clamp(40px, 30.06px + 2.65vw, 64px)` | `1.1` | 章節主標題，跟手機版配一個更小字級的家族 |
-| `text-h2` | `clamp(26px, 20.2px + 1.55vw, 40px)` | `1` | 次級標題（WorkCard、案例研究區塊標題） |
-| `text-h3` | `clamp(24px, 22.34px + 0.44vw, 28px)` | `1` | 小標題，全站多處平常直接固定使用，範圍刻意留小 |
-| `text-body` | `clamp(18px, 17.17px + 0.22vw, 20px)` | `1.4` | |
-| `text-body-sm` | `clamp(17px, 16.59px + 0.11vw, 18px)` | `1.2` | 預設內文字級，全站到處共用，範圍刻意留小 |
-| `text-links` | `clamp(17px, 16.59px + 0.11vw, 18px)` | `1` | |
-| `text-caption` | `clamp(13px, 12.59px + 0.11vw, 14px)` | `1.2` | 全站到處共用，範圍刻意留小 |
+| Token | `font-size` | 行高 | 字重 | 字體 | 定位 |
+|---|---|---|---|---|---|
+| `text-h1` | `clamp(44px, 29.08px + 3.98vw, 80px)` | `1` | 700 | Source Serif 4 | 只用在 Hero 主標題 |
+| `text-h2` | `clamp(40px, 30.06px + 2.65vw, 64px)` | `1.1` | 700 | Source Serif 4 | 章節主標題，跟手機版配一個更小字級的家族；案例研究頁標題（`CaseStudyView.tsx` H1）也直接套用這個，不再用自己的 `clamp()` |
+| `text-h3` | `clamp(26px, 23.51px + 0.66vw, 32px)` | `1.2` | 600 | Source Serif 4 | 次級標題（WorkCard、案例研究區塊標題——含 `CaseStudyView.tsx` 段落 `<h2>`） |
+| `text-h4` | `clamp(20px, 18.34px + 0.44vw, 24px)` | `1.2` | **700** | **Source Sans 3** | 小標題，全站多處平常直接固定使用，範圍刻意留小；案例研究 Overview/My role/Team/Impact Overview 標籤也套這個 |
+| `text-h5` | `32px`（**非流體，固定值**）| `1` | 700 | Source Sans 3 | 強調用的大數字（案例研究 `statRow` 數字統計），2026-08-17 從 CaseStudyBlock 的獨立 `clamp()` 例外正式升格成 token |
+| `text-body` | `clamp(18px, 17.17px + 0.22vw, 20px)` | `1.5` | 400 | Source Sans 3 | 加 `font-bold` 可當作 Impact 數字卡標籤用（「Body Bold」） |
+| `text-body-sm` | `clamp(17px, 16.59px + 0.11vw, 18px)` | `1.5` | 400 | Source Sans 3 | 預設內文字級，全站到處共用；加 `font-bold` 是 FeedbackStack 卡片標題用的「Body-sm (Bold)」 |
+| `text-caption` | `clamp(13px, 12.59px + 0.11vw, 14px)` | `1.2` | 400 | Source Sans 3 | 全站到處共用；FeedbackStack 徽章文字也套這個 |
+
+**2026-08-17 兩輪更新**：
+1. `text-h3`／`text-h4` 桌機上限縮小（40→32px、28→24px），`text-h4` 手機下限也跟著調小（24→20px），`text-h3`／`text-h4` 行高都改成 `1.2`（原本都是 `1`）、`text-body`／`text-body-sm` 行高統一調成 `1.5`（原本分別是 `1.4`／`1.2`）。中間的 `clamp()` 內插係數（`Apx + Bvw`）都是用同一條公式重算：`B = (MAX-MIN)*100/905`、`A = MIN - (MAX-MIN)*375/905`（375px→1280px 兩個端點的線性內插，跟其他 token 的算法一致）。
+2. `text-h4` 的**字體跟字重同時換了**：`font-serif`／600 → `font-source-sans-pro`／700。這不是筆誤，是刻意決定——全站 6 處用到 `text-h4` 的地方（Hero 扇形卡標題、OutsideWork/Footer/JourneyTimeline 標題、CaseStudyBlock 段落標題、MoreCaseStudies 卡片標題）字體都從襯線變成無襯線、變粗了。
+3. 新增 `text-h5`，唯一不是流體 `clamp()` 的字級 token（固定 `32px`），取代原本 CaseStudyBlock 數字統計的獨立 `clamp(32px, 27.86px + 1.10vw, 42px)`。
+
+> `text-links`（曾經是 `clamp(17px, 16.59px + 0.11vw, 18px)`、行高 `1`、字重 500）2026-08-17 刪除——盤點發現定義了卻全站零使用，站內連結實際上都是各自用 `text-sm`／`text-caption`／`text-[13px]` 硬寫，沒有真的套過這個 token。不要再加回來，除非有真的要用它的地方。
 
 **核心規則**：
 
-- 縮放參考範圍固定是 **375px（手機）→ 1280px（桌機）**，中間平滑內插，不是斷點式跳躍
+- 縮放參考範圍固定是 **375px（手機）→ 1280px（桌機）**，中間平滑內插，不是斷點式跳躍。`text-h5` 是唯一的例外（見上）
 - **禁止手寫「手機固定 px + `md:text-hX`」這種兩段式跳躍寫法**——token 本身就會流動縮放，直接引用 token 就好，不用加 `md:` 前綴。這個模式曾經導致平板尺寸（尤其 iPad 直向剛好卡在 `md` 斷點 768px）直接吃到滿版桌機字級，是修過的真實 bug，不要再犯
-- `text-h1`／`text-h2` 是「跟手機版配一個更小字級」的專用大字級，才給真正大幅度的縮放範圍；`text-h3`／`text-body-sm`／`text-links`／`text-caption` 因為全站到處平常直接固定使用，範圍刻意留小（1-4px），避免不小心波及全站
-- 某個元件想要比共用 token 更誇張的縮放（例如 Hero intro 文字 18→28px、案例研究數字統計 32→42px），**給它自己的獨立 `clamp()`，不要去撐大共用 token**，不然全站其他用同一個 token 的地方會被一起連動放大
+- `text-h1`／`text-h2` 是「跟手機版配一個更小字級」的專用大字級，才給真正大幅度的縮放範圍；`text-h3`／`text-h4`／`text-body-sm`／`text-caption` 因為全站到處平常直接固定使用，範圍刻意留小，避免不小心波及全站
+- 某個元件想要比共用 token 更誇張的縮放（例如 Hero intro 文字 18→32px），**給它自己的獨立 `clamp()`，不要去撐大共用 token**，不然全站其他用同一個 token 的地方會被一起連動放大。但如果同一組獨立 `clamp()` 值開始在第二個地方重複出現，就該考慮跟 `text-h5` 一樣升格成正式 token，不要放著繼續當例外
 
-### 已知例外：案例研究頁縮小標題字級（三頁統一套用）
+### 已知例外：案例研究頁 H1/H2/標籤已全部改用共用 token（2026-08-17，取代舊版「縮小標題字級」例外）
 
-`CaseStudyView.tsx` 裡的 H1（案例標題）、段落 `<h2>`、Overview/My role/Team/Impact Overview 標籤，`text-h1`／`text-h2`／`text-h3` 其實各自綁定了 `font-family`（襯線）+ `font-weight`（700/600/600）+ `line-height`，不是只有字級。這幾處已經改成各自獨立的 `clamp()`（桌機上限縮小：H1 64→52px、H2 40→32px、Overview 系列標籤 28→20px、Impact 數字卡標籤 20→18px），並**手動補回了原本 token 帶的 `font-serif` 跟對應字重**，視覺語言（襯線字/粗細層級）沒有變。
+`CaseStudyView.tsx` 裡的案例標題 `<h1>`、段落 `<h2>`、Overview/My role/Team/Impact Overview 標籤，**原本**是各自獨立的 `clamp()`（不是共用 token），這批已經拆掉、直接改套用共用 token：H1→`text-h2`、段落 H2→`text-h3`、Overview 系列標籤→`text-h4`、Impact 數字卡標籤→`text-body font-bold`。原本手動補的 `font-serif`／字重現在都由 token 自己帶，呼叫端只留 `tracking-[...]`（值沒變）跟顏色。
 
-`CaseStudyView.tsx`／`CaseStudyBlock.tsx` 是三個案例研究頁（`web3-marketing-dashboard`／`influencer-marketing-tool`／`coolwallet-pro`）共用的同一份元件，不是各自獨立的模板，所以這個縮小字級**自動套用到三頁,已驗證過編譯後的 class 完全一致**，不需要也不可能只套用單一頁面。`coolwallet-pro` 目前看不到 Overview/My role/Team/Impact 卡片,是因為它的資料本身沒有 `meta`／`impactStats` 欄位（整塊不會渲染），是內容差異，不是樣式不一致。
+`CaseStudyView.tsx`／`CaseStudyBlock.tsx` 是三個案例研究頁（`web3-marketing-dashboard`／`influencer-marketing-tool`／`coolwallet-pro`）共用的同一份元件，不是各自獨立的模板，所以這次改動**自動套用到三頁**，不需要也不可能只套用單一頁面。`coolwallet-pro` 目前看不到 Overview/My role/Team/Impact 卡片,是因為它的資料本身沒有 `meta`／`impactStats` 欄位（整塊不會渲染），是內容差異，不是樣式不一致。
+
+**2026-08-17 追加**：同一個 header 裡的年份/專案列（`caseStudy.year`，例如「2023 — 2024 | Growing3」）從 `text-caption` 改成 `text-h5`（32px 固定、Bold），顏色維持 `text-fg-secondary`。
 
 ### 已知例外：案例研究頁 header 結尾間距依「有無 Overview 卡片」分兩種
 
@@ -110,27 +141,62 @@ prop（enum）控制。
 ### 已知例外：`FeedbackStack` 卡片的次要文字統一用 `text-caption`
 
 `FeedbackStack.tsx`（案例研究 Feedback & Impact 卡片堆）裡，Customer Review 卡片
-的 role 文字（如「Vincent@PrismX」）跟 Investment 卡片的 Date 文字，語意上是同一
+的 role 文字（如「@PrismX」）跟 Investment 卡片的 Date 文字，語意上是同一
 層級的「次要 meta 文字」，樣式要一致：一律用 `text-caption text-fg-secondary`。
-之前 role 文字誤用了裸的 `font-serif text-xs`——`text-xs` 不在 8 個字級 token
+之前 role 文字誤用了裸的 `font-serif text-xs`——`text-xs` 不在字級 token
 清單內，是硬寫值，已經修正，不要再改回去。
+
+**2026-08-17 更新**：同一個元件另外三處也拆掉獨立寫死值，改用共用 token——
+Customer Review／Investment 徽章文字從 `font-serif text-[10px] font-semibold`
+改成 `text-caption`（字體從 Serif 變 Sans 3，字重從 semibold 變 400，尺寸從固定
+10px 變流體 13–14px）；卡片標題（headline）從固定 `17px` 改成 `text-body-sm
+font-bold`；星等評分維持獨立寫死值，但尺寸從 `text-xs`(12px) 調成 `text-[18px]`，
+顏色 `#f5a623`、`tracking-wider`、沒有指定字體（繼承 body 預設）都不變。
 
 ### Tracking（字距）跟字級配對
 
 | 字級 | Tracking |
 |---|---|
-| `text-display`／`text-h1` | `tracking-[-0.03em]` |
-| `text-h2` | `tracking-[-0.02em]` |
-| `text-h3` | `tracking-[-0.01em]`（Hero 扇形卡片標題目前沒套這個，是已知的遺漏，不是規則本身有例外，之後補上即可） |
+| `text-h1` | `tracking-[-0.05em]` |
+| `text-h2` | `tracking-[-0.03em]` |
+| `text-h3` | `tracking-[-0.02em]` |
+| `text-h4` | `tracking-[-0.01em]` |
 
-### 標題跟內容間距
+**2026-08-17 更新**：`text-h1` 從跟 `text-h2` 共用 `-0.03em` 拆開，改成獨立的 `-0.05em`——四個字級現在是各自獨立的 4 級遞減 tracking（-0.05／-0.03／-0.02／-0.01em），不再有共用同一個值的兩個 token。`text-h1` 目前全站只有 Hero 主標題一處用到，已經同步改過。
 
-標準是 `mb-3`，全站已統一（`OutsideWork`／`Footer`／`AiProjectsSection`／
-`JourneyTimeline`／`TestimonialsSection`／`ComingSoon`／`CaseStudyView` 主標題都是
-`mb-3`）。
+**2026-08-17 補齊**：盤點發現 `text-h4` 全站 6 處用法裡有 5 處沒套對 tracking（`Hero.tsx` 扇形卡標題誤用 `-0.03em`、`OutsideWork.tsx`／`Footer.tsx`／`JourneyTimeline.tsx` 三處完全沒套、`MoreCaseStudies.tsx` 卡片標題誤用 `-0.02em`），只有 `CaseStudyBlock.tsx` 是對的。範圍比原本文件記錄的「只有 Hero 一處遺漏」大很多，已經全部補上 `tracking-[-0.01em]`。
 
-**已知例外**：`WorkSection.tsx`（首頁「Selected works」）用 `mb-10`——這不是
-待修的問題，是明確決定要跟其他標題不一樣的刻意選擇，不要「順手」改回 `mb-3`。
+### 標題跟內容間距（2026-08-17 改成分層 token，取代舊版單一 `mb-3` 規則）
+
+「標題→它自己管轄的內容」的間距，依標題用的字級 token 分三層，每層一個固定值
+（不分手機/桌機，這批不是響應式 pair）：
+
+| Token | 值 | 對應字級 | 用在哪 |
+|---|---|---|---|
+| `--spacing-heading-gap-h2` | `12px`（`mb-heading-gap-h2`） | `text-h2` | AiProjectsSection／Footer／JourneyTimeline／TestimonialsSection／OutsideWork 的區塊主標題 |
+| `--spacing-heading-gap-h3` | `20px`（`mb-heading-gap-h3`） | `text-h3` | WorkCard／CaseStudyView 段落標題／MoreCaseStudies（2026-08-17 從 `mb-8` 收斂進來） |
+| `--spacing-heading-gap-h4` | `8px`（`mb-heading-gap-h4`） | `text-h4` | OutsideWork 子項標題、Footer 欄位標題（2026-08-17 從 `mb-4` 收斂進來）、Hero 扇形卡標題（2026-08-17 從完全沒設定間距改過來）、CaseStudyBlock 內文子標題（`mb` 部分，`mt-10` 維持不變沒有收進這批） |
+
+**核心規則**：這批是**固定值，不是流體 `clamp()`**——字級本身雖然是 `clamp()`，
+間距目前刻意維持固定，跟間距 token 那批（`--spacing-shell` 等）採同一個策略，
+要不要進化成流體是獨立的下一輪決定。
+
+**已知例外**：`WorkSection.tsx`（首頁「Selected works」）維持 `mb-10`（40px），
+不套用 `--spacing-heading-gap-h2`——這不是待修的問題，是明確決定要跟其他 h2
+標題不一樣的刻意選擇，不要「順手」改成 12px。2026-08-17 這輪修正過它的**寫法**
+（原本間距是掛在外層 `<Reveal className="mb-10">` 上代管，跟其他標題「自己帶
+margin」的寫法不一致，現在改成 `<h2 className="mb-10">` 直接帶在標題自己身上，
+值沒變還是 40px，純粹統一實作方式）。
+
+**2026-08-17 盤點時修正的兩個誤判**（記錄下來避免以後重犯）：
+- Hero 扇形卡標題原本外層有 `space-y-3`(12px) 在管標題跟描述的間距，稽核報告
+  一度誤記成「完全沒設定間距」——如果直接在標題上疊加 `mb-heading-gap-h4` 會
+  變成兩段間距疊加成 20px。正確做法是拿掉 `space-y-3`，改成標題自己帶
+  `mb-heading-gap-h4`，跟 WorkSection 一樣統一寫法
+- JourneyTimeline 項目標題（h3）看起來「完全沒設定間距」，但那個 h3 其實是
+  它所在 `<span>` 裡的**最後一個元素**（上面是日期文字，不是下面接內容），
+  套用「標題→內容」的 token 不會有任何視覺效果——這處不屬於「標題→內容」
+  這個情境，故意沒有套用任何 token，維持原樣
 
 ---
 
@@ -153,6 +219,29 @@ prop（enum）控制。
 
 ---
 
+## 間距 Token
+
+跟 `--color-*` 同一套機制：`--spacing-*` 定義在 `@theme inline`，Tailwind 會自動產生對應的 `p-`/`m-`/`gap-` 等 class（不用手寫 `@utility`）。**目前全部是手機/桌機兩個固定值的組合，不是跟字級一樣的流體 `clamp()`**——間距要不要改成流體縮放是獨立的下一輪決定，這批先只解決「同一種情境數值不統一」的問題。
+
+| Token（手機值） | Token（桌機值，`md:` 前綴使用） | 用途 |
+|---|---|---|
+| `--spacing-shell`(20px) | `--spacing-shell-lg`(40px) | Section 外層水平留白（`px-shell md:px-shell-lg`）——Header/Footer/Hero/AiProjectsSection/JourneyTimeline/OutsideWork/About 首段/TestimonialsSection/WorkSection/CaseStudyView 全部套用，全站唯一的水平留白 token |
+| `--spacing-section`(20px) | `--spacing-section-lg`(30px) | Section 外層垂直留白（`py-section md:py-section-lg`，Header 只用單邊 `pt-section`） |
+| `--spacing-hero-top`(45px) | `--spacing-hero-top-lg`(50px) | 頁首上邊距（`pt-hero-top md:pt-hero-top-lg`）——Hero、About 首段、CaseStudyView header 三處 |
+| `--spacing-card-glass`(28px) | `--spacing-card-glass-lg`(56px) | `<GlassCard>` 內距，唯一使用點是共用元件本身 |
+| `--spacing-card-work`(32px) | `--spacing-card-work-lg`(48px) | WorkCard、MoreCaseStudies 外層卡片內距 |
+| `--spacing-card-compact`(20px) | `--spacing-card-compact-lg`(32px) | ActivityHeatmap 面板、CaseStudyBlock 的圖片/影片/statRow 卡內距——2026-08-17 合併（CaseStudyBlock 原本手機是 24px，統一降到 20px 跟 ActivityHeatmap 對齊） |
+| `--spacing-cs-section-gap`(48px) | `--spacing-cs-section-gap-lg`(80px) | 案例研究頁內文 section 之間的距離 + More case studies 區塊前後距離——2026-08-17 從完全沒有響應式的固定 `pt-20`/`mt-20`/`mb-20`(80px) 改過來，**桌機值不變，手機新增縮小到 48px** |
+
+### 已知例外（刻意沒收進上面的間距 token）
+
+- **GlassCard 的 `no-bottom` 變體**（Hero 專用）：水平內距跟頂部桌機內距套 `--spacing-card-glass`，但**手機頂部內距維持寫死的 `pt-9`(36px)**——這個值本來就跟 `--spacing-card-glass`(28px) 對不上，不是筆誤，不要硬改成一樣
+- **WorkCard、MoreCaseStudies 以外的卡片**（FeedbackStack、CaseStudySideNav 浮動面板、TestimonialCard、ToggleBlock）：盤點過但刻意不合併——FeedbackStack 剛手動調過尺寸不想再動、CaseStudySideNav 是浮動 UI chrome 不是卡片、TestimonialCard 有已知的陰影疊加問題待獨立處理、ToggleBlock 內距是配合手風琴圖示位置手調的不規則值，四者都維持各自寫死
+- **TestimonialsSection 手機版橫向捲動軸**（`-mx-8`/`px-8` 那對）：這是負邊距抵消正內距、讓內容貼齊螢幕邊緣捲動的技巧，不是「section 留白」，不要套用 `--spacing-shell`
+- **ImageCollage 燈箱背景的 `p-6`**：稽核報告曾經誤把它歸類成「卡片內距」，實際上是全螢幕 lightbox 遮罩的邊緣留白（`fixed inset-0 ... p-6`），不是卡片，這輪沒有套用任何間距 token，維持寫死 24px
+
+---
+
 ## 共用元件
 
 ### `<GlassCard>`
@@ -160,7 +249,7 @@ prop（enum）控制。
 ```tsx
 interface GlassCardProps {
   children: React.ReactNode;
-  padding?: "default" | "no-bottom"; // 預設 "default" (p-7 md:p-14)
+  padding?: "default" | "no-bottom"; // 預設 "default"（--spacing-card-glass，28px/56px）
   // "no-bottom":Hero 專用，底部無 padding 讓漸層淡出遮罩貼齊邊緣
   className?: string; // 逃生口，不影響 padding，不可用來覆蓋鎖定屬性
 }
@@ -173,12 +262,11 @@ interface GlassCardProps {
 動畫需求用 `<Reveal><GlassCard>...</GlassCard></Reveal>` 外部組合，不要把
 動畫邏輯塞進 GlassCard 本身，職責要分開。
 
-### `<Button>`
+### `<Button>`（2026-08-18 從 3 變體改成 4 變體，同日稍後拿掉 `size` prop）
 
 ```tsx
 interface ButtonProps {
-  variant?: "primary" | "secondary" | "dark"; // 預設 "primary"
-  size?: "md" | "sm"; // 預設 "md"
+  variant?: "primary" | "secondary" | "third" | "links"; // 預設 "primary"
   hoverTrigger?: "self" | "group"; // 預設 "self"，卡片內裝飾用 <span> 用 "group"
   as?: "a" | "button" | "span";
   href?: string;
@@ -190,29 +278,115 @@ interface ButtonProps {
 }
 ```
 
-鎖死不開放客製：`rounded-full`、`inline-flex items-center justify-center`、
-各 variant 的底色/文字色/邊框色、transition duration。
+**新舊 variant 對應**（prop 值維持小寫，只有對外的顯示名稱大寫）：舊
+`primary`（cta 底）→新 `primary`（Primary，沒變）；舊 `dark`（實心深色）→新
+`secondary`（Secondary）；舊 `secondary`（外框）→新 `third`（Third）；`links`
+是全新的，舊系統沒有對應。**這個改名很容易搞混，「secondary」這個字現在指的
+是完全不同的東西**（以前是外框，現在是實心深色）——改程式碼前務必先確認
+是要接哪一個。
 
-#### 尺寸
+鎖死不開放客製：`rounded-lg`（`links` 除外，見下方）、
+`inline-flex items-center justify-center`、各 variant 的底色/文字色/邊框色/
+hover、transition duration。
 
-| Size | Padding | 判斷依據 |
-|---|---|---|
-| `md` | `px-7 py-3.5` | 章節內獨立的主要行動呼籲 |
-| `sm` | `px-6 py-2.5` | 卡片內嵌的按鈕 |
+#### 尺寸（2026-08-18 起沒有 `size` prop 了）
 
-三種 variant 共用同一組尺寸邏輯，不會有「深色 md 比珊瑚色 md 小一號」這種
-情況。字重統一 `font-semibold`。
+`primary`／`secondary`／`third` 三個 pill 變體現在共用同一個固定形狀常數
+`COMPACT_SHAPE`：`h-10`（固定高度，不是 padding 撐出來的）+ `rounded-lg`
+（8px 圓角，不是膠囊）+ `px-4`，字重統一 `font-semibold`。原本的演變過程：
+
+1. `secondary` 先脫離「`rounded-full` + `size` 決定 padding」的膠囊系統，
+   改成固定形狀 `rounded-lg px-3.5 py-2.5`——比對基準是 `Header.tsx` 的
+   `DARK_BUTTON`（見下方已知例外），當時只是視覺上接近，字面上還不是同一
+   組數值。
+2. 這導致 AiProjectsSection 裡並排的「AI Project」（`secondary`，已變矮）
+   跟「GitHub」（`third`，還是舊尺寸）兩顆按鈕高度對不上，於是把 `third`
+   也收斂進同一個固定形狀。這連帶讓 MoreCaseStudies 的「Back」（`third`）
+   ／「Next」（`secondary`）這組本來就該成對出現的按鈕，尺寸也重新對齊
+   了。
+3. 這時只剩 `primary` 還是舊的膠囊+`size` 系統，結果換成它在 Hero（「Check
+   out recent work」primary 旁邊的「Learn more about me」third）、Footer
+   （「Schedule a chat」primary 旁邊的「Copy my email」third）這些成對場合
+   看起來明顯過大、不成套，所以最後 `primary` 也收斂進同一個固定形狀。
+   三個 pill 變體现在完全同尺寸，`size` prop 因此整個沒有意義了，已經從
+   `ButtonProps`、`Button.tsx`（`SIZE_CLASSES`）跟全部呼叫端（WorkCard、
+   Hero 扇形卡、MoreCaseStudies 的三顆按鈕）一起移除，不留一個「傳了也沒
+   作用」的死 prop。
+4. **同日再追加**：`px-3.5 py-2.5` 換成 `h-10 px-4`，跟 `DARK_BUTTON` 逐字
+   一致（不再只是「視覺接近」）。這一步是直接指定「把 `DARK_BUTTON` 的
+   樣式套用到其餘所有按鈕」執行的，不是又一次「發現對不上」觸發的。
+
+`links` 不套用 padding／`rounded-lg`／`font-semibold`——它是純文字
+連結，字級刻意不由 `<Button>` 自己決定，靠外層 context 撐（`CaseStudyBlock`
+內文連結繼承父層 `<p>` 的 `text-body-sm`；Footer 連結欄的字級是 `<ul>` 上的
+`text-caption`，不是 `<Button>` 自己帶的），這樣同一個 `links` variant 才能同時
+服務內文連結（大字）跟 Footer 連結欄（小字）兩種情境。
 
 #### Variant 使用邏輯
 
-選 variant 前先問：這顆按鈕是「這裡最重要的行動」、「留在原地的輔助動作」，
-還是「帶你往前/往外走」？
+選 variant 前先問：這顆按鈕是「這裡最重要的行動」、「留在原地的輔助動作」、
+「帶你往前/往外走」，還是「就只是一段可以點的文字」？
 
-| Variant | 樣式 | 使用時機 | 範例 |
-|---|---|---|---|
-| **primary** | `bg-cta`，`hover:opacity-85` 200ms | 這個區塊裡**最想要使用者做的單一動作**，一個區塊只出現一次 | Hero/Footer 主 CTA、「Read case study」 |
-| **secondary** | `border-border`，`hover:border-fg` 300ms | 陪襯 primary 的次要選項，或「留在附近」的動作（返回、同主題延伸） | 次要按鈕、「Back」 |
-| **dark** | `bg-fg`，`hover:bg-fg-hover` 300ms | 推進到新內容，或離開目前脈絡（不論站內站外） | 「Next」、外部連結（GitHub）、下載文件（Resume） |
+| Variant | 樣式 | Hover | 使用時機 | 範例 |
+|---|---|---|---|---|
+| **primary** | `bg-cta`，形狀跟另外兩個 pill 變體共用同一個 `COMPACT_SHAPE`（`h-10 rounded-lg px-4`，2026-08-18 稍後收斂，原本是 `rounded-full` + `size`）。曾短暫加過 `border border-fg`（見下方無障礙備註），已於同日移除 | `hover:bg-cta-hover`（`--color-cta-hover`，實色替換，不再是 opacity 淡化） | 這個區塊裡**最想要使用者做的單一動作**，一個區塊只出現一次 | Hero「Check out recent work」、Footer「Schedule a chat」、「Read case study」 |
+| **secondary** | `bg-fg`，形狀固定 `COMPACT_SHAPE`（`h-10 rounded-lg px-4`，見上方尺寸章節） | `hover:bg-fg-hover` | 推進到新內容，或離開目前脈絡（不論站內站外） | AiProjectsSection「AI Project」、JourneyTimeline「My Resume」、MoreCaseStudies「Next」、Hero 扇形卡 CTA 小標籤 |
+| **third** | `border border-border`，形狀同樣固定 `COMPACT_SHAPE` | `hover:border-fg` + `hover:bg-cta/15`（用 `--color-cta` 疊 15% 透明度當淡填色，不是寫死 hex，`--color-cta` 以後再調整這裡會自動跟著變） | 陪襯 primary 的次要選項，或「留在附近」的動作 | Hero「Learn more about me」、AiProjectsSection「GitHub」、Footer「Copy my email」（有 icon）、MoreCaseStudies「Back」 |
+| **links** | `text-fg underline decoration-2 underline-offset-3` | `hover:text-cta` | 純文字連結，不是按鈕，語意上「這只是一句話裡可以點的部分」 | Footer 連結欄（Resume/LinkedIn/GitHub/Nav.）、CaseStudyBlock 內文連結 |
+
+**2026-08-18 追加**：`third` 裡唯一帶 icon 的用法（Footer「Copy my email」，
+icon + `gap-2` + 文字）沒有另外放大 padding 或特殊處理，跟其他純文字
+`third` 用一樣的 `COMPACT_SHAPE`——已確認實測視覺上 icon 靠既有 `gap-2`
+的間距就有足夠呼吸空間，不需要為了「有 icon」單獨破例加寬。如果之後肉眼
+覺得擠可以再調整，但目前刻意維持跟其他 `third`／`secondary` 完全一致的
+padding，避免 icon 按鈕又變成另一個「看起來不一樣」的個案。
+
+**已知例外（2026-08-18 已解決形狀差距）**：`Header.tsx` 的 `DARK_BUTTON`
+（LinkedIn 圖示鈕 + 「Say Hello」，手機/桌機各一組共 4 處）沒有用
+`<Button>`，是獨立維護的手刻樣式。色值（`bg-fg` / `hover:bg-fg-hover`）
+跟形狀（`h-10 rounded-lg px-4`）現在跟 `secondary` **逐字一致**——原本
+`secondary` 是 `rounded-lg px-3.5 py-2.5`，視覺接近但字面不同，這次直接
+把 `DARK_BUTTON` 的形狀數值套用到 `COMPACT_SHAPE`，不再是「接近」而是同一
+組數值。仍未收斂的只剩：LinkedIn 圖示鈕是純方形圖示（`<Button>` 目前不
+支援這種型態），「Say Hello」也還沒真的換成 `<Button variant="secondary">`
+——這次只調整了 `<Button>` 這一側的形狀常數去貼合 `DARK_BUTTON`，
+`Header.tsx` 本身一行都沒動，是否要真的收斂進 `<Button>` 元件仍未拍板。
+
+**2026-08-18 收斂**：Hero 扇形卡片底部的 CTA 小標籤（「Recent case studies」／
+「Projects I'm building」／「My story」）原本是手刻的 `<span>`（`rounded-lg`、
+`border-fg`、固定 `text-[13px]`、`text-white`、`hover:opacity-75`），跟
+`secondary` variant 的顏色/形狀都對不上。已經改成
+`<Button as="span" variant="secondary" hoverTrigger="group">`，外層
+`<Link>` 補上 `group` class。跟其他 `secondary` 用法（如 MoreCaseStudies
+「Next」、AiProjectsSection「AI Project」）現在是同一套固定尺寸——這裡
+原本傳過 `size="sm"`，但 `size` prop 已經整個從 `<Button>` 移除（見上方
+尺寸章節），所以現在也拿掉了，不留一個沒有作用的 prop。唯一的實際差異是
+這裡用 `hoverTrigger="group"`（跟 WorkCard「Read case study」一樣，因為
+整張卡片才是可點擊區，不是這個小標籤自己）。
+
+**已知的無障礙問題（記錄下來，還沒處理）**：`--color-cta`（`#00ffae`）跟
+`--color-bg`（`#f7f5f2`）對比只有 1.21:1，遠低於非文字元件建議的 3:1。
+`primary` variant 2026-08-18 當天曾短暫加過 `border border-fg` 讓按鈕邊界
+可辨識，但同日稍後又移除了（經你確認），所以現在連「邊界可辨識」這個局部
+緩解都沒有了——底色本身的對比問題完全還沒解決，待下一輪決定要不要換一種
+處理方式（邊框以外的做法，或重新評估 `--color-cta` 本身的色值）。受影響
+位置：Hero「Check out recent work」（僅手機）、WorkCard「Read case study」
+（裝飾用 `<span>`）、Footer「Schedule a chat」、MoreCaseStudies「Read case
+study」。
+
+### Link Hover 顏色分組（2026-08-18 更新）
+
+站內連結／可點擊小元件的 hover 顏色分三組，彼此獨立成立，不要互相借用：
+
+| Hover 目標 | 用在哪 |
+|---|---|
+| `hover:text-fg`（從 `text-fg-secondary`）| Header NavPills 未選取項目、WorkIndexRail 未選取項目、ActivityHeatmap 切換 pill、CaseStudySideNav 收合鈕圖示 |
+| `hover:text-available`（低調綠色狀態色）| 只在 `CaseStudySideNav` 內部（TOC 主連結、子項連結），自成一組 |
+| `hover:text-cta`（`<Button variant="links">` 的 hover，見上方） | **不再是單一例外**——Footer 連結欄、CaseStudyBlock 內文連結，兩處都走 `links` variant，2026-08-18 起統一用這個 hover。舊版本裡 Footer 連結原本是 `hover:text-fg`，現在改成跟 CaseStudyBlock 一致的 `hover:text-cta`，是這次改版刻意統一的結果，不是意外 |
+
+`bg-bg-alt` 當 hover 背景填色（Header NavPills、JourneyTimeline 手風琴列、
+CaseStudySideNav TOC 主連結）統一成實心 `bg-bg-alt`，不要再用 `/60` 這種局部
+透明度版本。
 
 ### `<TagChip>`
 
@@ -230,7 +404,7 @@ interface TagChipProps {
 ## 禁止事項
 
 1. 不要寫死顏色/字級/間距/陰影數值，一律引用上面的 token
-2. 不要在內文文字使用 `--color-cta`，只能用在按鈕/圖形背景（唯一例外：`feedbackGrid` headline 關鍵字高亮，見上方色彩 token 已知例外）
+2. 不要在內文文字的**預設（resting）狀態**使用 `--color-cta`，只能用在按鈕/圖形背景，或 hover 狀態（`feedbackGrid` headline 關鍵字高亮、`<Button variant="links">` 的 `hover:text-cta`，見上方色彩 token／Button 已知例外）
 3. 不要手寫「手機固定 px + `md:text-hX`」的字級跳躍寫法，直接引用流體 token
 4. 重複元件（按鈕、卡片、標籤）一律用共用元件，不要各頁各自手刻一份
 5. 不要用 `className` 覆蓋 `<GlassCard>` / `<Button>` 鎖定的 padding、字重、hover 屬性（專案沒裝 tailwind-merge，覆寫順序不保證）
@@ -243,4 +417,5 @@ interface TagChipProps {
 - `#f5a623` 星星評分色：若未來重複出現再定義 `--color-rating`
 - `TestimonialCard` 陰影疊加、CSS 生效順序不穩定：待重新設計該卡片的陰影邏輯
 - 是否要導入 `tailwind-merge`：待整體評估，目前用 enum prop 繞過這個問題
-- Hero 扇形卡片標題（`text-h3`）沒有套用 `tracking-[-0.01em]`：小遺漏，之後補上
+- 標題（H2/H3/H4）跟內容的間距已經在 2026-08-17 統一成三層固定 token（見上方「標題跟內容間距」），但還沒決定要不要讓它們跟 `text-h1`~`h5` 的 `clamp()` 掛勾一起流體縮放——是獨立的下一輪。另外 H1→副標語/下一段內容（Hero、CaseStudyView 案例標題）這輪沒有動，只出現 1-2 個案例，還沒有「統一」的必要性
+- 間距 token 是否要從「手機/桌機兩個固定值」進化成流體 `clamp()`（呼應字級系統的做法）：這輪刻意沒做，只解決數值不統一的問題

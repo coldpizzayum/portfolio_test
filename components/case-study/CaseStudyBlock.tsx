@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Fragment } from "react";
 import type { CaseStudyBlock as CaseStudyBlockType } from "@/data/caseStudies";
+import Button from "../Button";
 import ImageCollage from "./ImageCollage";
 import ToggleBlock from "./ToggleBlock";
 import FeedbackStack from "./FeedbackStack";
@@ -34,14 +35,14 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
           {block.href && (
             <>
               {" "}
-              <a
+              <Button
+                variant="links"
                 href={block.href}
                 target={block.href.startsWith("http") ? "_blank" : undefined}
                 rel={block.href.startsWith("http") ? "noreferrer" : undefined}
-                className="text-fg underline decoration-2 underline-offset-3 transition-colors duration-300 hover:text-cta"
               >
                 {block.linkText}
-              </a>
+              </Button>
             </>
           )}
         </p>
@@ -49,7 +50,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "heading":
       return (
-        <h3 id={block.id} className="mt-10 mb-3.5 scroll-mt-24 font-serif text-h3 tracking-[-0.01em] text-fg">
+        <h3 id={block.id} className="mt-10 mb-heading-gap-h4 scroll-mt-24 text-h4 tracking-[-0.01em] text-fg">
           {block.text}
         </h3>
       );
@@ -67,8 +68,8 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
       return (
         <div className="my-7 flex flex-col gap-4 sm:flex-row">
           {block.stats.map((stat) => (
-            <div key={stat.label} className="flex-1 rounded-lg bg-bg-alt p-6">
-              <p className="mb-1.5 font-serif text-[clamp(32px,27.86px+1.10vw,42px)] leading-none font-bold tracking-[-0.04em] text-fg">
+            <div key={stat.label} className="flex-1 rounded-lg bg-bg-alt p-card-compact md:p-card-compact-lg">
+              <p className="mb-1.5 text-h5 tracking-[-0.04em] text-fg">
                 {stat.value}
               </p>
               <p className="text-caption text-fg-secondary">{stat.label}</p>
@@ -128,7 +129,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
       return (
         <div className="my-8 flex flex-col gap-10">
           {block.videos.map((video) => (
-            <figure key={video.youtubeId} className="rounded-2xl bg-white p-6 md:p-8">
+            <figure key={video.youtubeId} className="rounded-2xl bg-white p-card-compact md:p-card-compact-lg">
               <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
                 <iframe
                   className="absolute inset-0 h-full w-full"
@@ -150,7 +151,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "embed":
       return (
-        <figure className="my-8 rounded-2xl bg-white p-6 md:p-8">
+        <figure className="my-8 rounded-2xl bg-white p-card-compact md:p-card-compact-lg">
           <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
             <iframe className="absolute inset-0 h-full w-full" src={block.src} title={block.title} allowFullScreen />
           </div>

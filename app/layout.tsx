@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { JetBrains_Mono, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
 
 const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
@@ -71,10 +64,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} ${sourceSans.variable}`}
+      className={`${sourceSerif.variable} ${jetbrainsMono.variable} ${sourceSans.variable}`}
     >
       <body
-        className="flex min-h-screen flex-col bg-bg text-fg font-sans text-base leading-relaxed antialiased"
+        className="flex min-h-screen flex-col bg-bg text-fg font-source-sans-pro text-base leading-relaxed antialiased"
         suppressHydrationWarning
       >
         <Header />

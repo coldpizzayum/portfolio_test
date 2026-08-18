@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import GlassCard from "./GlassCard";
@@ -78,11 +77,11 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="px-5 py-5 md:px-10 md:py-[30px]">
+    <footer id="contact" className="px-shell py-section md:px-shell-lg md:py-section-lg">
       <GlassCard>
         <div className="relative z-[1] flex flex-col justify-between gap-14 md:flex-row">
           <div>
-            <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">
+            <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
               Let&apos;s connect!
             </h2>
             <p className="mb-5 max-w-[480px] text-body-sm text-fg">
@@ -97,13 +96,13 @@ export default function Footer() {
               <Button href={CAL_URL} target="_blank" rel="noreferrer">
                 Schedule a chat
               </Button>
-              <Button as="button" variant="secondary" onClick={handleCopyEmail}>
+              <Button as="button" variant="third" onClick={handleCopyEmail}>
                 <CopyIcon />
                 {copied ? "Copied!" : "Copy my email"}
               </Button>
             </div>
 
-            <p className="text-[13px] font-semibold text-fg-secondary">
+            <p className="text-caption font-semibold text-fg-secondary">
               Berlin <BerlinClock />
             </p>
           </div>
@@ -111,27 +110,18 @@ export default function Footer() {
           <div className="flex gap-16">
             {LINK_COLUMNS.map((column) => (
               <div key={column.heading}>
-                <h3 className="mb-4 font-serif text-h3 text-fg">{column.heading}</h3>
-                <ul className="flex flex-col gap-2.5">
+                <h3 className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">{column.heading}</h3>
+                <ul className="flex flex-col gap-2.5 text-caption">
                   {column.items.map((item) => (
                     <li key={item.label}>
-                      {item.href.startsWith("http") ? (
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-[13px] text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
-                        >
-                          {item.label}
-                        </a>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          className="text-[13px] text-fg-secondary underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-fg"
-                        >
-                          {item.label}
-                        </Link>
-                      )}
+                      <Button
+                        variant="links"
+                        href={item.href}
+                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                      >
+                        {item.label}
+                      </Button>
                     </li>
                   ))}
                 </ul>

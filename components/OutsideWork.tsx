@@ -76,17 +76,17 @@ const COLUMNS: GridImage[][] = [
 
 export default function OutsideWork() {
   return (
-    <section className="px-5 py-5 md:px-10 md:py-[30px]">
+    <section className="px-shell py-section md:px-shell-lg md:py-section-lg">
       <GlassCard>
         <div className="relative z-[1]">
-          <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">
+          <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
             What I do outside of work.
           </h2>
 
           <div className="mb-10 flex flex-col gap-8 md:mb-14">
             {PARAGRAPHS.map((section) => (
               <div key={section.heading}>
-                <h3 className="mb-2 font-serif text-h3 text-fg">{section.heading}</h3>
+                <h3 className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">{section.heading}</h3>
                 <p className="text-body-sm whitespace-pre-line text-fg">{section.body}</p>
               </div>
             ))}

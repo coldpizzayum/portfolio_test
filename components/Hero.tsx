@@ -57,26 +57,26 @@ const FAN_CARDS: FanCard[] = [
 
 export default function Hero() {
   return (
-    <section id="hero" className="px-5 pt-[45px] pb-5 md:px-10 md:pt-[50px] md:pb-[30px]">
+    <section id="hero" className="px-shell pt-hero-top pb-section md:px-shell-lg md:pt-hero-top-lg md:pb-section-lg">
       <GlassCard padding="no-bottom">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-bg" />
 
         <div className="relative z-[1] flex flex-col items-start gap-10">
           {/* Left: headline + sub */}
           <div className="max-w-full pb-12 md:pb-0">
-            <h1 className="mb-7 text-display tracking-[-0.03em] text-fg">
+            <h1 className="mb-7 text-h1 tracking-[-0.05em] text-fg">
               Hi, I&apos;m Yiting.
               <br />
               Product Designer &amp; Builder.
             </h1>
 
-            <p className="mb-8 font-source-sans-pro text-[clamp(18px,13.86px+1.10vw,28px)] leading-[1.4] text-fg">
+            <p className="mb-8 font-source-sans-pro text-[clamp(18px,12.2px+1.55vw,32px)] leading-[1.2] font-semibold text-fg">
               5+ years in startups, from pre-seed to Series B. I prototype, code, market, and ship ideas.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row md:hidden">
               <Button href="#works">Check out recent work</Button>
-              <Button href="/about" variant="secondary">
+              <Button href="/about" variant="third">
                 Learn more about me
               </Button>
             </div>
@@ -109,17 +109,17 @@ export default function Hero() {
                   <Link
                     href={card.href}
                     aria-label={card.title}
-                    className={`fan-card-rotate relative flex h-[286px] w-[256px] flex-col justify-between overflow-hidden rounded-[20px] p-6 pt-6 pb-7 shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] xl:px-8 xl:pt-8 xl:pb-10 ${card.bg}`}
+                    className={`group fan-card-rotate relative flex h-[286px] w-[256px] flex-col justify-between overflow-hidden rounded-[20px] p-6 pt-6 pb-7 shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] xl:px-8 xl:pt-8 xl:pb-10 ${card.bg}`}
                     style={{ "--rotate": `${card.rotation}deg` } as CSSProperties}
                   >
                     <span className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/24 to-[60%] to-transparent" />
-                    <div className="relative space-y-3">
-                      <h2 className="text-h3 tracking-[-0.03em] text-fg xl:text-[40px] xl:leading-[0.9]">{card.title}</h2>
+                    <div className="relative">
+                      <h2 className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg xl:text-[40px] xl:leading-[0.9]">{card.title}</h2>
                       <p className="text-caption text-fg xl:text-[19px] xl:leading-[1.5]">{card.description}</p>
                     </div>
-                    <span className="relative inline-flex w-fit items-center gap-1.5 rounded-lg border border-fg bg-fg px-3.5 py-2.5 text-[13px] font-semibold text-white transition-opacity duration-200 hover:opacity-75">
+                    <Button as="span" variant="secondary" hoverTrigger="group" className="relative">
                       {card.cta}
-                    </span>
+                    </Button>
                   </Link>
                 )}
               </div>

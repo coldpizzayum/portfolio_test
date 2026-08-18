@@ -22,7 +22,7 @@ const PILL_SURFACE =
   "rounded-full bg-[rgba(255,253,250,0.78)] shadow-[0_0_0_1px_rgba(0,0,0,0.07),0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-[16px]";
 
 const DARK_BUTTON =
-  "flex h-10 items-center justify-center rounded-lg bg-fg text-bg transition-colors duration-300 hover:bg-[#333333]";
+  "flex h-10 items-center justify-center rounded-lg bg-fg text-bg transition-colors duration-300 hover:bg-fg-hover";
 
 function EnvelopeIcon() {
   return (
@@ -100,7 +100,7 @@ function NavPills({ className }: { className: string }) {
 
 export default function Header() {
   return (
-    <div className="px-5 pt-5 md:px-10">
+    <div className="px-shell pt-section md:px-shell-lg">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-3 md:flex-row md:justify-between">
         <div className="flex w-full items-center justify-between gap-3 md:contents">
           <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">

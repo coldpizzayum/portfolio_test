@@ -20,14 +20,14 @@ function FeedbackCardContent({ card }: { card: FeedbackCard }) {
         </div>
       )}
       <span
-        className={`mb-2 inline-flex w-fit items-center rounded-full px-3 py-1 font-serif text-[10px] font-semibold ${
+        className={`mb-2 inline-flex w-fit items-center rounded-full px-3 py-1 text-caption ${
           isTestimonial ? "bg-card-sand text-card-sand-text" : "bg-card-salmon text-card-salmon-text"
         }`}
       >
         {isTestimonial ? "Customer Review" : "Investment"}
       </span>
       {isTestimonial ? (
-        <p className="mb-2 text-xs tracking-wider text-[#f5a623]" aria-hidden="true">
+        <p className="mb-2 text-[18px] tracking-wider text-[#f5a623]" aria-hidden="true">
           {"★".repeat(card.rating ?? 0)}
         </p>
       ) : (
@@ -36,7 +36,7 @@ function FeedbackCardContent({ card }: { card: FeedbackCard }) {
         )
       )}
       {card.headline && (
-        <p className={`mb-2 font-source-sans-pro text-[17px] leading-[1.15] font-bold text-fg ${card.photo ? "pr-9" : ""}`}>
+        <p className={`mb-2 text-body-sm font-bold text-fg ${card.photo ? "pr-9" : ""}`}>
           {renderInline(card.headline)}
         </p>
       )}

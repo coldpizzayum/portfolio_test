@@ -8,10 +8,10 @@ const ROTATING_WORDS = ["build prototypes", "ship real products", "brainstorm id
 
 export default function AiProjectsSection() {
   return (
-    <section className="px-5 py-5 md:px-10 md:py-[30px]">
+    <section className="px-shell py-section md:px-shell-lg md:py-section-lg">
       <GlassCard>
         <div className="relative z-[1] mx-auto max-w-[720px] text-center">
-          <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">
+          <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
             I work with AI to&hellip;
             <br />
             <TextRotator words={ROTATING_WORDS} />
@@ -22,10 +22,10 @@ export default function AiProjectsSection() {
           </p>
 
           <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="#activity" variant="dark">
+            <Button href="#activity" variant="secondary">
               AI Project
             </Button>
-            <Button href={GITHUB_URL} target="_blank" rel="noreferrer" variant="secondary">
+            <Button href={GITHUB_URL} target="_blank" rel="noreferrer" variant="third">
               GitHub
             </Button>
           </div>

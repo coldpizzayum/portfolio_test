@@ -29,8 +29,8 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
   );
 
   const contentPanel = (
-    <div className="flex flex-col justify-center rounded-2xl bg-white p-8 shadow-none md:rounded-[20px] md:p-12 md:shadow-card">
-      <h3 className="mb-5 text-h2 tracking-[-0.02em] text-fg">
+    <div className="flex flex-col justify-center rounded-2xl bg-white p-card-work shadow-none md:rounded-[20px] md:p-card-work-lg md:shadow-card">
+      <h3 className="mb-heading-gap-h3 text-h3 tracking-[-0.02em] text-fg">
         {renderInline(item.title)}
       </h3>
       <div className="mb-5 flex flex-wrap gap-2">
@@ -39,7 +39,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
         ))}
       </div>
       <p className="mb-8 max-w-[420px] text-body-sm text-fg">{item.description}</p>
-      <Button as="span" size="sm" hoverTrigger="group" className="mt-auto">
+      <Button as="span" hoverTrigger="group" className="mt-auto">
         Read case study
       </Button>
     </div>

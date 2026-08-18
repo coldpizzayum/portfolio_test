@@ -5,10 +5,10 @@ import TestimonialCard from "./TestimonialCard";
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="overflow-hidden bg-bg py-5 md:py-[30px]">
-      <div className="mx-auto max-w-[1200px] px-8">
+    <section id="testimonials" className="overflow-hidden bg-bg py-section md:py-section-lg">
+      <div className="mx-auto max-w-[1200px] px-shell md:px-shell-lg">
         <Reveal className="mb-18 text-center">
-          <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">What&apos;s it like working with me?</h2>
+          <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">What&apos;s it like working with me?</h2>
           <p className="text-body text-fg">I believe that if you work hard and stay kind, amazing things happen. :)</p>
         </Reveal>
 

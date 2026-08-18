@@ -13,10 +13,12 @@ export default function WorkSection() {
   }));
 
   return (
-    <section id="works" className="bg-bg py-5 md:py-[30px]">
-      <div className="mx-auto max-w-[1200px] px-8">
-        <Reveal className="mb-10">
-          <h2 className="text-h1 tracking-[-0.03em] text-fg">
+    <section id="works" className="bg-bg py-section md:py-section-lg">
+      <div className="mx-auto max-w-[1200px] px-shell md:px-shell-lg">
+        <Reveal>
+          {/* mb-10 is a documented deliberate exception (not --spacing-heading-gap-h2's
+              12px) — see design-system skill's "標題跟內容間距" known exceptions. */}
+          <h2 className="mb-10 text-h2 tracking-[-0.03em] text-fg">
             Selected works
           </h2>
         </Reveal>

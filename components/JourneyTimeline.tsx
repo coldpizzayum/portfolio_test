@@ -74,18 +74,18 @@ export default function JourneyTimeline() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="px-5 py-5 md:px-10 md:py-[30px]">
+    <section className="px-shell py-section md:px-shell-lg md:py-section-lg">
       <Reveal>
         <GlassCard>
         <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:gap-16">
           <div className="md:max-w-[300px] md:shrink-0 md:self-start">
-            <h2 className="mb-3 text-h1 tracking-[-0.03em] text-fg">
+            <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
               My journey
             </h2>
             <p className="mb-7 text-body-sm text-fg">
               I&apos;m a Product Designer from Taiwan 🇹🇼. Now based in Berlin 🇩🇪.
             </p>
-            <Button href={RESUME_URL} target="_blank" rel="noreferrer" variant="dark">
+            <Button href={RESUME_URL} target="_blank" rel="noreferrer" variant="secondary">
               My Resume
             </Button>
           </div>
@@ -100,11 +100,11 @@ export default function JourneyTimeline() {
                       type="button"
                       onClick={() => setOpenIndex(isOpen ? null : index)}
                       aria-expanded={isOpen}
-                      className="-mx-3 flex w-[calc(100%+24px)] cursor-pointer items-center gap-4 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-bg-alt/60"
+                      className="-mx-3 flex w-[calc(100%+24px)] cursor-pointer items-center gap-4 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-bg-alt"
                     >
                       <span className="min-w-0 flex-1">
-                        <p className="font-source-sans-pro text-xs text-fg-secondary">{entry.dateRange}</p>
-                        <h3 className="font-serif text-h3 text-fg">{entry.title}</h3>
+                        <p className="text-caption text-fg-secondary">{entry.dateRange}</p>
+                        <h3 className="text-h4 tracking-[-0.01em] text-fg">{entry.title}</h3>
                       </span>
 
                       <ChevronDownIcon open={isOpen} />

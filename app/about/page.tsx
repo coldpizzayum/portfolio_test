@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="px-5 pt-[45px] pb-10 md:px-10 md:pt-[50px] md:pb-15">
+      <section className="px-shell pt-hero-top pb-section md:px-shell-lg md:pt-hero-top-lg md:pb-section-lg">
         <GlassCard>
           <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
             <div className="max-w-[640px]">
