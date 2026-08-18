@@ -7,6 +7,12 @@ interface RailItem {
   label: string;
 }
 
+// Full year shown in the rail pill, one per work item in order — matches
+// the site's 3 case studies chronologically (2023/2024/2025), not a running
+// index. Fixed array, not derived from data — add an entry here if a 4th
+// work item is ever added.
+const YEAR_LABELS = ["2023", "2024", "2025"];
+
 export default function WorkIndexRail({ items }: { items: RailItem[] }) {
   const [activeId, setActiveId] = useState<string | undefined>(items[0]?.id);
 
@@ -35,10 +41,10 @@ export default function WorkIndexRail({ items }: { items: RailItem[] }) {
           href={`#${item.id}`}
           aria-label={item.label}
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-mono text-xs font-medium transition-colors duration-300 ${
-            activeId === item.id ? "bg-fg text-bg" : "text-fg-secondary hover:text-fg"
+            activeId === item.id ? "text-fg" : "text-fg-secondary hover:bg-border hover:text-fg"
           }`}
         >
-          {String(index + 1).padStart(2, "0")}
+          {YEAR_LABELS[index] ?? String(index + 1).padStart(2, "0")}
         </a>
       ))}
     </div>

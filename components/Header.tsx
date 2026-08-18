@@ -105,7 +105,7 @@ export default function Header() {
             <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
               <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
             </span>
-            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg">
+            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
               Yiting H.
             </span>
           </Link>

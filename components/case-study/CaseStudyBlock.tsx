@@ -6,9 +6,10 @@ import ImageCollage from "./ImageCollage";
 import ToggleBlock from "./ToggleBlock";
 import FeedbackStack from "./FeedbackStack";
 
-/** Renders `**bold**` as <strong> and `==highlight==` as coral-colored text
- *  (the one approved exception to "cta color never in body text" — see the
- *  design-system skill's color-token exceptions), everything else as plain text. */
+/** Renders `**bold**` as <strong> and `==highlight==` as accent-colored text
+ *  via `--color-cta-text` (the cta family's text-context variant, not
+ *  `--color-cta` itself — see the design-system skill's color-token
+ *  exceptions), everything else as plain text. */
 export function renderInline(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*|==[^=]+==)/g);
   return parts.map((part, index) => {
@@ -17,7 +18,7 @@ export function renderInline(text: string) {
     }
     if (part.startsWith("==") && part.endsWith("==")) {
       return (
-        <span key={index} className="text-cta">
+        <span key={index} className="text-cta-text">
           {part.slice(2, -2)}
         </span>
       );

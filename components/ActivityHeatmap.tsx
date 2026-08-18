@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 
 type Source = "github" | "claude";
 
-const YEAR = 2026;
+const YEARS = [2025, 2026] as const;
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DAY_LABELS: Record<number, string> = { 1: "Mon", 3: "Wed", 5: "Fri" };
 
@@ -155,8 +155,9 @@ function SparkleIcon() {
 
 export default function ActivityHeatmap() {
   const [source, setSource] = useState<Source>("github");
+  const [year, setYear] = useState<(typeof YEARS)[number]>(2026);
 
-  const weeks = useMemo(() => buildWeeks(YEAR), []);
+  const weeks = useMemo(() => buildWeeks(year), [year]);
   const monthLabels = useMemo(() => monthLabelsForWeeks(weeks), [weeks]);
   const levelColors = LEVEL_COLORS[source];
 
@@ -165,12 +166,19 @@ export default function ActivityHeatmap() {
       id="activity"
       className="rounded-2xl border border-border bg-white/60 p-card-compact shadow-[0_0_0_1px_rgba(0,0,0,0.04)] backdrop-blur-[8px] md:p-card-compact-lg"
     >
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 font-mono">
-        <div className="inline-flex items-center gap-1 rounded-full border border-border bg-white p-1">
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 font-source-sans-pro">
+        {/* shrink-0 + whitespace-nowrap: on narrow mobile widths this pill's
+         *  natural width (icon + "Claude Code") plus the YEAR block on the
+         *  same flex row can exceed the available width. Without shrink-0,
+         *  the flex parent squeezes this pill below its content's natural
+         *  width, wrapping "Claude Code" onto two lines inside the button
+         *  instead of the intended result: the YEAR block wrapping down to
+         *  its own line (already possible via the parent's flex-wrap). */}
+        <div className="inline-flex shrink-0 items-center gap-1 rounded-full border border-border bg-white p-1">
           <button
             type="button"
             onClick={() => setSource("github")}
-            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm transition-colors duration-200 ${
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm whitespace-nowrap transition-colors duration-200 ${
               source === "github" ? "bg-bg-alt text-fg" : "text-fg-secondary hover:text-fg"
             }`}
           >
@@ -180,7 +188,7 @@ export default function ActivityHeatmap() {
           <button
             type="button"
             onClick={() => setSource("claude")}
-            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm transition-colors duration-200 ${
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm whitespace-nowrap transition-colors duration-200 ${
               source === "claude" ? "bg-bg-alt text-fg" : "text-fg-secondary hover:text-fg"
             }`}
           >
@@ -189,9 +197,22 @@ export default function ActivityHeatmap() {
           </button>
         </div>
 
-        <div className="flex items-center gap-3 text-sm text-fg-secondary">
-          <span className="tracking-[0.1em]">YEAR</span>
-          <span className="rounded-lg border border-border bg-white py-2 px-3 font-mono text-sm text-fg">{YEAR}</span>
+        <div className="flex shrink-0 items-center gap-3 text-sm text-fg-secondary">
+          <label htmlFor="activity-year" className="tracking-[0.1em]">
+            YEAR
+          </label>
+          <select
+            id="activity-year"
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value) as (typeof YEARS)[number])}
+            className="cursor-pointer rounded-lg border border-border bg-white py-2 px-3 font-source-sans-pro text-sm text-fg"
+          >
+            {YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -200,7 +221,7 @@ export default function ActivityHeatmap() {
          Same grid at every viewport size; on narrow screens it just scrolls
          horizontally rather than reflowing into a different layout. */}
       <div className="overflow-x-auto">
-        <div className="flex min-w-max font-mono text-xs text-fg-secondary">
+        <div className="flex min-w-max font-source-sans-pro text-xs text-fg-secondary">
           <div className="mr-2 flex shrink-0 flex-col">
             <div className="mb-2 h-[15px]" />
             <div className="flex flex-col gap-[3px]">

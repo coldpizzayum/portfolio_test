@@ -24,9 +24,15 @@ export default function TestimonialsSection() {
           })}
         </Reveal>
 
-        {/* Mobile: horizontal snap-scroll strip */}
+        {/* Mobile: horizontal snap-scroll strip. Setting overflow-x here
+            implicitly computes overflow-y to "auto" too (a card can't stay
+            "visible" on one axis while the other clips) — so without top
+            padding to match pb-4, each card's own box-shadow (which extends
+            ~12px above its own top edge) got clipped by this container's
+            now-active vertical clipping. pt-4 gives it the same breathing
+            room pb-4 already gave the bottom. */}
         <RevealGroup
-          className="-mx-8 flex snap-x snap-mandatory gap-6 overflow-x-auto px-8 pb-4 md:hidden"
+          className="-mx-8 flex snap-x snap-mandatory gap-6 overflow-x-auto px-8 pt-4 pb-4 md:hidden"
           stagger={0.08}
         >
           {testimonials.map((testimonial) => (

@@ -12,6 +12,13 @@
   --color-fg-secondary: #b2bcc2;
   --color-cta: #00ffae;
   --color-cta-hover: #00d994;
+  /* --color-cta itself (#00ffae) is tuned to sit on button backgrounds —
+     using it directly as text color is the same low-contrast problem
+     documented for primary's fill (1.21:1 against --color-bg). This is the
+     cta family's text-context variant: <Button variant="links"> hover, and
+     CaseStudyBlock's ==keyword== inline highlight — the only two places
+     --color-cta was ever used as a text color (2026-08-18, replaces both). */
+  --color-cta-text: #2bb98c;
   --color-fg-hover: #465761;
   --color-border: #e2dfda;
   --color-available: #5a8a60;

@@ -25,6 +25,10 @@ interface ButtonProps {
   /** Required when `square` is true — otherwise the button has no accessible
    *  name. Passed through as `aria-label` regardless of `square`. */
   ariaLabel?: string;
+  /** Only meaningful on `links` — set false to drop the underline (e.g. a
+   *  "featured" nav link that should read more like a heading than an
+   *  inline text link). Defaults true. Ignored on every other variant. */
+  underline?: boolean;
   /** Defaults to "a" when `href` is given, otherwise "button". WorkCard
    *  uses "span" for its decorative case (see `hoverTrigger` above — the
    *  real interactive element is its ancestor `<Link>`, not this one). */
@@ -74,7 +78,11 @@ interface ButtonProps {
 // no forced font-size (it needs to inherit whichever paragraph/list it
 // sits in: CaseStudyBlock's in-body link inherits text-body-sm from its
 // parent <p>, Footer's link columns supply their own text-caption on the
-// <ul> ancestor instead).
+// <ul> ancestor instead). The underline itself is opt-out-able via the
+// `underline` prop (2026-08-18) — added for Footer's first Navigation item,
+// which wanted to read like a bigger, un-underlined heading-style link
+// rather than an inline text link; defaults to true so every existing
+// `links` consumer is unaffected.
 //
 // Split into a shape (height/radius, shared by every non-links button) and
 // a padding piece (px-4 + gap-2 for icon+label; swapped for a plain w-10
@@ -86,8 +94,10 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: `${COMPACT_SHAPE} bg-cta text-fg`,
   secondary: `${COMPACT_SHAPE} bg-fg text-bg`,
   third: `${COMPACT_SHAPE} border border-border text-fg`,
-  links: "text-fg underline decoration-2 underline-offset-3",
+  links: "text-fg",
 };
+
+const LINKS_UNDERLINE = "underline decoration-2 underline-offset-3";
 
 const HOVER_CLASSES: Record<ButtonVariant, { self: string; group: string }> = {
   // Real color swap, not opacity fade — kept this way even after the
@@ -101,7 +111,10 @@ const HOVER_CLASSES: Record<ButtonVariant, { self: string; group: string }> = {
   // separate hardcoded hex, so it re-tints automatically if --color-cta
   // ever changes again.
   third: { self: "hover:border-fg hover:bg-cta/15", group: "group-hover:border-fg group-hover:bg-cta/15" },
-  links: { self: "hover:text-cta", group: "group-hover:text-cta" },
+  // --color-cta-text (#2bb98c), not --color-cta — this is text, and
+  // --color-cta itself is tuned for button backgrounds, not legible as
+  // text (2026-08-18).
+  links: { self: "hover:text-cta-text", group: "group-hover:text-cta-text" },
 };
 
 const TRANSITION_CLASSES: Record<ButtonVariant, string> = {
@@ -126,6 +139,7 @@ export default function Button({
   hoverTrigger = "self",
   square = false,
   ariaLabel,
+  underline = true,
   as,
   href,
   target,
@@ -140,7 +154,7 @@ export default function Button({
   const isLinks = variant === "links";
   const isSquare = square && !isLinks;
   const classes = isLinks
-    ? `${VARIANT_CLASSES.links} ${TRANSITION_CLASSES.links} ${HOVER_CLASSES.links[hoverTrigger]} ${className}`
+    ? `${VARIANT_CLASSES.links} ${underline ? LINKS_UNDERLINE : ""} ${TRANSITION_CLASSES.links} ${HOVER_CLASSES.links[hoverTrigger]} ${className}`
     : `inline-flex items-center justify-center text-sm font-semibold ${isSquare ? "w-10" : "w-fit gap-2 px-4"} ${VARIANT_CLASSES[variant]} ${TRANSITION_CLASSES[variant]} ${HOVER_CLASSES[variant][hoverTrigger]} ${className}`;
 
   if (tag === "span") {

@@ -33,12 +33,13 @@ prop（enum）控制。
 | `--color-bg` | `#f7f5f2` | 主背景 / 深色按鈕上的文字色 |
 
 > `--color-fg` 曾經在一次 rewind 操作中被意外還原回舊值 `#1a1a1a`，2026-08-17 重新確認並改回 `#233a48`——這是目前的正式值，不要看到舊筆記或截圖裡的 `#1a1a1a` 就改回去。`--color-bg`／`--color-surface` 沒有一起還原（使用者這輪沒有要求），目前 `--color-bg` 仍是 rewind 前的舊值 `#f7f5f2`、`--color-surface` 這個 token 不存在，如果之後要補回來要再確認一次。
-| `--color-cta` | `#00ffae`（2026-08-18 從 `#ff6553` 珊瑚色改成螢光綠，經 Notion 標注確認） | 品牌強調色，只用於按鈕/圖形背景，**禁止用在內文文字的 resting 狀態**（見下方「已知例外」：`feedbackGrid` headline 關鍵字高亮、`<Button variant="links">` 的 hover） |
+| `--color-cta` | `#00ffae`（2026-08-18 從 `#ff6553` 珊瑚色改成螢光綠，經 Notion 標注確認） | 品牌強調色，只用於按鈕/圖形背景。**禁止用在內文文字**——2026-08-18 同日稍後這條規則從「有兩個核准例外」變回**沒有例外**，見下方 `--color-cta-text` |
 | `--color-cta-hover` | `#00d994`（2026-08-18 新增） | `--color-cta` 的 hover 狀態，目前只有 `<Button primary>` 用（`hover:bg-cta-hover`，實色替換，取代原本的 `hover:opacity-85`） |
+| `--color-cta-text` | `#2bb98c`（2026-08-18 新增） | `--color-cta` 家族專門給**文字**用的變體——`--color-cta` 本身是調給按鈕底色用的螢光綠，直接當文字色可讀性差（跟 primary 按鈕底色同一個 1.21:1 對比問題）。取代了原本借用 `--color-cta` 的兩處文字用法：`<Button variant="links">` 的 hover（`hover:text-cta-text`）、`feedbackGrid` headline 關鍵字高亮（`CaseStudyBlock.tsx` 的 `text-cta-text`） |
 | `--color-border` | `#e2dfda` | 外框線 |
-| `--color-available` | `#5a8a60` | 低調狀態指示（如 TOC 目前所在區塊、Impact Overview 數字卡外框），視覺任務是「安靜不搶戲」 |
+| `--color-available` | `#5a8a60` | 低調狀態指示（CaseStudySideNav TOC 目前所在區塊——主連結底色/文字、圓點），視覺任務是「安靜不搶戲」。**2026-08-18 起不再用在 Impact Overview 數字卡外框**，那裡改成 `border-fg`（見下方），目前唯一用途只剩 CaseStudySideNav 的 active 狀態 |
 
-> `--color-success`（`#017d18`）已於 2026-08-18 刪除、合併進 `--color-available`——原本唯一的用法（`CaseStudyView.tsx` 的 Impact Overview 數字卡外框）已經改成 `border-available`。不要再加回這個 token，兩個「強調用途」的色彩現在統一用 `available`。
+> `--color-success`（`#017d18`）已於 2026-08-18 刪除、合併進 `--color-available`——原本唯一的用法（`CaseStudyView.tsx` 的 Impact Overview 數字卡外框）當時改成了 `border-available`。**同日稍後這個用法本身又改成 `border-fg`**（見下方），所以 `--color-success` 合併進來的那個位置現在其實是 `border-fg` 在用，不是 `available`——`--color-available` 沒有因此變成零使用，CaseStudySideNav 的 active 狀態還在用它，不要刪除這個 token，但這段歷史（success 併入 available、又從 available 搬到 fg）值得留著，避免以後看程式碼對不上這裡的紀錄一頭霧水。
 
 ### 卡片配色家族 `--color-card-*`
 
@@ -60,8 +61,7 @@ prop（enum）控制。
 
 - `#f5a623`（星星評分色）：只出現一次，跟卡片配色沒有配對關係，語意是「評分」不是「卡片文字」。除非未來這個模式重複出現，否則不用建立 token。
 - **ActivityHeatmap 的 9 色熱力圖階梯**（`#ebedf0`／`#9be9a8`／`#40c463`／`#30a14e`／`#216e39`／`#ffe0d6`／`#ffb199`／`#ff8a66`／`#ff6553`）：GitHub 來源模仿 GitHub 自己的綠色階梯，Claude Code 來源用暖色系（最深階 `#ff6553` 是寫死值，**不是** `--color-cta` 的引用——2026-08-18 `--color-cta` 改成 `#00ffae` 之後兩者已經不再相等，這組調色盤本來就是獨立於 token 之外的，不用跟著變），程式碼裡已有註解說明用意，是資料視覺化專屬的獨立調色盤，不要拆開套用到其他地方。
-- **`--color-cta` 用在內文文字（resting 狀態）**：案例研究 `feedbackGrid` 卡片的 headline 裡，關鍵字（機構名稱，如「AppWorks」「Alibaba Cloud」）刻意用高亮，是唯一被核准的 resting 狀態例外，不要當成可以比照辦理的先例套用到其他內文。實作是 `CaseStudyBlock.tsx` 的 `renderInline()` 新增的 `==text==` 語法（跟既有的 `**bold**`同一套 helper），只在寫 `feedbackGrid` 的 `headline` 欄位時使用。
-- **`--color-cta` 用在內文文字（hover 狀態）**：`<Button variant="links">` 的 hover 統一是 `text-cta`，2026-08-18 起用在 Footer 連結欄跟 CaseStudyBlock 內文連結兩處，見下方 `<Button>` 章節，不是單一例外了。
+- **`--color-cta` 在內文文字裡的例外已經全部撤銷（2026-08-18）**：這裡原本記錄兩個「核准例外」——`feedbackGrid` headline 關鍵字高亮（resting 狀態）、`<Button variant="links">` 的 hover——都是直接借用 `--color-cta`。現在兩處都改用專門的 `--color-cta-text`（見上方色彩 token 表），不再是「借用 --color-cta 的例外」，而是「用另一個專門給文字設計的 token」，`--color-cta` 本身回到「只用於按鈕/圖形背景」的單純規則，沒有例外了。實作位置沒變：`CaseStudyBlock.tsx` 的 `renderInline()` 的 `==text==` 語法、`Button.tsx` 的 `links` variant hover。
 
 ---
 
@@ -70,8 +70,10 @@ prop（enum）控制。
 全站只剩 3 個字體：**Source Serif 4**（`font-serif`，大標題 `text-h1`~`h3`）、
 **Source Sans 3**（`font-source-sans-pro`，其他所有文字——內文、小標題
 `text-h4`/`text-h5`、UI 控制項如 Button/TagChip/nav 連結，也是 `<body>` 的
-`font-source-sans-pro` 預設字體）、**JetBrains Mono**（`font-mono`，只有
-ActivityHeatmap 跟 WorkIndexRail 用）。
+`font-source-sans-pro` 預設字體）、**JetBrains Mono**（`font-mono`，只剩
+WorkIndexRail 用）。**2026-08-18**：ActivityHeatmap 整個從 `font-mono` 改成
+`font-source-sans-pro`（切換 pill、YEAR 選單、熱力圖格線標籤全部一起
+變），不再是 JetBrains Mono 的使用者之一。
 
 **Inter 已於 2026-08-17 從全站移除**：`app/layout.tsx` 不再載入 `Inter`（`next/font/google`），
 `<body>` 的 class 從 `font-sans` 改成明寫 `font-source-sans-pro`，`globals.css` 的
@@ -93,7 +95,7 @@ Source Sans 3。
 | `text-h2` | `clamp(40px, 30.06px + 2.65vw, 64px)` | `1.1` | 700 | Source Serif 4 | 章節主標題，跟手機版配一個更小字級的家族；案例研究頁標題（`CaseStudyView.tsx` H1）也直接套用這個，不再用自己的 `clamp()` |
 | `text-h3` | `clamp(26px, 23.51px + 0.66vw, 32px)` | `1.2` | 600 | Source Serif 4 | 次級標題（WorkCard、案例研究區塊標題——含 `CaseStudyView.tsx` 段落 `<h2>`） |
 | `text-h4` | `clamp(20px, 18.34px + 0.44vw, 24px)` | `1.2` | **700** | **Source Sans 3** | 小標題，全站多處平常直接固定使用，範圍刻意留小；案例研究 Overview/My role/Team/Impact Overview 標籤也套這個 |
-| `text-h5` | `clamp(22px, 17.86px + 1.10vw, 32px)` | `1` | 700 | Source Sans 3 | 強調用的大數字（案例研究 `statRow` 數字統計）。2026-08-17 從獨立 `clamp()` 升格成 token 時曾短暫改成固定 `32px`；2026-08-18 先改回流體（原始值 `clamp(32px, ..., 42px)`），同日又整段往下推 10px，桌機上限從 42px 收回 32px、手機下限跟著從 32px 變 22px，`vw` 係數（slope，兩次都是 1.10）沒變，只是整條曲線往下平移 |
+| `text-h5` | `clamp(22px, 17.86px + 1.10vw, 32px)` | `1` | 700 | Source Sans 3 | 強調用的大數字（案例研究 `statRow` 數字統計）。2026-08-17 從獨立 `clamp()` 升格成 token 時曾短暫改成固定 `32px`；2026-08-18 先改回流體（原始值 `clamp(32px, ..., 42px)`），同日又整段往下推 10px，桌機上限從 42px 收回 32px、手機下限跟著從 32px 變 22px，`vw` 係數（slope，兩次都是 1.10）沒變，只是整條曲線往下平移。**同日再追加**：Footer 的「Links」「Navigation」欄位標題也改用這個 token（原本是 `text-h4`），是第三個使用場景，跟前兩個（案例研究數字統計、CaseStudyView 年份列）語意不同——單純是欄位小標題變大變粗，不是「強調數字」，但沿用同一個 token 沒有另外開一個 |
 | `text-body` | `clamp(18px, 17.17px + 0.22vw, 20px)` | `1.5` | 400 | Source Sans 3 | 加 `font-bold` 可當作 Impact 數字卡標籤用（「Body Bold」） |
 | `text-body-sm` | `clamp(17px, 16.59px + 0.11vw, 18px)` | `1.5` | 400 | Source Sans 3 | 預設內文字級，全站到處共用；加 `font-bold` 是 FeedbackStack 卡片標題用的「Body-sm (Bold)」 |
 | `text-caption` | `clamp(13px, 12.59px + 0.11vw, 14px)` | `1.2` | 400 | Source Sans 3 | 全站到處共用；FeedbackStack 徽章文字也套這個 |
@@ -253,7 +255,7 @@ margin」的寫法不一致，現在改成 `<h2 className="mb-10">` 直接帶在
 
 - **GlassCard 的 `no-bottom` 變體**（Hero 專用）：水平內距跟頂部桌機內距套 `--spacing-card-glass`，但**手機頂部內距維持寫死的 `pt-9`(36px)**——這個值本來就跟 `--spacing-card-glass`(28px) 對不上，不是筆誤，不要硬改成一樣
 - **WorkCard、MoreCaseStudies 以外的卡片**（FeedbackStack、CaseStudySideNav 浮動面板、TestimonialCard、ToggleBlock）：盤點過但刻意不合併——FeedbackStack 剛手動調過尺寸不想再動、CaseStudySideNav 是浮動 UI chrome 不是卡片、TestimonialCard 有已知的陰影疊加問題待獨立處理、ToggleBlock 內距是配合手風琴圖示位置手調的不規則值，四者都維持各自寫死
-- **TestimonialsSection 手機版橫向捲動軸**（`-mx-8`/`px-8` 那對）：這是負邊距抵消正內距、讓內容貼齊螢幕邊緣捲動的技巧，不是「section 留白」，不要套用 `--spacing-shell`
+- **TestimonialsSection 手機版橫向捲動軸**（`-mx-8`/`px-8` 那對）：這是負邊距抵消正內距、讓內容貼齊螢幕邊緣捲動的技巧，不是「section 留白」，不要套用 `--spacing-shell`。**2026-08-18 修 bug**：這個容器設定了 `overflow-x-auto`，CSS 規則是只要 `overflow-x`／`overflow-y` 其中一軸不是 `visible`，另一軸如果原本是 `visible` 就會被瀏覽器自動算成 `auto`——等於這個容器其實同時在裁切 Y 軸，但原本只有 `pb-4`（給卡片陰影下緣留空間）沒有對應的 `pt-*`，導致卡片自己的 `box-shadow`（`0 4px 16px rgba(0,0,0,0.1)`，往上大約會暈開 12px）在容器頂部被硬生生切掉，手機上第一張卡片看起來像是上緣被裁到。修法是補上對稱的 `pt-4`，不是卡片本身的問題，是外層捲動容器的裁切副作用
 - **ImageCollage 燈箱背景的 `p-6`**：稽核報告曾經誤把它歸類成「卡片內距」，實際上是全螢幕 lightbox 遮罩的邊緣留白（`fixed inset-0 ... p-6`），不是卡片，這輪沒有套用任何間距 token，維持寫死 24px
 
 ---
@@ -351,7 +353,16 @@ hover、transition duration。
 | **primary** | `bg-cta`，形狀跟另外兩個 pill 變體共用同一個 `COMPACT_SHAPE`（`h-10 rounded-lg px-4`，2026-08-18 稍後收斂，原本是 `rounded-full` + `size`）。曾短暫加過 `border border-fg`（見下方無障礙備註），已於同日移除 | `hover:bg-cta-hover`（`--color-cta-hover`，實色替換，不再是 opacity 淡化） | 這個區塊裡**最想要使用者做的單一動作**，一個區塊只出現一次 | Hero「Check out recent work」、Footer「Schedule a chat」、「Read case study」 |
 | **secondary** | `bg-fg`，形狀固定 `COMPACT_SHAPE`（`h-10 rounded-lg px-4`，見上方尺寸章節） | `hover:bg-fg-hover` | 推進到新內容，或離開目前脈絡（不論站內站外） | AiProjectsSection「AI Project」、JourneyTimeline「My Resume」、MoreCaseStudies「Next」、Hero 扇形卡 CTA 小標籤 |
 | **third** | `border border-border`，形狀同樣固定 `COMPACT_SHAPE` | `hover:border-fg` + `hover:bg-cta/15`（用 `--color-cta` 疊 15% 透明度當淡填色，不是寫死 hex，`--color-cta` 以後再調整這裡會自動跟著變） | 陪襯 primary 的次要選項，或「留在附近」的動作 | Hero「Learn more about me」、AiProjectsSection「GitHub」、Footer「Copy my email」（有 icon）、MoreCaseStudies「Back」 |
-| **links** | `text-fg underline decoration-2 underline-offset-3` | `hover:text-cta` | 純文字連結，不是按鈕，語意上「這只是一句話裡可以點的部分」 | Footer 連結欄（Resume/LinkedIn/GitHub/Nav.）、CaseStudyBlock 內文連結 |
+| **links** | `text-fg` + 底線（`underline decoration-2 underline-offset-3`，2026-08-18 拆成獨立的 `underline` prop，預設 `true`，見下方） | `hover:text-cta-text`（2026-08-18 從 `hover:text-cta` 改，見上方 `--color-cta-text`） | 純文字連結，不是按鈕，語意上「這只是一句話裡可以點的部分」 | Footer 連結欄（Resume/LinkedIn/GitHub/Nav.）、CaseStudyBlock 內文連結 |
+
+**`underline` prop（2026-08-18 新增）**：`links` 變體的底線原本是寫死在
+`VARIANT_CLASSES.links` 裡，不能個別關掉。Footer「Navigation」欄的第一
+個項目（「AI Projects」）想要變成比較像標題的「精選」連結——拿掉底線、
+字級放大成 `text-h4`——這種需求不適合用 `className` 硬蓋掉鎖定的底線（
+專案沒裝 tailwind-merge，覆寫順序不保證），所以新增明確的 `underline?:
+boolean` prop（預設 `true`），設 `false` 就不套用底線 class。字級本來就
+不是 `links` 鎖定的屬性（見上方），所以「改成 `text-h4`」直接用
+`className` 傳，不需要額外開 prop。
 
 **2026-08-18 追加**：`third` 裡唯一帶 icon 的用法（Footer「Copy my email」，
 icon + `gap-2` + 文字）沒有另外放大 padding 或特殊處理，跟其他純文字
@@ -375,6 +386,12 @@ padding，避免 icon 按鈕又變成另一個「看起來不一樣」的個案�
 一個字面差異值得記錄：「Say Hello」原本手刻是 `font-medium`，`<Button>`
 統一鎖定 `font-semibold`——收斂後這行字重變粗了一階，這是共用元件字重
 鎖死帶來的預期結果，不是疏漏。
+
+Hero 影片卡的播放鈕本身尺寸對不上固定的 40px，沒有用這個 prop（見下方
+Hero 影片卡章節，來回改過好幾次）；但**燈箱的關閉鈕（v7 起）用了**——
+背景已經是深色，`secondary` 的 `bg-fg text-bg` 疊上去圖示依然清楚可
+辨識，`square` 現在有兩個使用者：Header 的 LinkedIn 按鈕、Hero 影片卡
+燈箱的關閉鈕。
 
 **2026-08-18 收斂**：Hero 扇形卡片底部的 CTA 小標籤（「Recent case studies」／
 「Projects I'm building」／「My story」）原本是手刻的 `<span>`（`rounded-lg`、
@@ -406,8 +423,33 @@ WorkCard 改成只有按鈕本身是連結，不再靠祖先 `<Link>` 驅動，�
 
 | Hover 目標 | 用在哪 |
 |---|---|
-| `hover:text-fg`（從 `text-fg-secondary`）| WorkIndexRail 未選取項目、ActivityHeatmap 切換 pill |
-| `hover:text-cta`（`<Button variant="links">` 的 hover，見上方） | Footer 連結欄、CaseStudyBlock 內文連結，兩處都走 `links` variant，統一用這個 hover。舊版本裡 Footer 連結原本是 `hover:text-fg`，現在改成跟 CaseStudyBlock 一致的 `hover:text-cta`，是刻意統一的結果，不是意外 |
+| `hover:text-fg`（從 `text-fg-secondary`）| ActivityHeatmap 切換 pill |
+| `hover:text-cta-text`（`<Button variant="links">` 的 hover，見上方，2026-08-18 從 `hover:text-cta` 改） | Footer 連結欄、CaseStudyBlock 內文連結，兩處都走 `links` variant，統一用這個 hover。舊版本裡 Footer 連結原本是 `hover:text-fg`，後來改成跟 CaseStudyBlock 一致，是刻意統一的結果，不是意外 |
+| `group-hover:text-fg-hover`（`--color-fg-hover`，跟 `<Button secondary>` 的 hover 背景色同一個 token，只是這裡是文字不是背景） | Header 左上角 logo（「Yiting H.」文字），2026-08-18 新增 |
+| `hover:bg-border hover:text-fg`（複合式：背景+文字一起變，見下方 WorkIndexRail） | WorkIndexRail 未選取項目，2026-08-18 從單純 `hover:text-fg` 改 |
+
+**Header logo（2026-08-18）**：之前是 `group-hover:text-fg`，但 resting 狀態本來就已經是
+`text-fg`（繼承自父層 `<Link>`），等於 hover 沒有任何視覺變化，是一段沒作用的死
+class——這次補上真正會變色的 hover，直接沿用 `--color-fg-hover` 這個既有 token，
+不是新建的。
+
+**WorkIndexRail（2026-08-18，中途改過兩次方向，非對稱是刻意的）**：年份
+圓形選單原本是 `bg-fg text-bg`（實心深色圓）／`text-fg-secondary
+hover:text-fg`（未選取，hover 純變色）。中途一度改成 `border-2
+border-border` 外框描邊樣式，後來確認方向錯了——不要外框，改回實心；
+接著又一度讓 Selected／Hover 兩個狀態共用同一套 `bg-border text-fg`
+填色，也確認錯了。**最終版本是不對稱的**：
+
+- **Selected**（目前所在區塊）：只變文字色，`text-fg`（#233a48），**沒有
+  圓形底色**，維持透明背景。
+- **未選取項目 hover 時**：`hover:bg-border hover:text-fg`——這時候**才**
+  出現實心圓底色（#e2dfda）+ 文字變色。
+
+換句話說，「有沒有圓形底色」是拿來分辨「這是滑鼠正在移過的項目」跟「這是
+目前所在的區塊」兩種不同語意，不是兩個狀態要長得一樣。標籤文字也從
+`'23`／`'24`／`'25` 縮寫改成完整 `2023`／`2024`／`2025`，固定寫在
+`YEAR_LABELS` 陣列裡（不是從資料算出來的年份），對應網站現有 3 篇案例
+研究的時序，之後新增第 4 篇案例研究記得回來補這個陣列。
 
 `bg-bg-alt` 當 hover 背景填色（Header NavPills、JourneyTimeline 手風琴列、
 CaseStudySideNav 收合鈕圖示、CaseStudySideNav TOC 主連結**與子項連結**）
@@ -482,12 +524,130 @@ min-h-[320px] flex-col">` 裡，跟卡片底部的「Read case study」按鈕（
 沒有存在的理由了（卡片其他地方本來就不該有任何互動回饋，不需要靠禁止選取
 文字去「修」點擊）。
 
+### Hero 標題區跟扇形卡片組之間的間距（2026-08-18）
+
+`Hero.tsx` 包住「標題+副標」跟「扇形卡片組」兩塊的外層 `<div>`，
+`gap-10`（40px）改成 `gap-0`——兩塊之間不再留白，扇形卡片組直接貼著
+標題區塊下緣。
+
+### `HeroVideoCard`（Hero 扇形卡的影片卡，2026-08-18，來回改了七次才定案）
+
+Hero 扇形卡片組裡「自我介紹影片」那張卡，這輪經過七個版本，前六版：
+
+1. **v1**：hover 暫停影片、浮出毛玻璃遮罩 + 播放鈕，宣稱是「參考
+   benshih.design」，但其實是自己發明的
+2. **v2**：貼了 Ben 網站的 HTML 片段逐層比對，片段裡完全沒有遮罩/播放鈕
+   相關元素，一度判定「Ben 根本沒有這個效果」，整套互動拿掉，影片變回
+   單純的 `autoPlay muted loop` 背景影片
+3. **v3**：使用者貼出 Ben 網站的實際截圖，清楚看到影片預設就是毛玻璃
+   模糊 + 置中白色圓形播放鈕——v2 的判斷是錯的，問題出在複製的 HTML
+   片段本身沒包含到疊加層（複製範圍不夠完整），不是 Ben 真的沒有這個
+   效果。模糊套用在頁面載入時的預設狀態（`blur-lg`）
+4. **v4**：確認「一開始進到網頁不應該有模糊」——模糊/播放鈕改成只在
+   hover 時才出現；模糊強度調淡成 `blur-[4px]`
+5. **v5**：點播放鈕的行為換成跳出全螢幕燈箱（深色遮罩 `bg-fg/80`），
+   燈箱裡是全新掛載、原生 `controls`、從 0:00 開始播放的 `<video>`
+6. **v6**：使用者貼出 Ben「展開後」的實際截圖，背景是模糊頁面、不是
+   變暗，小卡片本身也沒有播放鈕疊加層——拿掉小卡片的播放鈕，改成整張
+   卡可點擊 + hover 直接暫停；燈箱背景從 `bg-fg/80` 改成 `bg-bg/40
+   backdrop-blur-xl`（模糊不變暗）
+
+**v7（目前版本）**：使用者對 v6 的結果不滿意，帶著另外兩張截圖回來，
+一次糾正三件事：
+
+1. **hover 的毛玻璃+播放鈕，v6 拿掉是錯的，放回來**——但**同時保留**
+   v6 加的「hover 暫停播放」，兩者疊在一起：hover 時影片暫停、套用
+   `blur-[4px]`、淡入播放鈕；按鈕本身才是開燈箱的點擊目標（不再是整張
+   卡都可點）
+2. **燈箱背景改回深色 `bg-fg/80`**（v6 改成淺色模糊是誤判方向，使用者
+   明確要暗色遮罩，不是模糊頁面）
+3. **抓到一個真的的 z-index/點擊穿透 bug**：截圖裡「Recent work」卡片
+   疊在燈箱影片上面，而且燈箱開著的時候還點得到它。根因是燈箱原本
+   render 在 `HeroVideoCard` 元件的 JSX 裡，是 `fan-card-item` 這個
+   祖先 `<div>`（`position: relative` + inline `zIndex`，扇形卡疊放
+   效果需要）的**子孫節點**——`position: fixed` 不會逃脫祖先建立的
+   stacking context，所以燈箱的 `z-[200]` 只在這個祖先的 stacking
+   context 內部有效，跟其他扇形卡（例如 `zIndex:4` 的「Recent work」）
+   比較時完全排不贏。**修法是用 `createPortal` 把燈箱整個掛載到
+   `document.body`**，徹底跳出所有祖先的 stacking context，這是這類
+   bug 的標準正解，不是加大 z-index 數字就能解決的（加到 `z-[9999]`
+   還是會被祖先的 stacking context 關住）
+
+**目前的互動模型**：
+
+- **小卡片**：`autoPlay muted loop playsInline preload="metadata"`
+- **hover 小卡片**：暫停影片、套用 `blur-[4px]`、淡入置中播放鈕
+- **點播放鈕**：`isModalOpen` 設成 `true`，`createPortal` 把燈箱掛到
+  `document.body`（跳脫扇形卡的 stacking context），背景
+  `bg-fg/80 backdrop-blur-sm`（深色遮罩）。燈箱裡是**另一個獨立的
+  `<video>` 元素**，天生從 0:00 開始播放，原生 `controls`，沒有 `muted`
+- **關閉燈箱**：點背景、點右上角關閉鈕、或按 `Esc`；開啟期間
+  `document.body.style.overflow = "hidden"` 鎖住背後頁面捲動
+
+**播放鈕仍是手刻**（尺寸 `h-14 w-14` 跟 `square` 的 40px 對不上，理由
+同前）。**燈箱關閉鈕這次改走共用 `<Button variant="secondary" square>`
+元件**（v6 時是手刻的純圖示鈕）——背景已經是深色 `bg-fg/80`，
+`secondary` 的 `bg-fg text-bg` 疊上去圖示本身仍然清楚可辨識，沒有必要
+繼續手刻，跟專案「重複元件一律用共用元件」的規則對齊。
+
+### ActivityHeatmap 年份選單（2026-08-18 新增，同日改成原生 `<select>`）
+
+原本 `YEAR` 是寫死常數（`2026`），只顯示不能互動。先改成 `useState` +
+照搬 GitHub／Claude Code 來源切換 pill 樣式的按鈕組，後來確認要用**原生
+`<select>` 下拉選單**，不是按鈕 pill——現在是 `<select id="activity-year">`
+包 `<option>`，樣式沿用原本那顆固定 `2026` 方塊的規格（`rounded-lg
+border border-border bg-white py-2 px-3 text-sm text-fg`，字體因為
+ActivityHeatmap 全站改字體那次已經是 `font-source-sans-pro`，不是
+`font-mono`），額外補了 `cursor-pointer` 提示這是可互動元件，`<label
+htmlFor>` 對應 `id` 做無障礙關聯。
+
+### `Footer` 內容/排版調整（2026-08-18）
+
+- **連結欄標題**：「Nav.」改成完整拼出的「Navigation」
+- **文案合併**：原本兩段獨立 `<p>`（"I enjoy building cool products with
+  cool humans, and wearing different hats..." / "I'm a bit shy..."）合併
+  成一段，同時文字也改了——不是單純合併，開頭的「I enjoy building cool
+  products with cool humans, and」被拿掉，直接從「I enjoy wearing
+  different hats...」開始
+- **Berlin 時間移位**：原本「Berlin ⟨時間⟩」是獨立一行，排在按鈕列
+  （Schedule a chat／Copy my email）下方。現在搬進按鈕列**同一個 flex
+  容器**裡，變成排在兩顆按鈕後面（同一行，不是另起一行），按鈕列的
+  `flex-wrap` 讓它在窄螢幕自然換行
+- **欄位標題字級**：「Links」「Navigation」從 `text-h4` 改成 `text-h5`
+  （見上方字級系統章節，這是 `text-h5` 第三個使用場景）
+- **欄位順序**：`LINK_COLUMNS` 陣列從「Links, Navigation」改成
+  「Navigation, Links」——畫面上 Navigation 欄現在排在 Links 左邊
+- **左右間距（來回試了三版，最終回到 `justify-between`）**：外層 row
+  原本是 `justify-between`（貼齊卡片左右兩緣，中間空白最大）→ 改成
+  `md:ml-auto`（效果跟 `justify-between` 幾乎一樣）→ 拿掉這兩個只留
+  `gap-14`（56px，兩區塊貼很近，結果太擠）→ 加大成 `md:gap-24`（96px）
+  →**最終確認：`justify-between` 這個機制本身沒有錯，錯的是 Navigation/
+  Links 這個區塊自己太窄**，區塊窄的話 `justify-between` 硬把它推到最右緣
+  自然會拉出一大片空白。所以最終做法是**改回 `justify-between`**，但把
+  Navigation/Links 那個區塊本身加寬：內部兩欄的 `gap-16` 加到
+  `md:gap-20`（80px），每欄再補上 `md:min-w-[140px]`（欄位本身內容窄，
+  沒有這個底寬會被壓縮）。區塊變寬之後，`justify-between` 推到最右緣時
+  中間空白自然縮小，不用再另外調整外層 gap 或用 margin 硬推
+- **連結欄項目間距加倍**：`<ul>` 的 `gap-2.5`（10px，每個連結項目上下的
+  間距）加倍成 `gap-5`（20px），兩欄（Navigation／Links）都套用，不是
+  只有其中一欄
+- **「精選」連結試過又改回來了**：「AI Projects」一度拿掉底線、字級放大
+  成 `text-h4`，試完看起來不對，已經**改回跟其他連結完全一樣**（有底線、
+  `text-caption` 字級，不再傳 `underline`／自訂 `className`）。`<Button>`
+  的 `underline` prop（見上方）保留在元件裡沒有拿掉——之後如果有真的需要
+  的地方還能用，只是這次 Footer 不用了
+- **標題跟連結列的間距加大**：`<h3>` 的 `mb-heading-gap-h4`（8px 共用
+  token）換成本地寫死的 `mb-4`（16px）——這個標題現在是 `text-h5` 字級
+  （22-32px，比一般 h4 大不少），套用 h4 專用的 8px 間距 token 顯得太緊。
+  **刻意不改共用 token 本身**（`--spacing-heading-gap-h4` 全站還有其他
+  h4 標題在用，改 token 會連動影響那些地方），只在這裡用字面值覆蓋
+
 ---
 
 ## 禁止事項
 
 1. 不要寫死顏色/字級/間距/陰影數值，一律引用上面的 token
-2. 不要在內文文字的**預設（resting）狀態**使用 `--color-cta`，只能用在按鈕/圖形背景，或 hover 狀態（`feedbackGrid` headline 關鍵字高亮、`<Button variant="links">` 的 `hover:text-cta`，見上方色彩 token／Button 已知例外）
+2. 不要在內文文字用 `--color-cta`（resting 或 hover 皆同），只能用在按鈕/圖形背景——文字需要這個色系的地方（`feedbackGrid` headline 關鍵字高亮、`<Button variant="links">` 的 hover）一律用 `--color-cta-text`，見上方色彩 token
 3. 不要手寫「手機固定 px + `md:text-hX`」的字級跳躍寫法，直接引用流體 token
 4. 重複元件（按鈕、卡片、標籤）一律用共用元件，不要各頁各自手刻一份
 5. 不要用 `className` 覆蓋 `<GlassCard>` / `<Button>` 鎖定的 padding、字重、hover 屬性（專案沒裝 tailwind-merge，覆寫順序不保證）

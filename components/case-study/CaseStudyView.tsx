@@ -69,7 +69,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                     <p className="mb-5 text-h4 tracking-[-0.01em] text-fg">Impact Overview</p>
                     <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       {caseStudy.impactStats.map((stat) => (
-                        <RevealItem key={stat.label} className="rounded-lg border-2 border-available bg-bg p-5">
+                        <RevealItem key={stat.label} className="rounded-lg border-2 border-fg bg-bg p-5">
                           <p className="mb-3 text-body font-bold text-fg">
                             {stat.label}
                           </p>

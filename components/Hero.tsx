@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import Button from "./Button";
 import GlassCard from "./GlassCard";
+import HeroVideoCard from "./HeroVideoCard";
 
 interface FanCard {
   key: string;
@@ -61,7 +62,7 @@ export default function Hero() {
       <GlassCard padding="no-bottom">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-bg" />
 
-        <div className="relative z-[1] flex flex-col items-start gap-10">
+        <div className="relative z-[1] flex flex-col items-start gap-0">
           {/* Left: headline + sub */}
           <div className="max-w-full pb-12 md:pb-0">
             <h1 className="mb-7 text-h1 tracking-[-0.05em] text-fg">
@@ -91,20 +92,7 @@ export default function Hero() {
                 style={{ zIndex: FAN_CARDS.length - index }}
               >
                 {card.isPhoto ? (
-                  <div
-                    className={`fan-card-rotate relative h-[286px] w-[256px] overflow-hidden rounded-[20px] shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] ${card.bg}`}
-                    style={{ "--rotate": `${card.rotation}deg` } as CSSProperties}
-                  >
-                    <video
-                      src="/videos/self-intro.mp4"
-                      poster="/images/self-intro-poster.png"
-                      controls
-                      playsInline
-                      preload="none"
-                      aria-label="Yiting Huang — self intro"
-                      className="h-full w-full rounded-[20px] object-cover xl:rounded-[24px]"
-                    />
-                  </div>
+                  <HeroVideoCard bg={card.bg} rotation={card.rotation} />
                 ) : (
                   <Link
                     href={card.href}

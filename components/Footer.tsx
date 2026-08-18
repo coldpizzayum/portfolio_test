@@ -12,18 +12,18 @@ const GITHUB_URL = "https://github.com/coldpizzayum";
 
 const LINK_COLUMNS = [
   {
+    heading: "Navigation",
+    items: [
+      { label: "AI Projects", href: "/ai-projects" },
+      { label: "About Me", href: "/about" },
+    ],
+  },
+  {
     heading: "Links",
     items: [
       { label: "Resume", href: RESUME_URL },
       { label: "LinkedIn", href: LINKEDIN_URL },
       { label: "GitHub", href: GITHUB_URL },
-    ],
-  },
-  {
-    heading: "Nav.",
-    items: [
-      { label: "AI Projects", href: "/ai-projects" },
-      { label: "About Me", href: "/about" },
     ],
   },
 ];
@@ -79,20 +79,17 @@ export default function Footer() {
   return (
     <footer id="contact" className="px-shell py-section md:px-shell-lg md:py-section-lg">
       <GlassCard>
-        <div className="relative z-[1] flex flex-col justify-between gap-14 md:flex-row">
+        <div className="relative z-[1] flex flex-col gap-14 md:flex-row md:justify-between">
           <div>
             <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
               Let&apos;s connect!
             </h2>
-            <p className="mb-5 max-w-[480px] text-body-sm text-fg">
-              I enjoy building cool products with cool humans, and wearing different hats to ship the best product. I
-              don&apos;t like to be limited by the label &quot;Designer.&quot; :)
-            </p>
             <p className="mb-8 max-w-[480px] text-body-sm text-fg">
-              I&apos;m a bit shy, but I&apos;m always excited to learn about new ideas.
+              I enjoy wearing different hats to ship the best product. I don&apos;t like to be limited by the label
+              &quot;Designer.&quot; :) I&apos;m a bit shy, but I&apos;m always excited to learn about new ideas.
             </p>
 
-            <div className="mb-6 flex flex-wrap gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <Button href={CAL_URL} target="_blank" rel="noreferrer">
                 Schedule a chat
               </Button>
@@ -100,18 +97,23 @@ export default function Footer() {
                 <CopyIcon />
                 {copied ? "Copied!" : "Copy my email"}
               </Button>
+              <p className="text-caption font-semibold text-fg">
+                Berlin <BerlinClock />
+              </p>
             </div>
-
-            <p className="text-caption font-semibold text-fg">
-              Berlin <BerlinClock />
-            </p>
           </div>
 
-          <div className="flex gap-16">
+          <div className="flex gap-16 md:gap-20">
             {LINK_COLUMNS.map((column) => (
-              <div key={column.heading}>
-                <h3 className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">{column.heading}</h3>
-                <ul className="flex flex-col gap-2.5 text-caption">
+              <div key={column.heading} className="md:min-w-[140px]">
+                {/* mb-4 is a deliberate local override, not the shared
+                 *  --spacing-heading-gap-h4 token (mb-heading-gap-h4, 8px) —
+                 *  this heading renders at text-h5 size, noticeably bigger
+                 *  than a typical h4, so the h4 gap token reads as too tight
+                 *  underneath it. Local override so the shared token (used
+                 *  by many other h4 headings sitewide) isn't affected. */}
+                <h3 className="mb-4 text-h5 tracking-[-0.01em] text-fg">{column.heading}</h3>
+                <ul className="flex flex-col gap-5 text-caption">
                   {column.items.map((item) => (
                     <li key={item.label}>
                       <Button
