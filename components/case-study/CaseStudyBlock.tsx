@@ -1,31 +1,10 @@
 import Image from "next/image";
-import { Fragment } from "react";
 import type { CaseStudyBlock as CaseStudyBlockType } from "@/data/caseStudies";
 import Button from "../Button";
 import ImageCollage from "./ImageCollage";
 import ToggleBlock from "./ToggleBlock";
 import FeedbackStack from "./FeedbackStack";
-
-/** Renders `**bold**` as <strong> and `==highlight==` as accent-colored text
- *  via `--color-cta-text` (the cta family's text-context variant, not
- *  `--color-cta` itself — see the design-system skill's color-token
- *  exceptions), everything else as plain text. */
-export function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*|==[^=]+==)/g);
-  return parts.map((part, index) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={index}>{part.slice(2, -2)}</strong>;
-    }
-    if (part.startsWith("==") && part.endsWith("==")) {
-      return (
-        <span key={index} className="text-cta-text">
-          {part.slice(2, -2)}
-        </span>
-      );
-    }
-    return <Fragment key={index}>{part}</Fragment>;
-  });
-}
+import { renderInline } from "../renderInline";
 
 export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType }) {
   switch (block.type) {
@@ -66,14 +45,19 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
       );
 
     case "statRow":
+      // bg-white + text-fg label — matches the other white cards elsewhere
+      // on case study pages (Overview card, Impact Overview stat cards),
+      // both a deliberate choice over the default bg-bg-alt / text-fg-secondary.
+      // Only usage sitewide: coolwallet-pro's eCom Redesign section — no
+      // other page is affected by changes here.
       return (
         <div className="my-7 flex flex-col gap-4 sm:flex-row">
           {block.stats.map((stat) => (
-            <div key={stat.label} className="flex-1 rounded-lg bg-bg-alt p-card-compact md:p-card-compact-lg">
+            <div key={stat.label} className="flex-1 rounded-lg bg-white p-card-compact md:p-card-compact-lg">
               <p className="mb-1.5 text-h5 tracking-[-0.04em] text-fg">
                 {stat.value}
               </p>
-              <p className="text-caption text-fg-secondary">{stat.label}</p>
+              <p className="text-caption text-fg">{stat.label}</p>
             </div>
           ))}
         </div>

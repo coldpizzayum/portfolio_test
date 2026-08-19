@@ -10,7 +10,9 @@ const DAY_LABELS: Record<number, string> = { 1: "Mon", 3: "Wed", 5: "Fri" };
 
 /** Level→color per source: GitHub uses GitHub's own green palette, Claude Code
  *  uses a palette in the site's coral/red accent instead, so the two are easy
- *  to tell apart at a glance while sharing the exact same grid/behavior. */
+ *  to tell apart at a glance while sharing the exact same grid/behavior. This
+ *  is a standalone data-viz palette, not a design-system color token — don't
+ *  extract individual steps out of it for use elsewhere. */
 const LEVEL_COLORS: Record<Source, string[]> = {
   github: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
   claude: ["#ebedf0", "#ffe0d6", "#ffb199", "#ff8a66", "#ff6553"],
@@ -164,6 +166,8 @@ export default function ActivityHeatmap() {
   return (
     <div
       id="activity"
+      // Flat hairline shadow, not shadow-card/shadow-hover — this is a
+      // panel, not a card, so it doesn't join that shadow family.
       className="rounded-2xl border border-border bg-white/60 p-card-compact shadow-[0_0_0_1px_rgba(0,0,0,0.04)] backdrop-blur-[8px] md:p-card-compact-lg"
     >
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4 font-source-sans-pro">
@@ -174,6 +178,9 @@ export default function ActivityHeatmap() {
          *  width, wrapping "Claude Code" onto two lines inside the button
          *  instead of the intended result: the YEAR block wrapping down to
          *  its own line (already possible via the parent's flex-wrap). */}
+        {/* hover:text-fg (from text-fg-secondary) on these two toggle
+            buttons is its own hover-color group — not the sitewide
+            hover:bg-bg-alt group used by NavPills/Button third/etc. */}
         <div className="inline-flex shrink-0 items-center gap-1 rounded-full border border-border bg-white p-1">
           <button
             type="button"
@@ -201,18 +208,35 @@ export default function ActivityHeatmap() {
           <label htmlFor="activity-year" className="tracking-[0.1em]">
             YEAR
           </label>
-          <select
-            id="activity-year"
-            value={year}
-            onChange={(e) => setYear(Number(e.target.value) as (typeof YEARS)[number])}
-            className="cursor-pointer rounded-lg border border-border bg-white py-2 px-3 font-source-sans-pro text-sm text-fg"
-          >
-            {YEARS.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
+          {/* appearance-none + a hand-drawn chevron instead of the native
+           *  one — the browser's own dropdown arrow was getting clipped
+           *  against the box's right edge with this little horizontal
+           *  padding, and its size/position isn't stylable to fix that
+           *  directly. pr-8 clears room for the icon so it doesn't overlap
+           *  the year text. */}
+          <div className="relative">
+            <select
+              id="activity-year"
+              value={year}
+              onChange={(e) => setYear(Number(e.target.value) as (typeof YEARS)[number])}
+              className="cursor-pointer appearance-none rounded-lg border border-border bg-white py-2 pr-8 pl-3 font-source-sans-pro text-sm text-fg"
+            >
+              {YEARS.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </select>
+            <svg
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              className="pointer-events-none absolute top-1/2 right-2.5 h-4 w-4 -translate-y-1/2 text-fg-secondary"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="m5 7.5 5 5 5-5" />
+            </svg>
+          </div>
         </div>
       </div>
 

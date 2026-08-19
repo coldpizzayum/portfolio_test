@@ -22,9 +22,7 @@ function CloseIcon() {
 }
 
 /**
- * The fan deck's video card. Modeled on benshih.design's hero video
- * (2026-08-18, went through six revisions — see design-system skill for
- * the full back-and-forth). Current (v7) behavior:
+ * The fan deck's video card.
  *
  * - Resting: autoplay/muted/loop, clear, no overlay.
  * - Hover: pauses the video, blurs it (`blur-[4px]`), fades in a centered
@@ -103,6 +101,8 @@ export default function HeroVideoCard({ bg, rotation }: { bg: string; rotation: 
             showOverlay ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         >
+          {/* Hand-cut size (h-14 w-14) — doesn't reuse Button's square prop,
+              which is fixed at 40px; this button is bigger by design. */}
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}

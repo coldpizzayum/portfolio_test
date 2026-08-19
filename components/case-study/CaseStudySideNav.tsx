@@ -32,6 +32,10 @@ function CloseIcon() {
  *  sub-headings under top-level items. Derived from the section's own
  *  content instead of a separate data field, so a heading/toggle only needs
  *  its `id` set once to show up here automatically. */
+/** Desktop-only (`hidden md:flex` / `hidden md:block` below) — this is
+ *  `position: fixed`, so on mobile it would float on top of the page
+ *  content with nowhere to sit; rather than rely on the user to collapse
+ *  it, it's off entirely below `md`. */
 function getSubItems(section: CaseStudySection) {
   return section.blocks.flatMap((block) => {
     if (block.type === "heading" && block.id) return [{ id: block.id, label: block.text }];
@@ -113,7 +117,7 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
         onClick={() => setIsOpen(true)}
         aria-label="Show on-this-page navigation"
         aria-hidden={!hasReachedContent}
-        className={`fixed top-[100px] left-[48px] z-40 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white/75 text-fg shadow-float backdrop-blur-sm transition-all duration-300 hover:bg-white ${visibilityClass}`}
+        className={`fixed top-[100px] left-[48px] z-40 hidden h-10 w-10 items-center justify-center rounded-full border border-border bg-white/75 text-fg shadow-float backdrop-blur-sm transition-all duration-300 hover:bg-white md:flex ${visibilityClass}`}
       >
         <ListIcon />
       </button>
@@ -126,7 +130,9 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
     // here, with the toggle button above as the escape hatch.
     <aside
       aria-hidden={!hasReachedContent}
-      className={`fixed top-[100px] left-[48px] z-40 w-[252px] rounded-2xl border border-border bg-white/75 p-5 shadow-float backdrop-blur-sm transition-all duration-300 ${visibilityClass}`}
+      // p-5 here — floating UI chrome, not a card, so it's deliberately off
+      // the shared card-padding tokens.
+      className={`fixed top-[100px] left-[48px] z-40 hidden w-[252px] rounded-2xl border border-border bg-white/75 p-5 shadow-float backdrop-blur-sm transition-all duration-300 md:block ${visibilityClass}`}
     >
       <div className="mb-1 flex items-center justify-between gap-2">
         <p className="text-[11px] font-semibold tracking-[0.1em] text-fg uppercase">On This Page</p>

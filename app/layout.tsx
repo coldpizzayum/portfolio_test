@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -62,10 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${sourceSerif.variable} ${jetbrainsMono.variable} ${sourceSans.variable}`}
-    >
+    <html lang="en" className={`${sourceSerif.variable} ${sourceSans.variable}`}>
       <body
         className="flex min-h-screen flex-col bg-bg text-fg font-source-sans-pro text-base leading-relaxed antialiased"
         suppressHydrationWarning

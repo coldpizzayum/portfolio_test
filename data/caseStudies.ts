@@ -8,15 +8,17 @@ export interface WorkItem {
   caseStudySlug?: string;
 }
 
+// Order matters: paired positionally (not by id) with WorkIndexRail's
+// YEAR_LABELS array in components/WorkIndexRail.tsx. Keep both arrays in
+// the same order — reordering one without the other mismatches every pill.
 export const workItems: WorkItem[] = [
   {
-    slug: "web3-wallet-defi-dashboard",
-    title: "Designing Web3 Marketing Dashboard: 0 to 1",
-    description:
-      "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
-    tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
-    image: "/images/web3console.png",
-    caseStudySlug: "web3-marketing-dashboard",
+    slug: "coolwallet-pro-rebrand",
+    title: "Global Expansion: branding & eCommerce redesign",
+    description: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
+    tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
+    image: "/images/coolwallet-hero.png",
+    caseStudySlug: "coolwallet-pro",
   },
   {
     slug: "influencer-marketing-management-tool",
@@ -28,12 +30,13 @@ export const workItems: WorkItem[] = [
     caseStudySlug: "influencer-marketing-tool",
   },
   {
-    slug: "coolwallet-pro-rebrand",
-    title: "Global Expansion: branding & eCommerce redesign",
-    description: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
-    tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
-    image: "/images/coolwallet-hero.png",
-    caseStudySlug: "coolwallet-pro",
+    slug: "web3-wallet-defi-dashboard",
+    title: "Designing Web3 Marketing Dashboard: 0 to 1",
+    description:
+      "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
+    tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
+    image: "/images/web3console.png",
+    caseStudySlug: "web3-marketing-dashboard",
   },
 ];
 
@@ -81,6 +84,14 @@ export interface FeedbackCard {
   role?: string;
   date?: string;
   href?: string;
+  /** Id into `data/testimonials.ts`'s `testimonials` array — when set, this
+   *  card's quote/rating/attribution are sourced from that entry (via the
+   *  shared `QuoteCardContent` component) instead of the fields above, so
+   *  the same real quote isn't duplicated in two data files. Currently only
+   *  the web3-marketing-dashboard's first Customer Review card uses this
+   *  (linked to the "vincent" testimonial — same PrismX PM quote shown on
+   *  the homepage). */
+  testimonialId?: string;
 }
 
 export interface CaseStudySection {
@@ -343,11 +354,7 @@ export const caseStudies: CaseStudy[] = [
             type: "feedbackGrid",
             cards: [
               {
-                rating: 5,
-                quote:
-                  "Growing3 is a tool that has significantly benefited my work, providing a **seamless overall product experience, especially in terms of user experience**, which left a strong impression on me!",
-                name: "Project Manager",
-                role: "@PrismX",
+                testimonialId: "vincent",
               },
               {
                 eyebrow: "500 Global",
@@ -580,7 +587,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "overview",
         navLabel: "Overview",
-        heading: "🧩 Overview",
+        heading: "Overview",
         blocks: [
           {
             type: "paragraph",
@@ -593,8 +600,8 @@ export const caseStudies: CaseStudy[] = [
           {
             type: "bulletList",
             items: [
-              "**⚡ CoolWallet Pro Rebranding** – Crafting a distinct identity for power users and redefining the brand story",
-              "**🛒 Growth-Driven eCommerce Redesign** – Transforming a transactional site into a multifunctional growth engine for users, partners, and investors",
+              "**CoolWallet Pro Rebranding** – Crafting a distinct identity for power users and redefining the brand story",
+              "**Growth-Driven eCommerce Redesign** – Transforming a transactional site into a multifunctional growth engine for users, partners, and investors",
             ],
           },
         ],
@@ -602,13 +609,13 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "myrole",
         navLabel: "My Role",
-        heading: "👩🏻‍💻 My Role",
+        heading: "My Role",
         blocks: [
           {
             type: "paragraph",
             text: "I worked cross-functionally with teams across marketing, product, customer service, sales, and logistics. My scope covered three key areas:",
           },
-          { type: "heading", level: 3, text: "📣 Marketing" },
+          { type: "heading", level: 3, text: "Marketing" },
           {
             type: "bulletList",
             items: [
@@ -617,7 +624,7 @@ export const caseStudies: CaseStudy[] = [
               "Managed external graphic and motion designers",
             ],
           },
-          { type: "heading", level: 3, text: "🛠️ Product" },
+          { type: "heading", level: 3, text: "Product" },
           {
             type: "bulletList",
             items: [
@@ -627,7 +634,7 @@ export const caseStudies: CaseStudy[] = [
               "Created physical product assets: card, packaging, accessories, co-branded editions",
             ],
           },
-          { type: "heading", level: 3, text: "📊 Data & Optimization" },
+          { type: "heading", level: 3, text: "Data & Optimization" },
           {
             type: "bulletList",
             items: [
@@ -649,12 +656,12 @@ export const caseStudies: CaseStudy[] = [
           {
             type: "bulletList",
             items: [
-              "🧠 C-Suite",
-              "🎨 Me (Web Designer) and Marketing Team",
-              "💻 Product Team",
-              "📞 Customer Service",
-              "📦 Logistics",
-              "💼 Sales",
+              "C-Suite",
+              "Me (Web Designer) and Marketing Team",
+              "Product Team",
+              "Customer Service",
+              "Logistics",
+              "Sales",
             ],
           },
         ],
@@ -702,7 +709,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "ecom-redesign",
         navLabel: "eCom Redesign",
-        heading: "🚀 Growth-Driven eCommerce Redesign",
+        heading: "Growth-Driven eCommerce Redesign",
         blocks: [
           {
             type: "paragraph",
@@ -710,7 +717,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "paragraph",
-            text: "**📈 Key Performance Metrics (June 2021 – March 2022 vs. previous year)**",
+            text: "**Key Performance Metrics (June 2021 – March 2022 vs. previous year)**",
           },
           {
             type: "statRow",
@@ -736,7 +743,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "webdesign",
         navLabel: "Design Process",
-        heading: "🧩 Key Web Design Enhancements",
+        heading: "Key Web Design Enhancements",
         blocks: [
           {
             type: "bulletList",
@@ -764,7 +771,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "takeaway",
         navLabel: "What I Learned",
-        heading: "🧠 What I Learned",
+        heading: "What I Learned",
         blocks: [
           {
             type: "paragraph",

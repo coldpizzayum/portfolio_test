@@ -3,7 +3,6 @@
 @theme inline {
   --font-sans: var(--font-source-sans);
   --font-serif: var(--font-source-serif);
-  --font-mono: var(--font-jetbrains-mono);
   --font-source-sans-pro: var(--font-source-sans);
 
   --color-bg: #f7f5f2;
@@ -29,10 +28,6 @@
   --color-card-jade: #74c2a0;
   --color-card-sky: #acdbff;
   --color-card-mint: #b9f1e4;
-  --color-card-sand-text: #5c4108;
-  --color-card-salmon-text: #7a1f22;
-
-  --color-sticky-blue: #cbe6f7;
 
   /* Semantic shadow tokens — consolidates the "glass card" family's resting
      shadow, Hero's fan-card hover-lift, and fixed floating UI chrome into

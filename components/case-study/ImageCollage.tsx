@@ -34,6 +34,9 @@ export default function ImageCollage({ items }: { items: CollageItem[] }) {
             type="button"
             onClick={() => setActive(item)}
             aria-label={`Enlarge: ${item.alt}`}
+            // Shadow bloom is deliberately bigger than shadow-float/
+            // shadow-hover — it's signaling "this is clickable/enlargeable,"
+            // not just floating above the page.
             className="absolute aspect-video cursor-zoom-in overflow-hidden rounded-xl shadow-[0_20px_40px_rgba(16,24,40,0.15)] ring-1 ring-black/5 transition-[filter] duration-300 hover:brightness-95"
             style={{
               top: item.top,
@@ -53,6 +56,8 @@ export default function ImageCollage({ items }: { items: CollageItem[] }) {
           role="dialog"
           aria-modal="true"
           onClick={() => setActive(null)}
+          // p-6 (24px) is this lightbox's own fixed edge margin, not a
+          // card-padding token — full-screen overlay, not a card.
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-6"
         >
           <button

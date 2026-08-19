@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { renderInline } from "./CaseStudyBlock";
+import { renderInline } from "../renderInline";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -75,6 +75,9 @@ export default function ToggleBlock({
   }, [id]);
 
   return (
+    // Paddings here (px-6/py-5 header, px-6 pt-1 pb-5 pl-10 content) are
+    // hand-tuned around the chevron/info-icon layout, not one of the shared
+    // card-padding tokens — don't swap these for p-card-compact etc.
     <div id={id} className="my-8 scroll-mt-24 overflow-hidden rounded-2xl bg-white">
       <button
         type="button"

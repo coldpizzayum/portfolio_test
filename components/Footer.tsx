@@ -37,6 +37,15 @@ function CopyIcon() {
   );
 }
 
+function CalendarIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4">
+      <rect x="3" y="4.5" width="14" height="12" rx="1.5" />
+      <path strokeLinecap="round" d="M3 8h14M6.5 3v3M13.5 3v3" />
+    </svg>
+  );
+}
+
 function BerlinClock() {
   const [time, setTime] = useState<string | null>(null);
 
@@ -77,7 +86,13 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="px-shell py-section md:px-shell-lg md:py-section-lg">
+    // Split from the shared py-section/md:py-section-lg pair (--spacing-section,
+    // the sitewide "section outer vertical padding" token) — top padding
+    // keeps that token unchanged, bottom padding is a deliberate 5x of it
+    // (100px / 150px), specific to the page's very last section. Not a
+    // token change: --spacing-section itself still governs every other
+    // section's padding, top and bottom alike.
+    <footer id="contact" className="px-shell pt-section pb-[100px] md:px-shell-lg md:pt-section-lg md:pb-[150px]">
       <GlassCard>
         <div className="relative z-[1] flex flex-col gap-14 md:flex-row md:justify-between">
           <div>
@@ -90,7 +105,12 @@ export default function Footer() {
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
-              <Button href={CAL_URL} target="_blank" rel="noreferrer">
+              {/* variant="secondary", not "primary" — an explicit one-off
+                  choice for this specific button, not a new pattern (every
+                  other CTA-worthy action still follows the variant table in
+                  Button.tsx). */}
+              <Button href={CAL_URL} target="_blank" rel="noreferrer" variant="secondary">
+                <CalendarIcon />
                 Schedule a chat
               </Button>
               <Button as="button" variant="third" onClick={handleCopyEmail}>

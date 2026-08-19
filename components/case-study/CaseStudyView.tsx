@@ -2,10 +2,16 @@ import Image from "next/image";
 import { caseStudies, type CaseStudy } from "@/data/caseStudies";
 import { Reveal, RevealGroup, RevealItem } from "../Reveal";
 import CaseStudySideNav from "./CaseStudySideNav";
-import CaseStudyBlock, { renderInline } from "./CaseStudyBlock";
+import CaseStudyBlock from "./CaseStudyBlock";
 import MoreCaseStudies from "./MoreCaseStudies";
 import TagChip from "../TagChip";
+import { renderInline } from "../renderInline";
 
+/** Shared by all 3 case study pages (web3-marketing-dashboard /
+ *  influencer-marketing-tool / coolwallet-pro) — token/style changes here
+ *  apply to all three automatically. coolwallet-pro doesn't render the
+ *  Overview/My role/Team/Impact card block below because its data has no
+ *  `meta`/`impactStats`, not because of a style difference. */
 export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
   const otherCaseStudies = caseStudies
     .filter((cs) => cs.slug !== caseStudy.slug)
@@ -17,7 +23,11 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
         <header className={`pt-hero-top md:pt-hero-top-lg ${caseStudy.meta ? "pb-8" : "pb-16"}`}>
           <Reveal>
             <div className={`flex flex-col gap-10 md:flex-row md:items-center ${caseStudy.meta ? "mb-10" : ""}`}>
-              <div className="md:w-[420px] md:shrink-0">
+              {/* md:w-3/5 / md:w-2/5 below — proportional split, not a fixed
+                  px width, so the 60/40 ratio holds at any viewport width
+                  instead of "fixed left column, right side eats whatever's
+                  left." */}
+              <div className="md:w-3/5 md:shrink-0">
                 <p className="mb-3 text-h5 text-fg-secondary">{renderInline(caseStudy.year)}</p>
                 <h1 className="mb-5 text-h2 tracking-[-0.03em] text-fg">
                   {caseStudy.title}
@@ -29,7 +39,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                 </div>
               </div>
 
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-bg-alt">
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-bg-alt md:w-2/5">
                 <Image
                   src={caseStudy.heroImage}
                   alt={`${caseStudy.title} — hero screenshot`}

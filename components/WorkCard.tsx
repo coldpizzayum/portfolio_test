@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { WorkItem } from "@/data/caseStudies";
 import Button from "./Button";
 import TagChip from "./TagChip";
-import { renderInline } from "./case-study/CaseStudyBlock";
+import { renderInline } from "./renderInline";
 import { RevealItem } from "./Reveal";
 
 interface WorkCardProps {
@@ -27,6 +27,8 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
     </div>
   );
 
+  // Content order: title → description → tags → button. This is a shared
+  // component — reordering here changes every WorkCard sitewide.
   const contentPanel = (
     <div className="flex flex-col justify-center rounded-2xl bg-white p-card-work shadow-none md:rounded-[20px] md:p-card-work-lg md:shadow-card">
       {/* Fixed min-height so the title+description+tags block occupies the

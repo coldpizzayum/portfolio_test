@@ -16,8 +16,10 @@ export default function WorkSection() {
     <section id="works" className="bg-bg py-section md:py-section-lg">
       <div className="mx-auto max-w-[1200px] px-shell md:px-shell-lg">
         <Reveal>
-          {/* mb-10 is a documented deliberate exception (not --spacing-heading-gap-h2's
-              12px) — see design-system skill's "標題跟內容間距" known exceptions. */}
+          {/* mb-10 (40px), not --spacing-heading-gap-h2's 12px
+              (mb-heading-gap-h2) — a deliberate one-off choice to read
+              differently from every other h2 sitewide. Not a bug; don't
+              "fix" it back to the shared token. */}
           <h2 className="mb-10 text-h2 tracking-[-0.03em] text-fg">
             Selected works
           </h2>

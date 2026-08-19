@@ -77,6 +77,9 @@ function NavPills({ className }: { className: string }) {
         {NAV_LINKS.map((link) => {
           const isActive = activeHref === link.href;
           return (
+            // hover:bg-bg-alt — same hover-color group as Button's third
+            // variant / JourneyTimeline's accordion rows / CaseStudySideNav's
+            // TOC links (see Button.tsx for the group's reasoning).
             <Link
               key={link.href}
               href={link.href}
@@ -98,13 +101,19 @@ function NavPills({ className }: { className: string }) {
 
 export default function Header() {
   return (
-    <div className="px-shell pt-section md:px-shell-lg">
+    // pt-10 (40px) is a deliberate 2x of the shared --spacing-section token
+    // (20px, pt-section) — Header has no responsive md: variant for this
+    // padding, so the doubled value stays flat across breakpoints too.
+    <div className="px-shell pt-10 md:px-shell-lg">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-3 md:flex-row md:justify-between">
         <div className="flex w-full items-center justify-between gap-3 md:contents">
           <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
             <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
               <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
             </span>
+            {/* group-hover:text-fg-hover on the logo text is its own
+                one-off hover color — not part of the bg-bg-alt hover group
+                used elsewhere in this file. */}
             <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
               Yiting H.
             </span>
@@ -125,8 +134,11 @@ export default function Header() {
            of the screen (clear of the iOS home-indicator safe area). */}
         <NavPills className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] left-1/2 z-[100] flex -translate-x-1/2 items-center px-2 py-1 md:hidden" />
 
-        {/* Desktop: its own independently fixed, top-centered instance. */}
-        <NavPills className="fixed top-5 left-1/2 z-[100] hidden -translate-x-1/2 items-center px-2 py-1 md:flex" />
+        {/* Desktop: its own independently fixed, top-centered instance.
+            top-10 is doubled the same way pt-section→pt-10 was on the
+            wrapper below, so the pill sits proportionally the same
+            distance below the page's top padding. */}
+        <NavPills className="fixed top-10 left-1/2 z-[100] hidden -translate-x-1/2 items-center px-2 py-1 md:flex" />
 
         <div className="hidden shrink-0 items-center gap-2 md:flex">
           <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">

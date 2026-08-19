@@ -96,6 +96,10 @@ export default function JourneyTimeline() {
                 const isOpen = openIndex === index;
                 return (
                   <RevealItem key={entry.title} className="py-3">
+                    {/* hover:bg-bg-alt — same hover-color group as NavPills /
+                        Button's third variant / CaseStudySideNav's TOC links
+                        (see Button.tsx for the group's reasoning); keep this
+                        shared color. */}
                     <button
                       type="button"
                       onClick={() => setOpenIndex(isOpen ? null : index)}
@@ -104,6 +108,11 @@ export default function JourneyTimeline() {
                     >
                       <span className="min-w-0 flex-1">
                         <p className="text-caption text-fg">{entry.dateRange}</p>
+                        {/* No mb-heading-gap-h4 here on purpose — this h3 is
+                            the *last* element in this <span> (date text
+                            comes first), not something with content stacked
+                            below it, so the "heading → its own content"
+                            spacing rule doesn't apply. */}
                         <h3 className="text-h4 tracking-[-0.01em] text-fg">{entry.title}</h3>
                       </span>
 

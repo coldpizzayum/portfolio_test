@@ -75,6 +75,9 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
           const y = -i * PEEK_STEP;
           const scale = 1 - i * SCALE_STEP;
           return (
+            // Upward shadow (negative y-offset) — this stack casts its
+            // shadow up, not down, the opposite of every other card on the
+            // site. Deliberate, not a shadow-hover/shadow-card fit.
             <div
               key={item.slug}
               aria-hidden={!isFront}

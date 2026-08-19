@@ -102,6 +102,11 @@ export default function Hero() {
                   >
                     <span className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/24 to-[60%] to-transparent" />
                     <div className="relative">
+                      {/* mb-heading-gap-h4 lives directly on this heading,
+                          not as a gap on some outer flex/space-y wrapper —
+                          this card's title-to-description spacing doesn't
+                          share a container with anything else that would
+                          need a different gap. */}
                       <h2 className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg xl:text-[40px] xl:leading-[0.9]">{card.title}</h2>
                       <p className="text-caption text-fg xl:text-[19px] xl:leading-[1.5]">{card.description}</p>
                     </div>

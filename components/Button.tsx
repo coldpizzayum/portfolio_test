@@ -106,11 +106,12 @@ const HOVER_CLASSES: Record<ButtonVariant, { self: string; group: string }> = {
   // the accessibility problem primary has, not a fix for it.
   primary: { self: "hover:bg-cta-hover", group: "group-hover:bg-cta-hover" },
   secondary: { self: "hover:bg-fg-hover", group: "group-hover:bg-fg-hover" },
-  // Border darkens AND gets a faint cta-tinted fill — the fill references
-  // --color-cta directly via the opacity modifier (bg-cta/15) instead of a
-  // separate hardcoded hex, so it re-tints automatically if --color-cta
-  // ever changes again.
-  third: { self: "hover:border-fg hover:bg-cta/15", group: "group-hover:border-fg group-hover:bg-cta/15" },
+  // Border darkens AND gets a solid fill. History: started as a translucent
+  // cta-tinted fill (bg-cta/15) → changed to flat #E2DFDA (bg-border) on
+  // request → corrected same day to flat #efede9 (bg-bg-alt), which is what
+  // Header's NavPills hover also uses — the two are meant to read as the
+  // same hover color sitewide, see NavPills in Header.tsx.
+  third: { self: "hover:border-fg hover:bg-bg-alt", group: "group-hover:border-fg group-hover:bg-bg-alt" },
   // --color-cta-text (#2bb98c), not --color-cta — this is text, and
   // --color-cta itself is tuned for button backgrounds, not legible as
   // text (2026-08-18).
