@@ -79,6 +79,13 @@ export function QuoteCardContent({ testimonial, sizeClass }: { testimonial: Quot
 // not a jarring flip to the opposite angle.
 const HOVER_ROTATE_BOOST = 6;
 
+// This card family's own hand-tuned shadow — a tighter close layer + a
+// softer ambient one, combined into one shadow-[...] value (same
+// comma-separated-layers pattern as the shared --shadow-card token), not
+// one of the shared shadow tokens (see design-system skill's shadow-token
+// known exceptions).
+const QUOTE_CARD_SHADOW = "shadow-[0_4px_16px_rgba(0,0,0,0.1),0_2px_12px_rgba(0,0,0,0.07)]";
+
 export default function TestimonialCard({ testimonial, position }: TestimonialCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -177,12 +184,6 @@ export default function TestimonialCard({ testimonial, position }: TestimonialCa
         onClick={() => setIsModalOpen(true)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        // Two shadow classes stacked here (`shadow-[0_4px_16px...]` +
-        // `shadow-[0_2px_12px...]`) is a known unresolved quirk — CSS
-        // apply-order between two shadow utilities on the same element
-        // isn't guaranteed, so which one visually wins can be inconsistent.
-        // Not touched by this pass; needs an actual shadow-logic redesign
-        // for this card, not a quick swap.
         // cursor-zoom-in (magnifying glass) instead of cursor-pointer —
         // signals "click to enlarge" specifically, matching the lightbox
         // this button opens. The photo card above keeps the default cursor;
@@ -190,7 +191,7 @@ export default function TestimonialCard({ testimonial, position }: TestimonialCa
         // p-7 pb-6 is this card family's own hand-tuned padding, deliberately
         // not on the shared card-padding tokens (--spacing-card-work etc.)
         // used by WorkCard/MoreCaseStudies.
-        className={`${wrapperClassName} w-[280px] cursor-zoom-in rounded-2xl border-2 bg-white p-7 pb-6 text-left shadow-[0_4px_16px_rgba(0,0,0,0.1)] shadow-[0_2px_12px_rgba(0,0,0,0.07)] transition-transform duration-300 hover:scale-[1.03]`}
+        className={`${wrapperClassName} w-[280px] cursor-zoom-in rounded-2xl border-2 bg-white p-7 pb-6 text-left ${QUOTE_CARD_SHADOW} transition-transform duration-300 hover:scale-[1.03]`}
         style={{ ...style, zIndex, borderColor: testimonial.borderColor }}
       >
         <QuoteCardContent testimonial={testimonial} sizeClass="text-caption" />

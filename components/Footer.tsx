@@ -88,11 +88,11 @@ export default function Footer() {
   return (
     // Split from the shared py-section/md:py-section-lg pair (--spacing-section,
     // the sitewide "section outer vertical padding" token) — top padding
-    // keeps that token unchanged, bottom padding is a deliberate 5x of it
-    // (100px / 150px), specific to the page's very last section. Not a
-    // token change: --spacing-section itself still governs every other
-    // section's padding, top and bottom alike.
-    <footer id="contact" className="px-shell pt-section pb-[100px] md:px-shell-lg md:pt-section-lg md:pb-[150px]">
+    // keeps that token unchanged, bottom padding is its own larger fixed
+    // value (100px / 152px, both on the 4px grid), specific to the page's
+    // very last section. Not a token change: --spacing-section itself
+    // still governs every other section's padding, top and bottom alike.
+    <footer id="contact" className="px-shell pt-section pb-[100px] md:px-shell-lg md:pt-section-lg md:pb-[152px]">
       <GlassCard>
         <div className="relative z-[1] flex flex-col gap-14 md:flex-row md:justify-between">
           <div>

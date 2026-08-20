@@ -9,9 +9,18 @@ export interface WorkItem {
 }
 
 // Order matters: paired positionally (not by id) with WorkIndexRail's
-// YEAR_LABELS array in components/WorkIndexRail.tsx. Keep both arrays in
+// RAIL_LABELS array in components/WorkIndexRail.tsx. Keep both arrays in
 // the same order — reordering one without the other mismatches every pill.
 export const workItems: WorkItem[] = [
+  {
+    slug: "web3-wallet-defi-dashboard",
+    title: "Designing Web3 Marketing Dashboard: 0 to 1",
+    description:
+      "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
+    tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
+    image: "/images/web3console.png",
+    caseStudySlug: "web3-marketing-dashboard",
+  },
   {
     slug: "coolwallet-pro-rebrand",
     title: "Global Expansion: branding & eCommerce redesign",
@@ -28,15 +37,6 @@ export const workItems: WorkItem[] = [
     tags: ["B2B", "SaaS", "Pivot"],
     image: "/images/influencer-marketing-hero.png",
     caseStudySlug: "influencer-marketing-tool",
-  },
-  {
-    slug: "web3-wallet-defi-dashboard",
-    title: "Designing Web3 Marketing Dashboard: 0 to 1",
-    description:
-      "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
-    tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
-    image: "/images/web3console.png",
-    caseStudySlug: "web3-marketing-dashboard",
   },
 ];
 

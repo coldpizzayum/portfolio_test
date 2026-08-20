@@ -7,12 +7,12 @@ interface RailItem {
   label: string;
 }
 
-// Full year shown in the rail pill, one per work item in order — matches
-// the site's case studies chronologically, most recent first. Fixed array,
-// not derived from data, and paired with `workItems` in data/caseStudies.ts
-// by *position*, not by id — the two arrays must stay in the same order.
-// Add an entry here (and to workItems) if a 4th work item is ever added.
-const YEAR_LABELS = ["2025", "2024", "2023"];
+// Plain sequence number shown in the rail pill, one per work item in order
+// (not a year). Fixed array, not derived from data, and paired with
+// `workItems` in data/caseStudies.ts by *position*, not by id — the two
+// arrays must stay in the same order. Add an entry here (and to workItems)
+// if a 4th work item is ever added.
+const RAIL_LABELS = ["1", "2", "3"];
 
 export default function WorkIndexRail({ items }: { items: RailItem[] }) {
   const [activeId, setActiveId] = useState<string | undefined>(items[0]?.id);
@@ -39,18 +39,19 @@ export default function WorkIndexRail({ items }: { items: RailItem[] }) {
       {items.map((item, index) => (
         // Asymmetric on purpose: selected (current section) only changes
         // text color, no circle fill; only the *unselected* items get a
-        // filled circle (hover:bg-border) + text color change on hover.
-        // hover:bg-border is its own hover-color group, separate from the
-        // sitewide hover:bg-bg-alt one used elsewhere.
+        // filled circle + text color change on hover. hover:bg-bg-alt —
+        // same sitewide hover-color group as Button's third variant /
+        // JourneyTimeline's accordion rows / CaseStudySideNav's TOC links /
+        // Header's NavPills (see Button.tsx for the group's reasoning).
         <a
           key={item.id}
           href={`#${item.id}`}
           aria-label={item.label}
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-source-sans-pro text-xs font-medium transition-colors duration-300 ${
-            activeId === item.id ? "text-fg" : "text-fg-secondary hover:bg-border hover:text-fg"
+            activeId === item.id ? "text-fg" : "text-fg-secondary hover:bg-bg-alt hover:text-fg"
           }`}
         >
-          {YEAR_LABELS[index] ?? String(index + 1).padStart(2, "0")}
+          {RAIL_LABELS[index] ?? String(index + 1)}
         </a>
       ))}
     </div>

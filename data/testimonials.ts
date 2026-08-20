@@ -141,7 +141,7 @@ export const testimonials: Testimonial[] = [
     avatar: "/images/testimonials/james.jpeg",
     borderColor: "#1A1A1A",
     rotation: -4,
-    position: { top: 344, left: 183 },
+    position: { top: 280, left: 183 },
     zIndex: 5,
   },
   {
@@ -171,7 +171,7 @@ export const testimonials: Testimonial[] = [
     borderColor: "#1A1A1A",
     rating: 5,
     rotation: -3,
-    position: { top: 300, left: 500 },
+    position: { top: 250, left: 440 },
     zIndex: 1,
   },
 ];

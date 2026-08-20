@@ -102,8 +102,12 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
               <Image src={block.src} alt={block.alt} fill sizes="(min-width: 900px) 900px, 100vw" className="object-contain" />
             </div>
           )}
+          {/* mt-6 — matches videoGrid/embed's caption gap below (same
+              "media → caption" relationship); used to be mt-2.5 (10px,
+              not on the 4px grid), inconsistent with those two for no
+              documented reason. */}
           {block.caption && (
-            <figcaption className="mt-2.5 text-center text-caption text-fg-secondary italic">
+            <figcaption className="mt-6 text-center text-caption text-fg-secondary italic">
               {block.caption}
             </figcaption>
           )}

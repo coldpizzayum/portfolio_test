@@ -40,10 +40,31 @@ function LinkedInIcon() {
 }
 
 /**
- * The pill nav track (with the sliding active-page indicator). Rendered
- * twice by Header — once for mobile, once for desktop — each as its own
- * independent instance with its own indicator measurement, since a single
- * shared instance can't correctly track two separate DOM positions at once.
+ * The pill nav track, with two independent sliding indicators — mirrors
+ * benshih.design's nav, adapted to this site's tokens instead of copying
+ * its literal class names:
+ *
+ * - A persistent `bg-cta` pill always marks the current page, whether or
+ *   not anything is hovered.
+ * - A separate `bg-bg-alt` pill only shows while hovering, and slides to
+ *   follow whichever item the cursor is over (hidden again once the cursor
+ *   leaves the nav, or lands back on the active item itself — no point
+ *   drawing a second pill on top of the first there).
+ *
+ * Two pills, not one recolored pill: `bg-bg-alt` is the same hover color
+ * this site already uses on Button's third variant / JourneyTimeline's
+ * accordion / CaseStudySideNav's TOC links, so hover here should read as
+ * that same color, while the active page keeps its own distinct `bg-cta`
+ * regardless of what's being hovered. Making the hover color itself the
+ * thing that slides (instead of a static background on each `<a>`) also
+ * avoids a real stacking conflict: a link's own opaque background would
+ * sit above (z-10) and fully hide a differently-styled pill sliding
+ * underneath it.
+ *
+ * Rendered twice by Header — once for mobile, once for desktop — each as
+ * its own independent instance with its own indicator measurements, since
+ * a single shared instance can't correctly track two separate DOM
+ * positions at once.
  */
 function NavPills({ className }: { className: string }) {
   const pathname = usePathname();
@@ -51,49 +72,60 @@ function NavPills({ className }: { className: string }) {
 
   const trackRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
-  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number } | null>(null);
+  const [activeIndicator, setActiveIndicator] = useState<{ left: number; width: number } | null>(null);
+  const [hoveredHref, setHoveredHref] = useState<string | null>(null);
+  const [hoverIndicator, setHoverIndicator] = useState<{ left: number; width: number } | null>(null);
 
-  useEffect(() => {
+  const measure = (href: string | null) => {
     const track = trackRef.current;
-    const link = activeHref ? linkRefs.current.get(activeHref) : null;
-    if (!track || !link) {
-      setIndicatorStyle(null);
-      return;
-    }
+    const link = href ? linkRefs.current.get(href) : null;
+    if (!track || !link) return null;
     const trackRect = track.getBoundingClientRect();
     const linkRect = link.getBoundingClientRect();
-    setIndicatorStyle({ left: linkRect.left - trackRect.left, width: linkRect.width });
+    return { left: linkRect.left - trackRect.left, width: linkRect.width };
+  };
+
+  useEffect(() => {
+    setActiveIndicator(measure(activeHref));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeHref]);
+
+  useEffect(() => {
+    setHoverIndicator(hoveredHref && hoveredHref !== activeHref ? measure(hoveredHref) : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hoveredHref, activeHref]);
 
   return (
     <nav className={`${PILL_SURFACE} ${className}`}>
-      <div ref={trackRef} className="relative flex items-center gap-0 p-1">
-        {indicatorStyle && (
+      {/* onMouseLeave lives on the track, not on individual links — moving
+          from one link to another inside the nav shouldn't hide the hover
+          pill in between; only leaving the nav entirely should. */}
+      <div ref={trackRef} onMouseLeave={() => setHoveredHref(null)} className="relative flex items-center gap-0 p-1">
+        {activeIndicator && (
           <div
             className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-cta transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
-            style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
+            style={{ left: activeIndicator.left, width: activeIndicator.width }}
           />
         )}
-        {NAV_LINKS.map((link) => {
-          const isActive = activeHref === link.href;
-          return (
-            // hover:bg-bg-alt — same hover-color group as Button's third
-            // variant / JourneyTimeline's accordion rows / CaseStudySideNav's
-            // TOC links (see Button.tsx for the group's reasoning).
-            <Link
-              key={link.href}
-              href={link.href}
-              ref={(el) => {
-                if (el) linkRefs.current.set(link.href, el);
-              }}
-              className={`relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium text-fg transition-colors duration-[180ms] ${
-                isActive ? "" : "hover:bg-bg-alt"
-              }`}
-            >
-              {link.label}
-            </Link>
-          );
-        })}
+        {hoverIndicator && (
+          <div
+            className="pointer-events-none absolute top-1 h-[calc(100%-8px)] rounded-full bg-bg-alt transition-[left,width] duration-[280ms] ease-[cubic-bezier(0.34,1.2,0.64,1)]"
+            style={{ left: hoverIndicator.left, width: hoverIndicator.width }}
+          />
+        )}
+        {NAV_LINKS.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            ref={(el) => {
+              if (el) linkRefs.current.set(link.href, el);
+            }}
+            onMouseEnter={() => setHoveredHref(link.href)}
+            className="relative z-10 inline-flex items-center whitespace-nowrap rounded-full px-[18px] py-1.5 text-sm font-medium text-fg transition-colors duration-[180ms]"
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
     </nav>
   );

@@ -97,9 +97,9 @@ export default function JourneyTimeline() {
                 return (
                   <RevealItem key={entry.title} className="py-3">
                     {/* hover:bg-bg-alt — same hover-color group as NavPills /
-                        Button's third variant / CaseStudySideNav's TOC links
-                        (see Button.tsx for the group's reasoning); keep this
-                        shared color. */}
+                        Button's third variant / CaseStudySideNav's TOC links /
+                        WorkIndexRail's rail items (see Button.tsx for the
+                        group's reasoning); keep this shared color. */}
                     <button
                       type="button"
                       onClick={() => setOpenIndex(isOpen ? null : index)}

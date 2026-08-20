@@ -49,10 +49,10 @@
      utilities are static per breakpoint, not continuously responsive. */
   --spacing-shell: 20px; /* section outer horizontal padding, mobile */
   --spacing-shell-lg: 40px; /* …desktop */
-  --spacing-section: 20px; /* section outer vertical padding, mobile */
-  --spacing-section-lg: 30px; /* …desktop */
-  --spacing-hero-top: 45px; /* page-hero top offset (Hero/About/CaseStudyView header), mobile */
-  --spacing-hero-top-lg: 50px; /* …desktop */
+  --spacing-section: 32px; /* section outer vertical padding, mobile */
+  --spacing-section-lg: 56px; /* …desktop */
+  --spacing-hero-top: 48px; /* page-hero top offset (Hero/About/CaseStudyView header), mobile — rounded up from 45px to align to the 4px grid */
+  --spacing-hero-top-lg: 52px; /* …desktop — rounded up from 50px, same reason */
   --spacing-card-glass: 28px; /* GlassCard padding, mobile */
   --spacing-card-glass-lg: 56px; /* …desktop */
   --spacing-card-work: 32px; /* WorkCard / MoreCaseStudies outer card padding, mobile */

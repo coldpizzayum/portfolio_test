@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface GlassCardProps {
   children: ReactNode;
@@ -6,11 +7,13 @@ interface GlassCardProps {
    *  which needs its bottom edge padding-free so its fade-out overlay can
    *  bleed flush to the card's own bottom edge. */
   padding?: "default" | "no-bottom";
-  /** Escape hatch for the rare one-off addition — not for overriding
-   *  padding (there's no tailwind-merge/clsx in this project, so a
-   *  conflicting padding utility here wouldn't reliably win over the
-   *  padding prop's own class).
-   */
+  /** Escape hatch for the rare one-off addition. tailwind-merge resolves
+   *  conflicts deterministically, so a conflicting padding utility here
+   *  would reliably win over the `padding` prop's own class — but treat
+   *  that as a stopgap for a genuinely new one-off case, not a routine way
+   *  to tweak padding. If the same override shows up at a second call
+   *  site, promote it to a real `padding` enum value instead of leaving it
+   *  scattered across className props. */
   className?: string;
 }
 
@@ -33,7 +36,11 @@ const PADDING_CLASSES: Record<NonNullable<GlassCardProps["padding"]>, string> = 
 export default function GlassCard({ children, padding = "default", className = "" }: GlassCardProps) {
   return (
     <div
-      className={`bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 shadow-card backdrop-blur-[12px] md:rounded-[20px] ${PADDING_CLASSES[padding]} ${className}`}
+      className={cn(
+        "bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 shadow-card backdrop-blur-[12px] md:rounded-[20px]",
+        PADDING_CLASSES[padding],
+        className
+      )}
     >
       {children}
     </div>

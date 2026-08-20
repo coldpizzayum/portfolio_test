@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { MouseEventHandler, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 // Prop values stay lowercase (matches the rest of the codebase's convention)
 // even though the design system's display names are capitalized —
@@ -39,6 +40,14 @@ interface ButtonProps {
   type?: "button" | "submit";
   onClick?: MouseEventHandler;
   id?: string;
+  /** Escape hatch — safe for layout/position utilities (margin, position,
+   *  width, etc.) that Button doesn't itself set. tailwind-merge resolves
+   *  conflicts deterministically now, so overriding padding/color/hover
+   *  here is technically possible, but avoid it: each variant's shape,
+   *  color, and hover behavior is a design-system decision (see the Button
+   *  section in the design-system skill), not a per-call-site choice — a
+   *  real change there should update VARIANT_CLASSES/HOVER_CLASSES itself,
+   *  not get patched in one call site at a time via className. */
   className?: string;
   children: ReactNode;
 }
@@ -106,11 +115,12 @@ const HOVER_CLASSES: Record<ButtonVariant, { self: string; group: string }> = {
   // the accessibility problem primary has, not a fix for it.
   primary: { self: "hover:bg-cta-hover", group: "group-hover:bg-cta-hover" },
   secondary: { self: "hover:bg-fg-hover", group: "group-hover:bg-fg-hover" },
-  // Border darkens AND gets a solid fill. History: started as a translucent
-  // cta-tinted fill (bg-cta/15) → changed to flat #E2DFDA (bg-border) on
-  // request → corrected same day to flat #efede9 (bg-bg-alt), which is what
-  // Header's NavPills hover also uses — the two are meant to read as the
-  // same hover color sitewide, see NavPills in Header.tsx.
+  // Border darkens AND gets a solid fill (bg-bg-alt) — same hover-color
+  // group as Header's NavPills, JourneyTimeline's accordion rows,
+  // CaseStudySideNav's TOC links, and WorkIndexRail's rail items, meant to
+  // read as the same hover color sitewide. NavPills renders this as its
+  // own separate sliding pill rather than a static background (see
+  // NavPills in Header.tsx) — same color, different delivery mechanism.
   third: { self: "hover:border-fg hover:bg-bg-alt", group: "group-hover:border-fg group-hover:bg-bg-alt" },
   // --color-cta-text (#2bb98c), not --color-cta — this is text, and
   // --color-cta itself is tuned for button backgrounds, not legible as
@@ -155,8 +165,15 @@ export default function Button({
   const isLinks = variant === "links";
   const isSquare = square && !isLinks;
   const classes = isLinks
-    ? `${VARIANT_CLASSES.links} ${underline ? LINKS_UNDERLINE : ""} ${TRANSITION_CLASSES.links} ${HOVER_CLASSES.links[hoverTrigger]} ${className}`
-    : `inline-flex items-center justify-center text-sm font-semibold ${isSquare ? "w-10" : "w-fit gap-2 px-4"} ${VARIANT_CLASSES[variant]} ${TRANSITION_CLASSES[variant]} ${HOVER_CLASSES[variant][hoverTrigger]} ${className}`;
+    ? cn(VARIANT_CLASSES.links, underline && LINKS_UNDERLINE, TRANSITION_CLASSES.links, HOVER_CLASSES.links[hoverTrigger], className)
+    : cn(
+        "inline-flex items-center justify-center text-sm font-semibold",
+        isSquare ? "w-10" : "w-fit gap-2 px-4",
+        VARIANT_CLASSES[variant],
+        TRANSITION_CLASSES[variant],
+        HOVER_CLASSES[variant][hoverTrigger],
+        className
+      );
 
   if (tag === "span") {
     return (

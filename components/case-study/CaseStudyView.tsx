@@ -55,15 +55,18 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
               <div id="overview" className="scroll-mt-24 rounded-2xl bg-white p-8">
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
                   <div>
-                    <p className="mb-2 text-h4 tracking-[-0.01em] text-fg">Overview</p>
+                    {/* mb-heading-gap-h4 — was a hardcoded mb-2 that happened
+                        to equal the same 8px, now actually using the token
+                        since this is a text-h4 heading. */}
+                    <p className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">Overview</p>
                     <p className="text-body-sm text-fg">{caseStudy.subtitle}</p>
                   </div>
                   <div>
-                    <p className="mb-2 text-h4 tracking-[-0.01em] text-fg">My role</p>
+                    <p className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">My role</p>
                     <p className="text-body-sm text-fg">{caseStudy.meta.role}</p>
                   </div>
                   <div>
-                    <p className="mb-2 text-h4 tracking-[-0.01em] text-fg">Team</p>
+                    <p className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">Team</p>
                     <div className="flex flex-col gap-1">
                       {caseStudy.meta.team.map((member) => (
                         <p key={member.initials} className="text-body-sm text-fg">
@@ -76,7 +79,10 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
 
                 {caseStudy.impactStats && (
                   <div className="mt-8 rounded-xl bg-bg p-6">
-                    <p className="mb-5 text-h4 tracking-[-0.01em] text-fg">Impact Overview</p>
+                    {/* mb-heading-gap-h4 — was mb-5 (20px, the h3 tier's gap),
+                        mismatched against this being a text-h4 heading like
+                        its Overview/My role/Team siblings above. */}
+                    <p className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">Impact Overview</p>
                     <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       {caseStudy.impactStats.map((stat) => (
                         <RevealItem key={stat.label} className="rounded-lg border-2 border-fg bg-bg p-5">

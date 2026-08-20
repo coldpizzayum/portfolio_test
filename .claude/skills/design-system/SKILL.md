@@ -29,9 +29,12 @@ description: >
 
 所有色彩、字級、間距、圓角、陰影，一律引用 `app/globals.css` 的
 `@theme inline` 區塊裡定義的 token，禁止在 component 檔案裡直接寫死
-hex / px / rgba 數值。專案沒有裝 `tailwind-merge`，所以共用元件的鎖定屬性
-（padding、字重、hover）不開放用 `className` 字串覆寫，一律用明確的
-prop（enum）控制。
+hex / px / rgba 數值。共用元件用 `cn()`（`lib/utils.ts`，包 `clsx` +
+`tailwind-merge`）組合 class，讓外部傳入的 `className` 能可靠覆蓋衝突的
+utility——但這是讓覆寫「變安全」，不是讓覆寫「變常態」：每個 variant 的
+樣式仍然是設計決策，`className` 只用於版面/定位類的一次性需求，色彩／
+padding／hover 這些鎖定屬性維持用明確的 prop（enum）控制，不要用
+`className` 繞過。
 
 ---
 
@@ -64,7 +67,7 @@ prop（enum）控制。
 
 全站只有 2 個字體：**Source Serif 4**（`font-serif`，`text-h1`~`h3`）、
 **Source Sans 3**（`font-source-sans-pro`，其餘所有文字，也是 `<body>`
-預設字體）。JetBrains Mono、Inter 已整套移除，不要再加回來。
+預設字體）。
 
 ## 字級系統
 
@@ -110,6 +113,11 @@ prop（enum）控制。
 `rounded-2xl md:rounded-[20px]`、漸層背景、`shadow-card`、
 `backdrop-blur-[12px]`。
 
+`padding` 維持 enum（`default`／`no-bottom`）——`className` 技術上可以
+覆蓋 padding（`cn()` 保證確定生效），但只當作還沒升格成正式 enum 值的
+一次性例外，同一個覆寫如果在第二處出現，就該把它變成新的 `padding`
+選項，不要散落在各呼叫端的 `className` 裡。
+
 動畫需求用 `<Reveal><GlassCard>...</GlassCard></Reveal>` 外部組合，不要把
 動畫邏輯塞進 GlassCard 本身，職責要分開。
 
@@ -124,7 +132,11 @@ Button props 速查：`variant`(primary/secondary/third/links)、
 
 鎖死不開放客製：`rounded-lg`（`links` 除外）、
 `inline-flex items-center justify-center`、各 variant 的底色/文字色/
-邊框色/hover、transition duration。
+邊框色/hover、transition duration。`className` 只用來傳版面/定位類的
+一次性需求（margin、position、width 等 Button 本身不會設的屬性）——
+`cn()` 讓覆蓋顏色/padding/hover 技術上可行，但那是設計決策，該改
+`VARIANT_CLASSES`／`HOVER_CLASSES` 本身，不要用 `className` 在單一呼叫端
+繞過。
 
 #### Variant 使用邏輯
 
@@ -159,15 +171,13 @@ Button props 速查：`variant`(primary/secondary/third/links)、
 2. 不要在內文文字用 `--color-cta`（resting 或 hover 皆同），只能用在按鈕/圖形背景——文字需要這個色系的地方一律用 `--color-cta-text`，見上方色彩 token
 3. 不要手寫「手機固定 px + `md:text-hX`」的字級跳躍寫法，直接引用流體 token
 4. 重複元件（按鈕、卡片、標籤）一律用共用元件，不要各頁各自手刻一份
-5. 不要用 `className` 覆蓋 `<GlassCard>` / `<Button>` 鎖定的 padding、字重、hover 屬性（專案沒裝 tailwind-merge，覆寫順序不保證）
+5. 不要用 `className` 覆蓋 `<GlassCard>` / `<Button>` 鎖定的 padding、字重、hover 屬性——`cn()`（`tailwind-merge`）讓這麼做技術上可行、結果也確定，但仍然是設計決策，不是一次性的呼叫端選擇；`className` 只用於版面/定位類需求
 6. 不要看到 `card-sage` / `card-slate` 這類已刪除的舊 token 名稱就憑印象猜色值，一律以 `app/globals.css` 現況為準
 
 ---
 
 ## 未完成事項（下一輪處理，目前先不要動）
 
-- `TestimonialCard` 照片/語錄卡陰影疊加、CSS 生效順序不穩定：待重新設計該卡片的陰影邏輯（見 `TestimonialCard.tsx` 對應註解）
 - `--color-cta` 對 `--color-bg` 的對比未達建議標準，尚未處理，實際數值見 `globals.css` 換算。受影響位置：Hero「Check out recent work」（僅手機）、WorkCard「Read case study」、Footer 相關按鈕、MoreCaseStudies「Read case study」
-- 是否要導入 `tailwind-merge`：待整體評估，目前用 enum prop 繞過這個問題
 - 標題（H2/H3/H4）跟內容的間距已經統一成三層固定 token，但還沒決定要不要讓它們跟 `text-h1`~`h5` 的 `clamp()` 掛勾一起流體縮放——是獨立的下一輪。H1→副標語/下一段內容這輪沒有動，只出現 1-2 個案例，還沒有「統一」的必要性
 - 間距 token 是否要從「手機/桌機兩個固定值」進化成流體 `clamp()`（呼應字級系統的做法）：這輪刻意沒做，只解決數值不統一的問題
