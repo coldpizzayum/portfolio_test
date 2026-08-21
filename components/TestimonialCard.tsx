@@ -40,32 +40,50 @@ export function QuoteCardContent({ testimonial, sizeClass }: { testimonial: Quot
         // #f5a623 is a one-off, not a token — it's rating semantics, not
         // paired with any card color family. Only worth promoting to a
         // token if this pattern ever repeats elsewhere.
+        // mb-2 (8px) — this card family's shared "marker → main content"
+        // gap: same value as the quote-mark span below and FeedbackStack's
+        // badge pill. Not a formal token (too thin a pattern, 3 uses, to be
+        // worth a --spacing-* entry), just keep it matching if either side
+        // changes.
         <p className="mb-2 text-[18px] tracking-wider text-[#f5a623]" aria-hidden="true">
           {"★".repeat(testimonial.rating)}
         </p>
       ) : (
-        <span aria-hidden="true" className="mb-1.5 block text-[28px] leading-[0.8] text-fg">
+        // mb-2 (8px) — matches the star rating's marker-to-content gap
+        // above and FeedbackStack's badge pill (see that comment). Used to
+        // be mb-1.5 (6px, off the 4px grid and inconsistent with its
+        // sibling); no reason for the quote-mark to sit closer to its quote
+        // than the star rating does to its own.
+        <span aria-hidden="true" className="mb-2 block text-[28px] leading-[0.8] text-fg">
           &ldquo;
         </span>
       )}
       <p className={`mb-4 text-fg ${sizeClass}`}>{renderInline(testimonial.quote)}</p>
       {testimonial.variant === "star" ? (
-        // text-fg here matches FeedbackStack's PressCardContent date line —
-        // both are this card family's "secondary meta text," kept the same
-        // color on purpose.
-        <p className="text-xs text-fg">
+        // text-caption — this card family's "secondary meta text" token
+        // (matches FeedbackStack's PressCardContent date line and the
+        // avatar variant's company line below); text-fg color for the same
+        // reason as that comment used to say. Was a raw text-xs (12px),
+        // not one of the 8 design-system font tokens.
+        <p className="text-caption text-fg">
           {testimonial.role} @{testimonial.company}
         </p>
       ) : (
-        <div className="flex items-center gap-2.5">
+        // gap-3 (12px) — was gap-2.5 (10px, off the 4px grid).
+        <div className="flex items-center gap-3">
           <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-border">
             {testimonial.avatar && (
               <Image src={testimonial.avatar} alt={testimonial.role} fill sizes="32px" className="object-cover" />
             )}
           </span>
           <div>
-            <p className="text-[13px] font-semibold text-fg">{testimonial.role}</p>
-            <p className="text-xs text-fg">{testimonial.company}</p>
+            {/* text-caption on both role and company — was a hardcoded
+                text-[13px] on role, not one of the 8 design-system font
+                tokens. Same token as company below and the star variant's
+                combined role@company line above; font-semibold is what
+                makes role read as the primary line, not a bigger token. */}
+            <p className="text-caption font-semibold text-fg">{testimonial.role}</p>
+            <p className="text-caption text-fg">{testimonial.company}</p>
           </div>
         </div>
       )}

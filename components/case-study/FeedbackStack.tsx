@@ -32,6 +32,9 @@ function FeedbackCardContent({ card }: { card: FeedbackCard }) {
           <Image src={card.photo} alt={card.photoAlt ?? ""} fill className="object-cover" />
         </div>
       )}
+      {/* mb-2 (8px) — same "marker → main content" gap as TestimonialCard's
+          star rating / quote-mark above the quote text (see that comment
+          in TestimonialCard.tsx). */}
       <span
         className={`mb-2 inline-flex w-fit items-center rounded-full px-3 py-1 text-caption font-medium text-fg ${
           isTestimonial ? "bg-card-sky" : "bg-card-sand"
@@ -119,10 +122,17 @@ export function PressCardContent({ card }: { card: FeedbackCard }) {
   return (
     <>
       {card.headline && (
-        <p className={`mb-2 text-body-sm font-bold text-fg ${card.photo ? "pr-9" : ""}`}>
+        <p className={`text-body-sm font-bold text-fg ${card.photo ? "pr-9" : ""}`}>
           {renderInline(card.headline)}
         </p>
       )}
+      {/* mt-auto pins this to the card's bottom edge — same "bottom-pinned
+          via mt-auto" convention as WorkCard's button (see that component).
+          pt-3 (12px) is the floor gap above the date row when mt-auto has
+          no leftover space to push through; the headline used to also
+          carry its own mb-2, which mt-auto made redundant in the normal
+          case, so it's gone — pt-3 alone is what actually guarantees the
+          minimum gap. */}
       <div className="mt-auto pt-3">
         <div className="flex items-center justify-between">
           {/* text-fg — matches TestimonialCard's star-variant role/company

@@ -54,7 +54,11 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         <div className="my-7 flex flex-col gap-4 sm:flex-row">
           {block.stats.map((stat) => (
             <div key={stat.label} className="flex-1 rounded-lg bg-white p-card-compact md:p-card-compact-lg">
-              <p className="mb-1.5 text-h5 tracking-[-0.04em] text-fg">
+              {/* mb-3 (12px) — this site's "value → its label caption" gap,
+                  same as CaseStudyView's Impact Overview stat cards (see
+                  that mb-3 in CaseStudyView.tsx). Used to be mb-1.5 (6px,
+                  off the 4px grid and inconsistent with that other one). */}
+              <p className="mb-3 text-h5 tracking-[-0.04em] text-fg">
                 {stat.value}
               </p>
               <p className="text-caption text-fg">{stat.label}</p>
@@ -71,12 +75,16 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
               key={item.name}
               className="flex items-center gap-4 border-b border-border px-6 py-[18px] text-caption text-fg last:border-b-0"
             >
-              <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-bg-alt text-xs font-bold">
+              {/* text-caption on both — was text-xs (badge) / text-sm
+                  (description), neither one of the 8 design-system font
+                  tokens; the row's own text-caption (set on the container
+                  above) is what both should have inherited. */}
+              <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-bg-alt text-caption font-bold">
                 {index + 1}
               </div>
               <div>
                 <span className="font-semibold">{item.name}</span>
-                <span className="ml-1 text-sm text-fg-secondary"> — {item.description}</span>
+                <span className="ml-1 text-caption text-fg-secondary"> — {item.description}</span>
               </div>
             </div>
           ))}

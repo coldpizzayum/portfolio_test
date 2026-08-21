@@ -36,20 +36,14 @@ export default function TestimonialsSection() {
 
         {/* Desktop / tablet: scattered collage, absolute positioning per
             card (`testimonial.position`) within a centered `max-w-[1040px]`
-            box — matches the production layout (yiting.space). The
-            full-bleed "breaks out to the viewport edge" experiment (and its
-            wider ±px scatter) was reverted; this is back to the original
-            mechanism, not a variant of it.
-            Height was 820px (the production value) — after the latest
-            drag-tool pass, every card's `position.top + card height`
-            bottoms out well above that (James reaches the lowest, ~634px),
-            leaving ~180px of dead space this box was reserving below the
-            actual cards, which read as an oversized gap before Footer.
-            Trimmed to 700px (James's ~634px + a ~65px buffer) — not a
-            literal half (410px), which would clip/overlap James into
-            Footer. If cards move again via the layout tool, this needs
-            rechecking against whichever card sits lowest. */}
-        <Reveal className="relative mx-auto hidden h-[700px] max-w-[1040px] md:block">
+            box — matches the production layout (yiting.space).
+            Height is sized to the lowest card's bottom edge (currently
+            james: position.top 280 + its own rendered height), confirmed
+            visually against the live page, not just computed. If any
+            card's position or content changes, re-check this against
+            whichever card sits lowest afterward; a stale height here just
+            shows up as dead space before Footer, not a broken layout. */}
+        <Reveal className="relative mx-auto hidden h-[550px] max-w-[1040px] md:block">
           {testimonials.map((testimonial) => {
             const position: CSSProperties = {
               top: testimonial.position.top,

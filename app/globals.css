@@ -315,8 +315,10 @@ body {
   }
 }
 
-/* Text design system — named type styles built on Source Serif 4,
-   mirroring the "Portfolio" text-style set from Figma (size/line-height).
+/* Text design system — named type styles, mirroring the "Portfolio"
+   text-style set from Figma (size/line-height). Only text-h1/h2 use
+   Source Serif 4 (font-family: var(--font-serif)) now — text-h3 uses
+   Source Sans 3 like everything below it.
    Font sizes are fluid: clamp(MIN, scales between 375px and 1280px
    viewports, MAX) instead of a fixed px + a per-component md: breakpoint
    jump — the old pattern meant tablets (many land right at md's 768px)
@@ -343,10 +345,10 @@ body {
   font-weight: 700;
 }
 @utility text-h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-source-sans-pro);
   font-size: clamp(26px, 23.51px + 0.66vw, 32px);
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 700;
 }
 @utility text-h4 {
   font-family: var(--font-source-sans-pro);

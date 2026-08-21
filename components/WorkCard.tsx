@@ -40,12 +40,17 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
        *  4 tags wrapping to 2 rows) with some headroom; re-check by eye
        *  on localhost if a future case study's title/description/tag
        *  count is longer than these three and adjust the number. */}
-      <div className="flex min-h-[320px] flex-col">
-        <h3 className="mb-heading-gap-h3 text-h3 tracking-[-0.02em] text-fg">
+      {/* gap-3 (12px) — a plain Tailwind scale value, not
+          --spacing-heading-gap-h3 (that token is specifically "h3 heading
+          → its content," doesn't cover the description → tags relationship
+          this gap also spans) — structured this way (one shared gap, not
+          per-child margins) after benshih.design's card layout. */}
+      <div className="flex min-h-[320px] flex-col gap-3">
+        <h3 className="text-h3 tracking-[-0.02em] text-fg">
           {renderInline(item.title)}
         </h3>
-        <p className="mb-8 max-w-[420px] text-body-sm text-fg">{item.description}</p>
-        <div className="mb-5 flex flex-wrap gap-2">
+        <p className="max-w-[420px] text-body-sm text-fg">{item.description}</p>
+        <div className="flex flex-wrap gap-2">
           {item.tags.map((tag) => (
             <TagChip key={tag}>{tag}</TagChip>
           ))}
@@ -54,7 +59,10 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
       {/* The only interactive/link element on the whole card — deliberately
        *  scoped down from "whole card is one giant <Link>" (see below).
        *  Rest of the card (image, title, description, tags) has no hover
-       *  or click behavior at all; only this button responds. */}
+       *  or click behavior at all; only this button responds. mt-auto
+       *  pins it to the card's bottom edge instead of a fixed margin from
+       *  the tags above — same "bottom-pinned via mt-auto" convention as
+       *  FeedbackStack's PressCardContent date row (see that component). */}
       {href ? (
         <Button href={href} className="mt-auto">
           Read case study

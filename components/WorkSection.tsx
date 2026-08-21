@@ -28,7 +28,7 @@ export default function WorkSection() {
         <div className="md:flex md:items-start md:gap-8">
           <WorkIndexRail items={railItems} />
 
-          <RevealGroup className="flex flex-1 flex-col gap-6 md:gap-28" stagger={0.12}>
+          <RevealGroup className="flex flex-1 flex-col gap-6 md:gap-20" stagger={0.12}>
             {workItems.map((item, index) => (
               <WorkCard
                 key={item.slug}

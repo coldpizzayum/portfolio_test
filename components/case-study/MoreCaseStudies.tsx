@@ -78,10 +78,15 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
             // Upward shadow (negative y-offset) — this stack casts its
             // shadow up, not down, the opposite of every other card on the
             // site. Deliberate, not a shadow-hover/shadow-card fit.
+            // p-6 (24px), no responsive step — matches FeedbackStack's
+            // desktop deck card padding, the closest sibling in footprint
+            // (280×248px there vs this card's own 248px height at the sm
+            // breakpoint). Was p-4 sm:p-5 (16/20px), not aligned with any
+            // other card on the site.
             <div
               key={item.slug}
               aria-hidden={!isFront}
-              className="absolute inset-x-0 bottom-0 flex h-[210px] origin-bottom overflow-hidden rounded-2xl border border-border bg-white p-4 shadow-[0_-2px_24px_rgba(16,24,40,0.07)] transition-transform duration-300 sm:h-[248px] sm:p-5"
+              className="absolute inset-x-0 bottom-0 flex h-[210px] origin-bottom overflow-hidden rounded-2xl border border-border bg-white p-6 shadow-[0_-2px_24px_rgba(16,24,40,0.07)] transition-transform duration-300 sm:h-[248px]"
               style={{
                 zIndex: visible.length - i,
                 transform: `translateY(${y}px) scale(${scale})`,

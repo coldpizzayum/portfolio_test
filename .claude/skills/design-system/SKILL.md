@@ -65,8 +65,8 @@ padding／hover 這些鎖定屬性維持用明確的 prop（enum）控制，不�
 
 ## 字體家族
 
-全站只有 2 個字體：**Source Serif 4**（`font-serif`，`text-h1`~`h3`）、
-**Source Sans 3**（`font-source-sans-pro`，其餘所有文字，也是 `<body>`
+全站只有 2 個字體：**Source Serif 4**（`font-serif`，只用在 `text-h1`／
+`text-h2`）、**Source Sans 3**（`font-source-sans-pro`，`text-h3` 以下其餘所有文字，也是 `<body>`
 預設字體）。
 
 ## 字級系統

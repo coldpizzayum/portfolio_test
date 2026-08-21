@@ -86,6 +86,9 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                     <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       {caseStudy.impactStats.map((stat) => (
                         <RevealItem key={stat.label} className="rounded-lg border-2 border-fg bg-bg p-5">
+                          {/* mb-3 (12px) — this site's "value → its label
+                              caption" gap, same as CaseStudyBlock's statRow
+                              cards (see that mb-3 in CaseStudyBlock.tsx). */}
                           <p className="mb-3 text-body font-bold text-fg">
                             {stat.label}
                           </p>
