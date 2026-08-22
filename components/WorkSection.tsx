@@ -16,13 +16,21 @@ export default function WorkSection() {
     <section id="works" className="bg-bg py-section md:py-section-lg">
       <div className="mx-auto max-w-[1200px] px-shell md:px-shell-lg">
         <Reveal>
-          {/* mb-10 (40px), not --spacing-heading-gap-h2's 12px
-              (mb-heading-gap-h2) — a deliberate one-off choice to read
-              differently from every other h2 sitewide. Not a bug; don't
-              "fix" it back to the shared token. */}
-          <h2 className="mb-10 text-h2 tracking-[-0.03em] text-fg">
+          {/* mb-heading-gap-h2 here now that there's a real subtitle right
+              after it — this is the standard "h2 heading → its own content"
+              relationship, not the exception it used to be back when this
+              margin sat between the h2 and the work cards directly. The
+              deliberate "more room before the cards" choice lives on the
+              subtitle's own mb-10 below instead. */}
+          <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
             Selected works
           </h2>
+          <p className="mb-10 max-w-[640px] text-body-sm text-fg">
+            Over the past 5+ years, I&apos;ve worked in various areas of digital design, including front-end
+            development, email, marketing, and app UI/UX.
+            <br />
+            I&apos;m proud to have worn many hats.
+          </p>
         </Reveal>
 
         <div className="md:flex md:items-start md:gap-8">

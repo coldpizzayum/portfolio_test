@@ -14,28 +14,28 @@ export interface WorkItem {
 export const workItems: WorkItem[] = [
   {
     slug: "web3-wallet-defi-dashboard",
-    title: "Designing Web3 Marketing Dashboard: 0 to 1",
+    title: "Web3 Marketing Dashboard: 0 to 1",
     description:
       "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
     tags: ["B2B", "Blockchain & Web3", "Data Heavy"],
-    image: "/images/web3console.png",
+    image: "/images/Web3 Console.png",
     caseStudySlug: "web3-marketing-dashboard",
   },
   {
     slug: "coolwallet-pro-rebrand",
-    title: "Global Expansion: branding & eCommerce redesign",
+    title: "eCommerce redesign: 4x revenue",
     description: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
     tags: ["eCommerce", "Blockchain & Web3", "B2C", "FinTech"],
-    image: "/images/coolwallet-hero.png",
+    image: "/images/CoolWallet.png",
     caseStudySlug: "coolwallet-pro",
   },
   {
     slug: "influencer-marketing-management-tool",
-    title: "Turning a Feature Into a SaaS Product",
+    title: "Influencer marketing tool",
     description:
       "A self-serve tool for influencer marketing that filled a gap in the platform, complete with SaaS pricing and onboarding.",
     tags: ["B2B", "Data Heavy", "Blockchain & Web3"],
-    image: "/images/influencer-marketing-hero.png",
+    image: "/images/Influencer Matcher.png",
     caseStudySlug: "influencer-marketing-tool",
   },
 ];
@@ -140,11 +140,11 @@ export const caseStudies: CaseStudy[] = [
     title: "Web3 Marketing Dashboard: 0 to 1",
     year: "2023 — 2024 | **Growing3**",
     subtitle:
-      "Designed a marketing platform from 0 to 1, turning our underlying workflow, mapping wallet behavior to real identities, into a product that both users and investors could understand and use.",
+      "Designed a marketing platform from 0 to 1 - turning our underlying workflow, mapping wallet behavior to real identities, into a product that both users and investors could understand and use.",
     metaDescription:
       "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
-    tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
-    heroImage: "/images/web3console.png",
+    tags: ["B2B", "Pre-seed", "Data-heavy UXUI"],
+    heroImage: "/images/Web3 Console.png",
     meta: {
       role: "I led end-to-end product design, from competitor research and user interviews, to user journey mapping, building the design system, and final design hand-off.",
       team: [
@@ -386,14 +386,14 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "influencer-marketing-tool",
-    title: "Turning a Feature Into a SaaS Product",
+    title: "Influencer marketing tool: SaaS",
     year: "2024 — 2025",
     subtitle:
       "A self-serve tool for influencer marketing that filled a gap in the platform, complete with SaaS pricing and onboarding.",
     metaDescription:
       "For this B2B SaaS platform, I designed viral growth loops and a browser extension distribution channel, supporting a successful Product Hunt launch.",
-    tags: ["B2B", "SaaS", "Pivot"],
-    heroImage: "/images/influencer-marketing-hero.png",
+    tags: ["B2B", "SaaS", "Plugin", "Marketing"],
+    heroImage: "/images/Influencer Matcher.png",
     meta: {
       role: "I made the call to build this as a standalone product, and designed the SaaS pricing and onboarding experience that let it run as a self-serve business.",
       team: [
@@ -576,14 +576,14 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "coolwallet-pro",
-    title: "CoolWallet eCommerce redesign: new markets, new products, 4x revenue",
+    title: "eCommerce redesign: 4x revenue",
     year: "CoolBitX / 2021",
     subtitle:
       "Redesigned CoolWallet's eCommerce site to support the CoolWallet Pro launch and a push into new markets — EU, Japan, Korea.",
     metaDescription:
       "I led the eCommerce redesign and rebrand for CoolWallet Pro, a crypto hardware wallet, driving 4x revenue growth as the product expanded into new markets and product lines.",
-    tags: ["AB Testing", "Marketing", "eCommerce", "Redesign"],
-    heroImage: "/images/coolwallet-hero.png",
+    tags: ["eCommerce", "Redesign", "Blockchain", "Marketing"],
+    heroImage: "/images/CoolWallet.png",
     meta: {
       role: "I led design for two initiatives that supported this market expansion: product rebranding, and eCommerce redesign.",
       team: [
@@ -623,9 +623,14 @@ export const caseStudies: CaseStudy[] = [
     ],
     sections: [
       {
-        id: "overview",
-        navLabel: "Overview",
-        heading: "Overview",
+        // Not "overview" — CaseStudySideNav already prepends its own
+        // synthetic "Overview" TOC entry (id="overview") whenever `meta`
+        // is set, pointing at the meta card above. A section here reusing
+        // that same id collides with it (duplicate React key, and two
+        // "Overview" entries in the TOC pointing at different places).
+        id: "background",
+        navLabel: "Background",
+        heading: "Background",
         blocks: [
           {
             type: "paragraph",
@@ -689,8 +694,13 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/coolwallet-hero.png",
+            src: "/images/CaseStudy-eCom/Japanese website.png",
             alt: "Japanese localized version of the CoolWallet website",
+          },
+          {
+            type: "image",
+            src: "/images/CaseStudy-eCom/japanese website2.png",
+            alt: "Japanese localized version of the CoolWallet website, product page",
           },
           { type: "heading", level: 3, text: "Made Pro and S easy to compare" },
           {
@@ -698,6 +708,11 @@ export const caseStudies: CaseStudy[] = [
             text: "Built product introduction pages and a side-by-side comparison to help users choose between CoolWallet Pro and S, depending on what they needed.",
           },
           {
+            // eCommatrix.png was removed from public/images/CaseStudy-eCom/
+            // after this was originally wired in — placeholder until a
+            // replacement is provided, same pattern as the other still-
+            // placeholder image blocks below (co-branded cards, marketing
+            // campaign, buy with, shipping fees).
             type: "image",
             src: "/images/coolwallet-hero.png",
             alt: "CoolWallet Pro introduction and comparison pages",
@@ -717,8 +732,8 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/coolwallet-hero.png",
-            alt: "New navigation pills and the interaction between the CoolWallet app and Pro",
+            src: "/images/CaseStudy-eCom/before&after.png",
+            alt: "New navigation pills and the interaction between the CoolWallet app and Pro, before and after",
           },
           { type: "heading", level: 3, text: "Turned co-branded cards into a product line" },
           {
@@ -764,7 +779,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/coolwallet-hero.png",
+            src: "/images/CaseStudy-eCom/GA4matrix.png",
             alt: "GA4 funnel analysis from landing page to checkout",
           },
           { type: "heading", level: 3, text: "Added \"buy with\" to lift AOV" },

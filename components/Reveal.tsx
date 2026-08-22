@@ -15,6 +15,16 @@ interface RevealProps {
   className?: string;
   delay?: number;
   id?: string;
+  /** Fraction of the element's own height that must be visible to trigger
+   *  the reveal (framer-motion's viewport `amount`). Default 0.2 works
+   *  fine for normal-height blocks, but a long, image-heavy block can be
+   *  taller than 5x the viewport — 20% of *that* height never fits on
+   *  screen at once, so the reveal never fires and the block stays stuck
+   *  at its hidden (opacity: 0) state forever, looking blank even though
+   *  it's really in the DOM. Pass "some" (fires as soon as any part is
+   *  visible) for content whose height isn't predictable, e.g. case study
+   *  sections — see CaseStudyView.tsx. */
+  amount?: number | "some" | "all";
 }
 
 /**
@@ -25,7 +35,7 @@ interface RevealProps {
  * (that would mismatch the server-rendered markup on hydration). Instead it
  * only shortens the transition, which Framer applies client-side only.
  */
-export function Reveal({ children, className, delay = 0, id }: RevealProps) {
+export function Reveal({ children, className, delay = 0, id, amount = 0.2 }: RevealProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -34,7 +44,7 @@ export function Reveal({ children, className, delay = 0, id }: RevealProps) {
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount }}
       variants={itemVariants}
       transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : delay, ease: EASE }}
     >

@@ -67,13 +67,16 @@ export default function Hero() {
           {/* Mobile (Ben's does this too): plain stacked block, in normal
               flow above the headline, not floating.
               md+: switches to a floating badge pulled out of flow, top-right
-              of the hero content, right-8 (not flush to the edge). */}
+              of the hero content, right-8 (not flush to the edge).
+              hover-tilt (globals.css) needs real pointer events to fire, so
+              no pointer-events-none here — same rotate-on-hover family as
+              CaseStudyView's hero image. */}
           <Image
             src="/images/Based in Berlin.png"
             alt="Now based in Berlin"
             width={514}
             height={134}
-            className="pointer-events-none mb-4 w-[160px] md:absolute md:top-0 md:right-8 md:mb-0 md:w-[180px] lg:w-[220px]"
+            className="hover-tilt mb-4 w-[160px] md:absolute md:top-0 md:right-8 md:mb-0 md:w-[180px] lg:w-[220px]"
           />
 
           {/* Left: headline + sub */}

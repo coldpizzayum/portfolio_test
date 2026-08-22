@@ -38,7 +38,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
               {caseStudy.title}
             </span>
           </nav>
-          <Reveal>
+          <Reveal amount="some">
             <div className={`flex flex-col gap-10 md:flex-row md:items-center ${caseStudy.meta ? "mb-10" : ""}`}>
               {/* md:w-3/5 / md:w-2/5 below — proportional split, not a fixed
                   px width, so the 60/40 ratio holds at any viewport width
@@ -56,7 +56,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                 </div>
               </div>
 
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-bg-alt md:w-2/5">
+              <div className="hover-tilt relative aspect-video w-full overflow-hidden rounded-2xl bg-bg-alt md:w-2/5">
                 <Image
                   src={caseStudy.heroImage}
                   alt={`${caseStudy.title} — hero screenshot`}
@@ -136,6 +136,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
               key={section.id}
               id={section.id}
               className={`scroll-mt-24 ${index === 0 ? "pt-0" : "pt-cs-section-gap md:pt-cs-section-gap-lg"}`}
+              amount="some"
             >
               <h2 className="mb-heading-gap-h3 text-h3 tracking-[-0.02em] text-fg">
                 {section.heading}

@@ -314,6 +314,20 @@ body {
     transform: rotate(var(--rotate, 0deg)) translateY(-6px);
   }
 
+  /* Same rotate family as collage-piece-rotate/fan-card-rotate above (same
+     transition timing/easing), but for single static images that start
+     perfectly straight (no per-instance --rotate) — CaseStudyView's hero
+     image and Hero's "Based in Berlin" badge. Unlike collage-piece-rotate
+     (which only lifts on hover, since its rotate value doesn't change),
+     this one tilts *into* a small angle on hover so the interaction is
+     visible even with no base rotation. */
+  .hover-tilt {
+    transition: transform 300ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .hover-tilt:hover {
+    transform: rotate(-2deg) scale(1.02);
+  }
+
   /* Keeps a scroll container's own overflow-x working (drag/trackpad/touch
      all still scroll it) while hiding the visible scrollbar track —
      Tailwind has no built-in utility for this, and the two properties
