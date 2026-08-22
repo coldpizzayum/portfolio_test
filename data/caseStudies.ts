@@ -14,7 +14,7 @@ export interface WorkItem {
 export const workItems: WorkItem[] = [
   {
     slug: "web3-wallet-defi-dashboard",
-    title: "Web3 Marketing Dashboard: 0 to 1",
+    title: "Building a Web3 marketing dashboard from 0 to 1",
     description:
       "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
     tags: ["B2B", "Blockchain & Web3", "Data Heavy"],
@@ -23,7 +23,7 @@ export const workItems: WorkItem[] = [
   },
   {
     slug: "coolwallet-pro-rebrand",
-    title: "eCommerce redesign: 4x revenue",
+    title: "Redesigning eCommerce for 4x revenue",
     description: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
     tags: ["eCommerce", "Blockchain & Web3", "B2C", "FinTech"],
     image: "/images/CoolWallet.png",
@@ -31,9 +31,9 @@ export const workItems: WorkItem[] = [
   },
   {
     slug: "influencer-marketing-management-tool",
-    title: "Influencer marketing tool",
+    title: "From dashboard to plugin: streamlining influencer marketing",
     description:
-      "A self-serve tool for influencer marketing that filled a gap in the platform, complete with SaaS pricing and onboarding.",
+      "Designed a SaaS platform and browser plugin to simplify influencer discovery and campaign workflows.",
     tags: ["B2B", "Data Heavy", "Blockchain & Web3"],
     image: "/images/Influencer Matcher.png",
     caseStudySlug: "influencer-marketing-tool",
@@ -115,8 +115,10 @@ export interface CaseStudyMeta {
 
 export interface ImpactStat {
   label: string;
-  /** One sentence, supports `**bold**` for the embedded number/stat. */
-  text: string;
+  /** One sentence, supports `**bold**` for the embedded number/stat. Optional —
+   *  omit when every stat shares the same context, and set that shared context
+   *  once via `CaseStudy.impactStatsNote` instead of repeating it per card. */
+  text?: string;
 }
 
 export interface CaseStudy {
@@ -131,16 +133,23 @@ export interface CaseStudy {
   /** Not every case study has a role/team/timeline meta grid or top-line impact stats. */
   meta?: CaseStudyMeta;
   impactStats?: ImpactStat[];
+  /** Shown once under the "Impact Overview" heading, above the stat cards —
+   *  for context that applies to every stat (e.g. a shared date range) instead
+   *  of repeating the same sentence in every ImpactStat.text. Only set this
+   *  when the stats truly share one context; if each stat has its own distinct
+   *  note (see web3-marketing-dashboard/influencer-marketing-tool), use
+   *  ImpactStat.text per-card instead. */
+  impactStatsNote?: string;
   sections: CaseStudySection[];
 }
 
 export const caseStudies: CaseStudy[] = [
   {
     slug: "web3-marketing-dashboard",
-    title: "Web3 Marketing Dashboard: 0 to 1",
+    title: "Web3 marketing dashboard",
     year: "2023 — 2024 | **Growing3**",
     subtitle:
-      "Designed a marketing platform from 0 to 1 - turning our underlying workflow, mapping wallet behavior to real identities, into a product that both users and investors could understand and use.",
+      "Designed a blockchain data dashboard that turns complex on-chain data into actionable marketing insights.",
     metaDescription:
       "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
     tags: ["B2B", "Pre-seed", "Data-heavy UXUI"],
@@ -320,28 +329,6 @@ export const caseStudies: CaseStudy[] = [
         ],
       },
       {
-        id: "design-trade-off",
-        navLabel: "Design trade-off",
-        heading: "Design trade-off",
-        hideFromToc: true,
-        blocks: [
-          {
-            type: "paragraph",
-            text: "My engineer had limited time and couldn't get deep into UI details, so the design system I'd built in Figma didn't always make it into the final build cleanly.",
-          },
-          {
-            type: "paragraph",
-            text: "That's part of why I now build my own React components with AI, so nothing gets lost between what I design and what actually ships.",
-          },
-          {
-            type: "paragraph",
-            text: "",
-            href: "/case-study",
-            linkText: "See what I've built with AI →",
-          },
-        ],
-      },
-      {
         id: "feedback-impact",
         navLabel: "Outcomes",
         heading: "Feedback & Impact",
@@ -386,10 +373,10 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "influencer-marketing-tool",
-    title: "Influencer marketing tool: SaaS",
+    title: "Influencer marketing tool",
     year: "2024 — 2025",
     subtitle:
-      "A self-serve tool for influencer marketing that filled a gap in the platform, complete with SaaS pricing and onboarding.",
+      "Designed a SaaS platform and browser plugin to simplify influencer discovery and campaign workflows.",
     metaDescription:
       "For this B2B SaaS platform, I designed viral growth loops and a browser extension distribution channel, supporting a successful Product Hunt launch.",
     tags: ["B2B", "SaaS", "Plugin", "Marketing"],
@@ -404,20 +391,6 @@ export const caseStudies: CaseStudy[] = [
       timeline: "2024 — 2025",
       tools: "Figma",
     },
-    impactStats: [
-      {
-        label: "Clients across GameFi, NFT, DeFi, and crypto exchanges",
-        text: "including Gate.io",
-      },
-      {
-        label: "1 month to high-fidelity design",
-        text: "down from 6 months on the previous product, thanks to the design system already in place",
-      },
-      {
-        label: "A complete product line",
-        text: "the company could finally run as a real SaaS business; customers Sales brought in could operate the product entirely on their own",
-      },
-    ],
     sections: [
       {
         id: "context",
@@ -427,12 +400,6 @@ export const caseStudies: CaseStudy[] = [
           {
             type: "paragraph",
             text: "We already had the wallet-mapping tech to turn any influencer's follower list into an audience. So once a client had an influencer list, we could take that list and run ads directly against those followers. Influencer marketing was the missing piece that made the whole marketing product more powerful.",
-          },
-          {
-            type: "paragraph",
-            text: "All-in-one marketing platform case study here →",
-            href: "/case-study/web3-marketing-dashboard",
-            linkText: "Link",
           },
         ],
       },
@@ -475,6 +442,39 @@ export const caseStudies: CaseStudy[] = [
               },
             ],
           },
+          {
+            // Placeholder placement ahead of the full Notion rewrite of
+            // this case study (see the "01–06" section content already
+            // fetched, not yet applied) — these are real Notion source
+            // images, matched here by filename/content to the closest
+            // existing flowList items above, not final captions.
+            type: "image",
+            src: "/images/Influencer Marketing/discover influencer.png",
+            alt: "Influencer discovery and search interface",
+            width: 2384,
+            height: 2038,
+          },
+          {
+            type: "image",
+            src: "/images/Influencer Marketing/Influencer profile.png",
+            alt: "Influencer profile view with audience details",
+            width: 2384,
+            height: 2038,
+          },
+          {
+            type: "image",
+            src: "/images/Influencer Marketing/Influencer details.png",
+            alt: "Detailed influencer metrics and audience insights",
+            width: 1406,
+            height: 1220,
+          },
+          {
+            type: "image",
+            src: "/images/Influencer Marketing/reachout.png",
+            alt: "Bulk outreach interface for contacting influencers",
+            width: 2800,
+            height: 1996,
+          },
           { type: "heading", level: 3, text: "Seamless Experience: The Chrome Extension" },
           {
             type: "paragraph",
@@ -488,6 +488,8 @@ export const caseStudies: CaseStudy[] = [
             type: "image",
             src: "/images/influencer-marketing-chrome-store.png",
             alt: "Growing3 - Web3 Influencer Marketing Tool listing on the Chrome Web Store",
+            width: 2850,
+            height: 1548,
           },
         ],
       },
@@ -513,6 +515,8 @@ export const caseStudies: CaseStudy[] = [
             type: "image",
             src: "/images/influencer-marketing-product-hunt.png",
             alt: "Growing3 - Influencer Matcher launch page on Product Hunt",
+            width: 2838,
+            height: 1544,
           },
           { type: "heading", level: 3, text: "Designing the SaaS Experience: Credits & Onboarding" },
           {
@@ -524,29 +528,25 @@ export const caseStudies: CaseStudy[] = [
             text: "We built it around credits. New users got a small number of credits to try the core features first, run a real search, see real KOL matches, before spending anything.",
           },
           {
+            // Same placeholder-ahead-of-rewrite note as the flowList images
+            // above — real Notion source images, matched by content, not
+            // final captions.
+            type: "image",
+            src: "/images/Influencer Marketing/Credits.png",
+            alt: "Credits system for trying the product before purchasing",
+            width: 2384,
+            height: 1344,
+          },
+          {
+            type: "image",
+            src: "/images/Influencer Marketing/Pricing.png",
+            alt: "Pricing plans for the SaaS product",
+            width: 2384,
+            height: 1242,
+          },
+          {
             type: "paragraph",
             text: "Onboarding had to carry that same weight. Since there was no sales call walking someone through it, the first few minutes in the product had to teach the tool by itself.",
-          },
-        ],
-      },
-      {
-        id: "outcome",
-        navLabel: "Outcome",
-        heading: "Outcome",
-        blocks: [
-          { type: "heading", level: 3, text: "What worked" },
-          {
-            type: "paragraph",
-            text: "The standalone pricing brought in a new kind of customer. And the design let the company start operating like a SaaS business.",
-          },
-          { type: "heading", level: 3, text: "What's still open" },
-          {
-            type: "paragraph",
-            text: "What we hadn't cracked yet was how people found the product in the first place. Neither product got much traction through organic signups. Almost every real customer still came in through B2B sales, someone on our team reaching out first. **But once they landed, they went through the exact flow we designed, not a manual workaround.**",
-          },
-          {
-            type: "paragraph",
-            text: "Good self-serve design solves what happens after someone shows up. It doesn't solve how they show up. That's still an open problem for the company, and one I'd want to be part of solving next.",
           },
         ],
       },
@@ -560,8 +560,11 @@ export const caseStudies: CaseStudy[] = [
             text: "Organized design system and responsive layouts.",
           },
           {
+            // File is password-protected — the real password lives in the
+            // Notion source, not here (this is a public page). Reach out
+            // (see Footer/contact) if you need access.
             type: "paragraph",
-            text: "",
+            text: "Password protected — reach out for access.",
             href: "https://www.figma.com/design/ZIjrmyzkBp9SPsfQ0RPqxR/Influencer-Matcher?node-id=1069-1958&t=PUZafa6fkHXDnTim-1",
             linkText: "Figma files",
           },
@@ -569,6 +572,8 @@ export const caseStudies: CaseStudy[] = [
             type: "image",
             src: "/images/influencer-marketing-figma.png",
             alt: "Figma file showing the Influencer Matcher design system and responsive desktop, tablet, and mobile layouts",
+            width: 2856,
+            height: 1428,
           },
         ],
       },
@@ -576,10 +581,10 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "coolwallet-pro",
-    title: "eCommerce redesign: 4x revenue",
+    title: "eCommerce redesign",
     year: "CoolBitX / 2021",
     subtitle:
-      "Redesigned CoolWallet's eCommerce site to support the CoolWallet Pro launch and a push into new markets — EU, Japan, Korea.",
+      "Redesigned the crypto wallet eCommerce experience to support expansion across Europe, Japan, and Korea.",
     metaDescription:
       "I led the eCommerce redesign and rebrand for CoolWallet Pro, a crypto hardware wallet, driving 4x revenue growth as the product expanded into new markets and product lines.",
     tags: ["eCommerce", "Redesign", "Blockchain", "Marketing"],
@@ -599,27 +604,16 @@ export const caseStudies: CaseStudy[] = [
       timeline: "",
       tools: "",
     },
+    impactStatsNote: "June 2021 to March 2022, compared to the year before.",
+    // label/text split into value + short caption (was one combined label
+    // string, e.g. "+416% website revenue") to match statRow's card layout —
+    // label renders large (text-h5), text renders as the smaller caption
+    // line below it, same as CaseStudyBlock's statRow cards.
     impactStats: [
-      {
-        label: "+416% website revenue",
-        text: "June 2021 to March 2022, compared to the year before.",
-      },
-      {
-        label: "+34.9% average order value",
-        text: "June 2021 to March 2022, compared to the year before.",
-      },
-      {
-        label: "+21% cart conversion rate",
-        text: "June 2021 to March 2022, compared to the year before.",
-      },
-      {
-        label: "+124.9% traffic",
-        text: "June 2021 to March 2022, compared to the year before.",
-      },
-      {
-        label: "29.6% bounce rate",
-        text: "June 2021 to March 2022, compared to the year before.",
-      },
+      { label: "+416%", text: "website revenue" },
+      { label: "+34.9%", text: "average order value" },
+      { label: "+21%", text: "cart conversion rate" },
+      { label: "+124.9%", text: "traffic" },
     ],
     sections: [
       {
@@ -635,6 +629,17 @@ export const caseStudies: CaseStudy[] = [
           {
             type: "paragraph",
             text: "CoolBitX is one of the biggest hardware crypto wallet providers in the world, with 300,000+ customers worldwide. After CoolWallet S took off, we launched CoolWallet Pro to reach more advanced users — people into DeFi, NFTs, staking. And we also redesigned the eCommerce site to reach more markets: EU, Japan, Korea.",
+          },
+          {
+            // Notion source places this "before&after" image right here —
+            // after the Overview text/impact numbers, before "Problems" —
+            // not under "Rebuilt the information architecture" like the
+            // earlier placeholder pass guessed.
+            type: "image",
+            src: "/images/CaseStudy-eCom/before&after.png",
+            alt: "CoolWallet eCommerce site before and after the redesign",
+            width: 1920,
+            height: 1084,
           },
         ],
       },
@@ -677,7 +682,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "toggle",
-            summary: "SEO optimization: Click to read what this covered",
+            summary: "SEO optimization",
             items: [
               "Shallow site architecture, every product within a few clicks of the homepage",
               "Core Web Vitals: load speed, interactivity, visual stability",
@@ -696,11 +701,15 @@ export const caseStudies: CaseStudy[] = [
             type: "image",
             src: "/images/CaseStudy-eCom/Japanese website.png",
             alt: "Japanese localized version of the CoolWallet website",
+            width: 2000,
+            height: 958,
           },
           {
             type: "image",
             src: "/images/CaseStudy-eCom/japanese website2.png",
             alt: "Japanese localized version of the CoolWallet website, product page",
+            width: 2846,
+            height: 1370,
           },
           { type: "heading", level: 3, text: "Made Pro and S easy to compare" },
           {
@@ -708,14 +717,18 @@ export const caseStudies: CaseStudy[] = [
             text: "Built product introduction pages and a side-by-side comparison to help users choose between CoolWallet Pro and S, depending on what they needed.",
           },
           {
-            // eCommatrix.png was removed from public/images/CaseStudy-eCom/
-            // after this was originally wired in — placeholder until a
-            // replacement is provided, same pattern as the other still-
-            // placeholder image blocks below (co-branded cards, marketing
-            // campaign, buy with, shipping fees).
             type: "image",
-            src: "/images/coolwallet-hero.png",
-            alt: "CoolWallet Pro introduction and comparison pages",
+            src: "/images/CaseStudy-eCom/CoolWallet pro introduction.png",
+            alt: "CoolWallet Pro product introduction page",
+            width: 1838,
+            height: 2160,
+          },
+          {
+            type: "image",
+            src: "/images/CaseStudy-eCom/Pro vs S Comparison table.png",
+            alt: "CoolWallet Pro vs. S comparison table",
+            width: 1920,
+            height: 1336,
           },
           { type: "heading", level: 3, text: "Rebuilt the information architecture" },
           {
@@ -732,18 +745,47 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/CaseStudy-eCom/before&after.png",
-            alt: "New navigation pills and the interaction between the CoolWallet app and Pro, before and after",
+            src: "/images/CaseStudy-eCom/Nav.pills.png",
+            alt: "New navigation pills for the redesigned site architecture",
+            width: 2828,
+            height: 1206,
           },
-          { type: "heading", level: 3, text: "Turned co-branded cards into a product line" },
+          {
+            type: "image",
+            src: "/images/CaseStudy-eCom/New features.png",
+            alt: "New features introduced in the site navigation",
+            width: 2564,
+            height: 1374,
+          },
+          {
+            // Notion literally places this image under "Rebuilt the
+            // information architecture", not the "Turned co-branded cards"
+            // heading right below it — kept here to match the source
+            // exactly rather than "fixing" what looks like a mismatch.
+            type: "image",
+            src: "/images/CaseStudy-eCom/Our Cobranded card partner program.png",
+            alt: "Co-branded card partner program entry in the navigation",
+            width: 2388,
+            height: 1340,
+          },
+          {
+            // Notion's literal heading is "Turned co-branded cards into
+            // new product lines" (plural) — was "a product line" (singular)
+            // here, an earlier paraphrase.
+            type: "heading",
+            level: 3,
+            text: "Turned co-branded cards into new product lines",
+          },
           {
             type: "paragraph",
             text: "Customers loved the co-branded cards and gifts we gave out in past marketing campaigns. So we made them part of the regular product line.",
           },
           {
             type: "image",
-            src: "/images/coolwallet-hero.png",
-            alt: "Co-branded card designs with Crypto.com and other partners",
+            src: "/images/CaseStudy-eCom/co-branded card with Crypto.com.png",
+            alt: "Co-branded card design with Crypto.com",
+            width: 1910,
+            height: 1334,
           },
           { type: "heading", level: 3, text: "Built a system for marketing campaigns" },
           {
@@ -752,8 +794,10 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/coolwallet-hero.png",
+            src: "/images/CaseStudy-eCom/marketingcampaign.png",
             alt: "Marketing campaign landing page template",
+            width: 2812,
+            height: 1416,
           },
         ],
       },
@@ -769,7 +813,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "toggle",
-            summary: "GA4 metrics I tracked - Click to read",
+            summary: "GA4 metrics I tracked",
             items: [
               "Landing (page_view): unique visitors, traffic source, bounce rate",
               "Browsing (view_item): scroll depth, click heatmaps, average time on page",
@@ -778,9 +822,21 @@ export const caseStudies: CaseStudy[] = [
             ],
           },
           {
+            // Was GA4matrix.png here (an earlier guess) — Notion's actual
+            // source has GA4matrix under Outcomes instead (see below), and
+            // these two (heatmap, user flow) under this heading.
             type: "image",
-            src: "/images/CaseStudy-eCom/GA4matrix.png",
-            alt: "GA4 funnel analysis from landing page to checkout",
+            src: "/images/CaseStudy-eCom/heatmap.png",
+            alt: "Click heatmap analysis of the site",
+            width: 960,
+            height: 540,
+          },
+          {
+            type: "image",
+            src: "/images/CaseStudy-eCom/User flow.png",
+            alt: "User flow from landing page to final checkout",
+            width: 2880,
+            height: 848,
           },
           { type: "heading", level: 3, text: "Added \"buy with\" to lift AOV" },
           {
@@ -789,8 +845,10 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/coolwallet-hero.png",
+            src: "/images/CaseStudy-eCom/buy with.png",
             alt: "\"Buy with\" suggestions on a product page",
+            width: 2442,
+            height: 1228,
           },
           { type: "heading", level: 3, text: "Brought shipping fees upfront" },
           {
@@ -799,8 +857,10 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/coolwallet-hero.png",
+            src: "/images/CaseStudy-eCom/shipping fees.png",
             alt: "Upfront shipping and tax costs shown before checkout",
+            width: 4038,
+            height: 3104,
           },
         ],
       },
@@ -816,15 +876,24 @@ export const caseStudies: CaseStudy[] = [
           {
             type: "statRow",
             stats: [
-              { value: "+416%", label: "increase in website revenue" },
-              { value: "+21%", label: "improvement in cart conversion rate" },
-              { value: "+124.9%", label: "growth in traffic" },
-              { value: "29.6%", label: "reduction in bounce rate" },
+              { value: "+416%", label: "Website revenue" },
+              { value: "+21%", label: "Cart conversion rate" },
+              { value: "+124.9%", label: "Traffic" },
+              { value: "-29.6%", label: "Bounce rate" },
             ],
           },
           {
+            // Notion places this right after the stat numbers, not in the
+            // Research section's data-tracking heading (an earlier guess).
+            type: "image",
+            src: "/images/CaseStudy-eCom/GA4matrix.png",
+            alt: "GA4 funnel analysis from landing page to checkout",
+            width: 2298,
+            height: 1174,
+          },
+          {
             type: "toggle",
-            summary: "Behind the numbers - Click to read",
+            summary: "Behind the numbers",
             items: [
               "Revenue is the combined effect of everything below.",
               "AOV moved because of the DUO bundles and the buy with prompts.",

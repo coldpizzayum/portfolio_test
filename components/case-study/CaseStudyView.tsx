@@ -16,7 +16,7 @@ import { renderInline } from "../renderInline";
 export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
   const otherCaseStudies = caseStudies
     .filter((cs) => cs.slug !== caseStudy.slug)
-    .map((cs) => ({ slug: cs.slug, title: cs.title, description: cs.subtitle, image: cs.heroImage }));
+    .map((cs) => ({ slug: cs.slug, title: cs.title, description: cs.subtitle, image: cs.heroImage, tags: cs.tags }));
 
   return (
     <>
@@ -100,16 +100,37 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                         mismatched against this being a text-h4 heading like
                         its Overview/My role/Team siblings above. */}
                     <p className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">Impact Overview</p>
-                    <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    {/* Shared context for every stat below (e.g. a date
+                        range) — shown once here instead of repeating the
+                        same sentence in each card, which is what
+                        impactStatsNote is for (see its doc comment in
+                        data/caseStudies.ts). Only coolwallet-pro sets it;
+                        web3-marketing-dashboard/influencer-marketing-tool
+                        leave it unset and just rely on each stat's own
+                        ImpactStat.text (rendered per-card below) instead. */}
+                    {caseStudy.impactStatsNote && (
+                      // text-fg (was text-fg-secondary) — matches the
+                      // Overview/My role/Team paragraphs above, not a
+                      // separate "muted note" treatment.
+                      <p className="mb-5 text-body-sm text-fg">{renderInline(caseStudy.impactStatsNote)}</p>
+                    )}
+                    {/* Copied directly from CaseStudyBlock's statRow
+                        (className-for-className, including my-7) so this
+                        "number component" looks identical wherever it's
+                        used — see that block for the min-w-0 rationale. */}
+                    <RevealGroup className="my-7 flex flex-col gap-4 sm:flex-row">
                       {caseStudy.impactStats.map((stat) => (
-                        <RevealItem key={stat.label} className="rounded-lg border-2 border-fg bg-bg p-5">
+                        <RevealItem
+                          key={stat.label}
+                          className="min-w-0 flex-1 rounded-lg bg-white p-card-compact md:p-card-compact-lg"
+                        >
                           {/* mb-3 (12px) — this site's "value → its label
                               caption" gap, same as CaseStudyBlock's statRow
                               cards (see that mb-3 in CaseStudyBlock.tsx). */}
-                          <p className="mb-3 text-body font-bold text-fg">
+                          <p className="mb-3 text-h5 tracking-[-0.04em] text-fg">
                             {stat.label}
                           </p>
-                          <p className="text-body-sm text-fg">{renderInline(stat.text)}</p>
+                          {stat.text && <p className="text-body text-fg">{renderInline(stat.text)}</p>}
                         </RevealItem>
                       ))}
                     </RevealGroup>

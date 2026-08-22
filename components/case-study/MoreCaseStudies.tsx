@@ -4,15 +4,31 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import type { CSSProperties, WheelEvent } from "react";
 import Button from "../Button";
+import TagChip from "../TagChip";
 
 export interface MoreCaseStudyItem {
   slug: string;
   title: string;
   description: string;
   image: string;
+  tags: string[];
 }
 
-const CARD_HEIGHT = { base: 210, sm: 248 };
+// base 288 (was 182 — a ×0.7 cut off the pre-tags 260 that turned out too
+// aggressive once actually rendered: title clipped to 2 lines, description
+// to 3, and the new tags row got cut off entirely with no room left for
+// the "Read case study" button. Recomputed from real worst-case content
+// instead of guessing again — longest title (3 lines) + longest
+// description (3 lines) + a full tags row + the button, at mobile's ~300px
+// text column (no image competing for width there, but it's also narrower
+// than desktop's ~397px text column, so it needs more wrapped lines, not
+// fewer — the two roughly cancel out, hence base and sm ending up close).
+// Both the per-card height class below and the stage-height math derive
+// from this same constant, so they stay in sync.
+const CARD_HEIGHT = { base: 288, sm: 300 };
+/** How many tags to show — enough to cover a typical 3-4 tag case study
+ *  without wrapping to a second row and eating into the height budget above. */
+const MAX_TAGS = 3;
 /** Vertical rise and shrink per layer behind the front card. */
 const PEEK_STEP = 16;
 const SCALE_STEP = 0.04;
@@ -79,14 +95,13 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
             // shadow up, not down, the opposite of every other card on the
             // site. Deliberate, not a shadow-hover/shadow-card fit.
             // p-6 (24px), no responsive step — matches FeedbackStack's
-            // desktop deck card padding, the closest sibling in footprint
-            // (280×248px there vs this card's own 248px height at the sm
-            // breakpoint). Was p-4 sm:p-5 (16/20px), not aligned with any
-            // other card on the site.
+            // desktop deck card padding, the closest sibling in footprint.
+            // Was p-4 sm:p-5 (16/20px), not aligned with any other card on
+            // the site.
             <div
               key={item.slug}
               aria-hidden={!isFront}
-              className="absolute inset-x-0 bottom-0 flex h-[210px] origin-bottom overflow-hidden rounded-2xl border border-border bg-white p-6 shadow-[0_-2px_24px_rgba(16,24,40,0.07)] transition-transform duration-300 sm:h-[248px]"
+              className="absolute inset-x-0 bottom-0 flex h-[288px] origin-bottom overflow-hidden rounded-2xl border border-border bg-white p-6 shadow-[0_-2px_24px_rgba(16,24,40,0.07)] transition-transform duration-300 sm:h-[300px]"
               style={{
                 zIndex: visible.length - i,
                 transform: `translateY(${y}px) scale(${scale})`,
@@ -98,7 +113,12 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
               <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 text-left sm:pl-5">
                 <div className="flex-1 space-y-2">
                   <p className="text-h4 leading-tight tracking-[-0.01em] text-fg">{item.title}</p>
-                  <p className="line-clamp-2 text-caption text-fg">{item.description}</p>
+                  <p className="text-caption text-fg">{item.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {item.tags.slice(0, MAX_TAGS).map((tag) => (
+                      <TagChip key={tag}>{tag}</TagChip>
+                    ))}
+                  </div>
                 </div>
                 {isFront && (
                   <Button href={`/case-study/${item.slug}`}>

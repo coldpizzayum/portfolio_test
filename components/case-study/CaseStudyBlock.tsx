@@ -53,7 +53,12 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
       return (
         <div className="my-7 flex flex-col gap-4 sm:flex-row">
           {block.stats.map((stat) => (
-            <div key={stat.label} className="flex-1 rounded-lg bg-white p-card-compact md:p-card-compact-lg">
+            // min-w-0 — flex-1 alone doesn't guarantee equal widths: a flex
+            // item's default min-width is auto (its content's intrinsic
+            // width), so a longer value/label (e.g. "+124.9%") can still
+            // force its column wider than the others despite the same
+            // flex-grow. Same gotcha as AiProjectsSection's heatmap column.
+            <div key={stat.label} className="min-w-0 flex-1 rounded-lg bg-white p-card-compact md:p-card-compact-lg">
               {/* mb-3 (12px) — this site's "value → its label caption" gap,
                   same as CaseStudyView's Impact Overview stat cards (see
                   that mb-3 in CaseStudyView.tsx). Used to be mb-1.5 (6px,
@@ -61,7 +66,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
               <p className="mb-3 text-h5 tracking-[-0.04em] text-fg">
                 {stat.value}
               </p>
-              <p className="text-caption text-fg">{stat.label}</p>
+              <p className="text-body text-fg">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -73,18 +78,21 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
           {block.items.map((item, index) => (
             <div
               key={item.name}
-              className="flex items-center gap-4 border-b border-border px-6 py-[18px] text-caption text-fg last:border-b-0"
+              className="flex items-center gap-4 border-b border-border px-6 py-[18px] text-body text-fg last:border-b-0"
             >
-              {/* text-caption on both — was text-xs (badge) / text-sm
-                  (description), neither one of the 8 design-system font
-                  tokens; the row's own text-caption (set on the container
-                  above) is what both should have inherited. */}
+              {/* Row text is text-body now (was text-caption) — name stays
+                  font-semibold (bold), description stays regular weight.
+                  Description is text-body-sm (one step down from the name's
+                  text-body) and text-fg (was text-fg-secondary) — same
+                  color as the name now, not a separate muted tone. The
+                  number badge stays text-caption: it's a small decorative
+                  index, not body content. */}
               <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-bg-alt text-caption font-bold">
                 {index + 1}
               </div>
               <div>
                 <span className="font-semibold">{item.name}</span>
-                <span className="ml-1 text-caption text-fg-secondary"> — {item.description}</span>
+                <span className="ml-1 text-body-sm text-fg"> — {item.description}</span>
               </div>
             </div>
           ))}
