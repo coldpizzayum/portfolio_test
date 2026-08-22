@@ -39,7 +39,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/lab",
-        destination: "/ai-projects",
+        destination: "/case-study",
         permanent: true,
       },
       {

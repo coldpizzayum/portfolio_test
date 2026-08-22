@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
 
 type Source = "github" | "claude";
 
@@ -87,6 +88,15 @@ const GITHUB_ACTIVITY: Record<string, number> = {
   "2026-07-30": 1,
 };
 
+/** Total contribution count shown under the grid — manually counted from the
+ *  real GitHub profile (like GITHUB_ACTIVITY above), not derived from the
+ *  0–4 level buckets here, which only approximate color intensity, not real
+ *  per-day counts. Missing "source-year" combos just omit the count rather
+ *  than show a made-up number. */
+const CONTRIBUTION_TOTALS: Partial<Record<string, number>> = {
+  "github-2026": 301,
+};
+
 /** Activity level (0–4) for a given day. GitHub uses the real data above; Claude Code
  *  still uses seeded demo data since there's no real activity source for it yet. */
 function demoLevel(date: Date, source: Source): number {
@@ -155,20 +165,35 @@ function SparkleIcon() {
   );
 }
 
-export default function ActivityHeatmap() {
+interface ActivityHeatmapProps {
+  /** "solid" (default) is opaque white — needed on a dark backdrop (the
+   *  lightbox's scrim) so text/contrast doesn't wash out. "translucent"
+   *  is the 60%-opacity version tuned for sitting directly on GlassCard's
+   *  own blurred background instead (see ActivityHeatmapExpandable, which
+   *  uses both: translucent inline, solid in its lightbox). */
+  background?: "solid" | "translucent";
+}
+
+export default function ActivityHeatmap({ background = "solid" }: ActivityHeatmapProps) {
   const [source, setSource] = useState<Source>("github");
   const [year, setYear] = useState<(typeof YEARS)[number]>(2026);
 
   const weeks = useMemo(() => buildWeeks(year), [year]);
   const monthLabels = useMemo(() => monthLabelsForWeeks(weeks), [weeks]);
   const levelColors = LEVEL_COLORS[source];
+  const total = CONTRIBUTION_TOTALS[`${source}-${year}`];
 
   return (
     <div
-      id="activity"
       // Flat hairline shadow, not shadow-card/shadow-hover — this is a
-      // panel, not a card, so it doesn't join that shadow family.
-      className="rounded-2xl border border-border bg-white/60 p-card-compact shadow-[0_0_0_1px_rgba(0,0,0,0.04)] backdrop-blur-[8px] md:p-card-compact-lg"
+      // panel, not a card, so it doesn't join that shadow family. No id
+      // here (used to be id="activity", a since-removed anchor target) —
+      // this component can now render twice at once (inline + lightbox),
+      // and duplicate ids in the DOM at the same time is invalid.
+      className={cn(
+        "rounded-2xl border border-border p-card-compact shadow-[0_0_0_1px_rgba(0,0,0,0.04)] backdrop-blur-[8px] md:p-card-compact-lg",
+        background === "solid" ? "bg-white" : "bg-white/60"
+      )}
     >
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4 font-source-sans-pro">
         {/* shrink-0 + whitespace-nowrap: on narrow mobile widths this pill's
@@ -244,7 +269,7 @@ export default function ActivityHeatmap() {
          activity isn't wired up yet, but the level→color mapping matches GitHub's own.
          Same grid at every viewport size; on narrow screens it just scrolls
          horizontally rather than reflowing into a different layout. */}
-      <div className="overflow-x-auto">
+      <div className="scrollbar-hide overflow-x-auto">
         <div className="flex min-w-max font-source-sans-pro text-xs text-fg-secondary">
           <div className="mr-2 flex shrink-0 flex-col">
             <div className="mb-2 h-[15px]" />
@@ -283,6 +308,20 @@ export default function ActivityHeatmap() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 font-source-sans-pro text-caption text-fg-secondary">
+        <p>
+          {total !== undefined ? `${total} contributions in ${year}` : `Contributions in ${year}`} (Data updates
+          manually, not live.)
+        </p>
+        <div className="flex items-center gap-1.5">
+          <span>less</span>
+          {levelColors.map((color, i) => (
+            <span key={i} className="h-[13px] w-[13px] rounded-[3px]" style={{ backgroundColor: color }} />
+          ))}
+          <span>more</span>
         </div>
       </div>
     </div>

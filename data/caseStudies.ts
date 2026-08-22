@@ -17,7 +17,7 @@ export const workItems: WorkItem[] = [
     title: "Designing Web3 Marketing Dashboard: 0 to 1",
     description:
       "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
-    tags: ["B2B", "Pre-seed", "9-paying users", "Data-heavy UXUI"],
+    tags: ["B2B", "Blockchain & Web3", "Data Heavy"],
     image: "/images/web3console.png",
     caseStudySlug: "web3-marketing-dashboard",
   },
@@ -25,7 +25,7 @@ export const workItems: WorkItem[] = [
     slug: "coolwallet-pro-rebrand",
     title: "Global Expansion: branding & eCommerce redesign",
     description: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
-    tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
+    tags: ["eCommerce", "Blockchain & Web3", "B2C", "FinTech"],
     image: "/images/coolwallet-hero.png",
     caseStudySlug: "coolwallet-pro",
   },
@@ -34,7 +34,7 @@ export const workItems: WorkItem[] = [
     title: "Turning a Feature Into a SaaS Product",
     description:
       "A self-serve tool for influencer marketing that filled a gap in the platform, complete with SaaS pricing and onboarding.",
-    tags: ["B2B", "SaaS", "Pivot"],
+    tags: ["B2B", "Data Heavy", "Blockchain & Web3"],
     image: "/images/influencer-marketing-hero.png",
     caseStudySlug: "influencer-marketing-tool",
   },
@@ -336,7 +336,7 @@ export const caseStudies: CaseStudy[] = [
           {
             type: "paragraph",
             text: "",
-            href: "/ai-projects",
+            href: "/case-study",
             linkText: "See what I've built with AI →",
           },
         ],
@@ -576,13 +576,51 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "coolwallet-pro",
-    title: "Global Expansion: branding & eCommerce redesign",
-    year: "CoolBitX/ 2021",
-    subtitle: "Led CoolWallet Pro's brand and eCommerce redesign, helping the product expand into global market.",
+    title: "CoolWallet eCommerce redesign: new markets, new products, 4x revenue",
+    year: "CoolBitX / 2021",
+    subtitle:
+      "Redesigned CoolWallet's eCommerce site to support the CoolWallet Pro launch and a push into new markets — EU, Japan, Korea.",
     metaDescription:
-      "I redesigned the brand and eCommerce experience for CoolWallet Pro, a Series B crypto hardware wallet, driving growth across Europe, Japan, Korea, Americas.",
-    tags: ["AB Testing", "Marketing", "eCommerce", "Redesign", "Scaleup"],
+      "I led the eCommerce redesign and rebrand for CoolWallet Pro, a crypto hardware wallet, driving 4x revenue growth as the product expanded into new markets and product lines.",
+    tags: ["AB Testing", "Marketing", "eCommerce", "Redesign"],
     heroImage: "/images/coolwallet-hero.png",
+    meta: {
+      role: "I led design for two initiatives that supported this market expansion: product rebranding, and eCommerce redesign.",
+      team: [
+        { initials: "YH", label: "Me (Product Designer)" },
+        { initials: "PT", label: "Product Team" },
+        { initials: "MS", label: "Marketing & Sales Team" },
+        { initials: "CL", label: "Customer Service & Logistics Team" },
+      ],
+      // Not in the Notion source, and CaseStudyView doesn't currently render
+      // meta.timeline/meta.tools anywhere (only role/team) — left blank
+      // rather than invented or pulled from this entry's old content. Fill
+      // in if you have real values.
+      timeline: "",
+      tools: "",
+    },
+    impactStats: [
+      {
+        label: "+416% website revenue",
+        text: "June 2021 to March 2022, compared to the year before.",
+      },
+      {
+        label: "+34.9% average order value",
+        text: "June 2021 to March 2022, compared to the year before.",
+      },
+      {
+        label: "+21% cart conversion rate",
+        text: "June 2021 to March 2022, compared to the year before.",
+      },
+      {
+        label: "+124.9% traffic",
+        text: "June 2021 to March 2022, compared to the year before.",
+      },
+      {
+        label: "29.6% bounce rate",
+        text: "June 2021 to March 2022, compared to the year before.",
+      },
+    ],
     sections: [
       {
         id: "overview",
@@ -591,191 +629,194 @@ export const caseStudies: CaseStudy[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "CoolBitX is a growth-stage startup of secure crypto asset management. After the success of its first product(CoolWallet S), the team expanded into new verticals— **including , DeFi, NFTs, staking, and B2B solutions (CoolWallet Pro)** —aiming to **serve more advanced and diverse use cases.**",
+            text: "CoolBitX is one of the biggest hardware crypto wallet providers in the world, with 300,000+ customers worldwide. After CoolWallet S took off, we launched CoolWallet Pro to reach more advanced users — people into DeFi, NFTs, staking. And we also redesigned the eCommerce site to reach more markets: EU, Japan, Korea.",
           },
+        ],
+      },
+      {
+        id: "problems",
+        navLabel: "Problems",
+        heading: "Problems",
+        blocks: [
           {
             type: "paragraph",
-            text: "I led design efforts on two key initiatives that supported both product evolution and company growth:",
+            text: "We launched CoolWallet Pro in May 2021. Our website's structure hadn't caught up. It was still built for a much smaller business: one product, one market.",
           },
           {
             type: "bulletList",
             items: [
-              "**CoolWallet Pro Rebranding** – Crafting a distinct identity for power users and redefining the brand story",
-              "**Growth-Driven eCommerce Redesign** – Transforming a transactional site into a multifunctional growth engine for users, partners, and investors",
+              "No place to put multiple product types. We wanted to sell Pro, S, DUO bundles, plus co-branded cards, but the old architecture had no room for that.",
+              "No flexibility for localization, as we wanted to serve Japan, Korea, and France.",
+              "No dedicated place to host marketing campaigns.",
+              "No way to properly support the other users we needed to serve: business partners, affiliate program.",
             ],
           },
         ],
       },
       {
-        id: "myrole",
-        navLabel: "My Role",
-        heading: "My Role",
+        id: "solutions",
+        navLabel: "Solutions",
+        heading: "Solutions",
         blocks: [
+          { type: "heading", level: 3, text: "A full site UX check: localization, mobile, SEO" },
           {
             type: "paragraph",
-            text: "I worked cross-functionally with teams across marketing, product, customer service, sales, and logistics. My scope covered three key areas:",
+            text: "I also scanned through the whole site and made the following improvements:",
           },
-          { type: "heading", level: 3, text: "Marketing" },
           {
             type: "bulletList",
             items: [
-              "Defined visual tone for global campaigns with marketing leads",
-              "Designed landing pages, in-app banners, and social assets",
-              "Managed external graphic and motion designers",
+              "**Localization**: translated the site into multiple languages, and localized currency and shipping cost by region.",
+              "**Mobile optimization**: responsive design for the growing mobile user base.",
             ],
           },
-          { type: "heading", level: 3, text: "Product" },
+          {
+            type: "toggle",
+            summary: "SEO optimization: Click to read what this covered",
+            items: [
+              "Shallow site architecture, every product within a few clicks of the homepage",
+              "Core Web Vitals: load speed, interactivity, visual stability",
+              "hreflang tags, currency, and region-specific content for the multi-market setup",
+              "Keyword-optimized titles, meta descriptions, and H1s on product pages",
+              "Unique product descriptions, image alt text, descriptive file names",
+              "Comparison and guide content linking to product and category pages",
+              "Customer reviews and Q&A on product pages",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "These fixes contribute to more organic traffic!",
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-hero.png",
+            alt: "Japanese localized version of the CoolWallet website",
+          },
+          { type: "heading", level: 3, text: "Made Pro and S easy to compare" },
+          {
+            type: "paragraph",
+            text: "Built product introduction pages and a side-by-side comparison to help users choose between CoolWallet Pro and S, depending on what they needed.",
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-hero.png",
+            alt: "CoolWallet Pro introduction and comparison pages",
+          },
+          { type: "heading", level: 3, text: "Rebuilt the information architecture" },
+          {
+            type: "paragraph",
+            text: "I redefined the site's navigation and information architecture so it could serve several purposes at once:",
+          },
           {
             type: "bulletList",
             items: [
-              "Built design system and visual identity for CoolWallet Pro",
-              "Redesigned eCommerce UX to improve onboarding and conversion",
-              "Designed reusable components for new features and product pages",
-              "Created physical product assets: card, packaging, accessories, co-branded editions",
+              "Support 2 main products plus multiple additional products",
+              "Introduce new features to users",
+              "Serve our business partners",
             ],
           },
-          { type: "heading", level: 3, text: "Data & Optimization" },
           {
-            type: "bulletList",
-            items: [
-              "Led A/B tests and tracked performance via Google Analytics",
-              "Used heatmaps and session recordings to guide UX decisions",
-              "Improved SEO and localized content for ZH and JP audiences",
-            ],
+            type: "image",
+            src: "/images/coolwallet-hero.png",
+            alt: "New navigation pills and the interaction between the CoolWallet app and Pro",
           },
-          { type: "heading", level: 3, text: "Tools" },
+          { type: "heading", level: 3, text: "Turned co-branded cards into a product line" },
           {
-            type: "bulletList",
-            items: [
-              "Design: Figma, Adobe Creative Suite",
-              "SEO: Semrush, Ahrefs, Google Analytics, and Google Search Console",
-              "UX Design: Hotjar, Google Analytics",
-            ],
+            type: "paragraph",
+            text: "Customers loved the co-branded cards and gifts we gave out in past marketing campaigns. So we made them part of the regular product line.",
           },
-          { type: "heading", level: 3, text: "Team & Collaboration" },
           {
-            type: "bulletList",
-            items: [
-              "C-Suite",
-              "Me (Web Designer) and Marketing Team",
-              "Product Team",
-              "Customer Service",
-              "Logistics",
-              "Sales",
-            ],
+            type: "image",
+            src: "/images/coolwallet-hero.png",
+            alt: "Co-branded card designs with Crypto.com and other partners",
+          },
+          { type: "heading", level: 3, text: "Built a system for marketing campaigns" },
+          {
+            type: "paragraph",
+            text: "Campaigns kept growing. I created a marketing campaign landing page template, along with a campaign material workflow.",
+          },
+          {
+            type: "image",
+            src: "/images/coolwallet-hero.png",
+            alt: "Marketing campaign landing page template",
           },
         ],
       },
       {
-        id: "branding",
-        navLabel: "Rebranding",
-        heading: "New Product Lauch",
+        id: "research",
+        navLabel: "Research",
+        heading: "Research",
         blocks: [
+          { type: "heading", level: 3, text: "Used data to find where people dropped off" },
           {
             type: "paragraph",
-            text: "To support the launch of CoolWallet Pro—a premium hardware wallet built for advanced users in DeFi, NFTs, and multi-chain ecosystems—we needed a refreshed brand that clearly distinguished it from the original CoolWallet S, not just in Taiwan and the U.S., but across a growing global audience.",
+            text: "Alongside the redesign, I set up Google Analytics and Clarity for behavioral analysis. From landing page to cart, I found points that could be improved to reduce drop-off, and other points that looked like opportunities. I prioritized pages with high traffic but low conversion rate or high bounce rate.",
           },
           {
-            type: "image",
-            src: "/images/coolwallet-product-launch.png",
-            alt: "CoolWallet Pro unboxing set and card held in hand",
-          },
-          { type: "heading", level: 3, text: "Marketing Materials of global expansion" },
-          {
-            type: "bulletList",
+            type: "toggle",
+            summary: "GA4 metrics I tracked - Click to read",
             items: [
-              "Aligning stakeholders, defining color, typography, packaging, and card design",
-              "**Ensured brand consistency across global digital and physical touchpoints.**",
-              "Coordinating with external agencies and freelance creatives to deliver high-quality visuals",
+              "Landing (page_view): unique visitors, traffic source, bounce rate",
+              "Browsing (view_item): scroll depth, click heatmaps, average time on page",
+              "Add to cart (add_to_cart): add-to-cart rate",
+              "Checkout (begin_checkout, purchase): cart abandonment rate, checkout abandonment rate",
             ],
           },
           {
             type: "image",
-            src: "/images/coolwallet-cobranded-cards.png",
-            alt: "Fan of co-branded CoolWallet S card designs",
+            src: "/images/coolwallet-hero.png",
+            alt: "GA4 funnel analysis from landing page to checkout",
+          },
+          { type: "heading", level: 3, text: "Added \"buy with\" to lift AOV" },
+          {
+            type: "paragraph",
+            text: "The data showed room to grow order value without hurting conversion. So I added \"buy with\" suggestions to product pages, some campaigns, and the cart, without overwhelming customers with too much buying information.",
           },
           {
             type: "image",
-            src: "/images/coolwallet-marketing-campaigns.png",
-            alt: "Grid of CoolWallet Pro marketing campaign banners and co-branded partner cards",
+            src: "/images/coolwallet-hero.png",
+            alt: "\"Buy with\" suggestions on a product page",
+          },
+          { type: "heading", level: 3, text: "Brought shipping fees upfront" },
+          {
+            type: "paragraph",
+            text: "Checkout abandonment was one of the numbers I tracked. Surprise fees at the last step are a common cause. So I brought the shipping fee upfront, showing the full cost (taxes, shipping, discounts) before checkout, to build trust with customers.",
           },
           {
             type: "image",
-            src: "/images/coolwallet-influencer-videos.png",
-            alt: "Collage of influencer and reviewer video thumbnails across multiple languages",
+            src: "/images/coolwallet-hero.png",
+            alt: "Upfront shipping and tax costs shown before checkout",
           },
         ],
       },
       {
-        id: "ecom-redesign",
-        navLabel: "eCom Redesign",
-        heading: "Growth-Driven eCommerce Redesign",
+        id: "outcomes",
+        navLabel: "Outcomes",
+        heading: "Built to Grow",
         blocks: [
           {
             type: "paragraph",
-            text: "With the launch of CoolWallet Pro in May 2021, we transformed our eCommerce site from a basic sales channel into a growth engine—designed to educate users, support partners, and boost conversions.",
-          },
-          {
-            type: "paragraph",
-            text: "**Key Performance Metrics (June 2021 – March 2022 vs. previous year)**",
+            text: "The site started out built for one product, one market. After redesign, it was solid enough to carry two main product lines and three new markets, with room to keep growing. When CoolWallet later expanded into Korea and Turkey, the same architecture supported it.",
           },
           {
             type: "statRow",
             stats: [
-              { value: "+294%", label: "increase in website revenue" },
+              { value: "+416%", label: "increase in website revenue" },
               { value: "+21%", label: "improvement in cart conversion rate" },
               { value: "+124.9%", label: "growth in traffic" },
-              { value: "-29.6%", label: "reduction in bounce rate" },
+              { value: "29.6%", label: "reduction in bounce rate" },
             ],
           },
           {
-            type: "image",
-            src: "/images/coolwallet-heatmap-analysis.png",
-            alt: "Session recordings and heatmap analysis of the CoolWallet Pro product page",
-          },
-          {
-            type: "image",
-            src: "/images/coolwallet-revenue-growth.png",
-            alt: "416% revenue growth chart for the year of the CoolWallet Pro launch",
-          },
-        ],
-      },
-      {
-        id: "webdesign",
-        navLabel: "Design Process",
-        heading: "Key Web Design Enhancements",
-        blocks: [
-          {
-            type: "bulletList",
+            type: "toggle",
+            summary: "Behind the numbers - Click to read",
             items: [
-              "**Mobile Optimization**: Implemented a responsive design with faster load times and intuitive navigation to cater to the increasing mobile user base.",
-              "**User Education**: Developed comprehensive product feature pages and in-app service guides to facilitate informed purchasing decisions.",
-              "**Checkout Experience**: Streamlined the buying process by simplifying checkout steps and incorporating trust elements like customer reviews.",
-              "**Partner Integration**: Highlighted collaborations with retailers and co-branded programs to build credibility and expand reach.",
-              "**Localization**: Translated key content into Chinese, Japanese, and Turkish to better serve international markets.",
-              "**Data-Driven Iteration**: Leveraged tools like Google Analytics and Clarity for behavioral analysis, enabling continuous A/B testing and SEO optimization.",
-              "**Marketing Campaign Integration**: Established a dedicated marketing campaigns section on the website, synchronized with in-app banners, to ensure consistent messaging and enhance user engagement across platforms.",
+              "Revenue is the combined effect of everything below.",
+              "AOV moved because of the DUO bundles and the buy with prompts.",
+              "Cart conversion moved because I fixed the specific drop-off points the funnel data pointed to.",
+              "Traffic mostly came from marketing spend and the new-market push, though localization added its own lift in organic search.",
+              "Bounce rate dropped since the new site had a better user experience.",
             ],
-          },
-          {
-            type: "paragraph",
-            text: "By focusing on these areas, we aligned user experience improvements directly with business growth objectives, ensuring that design decisions were informed by actionable data and user behavior insights.",
-          },
-          {
-            type: "image",
-            src: "/images/coolwallet-website-evolution.png",
-            alt: "Evolution of the CoolWallet website across 2019, 2020, and 2021 redesigns, desktop and mobile",
-          },
-        ],
-      },
-      {
-        id: "takeaway",
-        navLabel: "What I Learned",
-        heading: "What I Learned",
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Coming from a design background, working closely with marketing taught me how to think beyond usability—to design with business goals in mind. I learned to use data, storytelling, and brand consistency as tools for driving growth. It pushed me to design not just for users, but for outcomes.",
           },
         ],
       },

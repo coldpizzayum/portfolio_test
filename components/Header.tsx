@@ -13,7 +13,7 @@ interface NavLink {
 
 const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "AI Projects", href: "/ai-projects" },
+  { label: "Work", href: "/case-study" },
   { label: "About Me", href: "/about" },
 ];
 
@@ -86,13 +86,17 @@ function NavPills({ className }: { className: string }) {
   };
 
   useEffect(() => {
+    // measure() reads getBoundingClientRect() off trackRef/linkRefs, which
+    // only have real values post-layout — this can't be computed during
+    // render, so setState here (not a derived-during-render value) is the
+    // correct pattern despite the lint rule's default assumption.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setActiveIndicator(measure(activeHref));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeHref]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHoverIndicator(hoveredHref && hoveredHref !== activeHref ? measure(hoveredHref) : null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hoveredHref, activeHref]);
 
   return (

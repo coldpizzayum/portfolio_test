@@ -313,6 +313,18 @@ body {
   .collage-piece-rotate:hover {
     transform: rotate(var(--rotate, 0deg)) translateY(-6px);
   }
+
+  /* Keeps a scroll container's own overflow-x working (drag/trackpad/touch
+     all still scroll it) while hiding the visible scrollbar track —
+     Tailwind has no built-in utility for this, and the two properties
+     below cover Firefox and Chrome/Safari respectively. Currently only
+     ActivityHeatmap's grid uses this. */
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Text design system — named type styles, mirroring the "Portfolio"

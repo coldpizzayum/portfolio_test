@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { caseStudies, type CaseStudy } from "@/data/caseStudies";
 import { Reveal, RevealGroup, RevealItem } from "../Reveal";
 import CaseStudySideNav from "./CaseStudySideNav";
@@ -21,6 +22,22 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
     <>
       <div className="mx-auto max-w-[1100px] px-shell md:px-shell-lg">
         <header className={`pt-hero-top md:pt-hero-top-lg ${caseStudy.meta ? "pb-8" : "pb-16"}`}>
+          {/* hover:text-fg (from text-fg-secondary) — same hover-color group
+              as ActivityHeatmap's source toggle, not the sitewide
+              hover:bg-bg-alt group (this is plain text, no chip background). */}
+          <nav aria-label="Breadcrumb" className="mb-5 flex items-center gap-2 text-caption text-fg-secondary">
+            <Link href="/" className="transition-colors duration-300 hover:text-fg">
+              Home
+            </Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/case-study" className="transition-colors duration-300 hover:text-fg">
+              Case Study
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-fg" aria-current="page">
+              {caseStudy.title}
+            </span>
+          </nav>
           <Reveal>
             <div className={`flex flex-col gap-10 md:flex-row md:items-center ${caseStudy.meta ? "mb-10" : ""}`}>
               {/* md:w-3/5 / md:w-2/5 below — proportional split, not a fixed

@@ -14,7 +14,7 @@ const LINK_COLUMNS = [
   {
     heading: "Navigation",
     items: [
-      { label: "AI Projects", href: "/ai-projects" },
+      { label: "Work", href: "/case-study" },
       { label: "About Me", href: "/about" },
     ],
   },

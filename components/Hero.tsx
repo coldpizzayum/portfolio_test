@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { CSSProperties } from "react";
 import Button from "./Button";
 import GlassCard from "./GlassCard";
@@ -23,7 +24,7 @@ const FAN_CARDS: FanCard[] = [
     href: "/#works",
     title: "Recent work",
     description:
-      "My career's mostly in blockchain and Web3. I take complex tech problems and turn them into something people actually understand and like.",
+      "I've designed products for eCom,B2C and B2B, mostly in FinTech and blockchain.",
     cta: "Recent case studies",
   },
   {
@@ -40,9 +41,9 @@ const FAN_CARDS: FanCard[] = [
     key: "ai",
     bg: "bg-card-sky",
     rotation: 5,
-    href: "/ai-projects",
+    href: "/case-study",
     title: "Build with AI",
-    description: "I use AI to build prototypes and full products. Recently won a prize at the Berlin AI Builder Hackathon.",
+    description: "I love how AI boosts a designer's creativity. Now I build products end-to-end.",
     cta: "Projects I'm building",
   },
   {
@@ -63,6 +64,18 @@ export default function Hero() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-bg" />
 
         <div className="relative z-[1] flex flex-col items-start gap-0">
+          {/* Mobile (Ben's does this too): plain stacked block, in normal
+              flow above the headline, not floating.
+              md+: switches to a floating badge pulled out of flow, top-right
+              of the hero content, right-8 (not flush to the edge). */}
+          <Image
+            src="/images/Based in Berlin.png"
+            alt="Now based in Berlin"
+            width={514}
+            height={134}
+            className="pointer-events-none mb-4 w-[160px] md:absolute md:top-0 md:right-8 md:mb-0 md:w-[180px] lg:w-[220px]"
+          />
+
           {/* Left: headline + sub */}
           <div className="max-w-full pb-12 md:pb-0">
             <h1 className="mb-7 text-h1 tracking-[-0.05em] text-fg">
