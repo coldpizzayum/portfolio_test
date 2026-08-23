@@ -23,8 +23,7 @@ const FAN_CARDS: FanCard[] = [
     rotation: 6.5,
     href: "/#works",
     title: "Recent work",
-    description:
-      "I've designed products for eCom,B2C and B2B, mostly in FinTech and blockchain.",
+    description: "I've designed B2B and B2C products, mostly in FinTech and blockchain.",
     cta: "Recent case studies",
   },
   {
@@ -43,7 +42,7 @@ const FAN_CARDS: FanCard[] = [
     rotation: 5,
     href: "/case-study",
     title: "Build with AI",
-    description: "I love how AI boosts a designer's creativity. Now I build products end-to-end.",
+    description: "I've been using AI to prototype, code, and build my own products.",
     cta: "Projects I'm building",
   },
   {
@@ -51,8 +50,8 @@ const FAN_CARDS: FanCard[] = [
     bg: "bg-card-mint",
     rotation: -5,
     href: "/about",
-    title: "About Me",
-    description: "5+ years of industry experience, backed by a design education. Still just as into the craft as day one.",
+    title: "About me",
+    description: "From Taiwan, now based in Berlin. Designer, builder, and dancer outside of work.",
     cta: "My story",
   },
 ];
@@ -88,7 +87,7 @@ export default function Hero() {
             </h1>
 
             <p className="mb-8 font-source-sans-pro text-[clamp(18px,13.86px+1.10vw,28px)] leading-[1.2] font-normal text-fg">
-              5+ years in startups, from pre-seed to Series B. I prototype, code, market, and ship ideas.
+              5+ years in startups, from pre-seed to Series B. I design, prototype, and build.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row md:hidden">

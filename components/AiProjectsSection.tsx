@@ -1,6 +1,7 @@
 import Button from "@/components/Button";
 import GlassCard from "@/components/GlassCard";
 import ActivityHeatmap from "@/components/ActivityHeatmap";
+import { renderInline } from "@/components/renderInline";
 
 const GITHUB_URL = "https://github.com/coldpizzayum";
 
@@ -10,10 +11,11 @@ export default function AiProjectsSection() {
       <GlassCard>
         <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
           <div className="max-w-[480px] shrink-0">
-            <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">Design and ship w/AI</h2>
+            <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">Building with AI</h2>
             <p className="mb-8 text-body-sm text-fg">
-              I use AI to build prototypes and design systems AI can read.
-              <br />I recently won a prize at the Berlin AI Builders Hackathon.
+              I&apos;ve been using AI to go beyond prototypes and build working products myself.
+              <br />
+              {renderInline("Recently, I won **Best Use of AskNews API** at the Berlin AI Builders Hackathon.")}
             </p>
 
             <div className="flex flex-wrap items-center gap-3">

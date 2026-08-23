@@ -24,7 +24,8 @@ export const workItems: WorkItem[] = [
   {
     slug: "coolwallet-pro-rebrand",
     title: "Redesigning eCommerce for 4x revenue",
-    description: "Led crypto wallet's rebrand and eCommerce redesign, helping the product expand into global market.",
+    description:
+      "Redesigned a crypto wallet's eCommerce experience to support expansion into Europe, Japan, and Korea.",
     tags: ["eCommerce", "Blockchain & Web3", "B2C", "FinTech"],
     image: "/images/CoolWallet.png",
     caseStudySlug: "coolwallet-pro",
