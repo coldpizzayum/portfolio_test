@@ -122,15 +122,15 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                       {caseStudy.impactStats.map((stat) => (
                         <RevealItem
                           key={stat.label}
-                          className="min-w-0 flex-1 rounded-lg bg-white p-card-compact md:p-card-compact-lg"
+                          className="min-w-0 flex-1 rounded-lg bg-white p-4"
                         >
                           {/* mb-3 (12px) — this site's "value → its label
                               caption" gap, same as CaseStudyBlock's statRow
                               cards (see that mb-3 in CaseStudyBlock.tsx). */}
-                          <p className="mb-3 text-h5 tracking-[-0.04em] text-fg">
+                          <p className="mb-3 text-h4 tracking-[-0.01em] text-fg">
                             {stat.label}
                           </p>
-                          {stat.text && <p className="text-body text-fg">{renderInline(stat.text)}</p>}
+                          {stat.text && <p className="text-body-sm text-fg">{renderInline(stat.text)}</p>}
                         </RevealItem>
                       ))}
                     </RevealGroup>

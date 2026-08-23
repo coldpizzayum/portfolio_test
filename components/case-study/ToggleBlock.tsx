@@ -43,6 +43,13 @@ function InfoIcon() {
  * card-like block (videoGrid, feedbackGrid, image) sits on the page, and the
  * chevron/height animation are the accordion already established in
  * JourneyTimeline. No shadow, no hover state — flat by design.
+ *
+ * Every toggle on the site uses this one shared look (icon + inline
+ * accordion reveal). The one exception — coolwallet-pro's "Supporting
+ * Go-to-Market" — was deliberately pulled out into its own SpotlightCard
+ * component instead of being special-cased here, since it wants a visibly
+ * different treatment (lightbox, not inline expand). Don't add per-instance
+ * flags here for that; keep this component's look uniform.
  */
 export default function ToggleBlock({
   id,

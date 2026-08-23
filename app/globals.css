@@ -328,6 +328,31 @@ body {
     transform: rotate(-2deg) scale(1.02);
   }
 
+  /* A diagonal light sweep that passes across the element on hover —
+     referenced from seanhalpin.xyz's icon-box hover state. The sweep is a
+     ::after pseudo-element (a skewed gradient bar) parked off to the left;
+     hovering slides it across to the right. Needs `overflow-hidden` (set on
+     the element using this class, not baked in here) so the bar doesn't
+     spill past rounded corners. Currently only SpotlightCard's icon box
+     uses this. */
+  .hover-shine {
+    position: relative;
+  }
+  .hover-shine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+    transform: skewX(-20deg);
+    transition: left 550ms ease;
+  }
+  .hover-shine:hover::after {
+    left: 125%;
+  }
+
   /* Keeps a scroll container's own overflow-x working (drag/trackpad/touch
      all still scroll it) while hiding the visible scrollbar track —
      Tailwind has no built-in utility for this, and the two properties

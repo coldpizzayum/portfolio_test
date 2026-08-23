@@ -3,6 +3,7 @@ import type { CaseStudyBlock as CaseStudyBlockType } from "@/data/caseStudies";
 import Button from "../Button";
 import ImageCollage from "./ImageCollage";
 import ToggleBlock from "./ToggleBlock";
+import SpotlightCard from "./SpotlightCard";
 import FeedbackStack from "./FeedbackStack";
 import { renderInline } from "../renderInline";
 
@@ -44,6 +45,22 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         </ul>
       );
 
+    case "cardList":
+      // rounded-2xl/bg-white/p-card-compact — same card treatment as
+      // statRow/videoGrid/embed elsewhere on case study pages, not Ben's
+      // rounded-[12px]/bg-white/60. gap-3 (12px) matches this site's
+      // existing "value → its label caption" gap (see statRow's mb-3).
+      return (
+        <div className="my-5 flex flex-col gap-3">
+          {block.items.map((item) => (
+            <article key={item.title} className="rounded-2xl bg-white p-card-compact md:p-card-compact-lg">
+              <p className="mb-2 text-h4 tracking-[-0.01em] text-fg">{item.title}</p>
+              <p className="text-body-sm text-fg">{renderInline(item.description)}</p>
+            </article>
+          ))}
+        </div>
+      );
+
     case "statRow":
       // bg-white + text-fg label — matches the other white cards elsewhere
       // on case study pages (Overview card, Impact Overview stat cards),
@@ -58,15 +75,19 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
             // width), so a longer value/label (e.g. "+124.9%") can still
             // force its column wider than the others despite the same
             // flex-grow. Same gotcha as AiProjectsSection's heatmap column.
-            <div key={stat.label} className="min-w-0 flex-1 rounded-lg bg-white p-card-compact md:p-card-compact-lg">
+            // p-4 (16px) — deliberately its own value, not the shared
+            // p-card-compact token (20/32px): that token is also used by
+            // ActivityHeatmap/ImageCollage/other CaseStudyBlock figures, so
+            // resizing it here would resize those too.
+            <div key={stat.label} className="min-w-0 flex-1 rounded-lg bg-white p-4">
               {/* mb-3 (12px) — this site's "value → its label caption" gap,
                   same as CaseStudyView's Impact Overview stat cards (see
                   that mb-3 in CaseStudyView.tsx). Used to be mb-1.5 (6px,
                   off the 4px grid and inconsistent with that other one). */}
-              <p className="mb-3 text-h5 tracking-[-0.04em] text-fg">
+              <p className="mb-3 text-h4 tracking-[-0.01em] text-fg">
                 {stat.value}
               </p>
-              <p className="text-body text-fg">{stat.label}</p>
+              <p className="text-body-sm text-fg">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -171,6 +192,11 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "toggle":
       return <ToggleBlock id={block.id} summary={block.summary} items={block.items} text={block.text} />;
+
+    case "spotlight":
+      return (
+        <SpotlightCard summary={block.summary} heading={block.heading} text={block.text} images={block.images} />
+      );
 
     case "feedbackGrid":
       return <FeedbackStack cards={block.cards} />;

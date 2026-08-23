@@ -170,7 +170,7 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
                     <a
                       key={sub.id}
                       href={`#${sub.id}`}
-                      className="rounded-[8px] px-2 py-1 text-caption text-fg-secondary transition-colors duration-300 hover:bg-bg-alt"
+                      className="rounded-[8px] px-2 py-1 text-caption text-fg transition-colors duration-300 hover:bg-bg-alt"
                     >
                       {sub.label}
                     </a>
