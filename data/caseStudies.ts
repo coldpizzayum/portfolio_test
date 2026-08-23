@@ -18,7 +18,7 @@ export const workItems: WorkItem[] = [
     description:
       "Turned our audience-building algorithm into a self-serve product, letting Web3 marketers generate their own audiences and manage campaigns end to end.",
     tags: ["B2B", "Blockchain & Web3", "Data Heavy"],
-    image: "/images/Web3 Console.png",
+    image: "/images/Web3/Web3 Console.png",
     caseStudySlug: "web3-marketing-dashboard",
   },
   {
@@ -35,7 +35,7 @@ export const workItems: WorkItem[] = [
     description:
       "Designed a SaaS platform and browser plugin to simplify influencer discovery and campaign workflows.",
     tags: ["B2B", "Data Heavy", "Blockchain & Web3"],
-    image: "/images/Influencer Matcher.png",
+    image: "/images/Influencer Marketing/Influencer Matcher.png",
     caseStudySlug: "influencer-marketing-tool",
   },
 ];
@@ -153,7 +153,7 @@ export const caseStudies: CaseStudy[] = [
     metaDescription:
       "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
     tags: ["B2B", "Pre-seed", "Data-heavy UXUI"],
-    heroImage: "/images/Web3 Console.png",
+    heroImage: "/images/Web3/Web3 Console.png",
     meta: {
       role: "I led end-to-end product design, from competitor research and user interviews, to user journey mapping, building the design system, and final design hand-off.",
       team: [
@@ -181,13 +181,17 @@ export const caseStudies: CaseStudy[] = [
         heading: "Building an all-in-one marketing tool",
         blocks: [
           {
-            type: "embed",
-            src: "https://embed.figma.com/board/B6MIqfvztsoVLex4FqW6kB/Feature-Architecture-Diagram?node-id=0-1&embed-host=share",
-            title: "Feature Architecture Diagram",
+            // Was a live Figma board embed — swapped for a static image
+            // per the user's own screenshot/export of it.
+            type: "image",
+            src: "/images/Web3/information architecture.png",
+            alt: "Information architecture diagram for the all-in-one marketing tool",
+            width: 1866,
+            height: 2758,
           },
           {
             type: "image",
-            src: "/images/Allinonetool.png",
+            src: "/images/Web3/Allinonetool.png",
             alt: "Screenshot of the all-in-one marketing tool",
             width: 1440,
             height: 502,
@@ -256,7 +260,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/web3-design-system-components.png",
+            src: "/images/Web3/web3-design-system-components.png",
             alt: "Design system component library",
             width: 1200,
             height: 675,
@@ -295,7 +299,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/Cohort project selection.png",
+            src: "/images/Web3/Cohort project selection.png",
             alt: "Screenshot of pre-selected cohort category pools by project type",
             width: 1422,
             height: 553,
@@ -314,14 +318,14 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/Building Chohorts.png",
+            src: "/images/Web3/Building Chohorts.png",
             alt: "Screenshot of building a cohort in the slideout selector",
             width: 1682,
             height: 906,
           },
           {
             type: "image",
-            src: "/images/filter.png",
+            src: "/images/Web3/filter.png",
             alt: "Filter layout for setting cohort conditions",
             width: 1200,
             height: 675,
@@ -380,7 +384,7 @@ export const caseStudies: CaseStudy[] = [
     metaDescription:
       "For this B2B SaaS platform, I designed viral growth loops and a browser extension distribution channel, supporting a successful Product Hunt launch.",
     tags: ["B2B", "SaaS", "Plugin", "Marketing"],
-    heroImage: "/images/Influencer Matcher.png",
+    heroImage: "/images/Influencer Marketing/Influencer Matcher.png",
     meta: {
       role: "I made the call to build this as a standalone product, and designed the SaaS pricing and onboarding experience that let it run as a self-serve business.",
       team: [
@@ -486,7 +490,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/influencer-marketing-chrome-store.png",
+            src: "/images/Influencer Marketing/influencer-marketing-chrome-store.png",
             alt: "Growing3 - Web3 Influencer Marketing Tool listing on the Chrome Web Store",
             width: 2850,
             height: 1548,
@@ -513,7 +517,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/influencer-marketing-product-hunt.png",
+            src: "/images/Influencer Marketing/influencer-marketing-product-hunt.png",
             alt: "Growing3 - Influencer Matcher launch page on Product Hunt",
             width: 2838,
             height: 1544,
@@ -570,7 +574,7 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             type: "image",
-            src: "/images/influencer-marketing-figma.png",
+            src: "/images/Influencer Marketing/influencer-marketing-figma.png",
             alt: "Figma file showing the Influencer Matcher design system and responsive desktop, tablet, and mobile layouts",
             width: 2856,
             height: 1428,
