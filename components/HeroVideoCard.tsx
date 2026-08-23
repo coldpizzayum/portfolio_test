@@ -83,8 +83,8 @@ export default function HeroVideoCard({ bg, rotation }: { bg: string; rotation: 
       >
         <video
           ref={videoRef}
-          src="/videos/self-intro.mp4"
-          poster="/images/self-intro-poster.png"
+          src="/videos/intro.mp4"
+          poster="/images/intro-poster.png"
           autoPlay
           muted
           loop
@@ -138,14 +138,20 @@ export default function HeroVideoCard({ bg, rotation }: { bg: string; rotation: 
                *  means it always starts at 0:00 with no extra state to
                *  reset. */}
               <video
-                src="/videos/self-intro.mp4"
-                poster="/images/self-intro-poster.png"
+                src="/videos/intro.mp4"
+                poster="/images/intro-poster.png"
                 autoPlay
                 controls
                 playsInline
                 aria-label="Yiting Huang — self intro"
                 className="w-full rounded-2xl shadow-hover"
-              />
+              >
+                {/* Only on this expanded video, not the small looping
+                    preview card (that one's silent/muted, captions don't
+                    apply). Native `controls` picks this up automatically
+                    as a CC toggle. */}
+                <track kind="subtitles" src="/videos/self-intro.vtt" srcLang="en" label="English" default />
+              </video>
             </div>
           </div>,
           document.body
