@@ -62,7 +62,14 @@ export type CaseStudyBlock =
    *  images) — a visibly bigger, more prominent reveal than ToggleBlock's
    *  inline accordion, for the one spot on the site that wants that (see
    *  SpotlightCard.tsx). Not meant to become the default toggle treatment. */
-  | { type: "spotlight"; summary: string; heading: string; text: string; images: { src: string; alt: string; width: number; height: number }[] }
+  | {
+      type: "spotlight";
+      summary: string;
+      heading: string;
+      text: string;
+      video?: { youtubeId: string; title: string };
+      images: { src: string; alt: string; width: number; height: number }[];
+    }
   | { type: "statRow"; stats: { value: string; label: string }[] }
   | { type: "flowList"; items: { name: string; description: string }[] }
   /** `width`/`height` are the source file's real pixel dimensions — when set,
@@ -161,13 +168,13 @@ export const caseStudies: CaseStudy[] = [
     title: "Web3 marketing dashboard",
     year: "2023 — 2024 | **Growing3**",
     subtitle:
-      "Designed a blockchain data dashboard that turns complex on-chain data into actionable marketing insights.",
+      "Designed a blockchain data dashboard that turns complex on-chain data into actionable marketing audiences.",
     metaDescription:
       "As Founding Product Designer for this Web3 marketing dashboard, I led MVP design from concept to launch, helping the team close a $1.2M seed round.",
-    tags: ["B2B", "Pre-seed", "Data-heavy UXUI"],
+    tags: ["B2B", "Pre-seed", "Data-heavy UX/UI"],
     heroImage: "/images/Web3/Web3 Console.png",
     meta: {
-      role: "I led end-to-end product design, from competitor research and user interviews, to user journey mapping, building the design system, and final design hand-off.",
+      role: "I led end-to-end product design, from research and user journeys to prototyping, design system, and final handoff.",
       team: [
         { initials: "PM", label: "1 Product Manager" },
         { initials: "YH", label: "Me (Product Designer)" },
@@ -183,18 +190,32 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         label: "9 paid customers across 3 continents",
-        text: "Including XREX and Sorare, with early adopters like Flap, DOEX, PrismX, and Chainfir Capital.",
+        text: "Including XREX and Sorare, with early adopters such as Flap, DOEX, PrismX, and Chainfir Capital.",
       },
     ],
     sections: [
       {
-        id: "all-in-one-tool",
+        id: "problems",
         navLabel: "Problems",
-        heading: "Building an all-in-one marketing tool",
+        heading: "Turning a manual service into a scalable product",
         blocks: [
           {
-            // Was a live Figma board embed — swapped for a static image
-            // per the user's own screenshot/export of it.
+            type: "paragraph",
+            text: "Before the product existed, our team built audience packages manually.",
+          },
+          {
+            type: "paragraph",
+            text: "We analyzed wallet behavior, created targeting lists for each client, and handed them off to marketers to run campaigns.",
+          },
+          {
+            type: "paragraph",
+            text: "It worked — but every new customer required more manual work.",
+          },
+          {
+            type: "paragraph",
+            text: "The product challenge was to turn this service into something marketers could do themselves.",
+          },
+          {
             type: "image",
             src: "/images/Web3/information architecture.png",
             alt: "Information architecture diagram for the all-in-one marketing tool",
@@ -208,47 +229,20 @@ export const caseStudies: CaseStudy[] = [
             width: 1440,
             height: 502,
           },
-          {
-            type: "paragraph",
-            text: "I started by researching patterns marketers already knew from Web2 platforms, then came up with the information architecture diagram.",
-          },
-          {
-            type: "toggle",
-            summary: "Reference products I looked at",
-            items: [
-              "Ad management platforms (e.g., Meta Ads Manager, Twitter Ads, Google Ads)",
-              "Marketing automation tools (e.g., HubSpot, Mailchimp, ActiveCampaign)",
-              "Customer Data Platforms (CDPs) (e.g., Segment, Amplitude)",
-              "Growth marketing tools (e.g., Branch, AppsFlyer, Mixpanel)",
-              "Web3 marketing dashboards (e.g., DappRadar, Galxe, Zapper)",
-            ],
-          },
-        ],
-      },
-      {
-        id: "ad-targeting-logic",
-        navLabel: "The logic behind our ad targeting is complicated",
-        heading: "The logic behind our ad targeting is complicated",
-        hideFromToc: true,
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Before this, the team built audience packages by hand, analyzing wallet behavior and putting together a list for each client individually, then handing it off for them to run ads. My job was to turn that service into something clients could do themselves, so the company could actually scale like a SaaS product, not an agency.",
-          },
         ],
       },
       {
         id: "first-prototype",
         navLabel: "Research",
-        heading: "Build the first prototype",
+        heading: "Building the first self-serve workflow",
         blocks: [
           {
             type: "paragraph",
-            text: "First, I used **Material Design UI** patterns to quickly piece together a first version of the prototype to test with users.",
+            text: "I started by studying workflows marketers already knew from Web2 advertising platforms and mapped them to our Web3 targeting model.",
           },
           {
             type: "paragraph",
-            text: "I broke the whole journey down into 3 simple steps:",
+            text: "The first product flow came down to three steps:",
           },
           {
             type: "videoGrid",
@@ -256,19 +250,23 @@ export const caseStudies: CaseStudy[] = [
               {
                 youtubeId: "KyDXsbJS2mY",
                 title: "Select Cohort demo",
-                caption: "**Select Cohort** — Set filters by wallet, behavior, and social activity",
+                caption: "**Select Cohort** — Build an audience based on wallet activity, behavior, and social signals.",
               },
               {
                 youtubeId: "e5tQmLoRowQ",
-                title: "Assign to Twitter Audience demo",
-                caption: "**Assign to Twitter Audience** — Sync it straight to Twitter Ads Manager",
+                title: "Sync Audience demo",
+                caption: "**Sync Audience** — Send the cohort directly to Twitter Ads Manager.",
               },
               {
                 youtubeId: "rAn4oDx5_WQ",
-                title: "Launch & Monitor Campaign demo",
-                caption: "**Launch & Monitor Campaign** — Watch conversions and engagement roll in",
+                title: "Launch & Monitor demo",
+                caption: "**Launch & Monitor** — Run campaigns and track performance.",
               },
             ],
+          },
+          {
+            type: "paragraph",
+            text: "I used familiar Material Design patterns to build the first prototype quickly and validate the workflow with users.",
           },
           {
             type: "image",
@@ -282,32 +280,54 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "cohort-selection-ui",
         navLabel: "Solution",
-        heading: "Designing the cohort selection UI",
+        heading: "The hardest part: making Web3 targeting understandable",
         blocks: [
           {
             type: "paragraph",
-            text: "The hardest part was the logic behind how we found audiences, helping the marketers understand this and guiding them through the process of setting their cohorts.",
+            text: "The underlying targeting logic was much more complicated than what marketers were used to.",
+          },
+          {
+            type: "paragraph",
+            text: "The UX challenge was giving marketers this power without forcing them to understand the complexity underneath.",
           },
           {
             type: "toggle",
             summary: "Web2 audiences vs. Web3 audiences",
-            text: "Web2 ad platforms like Twitter or Google target people using demographics and interests, signals that come from social media behavior. Web3 audiences are different. They're built from what wallets actually do on-chain: what tokens they hold, what they've traded, what protocols they've used.",
+            text: "In Web2, marketers target familiar attributes like demographics and interests. In Web3, we were asking them to think in terms of wallets, token holdings, transactions, protocols, and on-chain behavior.",
+          },
+          { type: "heading", level: 3, text: "Preventing users from building the wrong audience" },
+          {
+            type: "paragraph",
+            text: "In the first flow, marketers stacked filters one after another and only discovered at the end whether their audience was usable.",
           },
           {
             type: "paragraph",
-            text: "Marketers stacked filter conditions one after another, and only found out at the end if the audience worked. Too narrow, too broad, either way, they'd already built the whole thing before finding out it didn't.",
+            text: "Too narrow or too broad — either way, they had already built the whole cohort.",
           },
           {
             type: "paragraph",
-            text: "My first instinct was to show live wallet data on every change. But that was slow, and it cost us money in API calls.",
+            text: "My first instinct was to show the audience size after every change.",
           },
           {
             type: "paragraph",
-            text: "So I went back to a few core decisions:",
+            text: "But querying live blockchain data continuously was slow and expensive.",
           },
           {
             type: "paragraph",
-            text: "**Pre-selected category pools, not a blank slate.** Marketers started from pools scoped to the type of project they were running, GameFi, NFT, DeFi, each already narrowed to what actually mattered, instead of building a cohort from zero.",
+            text: "That constraint led to four key design decisions.",
+          },
+          { type: "heading", level: 3, text: "Start with relevant audience pools" },
+          {
+            type: "paragraph",
+            text: "Instead of giving marketers a blank slate, I created pre-selected pools based on project type — such as GameFi, NFT, and DeFi.",
+          },
+          {
+            type: "paragraph",
+            text: "Each pool narrowed the available data to signals that were actually relevant to that campaign.",
+          },
+          {
+            type: "paragraph",
+            text: "**Less configuration, fewer irrelevant choices.**",
           },
           {
             type: "image",
@@ -316,42 +336,103 @@ export const caseStudies: CaseStudy[] = [
             width: 1422,
             height: 553,
           },
+          { type: "heading", level: 3, text: "Keep the estimate visible while filtering" },
           {
             type: "paragraph",
-            text: "**A slideout, not a full-page flow.** People could keep an eye on the estimate while they worked. As they added filters, the number updated in real time, pulled from our own data, not a fresh API call every time.",
-          },
-          {
-            type: "paragraph",
-            text: "**A way back, not a restart.** If someone still hit a dead end at the last step, they could open the slideout again, jump back, and watch the estimate update live from there.",
+            text: "I moved cohort building into a slideout instead of a separate full-page flow.",
           },
           {
             type: "paragraph",
-            text: '**A percentage, not an exact number.** An exact count implies precision we didn\'t have, the data was cached, not live. "1,284 wallets" sounds like right now. It might\'ve been an hour old. A percentage told users what they actually needed to know: too narrow, or too broad.',
+            text: "This let marketers adjust filters while keeping the estimated audience size visible.",
           },
           {
-            type: "image",
-            src: "/images/Web3/Building Chohorts.png",
-            alt: "Screenshot of building a cohort in the slideout selector",
-            width: 1682,
-            height: 906,
+            type: "paragraph",
+            text: "The estimate used our cached data rather than triggering a new API request after every change.",
           },
           {
+            // Was Building Chohorts.png — removed from public/images/Web3/
+            // (no longer referenced anywhere); filter.png moved up into
+            // this slot from "Let users adjust instead of restart" below,
+            // which now gets filter-2.png instead.
             type: "image",
             src: "/images/Web3/filter.png",
             alt: "Filter layout for setting cohort conditions",
-            width: 1200,
-            height: 675,
+            width: 2566,
+            height: 1304,
+          },
+          { type: "heading", level: 3, text: "Let users adjust instead of restart" },
+          {
+            type: "paragraph",
+            text: "If the final audience was too narrow or too broad, marketers could reopen the slideout and adjust their filters immediately.",
+          },
+          {
+            type: "paragraph",
+            text: "They didn't have to rebuild the cohort from scratch.",
+          },
+          {
+            type: "image",
+            src: "/images/Web3/filter-2.png",
+            alt: "Filter editing and cohort adjustment interface",
+            width: 2566,
+            height: 1304,
+          },
+          { type: "heading", level: 3, text: "Show the signal, not false precision" },
+          {
+            type: "paragraph",
+            text: "Our data was cached rather than fully live.",
+          },
+          {
+            type: "paragraph",
+            text: "Showing an exact number like 1,284 wallets suggested a level of precision we couldn't guarantee.",
+          },
+          {
+            type: "paragraph",
+            text: "So instead, I showed the audience as a percentage/range.",
+          },
+          {
+            type: "paragraph",
+            text: "What marketers really needed to know wasn't the exact wallet count.",
+          },
+          {
+            type: "paragraph",
+            text: "They needed to know whether the audience was too narrow, healthy, or too broad.",
+          },
+          {
+            type: "image",
+            src: "/images/Web3/Show the signal.png",
+            alt: "Audience estimate shown as a percentage/range instead of an exact wallet count",
+            width: 2566,
+            height: 1304,
+          },
+        ],
+      },
+      {
+        id: "usable-workflow",
+        navLabel: "Workflow",
+        heading: "From complex data to a usable marketing workflow",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The final experience hid most of the blockchain complexity behind a workflow marketers already understood:",
+          },
+          {
+            type: "paragraph",
+            text: "**Choose an audience → refine it → sync it → launch a campaign.**",
+          },
+          {
+            type: "paragraph",
+            text: "This allowed clients to perform work that previously required our team to build manually.",
           },
         ],
       },
       {
         id: "feedback-impact",
         navLabel: "Outcomes",
-        heading: "Feedback & Impact",
+        heading: "Outcome",
         blocks: [
           {
             type: "paragraph",
-            text: 'Clients later described the experience as "surprisingly easy," even though the underlying workflow, mapping wallet behavior to real identities, was highly complex.',
+            text: 'Clients later described the experience as "surprisingly easy," despite the complexity of mapping wallet behavior to usable marketing audiences.',
           },
           {
             type: "feedbackGrid",
@@ -825,6 +906,7 @@ export const caseStudies: CaseStudy[] = [
             summary: "Supporting Go-to-Market",
             heading: "Supporting Go-to-Market",
             text: "Campaign materials I designed for product launches across international markets.",
+            video: { youtubeId: "ZLY7iW2vOcs", title: "Go-to-market campaign material walkthrough" },
             images: [
               {
                 src: "/images/CaseStudy-eCom/Marketing material/MKT Campaign material.png",

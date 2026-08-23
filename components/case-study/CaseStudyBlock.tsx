@@ -195,7 +195,13 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "spotlight":
       return (
-        <SpotlightCard summary={block.summary} heading={block.heading} text={block.text} images={block.images} />
+        <SpotlightCard
+          summary={block.summary}
+          heading={block.heading}
+          text={block.text}
+          video={block.video}
+          images={block.images}
+        />
       );
 
     case "feedbackGrid":

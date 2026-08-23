@@ -114,15 +114,19 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                       // separate "muted note" treatment.
                       <p className="mb-5 text-body-sm text-fg">{renderInline(caseStudy.impactStatsNote)}</p>
                     )}
-                    {/* Copied directly from CaseStudyBlock's statRow
-                        (className-for-className, including my-7) so this
-                        "number component" looks identical wherever it's
-                        used — see that block for the min-w-0 rationale. */}
+                    {/* Layout (flex-row/min-w-0/flex-1) still mirrors
+                        CaseStudyBlock's statRow — see that block for the
+                        min-w-0 rationale. Padding is deliberately its own
+                        p-card-compact/-lg (not statRow's p-4): these two
+                        cards hold different content (a label + secondary
+                        description text here, vs. one big stat number
+                        there) and are kept independent on purpose, not
+                        synced to always match. */}
                     <RevealGroup className="my-7 flex flex-col gap-4 sm:flex-row">
                       {caseStudy.impactStats.map((stat) => (
                         <RevealItem
                           key={stat.label}
-                          className="min-w-0 flex-1 rounded-lg bg-white p-4"
+                          className="min-w-0 flex-1 rounded-lg bg-white p-card-compact md:p-card-compact-lg"
                         >
                           {/* mb-3 (12px) — this site's "value → its label
                               caption" gap, same as CaseStudyBlock's statRow

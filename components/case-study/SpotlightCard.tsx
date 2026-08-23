@@ -55,11 +55,17 @@ export default function SpotlightCard({
   summary,
   heading,
   text,
+  video,
   images,
 }: {
   summary: string;
   heading: string;
   text: string;
+  /** Embedded above the images in the lightbox — no forced autoplay/mute/
+   *  loop (unlike CaseStudyBlock's videoGrid, which is a decorative,
+   *  always-visible card): this only plays once someone's deliberately
+   *  opened the lightbox to watch it. */
+  video?: { youtubeId: string; title: string };
   images: SpotlightImage[];
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,15 +86,16 @@ export default function SpotlightCard({
 
   return (
     <>
+      {/* hover-shine + overflow-hidden on the row itself (was just the icon
+          box) — the sweep now runs the full button width on hover, not only
+          when the pointer is directly over the icon. */}
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="my-8 flex w-full cursor-pointer items-center justify-between gap-4 rounded-2xl bg-white px-6 py-5 text-left"
+        className="hover-shine my-8 flex w-full cursor-pointer items-center justify-between gap-4 overflow-hidden rounded-2xl bg-white px-6 py-5 text-left"
       >
         <span className="text-body-sm text-fg">{summary}. Tap to read</span>
-        {/* hover-shine needs overflow-hidden on this same element — the
-            sweep bar is a ::after positioned/sized relative to it. */}
-        <span className="hover-shine flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-fg text-fg">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-fg text-fg">
           <QuestionIcon />
         </span>
       </button>
@@ -118,6 +125,17 @@ export default function SpotlightCard({
               </h3>
               <p className="mb-8 text-body-sm text-fg">{renderInline(text)}</p>
               <div className="flex flex-col gap-6">
+                {video && (
+                  <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
+                    <iframe
+                      className="absolute inset-0 h-full w-full"
+                      src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0&modestbranding=1`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
                 {images.map((image) => (
                   <div key={image.src} className="overflow-hidden rounded-xl bg-bg-alt">
                     <Image
