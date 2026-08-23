@@ -92,7 +92,7 @@ export default function Hero() {
 
             <div className="flex flex-col gap-3 sm:flex-row md:hidden">
               <Button href="#works">Check out recent work</Button>
-              <Button href="/about" variant="third">
+              <Button href="/about" variant="secondary">
                 Learn more about me
               </Button>
             </div>

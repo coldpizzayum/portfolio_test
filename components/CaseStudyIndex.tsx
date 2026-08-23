@@ -27,7 +27,11 @@ export default function CaseStudyIndex({ items }: { items: WorkItem[] }) {
   return (
     <div className="relative z-[1]">
       <FilterPills tags={CATEGORIES} selected={selected} onSelect={setSelected} />
-      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+      {/* gap-8 on mobile too (was gap-6/24px) — with the mobile card's
+          content panel now p-0 (flush, no internal padding), 24px between
+          stacked cards read as too tight; bumped to match the md:gap-8
+          value instead of introducing a third number. */}
+      <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
         {filtered.map((item) => (
           <WorkImageCard key={item.slug} item={item} />
         ))}
