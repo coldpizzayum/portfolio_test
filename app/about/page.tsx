@@ -24,18 +24,22 @@ export default function AboutPage() {
               <p className="mb-5 text-body-sm text-fg">
                 👋 Hi, I&apos;m Yiting.
                 <br />
-                After design school, I started my career at a tech startup with an international team, building
-                products in emerging tech, blockchain especially. Working with people from so many different
-                backgrounds pushed me to learn fast, think broadly, and grow both professionally and personally.
+                I&apos;m a Product Designer from Taiwan 🇹🇼, now based in Berlin 🇩🇪.
               </p>
               <p className="mb-5 text-body-sm text-fg">
-                In 2022, I joined a fully remote team, which gave me the freedom to travel and explore new cultures
-                and tech ecosystems. Over the next two years, I lived and worked in New York, Amsterdam, Berlin, and
-                Tokyo, spending one to three months in each city.
+                I&apos;ve spent most of my career working at startups, mainly on blockchain, Web3, and more recently
+                AI products.
+              </p>
+              <p className="mb-5 text-body-sm text-fg">
+                I started my career at a tech startup in Taiwan, working with an international team on blockchain
+                products.
+              </p>
+              <p className="mb-5 text-body-sm text-fg">
+                In 2022, I joined a fully remote team and spent the next two years living and working in New York
+                🗽, Amsterdam 🇳🇱, Berlin 🇩🇪, and Tokyo 🇯🇵.
               </p>
               <p className="text-body-sm text-fg">
-                In 2025, inspired by the people I met and the connections I made along the way, I moved to Berlin to
-                focus, build, and start the next chapter of my career.
+                In 2025, I decided to settle in Berlin and continue my career here.
               </p>
             </div>
 

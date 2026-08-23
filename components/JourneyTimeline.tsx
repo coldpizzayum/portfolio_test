@@ -18,41 +18,33 @@ interface JourneyEntry {
 
 const JOURNEY: JourneyEntry[] = [
   {
-    dateRange: "11/2025 – Present | Berlin, Germany",
-    title: "Product Designer & Builder, Freelance",
-    description: "I've been traveling around Europe, and along the way, learning to build products with AI.",
-    bullets: [
-      "Built an AI inventory management system for a metal manufacturer.",
-      'Won "Best Use of AskNews API" at the Berlin AI Builders Hackathon.',
-    ],
-  },
-  {
-    dateRange: "03/2023 – 03/2025 | Taipei, Taiwan",
-    title: "Founding Product Designer, Growing3",
+    dateRange: "2025 – Present · Berlin, Germany",
+    title: "Product Designer & Builder · Freelance",
     description:
-      "As the first designer at a pre-seed startup, I established the product design and research foundation from scratch.",
-    bullets: [
-      "Designed the first MVP of their Web3 marketing product",
-      "Built the design system and improved UX consistency",
-      "Ran prototypes and user research to uncover new business opportunities",
-    ],
+      'Recently, I\'ve been exploring how AI can be used in real products. I\'m currently designing and building an AI-powered inventory management system for a metal manufacturer. I also joined the AI Builders Hackathon in Berlin, where our team won "Best Use of AskNews API."',
   },
   {
-    dateRange: "03/2023 – 03/2025 | Taipei, Taiwan",
-    title: "UXUI Designer, CoolBitX",
+    // 2023 – 2025 (was 03/2023 – 03/2025, copy-pasted from the CoolBitX
+    // entry below it — a real bug, not a deliberate match).
+    dateRange: "2023 – 2025 · Taipei, Taiwan",
+    title: "Founding Product Designer · Growing3",
     description:
-      "As a UX/UI Designer at a Series B startup, I supported their global expansion into the EU, Japan, Korea, and South America.",
-    bullets: [
-      "Introduced Hotjar and A/B testing to improve eCommerce performance",
-      "Localized the eCommerce and product experience for different markets",
-      "Built a comprehensive visual design system across different channels",
-      "Grew monthly ecommerce traffic from 20K to 50K and drove 4x revenue growth in the first year after launching",
-    ],
+      "I joined Growing3 as its first designer when the company was still pre-seed. A lot of things started from scratch, from figuring out the first MVP and talking to users, to setting up the design system as the product grew. It was also where I got to work closely with the founders and turn early ideas into something we could test with real users.",
   },
   {
-    dateRange: "03/2023 – 03/2025 | Taipei, Taiwan",
-    title: "B.S. Industrial Design, National Taiwan University of Science and Technology",
-    description: "Taiwan's equivalent of a Technical University (TU), top-ranked for technology and design.",
+    // 2019 – 2022 (was 03/2023 – 03/2025, the same copy-paste bug as
+    // above — this entry had Growing3's dates, not its own).
+    dateRange: "2019 – 2022 · Taipei, Taiwan",
+    title: "UX/UI Designer · CoolBitX",
+    description:
+      "CoolBitX was my first job in tech and where I learned a lot about designing for a global product. I worked across product, eCommerce, and brand as the company expanded into Europe, Japan, and Korea. I also got quite involved in the eCommerce side, introducing tools like Hotjar and A/B testing and learning how design decisions showed up in actual numbers.",
+  },
+  {
+    // 2014 – 2018 (was 03/2023 – 03/2025, same copy-paste bug).
+    dateRange: "2014 – 2018 · Taipei, Taiwan",
+    title: "B.S. Industrial Design · National Taiwan University of Science and Technology",
+    description:
+      "I studied Industrial Design at NTUST, Taiwan's equivalent of a Technical University (TU). I was always curious about why people behave the way they do, so I also took quite a few psychology courses alongside design. That interest eventually became part of what drew me toward UX.",
   },
 ];
 
@@ -82,9 +74,6 @@ export default function JourneyTimeline() {
             <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
               My journey
             </h2>
-            <p className="mb-7 text-body-sm text-fg">
-              I&apos;m a Product Designer from Taiwan 🇹🇼. Now based in Berlin 🇩🇪.
-            </p>
             <Button href={RESUME_URL} target="_blank" rel="noreferrer" variant="secondary">
               My Resume
             </Button>

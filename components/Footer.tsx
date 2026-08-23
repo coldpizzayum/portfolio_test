@@ -100,8 +100,7 @@ export default function Footer() {
               Let&apos;s connect!
             </h2>
             <p className="mb-8 max-w-[480px] text-body-sm text-fg">
-              I enjoy wearing different hats to ship the best product. I don&apos;t like to be limited by the label
-              &quot;Designer.&quot; :) I&apos;m a bit shy, but I&apos;m always excited to learn about new ideas.
+              I&apos;m always happy to chat about product design, tech, or whatever you&apos;re working on.
             </p>
 
             <div className="flex flex-wrap items-center gap-3">

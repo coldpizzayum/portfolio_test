@@ -328,13 +328,18 @@ body {
     transform: rotate(-2deg) scale(1.02);
   }
 
-  /* A diagonal light sweep that passes across the element on hover —
-     referenced from seanhalpin.xyz's icon-box hover state. The sweep is a
-     ::after pseudo-element (a skewed gradient bar) parked off to the left;
-     hovering slides it across to the right. Needs `overflow-hidden` (set on
-     the element using this class, not baked in here) so the bar doesn't
-     spill past rounded corners. Currently only SpotlightCard's icon box
-     uses this. */
+  /* A diagonal light sweep that passes across the *whole* element on hover
+     — referenced from seanhalpin.xyz's icon-box hover state. The sweep is
+     a ::after pseudo-element (a skewed gradient band) parked off to the
+     left; hovering slides it across to the right. Needs `overflow-hidden`
+     (set on the element using this class, not baked in here) so the band
+     doesn't spill past rounded corners. Currently SpotlightCard's trigger
+     card uses this.
+     The gradient has soft --color-fg edges either side of the white
+     highlight (not just white-to-transparent) — a plain white glare is
+     nearly invisible on this card's own bg-white, so it needs that darker
+     framing to actually read against a white surface. Band is 70% width
+     so it visibly washes over the whole card, not just a thin stripe. */
   .hover-shine {
     position: relative;
   }
@@ -342,12 +347,19 @@ body {
     content: "";
     position: absolute;
     top: 0;
-    left: -75%;
-    width: 50%;
+    left: -95%;
+    width: 70%;
     height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(35, 58, 72, 0.06) 35%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(35, 58, 72, 0.06) 65%,
+      transparent 100%
+    );
     transform: skewX(-20deg);
-    transition: left 550ms ease;
+    transition: left 650ms ease;
   }
   .hover-shine:hover::after {
     left: 125%;
