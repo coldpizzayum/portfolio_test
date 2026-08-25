@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -60,6 +61,17 @@ export default function RootLayout({
         className="flex min-h-screen flex-col bg-bg text-fg font-source-sans-pro text-base leading-relaxed antialiased"
         suppressHydrationWarning
       >
+        {/* Standalone react-devtools app (npx react-devtools) — dev-only,
+         *  connects over its default localhost:8097 server. Must load
+         *  before React itself hydrates the page, hence
+         *  strategy="beforeInteractive" (Next.js hoists this into <head>
+         *  and runs it ahead of any page code regardless of where it's
+         *  written in the tree). Gated on NODE_ENV so this never ships to
+         *  production and never tries to reach localhost from a real
+         *  visitor's browser. */}
+        {process.env.NODE_ENV === "development" && (
+          <Script src="http://localhost:8097" strategy="beforeInteractive" />
+        )}
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

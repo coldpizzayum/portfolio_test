@@ -16,6 +16,22 @@ interface FanCard {
   isPhoto?: boolean;
 }
 
+// Peeking screenshot stack for the "work" fan card only (on request,
+// referenced from a "Recent work" hero card with 3 overlapping product
+// screenshots above it that fan out on hover). Reuses the 3 case study
+// cover images already in workItems instead of new device-mockup assets —
+// flat cropped previews, not photorealistic browser/tablet chrome like the
+// reference. Rest state: tightly overlapping, small rotation, barely
+// peeking above the card edge. Hover (driven by the card Link's own
+// `group` class, same mechanism as its CTA button below): each tile
+// slides further up and apart with a per-tile transition-delay, so they
+// cascade out one after another instead of snapping together.
+const WORK_PREVIEW_TILES = [
+  { src: "/images/Web3/Web3 Console.png", alt: "" },
+  { src: "/images/CoolWallet.png", alt: "" },
+  { src: "/images/Influencer Marketing/Influencer Matcher.png", alt: "" },
+];
+
 const FAN_CARDS: FanCard[] = [
   {
     key: "work",
@@ -112,9 +128,48 @@ export default function Hero() {
                   <Link
                     href={card.href}
                     aria-label={card.title}
-                    className={`group fan-card-rotate relative flex h-[286px] w-[256px] flex-col justify-between overflow-hidden rounded-[20px] p-6 pt-6 pb-7 shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] xl:px-8 xl:pt-8 xl:pb-10 ${card.bg}`}
+                    className={`group fan-card-rotate relative flex h-[286px] w-[256px] flex-col justify-between rounded-[20px] p-6 pt-6 pb-7 shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] xl:px-8 xl:pt-8 xl:pb-10 ${card.key === "work" ? "overflow-visible" : "overflow-hidden"} ${card.bg}`}
                     style={{ "--rotate": `${card.rotation}deg` } as CSSProperties}
                   >
+                    {card.key === "work" && (
+                      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-10">
+                        {WORK_PREVIEW_TILES.map((tile, i) => {
+                          const REST = [
+                            { left: 46, top: -80, z: 20 },
+                            { left: 78, top: -86, z: 30 },
+                            { left: 110, top: -78, z: 10 },
+                          ][i];
+                          // Hidden at rest (opacity-0) — only appears once the card is
+                          // hovered, per explicit correction (was visible-but-tucked
+                          // before, which read as "always on"). Base rotate + hover's
+                          // translate/rotate/opacity are separate Tailwind transform
+                          // utilities that compose onto the same element (each sets its
+                          // own --tw-* var; standard Tailwind behavior, same as e.g.
+                          // WorkImageCard's group-hover:scale-105) — not a conflict, just
+                          // don't also set `transform` via inline style on top of these,
+                          // since inline style would always win and silently kill the
+                          // hover motion. left/top/zIndex below are plain position
+                          // offsets instead, safe to inline. `transition` (not
+                          // `transition-transform`) so opacity animates alongside the
+                          // slide instead of snapping.
+                          const ROTATE_HOVER = [
+                            "rotate-[-6deg] group-hover:-translate-x-4 group-hover:-translate-y-9 group-hover:rotate-[-14deg]",
+                            "rotate-[2deg] group-hover:-translate-y-12 group-hover:rotate-0",
+                            "rotate-[8deg] group-hover:translate-x-4 group-hover:-translate-y-9 group-hover:rotate-[14deg]",
+                          ][i];
+                          const DELAY = ["", "delay-75", "delay-150"][i];
+                          return (
+                            <div
+                              key={tile.src}
+                              className={`absolute h-[74px] w-[100px] overflow-hidden rounded-lg border-2 border-white opacity-0 shadow-hover transition duration-500 ease-out group-hover:opacity-100 xl:h-[92px] xl:w-[124px] ${ROTATE_HOVER} ${DELAY}`}
+                              style={{ left: REST.left, top: REST.top, zIndex: REST.z }}
+                            >
+                              <Image src={tile.src} alt={tile.alt} fill sizes="124px" className="object-cover" />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
                     <span className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/24 to-[60%] to-transparent" />
                     <div className="relative">
                       {/* mb-heading-gap-h4 lives directly on this heading,

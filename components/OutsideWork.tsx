@@ -19,6 +19,9 @@ interface GridMedia {
    *  just another tile in the grid. */
   type: "image" | "video";
   src: string;
+  /** Still frame shown behind a video tile until it actually starts
+   *  playing (see GridVideo) — required for "video", unused for "image". */
+  poster?: string;
   alt: string;
   width: number;
   height: number;
@@ -40,6 +43,7 @@ const MEDIA = {
   danceSocial1: {
     type: "video",
     src: "/images/outside-work/dance-social-1.mp4",
+    poster: "/images/outside-work/dance-social-1-poster.jpg",
     alt: "Hustle dancing at a social dance event",
     width: 1080,
     height: 1920,
@@ -47,6 +51,7 @@ const MEDIA = {
   danceColorfulLights: {
     type: "video",
     src: "/images/outside-work/dance-colorful-lights.mp4",
+    poster: "/images/outside-work/dance-colorful-lights-poster.jpg",
     alt: "Dancing on a colorfully lit dance floor",
     width: 1080,
     height: 1920,
@@ -70,6 +75,7 @@ const MEDIA = {
   dancePractice: {
     type: "video",
     src: "/images/outside-work/dance-practice.mp4",
+    poster: "/images/outside-work/dance-practice-poster.jpg",
     alt: "Practicing a dance lift at the studio",
     width: 1080,
     height: 1920,
@@ -91,6 +97,7 @@ const MEDIA = {
   danceRainbowLights: {
     type: "video",
     src: "/images/outside-work/dance-rainbow-lights.mp4",
+    poster: "/images/outside-work/dance-rainbow-lights-poster.jpg",
     alt: "Dancing under rainbow-colored lights",
     width: 1080,
     height: 1920,
@@ -108,6 +115,7 @@ const MEDIA = {
     // top/bottom off it.
     type: "video",
     src: "/images/outside-work/aerial-yoga.mp4",
+    poster: "/images/outside-work/aerial-yoga-poster.jpg",
     alt: "Practicing aerial yoga at a climbing gym",
     width: 720,
     height: 1280,
@@ -117,6 +125,7 @@ const MEDIA = {
     // landscape-box issue as aerial-yoga.mp4 above.
     type: "video",
     src: "/images/outside-work/dance-hudson-valley.mp4",
+    poster: "/images/outside-work/dance-hudson-valley-poster.jpg",
     alt: "Hustle dancing on a hilltop overlooking the Hudson Valley",
     width: 1080,
     height: 1920,
@@ -154,7 +163,12 @@ function MediaColumn({ column }: { column: GridMedia[] }) {
           style={{ aspectRatio: `${media.width} / ${media.height}` }}
         >
           {media.type === "video" ? (
-            <GridVideo src={media.src} alt={media.alt} className="h-full w-full object-cover" />
+            <GridVideo
+              src={media.src}
+              poster={media.poster}
+              alt={media.alt}
+              className="h-full w-full object-cover"
+            />
           ) : (
             <Image
               src={media.src}

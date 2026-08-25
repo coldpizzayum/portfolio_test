@@ -26,7 +26,7 @@ export const workItems: WorkItem[] = [
     title: "Redesigning eCommerce for 4x revenue",
     description:
       "Redesigned a crypto wallet's eCommerce experience to support expansion into Europe, Japan, and Korea.",
-    tags: ["eCommerce", "Blockchain & Web3", "B2C", "FinTech"],
+    tags: ["FinTech", "eCommerce", "Blockchain & Web3", "B2C"],
     image: "/images/CoolWallet.png",
     caseStudySlug: "coolwallet-pro",
   },
