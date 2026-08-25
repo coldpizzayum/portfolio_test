@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { Caveat, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -18,6 +18,16 @@ const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+// Handwriting face for Hero's sketch-style annotations only (the
+// arrow+note pointing at the video/AI fan cards) — bold weight only,
+// nowhere else on the site uses this, so no lighter weights are loaded.
+const caveat = Caveat({
+  variable: "--font-hand",
+  subsets: ["latin"],
+  weight: ["700"],
   display: "swap",
 });
 
@@ -56,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sourceSerif.variable} ${sourceSans.variable}`}>
+    <html lang="en" className={`${sourceSerif.variable} ${sourceSans.variable} ${caveat.variable}`}>
       <body
         className="flex min-h-screen flex-col bg-bg text-fg font-source-sans-pro text-base leading-relaxed antialiased"
         suppressHydrationWarning
