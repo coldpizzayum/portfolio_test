@@ -31,6 +31,17 @@
   --color-card-sky: #acdbff;
   --color-card-mint: #b9f1e4;
 
+  /* Paired darker/readable text tones for a badge sitting on a card-*
+   *  background — same hue family, dialed down in lightness for contrast.
+   *  Both were already documented as part of this token family; sand-text
+   *  was missing from this file (restored here), salmon-text likewise.
+   *  FeatureShowcase ended up not needing colored badges after all (its
+   *  eyebrow is plain text-fg-secondary on white, not text-on-color), so
+   *  no sky-text/mint-text were added — don't add them speculatively for
+   *  a badge that doesn't exist yet. */
+  --color-card-sand-text: #5c4108;
+  --color-card-salmon-text: #7a1f22;
+
   /* Semantic shadow tokens — consolidates the "glass card" family's resting
      shadow, Hero's fan-card hover-lift, and fixed floating UI chrome into
      one shared black base. Several other hand-rolled shadow-[...] values

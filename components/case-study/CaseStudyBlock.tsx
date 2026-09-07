@@ -5,6 +5,7 @@ import ImageCollage from "./ImageCollage";
 import ToggleBlock from "./ToggleBlock";
 import SpotlightCard from "./SpotlightCard";
 import FeedbackStack from "./FeedbackStack";
+import FeatureShowcase from "./FeatureShowcase";
 import { renderInline } from "../renderInline";
 
 export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType }) {
@@ -175,6 +176,29 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         </div>
       );
 
+    case "videoFile":
+      // Same white-card/aspect-video framing as videoGrid/embed above, just
+      // a native <video controls> instead of a YouTube iframe — no
+      // autoplay/loop/mute, this is real content the reader plays on
+      // purpose, not a decorative background loop (see GridVideo for that
+      // pattern instead).
+      return (
+        <figure className="my-8 rounded-2xl bg-white p-card-compact md:p-card-compact-lg">
+          <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
+            <video
+              src={block.src}
+              controls
+              playsInline
+              aria-label={block.alt}
+              className="absolute inset-0 h-full w-full object-contain"
+            />
+          </div>
+          {block.caption && (
+            <figcaption className="mt-6 text-center text-caption text-fg">{renderInline(block.caption)}</figcaption>
+          )}
+        </figure>
+      );
+
     case "embed":
       return (
         <figure className="my-8 rounded-2xl bg-white p-card-compact md:p-card-compact-lg">
@@ -206,6 +230,9 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "feedbackGrid":
       return <FeedbackStack cards={block.cards} />;
+
+    case "featureShowcase":
+      return <FeatureShowcase items={block.items} />;
 
     default:
       return null;

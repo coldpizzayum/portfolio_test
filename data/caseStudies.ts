@@ -39,6 +39,15 @@ export const workItems: WorkItem[] = [
     image: "/images/Influencer Marketing/Influencer Matcher.png",
     caseStudySlug: "influencer-marketing-tool",
   },
+  {
+    slug: "german-learning-ai-app",
+    title: "Building my own AI-powered German learning app",
+    description:
+      "Designed and built a mobile app that turns my German class notes into vocabulary cards and real-life scenario practice.",
+    tags: ["AI"],
+    image: "/images/German/Slide.png",
+    caseStudySlug: "german-learning-app",
+  },
 ];
 
 export type CaseStudyBlock =
@@ -78,6 +87,13 @@ export type CaseStudyBlock =
    *  Omit them and it falls back to the old fixed 16:9 frame. */
   | { type: "image"; src: string; alt: string; caption?: string; width?: number; height?: number }
   | { type: "videoGrid"; videos: { youtubeId: string; title: string; caption?: string }[] }
+  /** A locally-hosted video file (native `<video controls>`, no autoplay/
+   *  loop — a real content video the reader plays on purpose), same
+   *  white-card/aspect-video framing as videoGrid/embed. Every other video
+   *  block on the site is a YouTube embed (youtubeId); this is the one
+   *  exception for a video that only exists as a local file, not uploaded
+   *  anywhere. */
+  | { type: "videoFile"; src: string; alt: string; caption?: string }
   /** Embeds a live iframe (e.g. a Figma/FigJam board) — same aspect-video
    *  card framing as videoGrid, just without the YouTube-specific params. */
   | { type: "embed"; src: string; title: string; caption?: string }
@@ -88,6 +104,18 @@ export type CaseStudyBlock =
   | {
       type: "feedbackGrid";
       cards: FeedbackCard[];
+    }
+  /** One GlassCard per feature — video demo one side, badge/title/description
+   *  the other, sides alternating per item (see FeatureShowcase.tsx). Built
+   *  for the German-learning-app case study's "product overview" section. */
+  | {
+      type: "featureShowcase";
+      items: {
+        video: string;
+        title: string;
+        description: string;
+        accent: "sky" | "mint" | "salmon";
+      }[];
     };
 
 export interface FeedbackCard {
@@ -124,6 +152,11 @@ export interface CaseStudySection {
    *  labels. The TOC's active-highlight simply stays on the previous visible
    *  entry while scrolling through it. */
   hideFromToc?: boolean;
+  /** Skips rendering the section's own <h2> — for a section whose block
+   *  content (e.g. FeatureShowcase) doesn't need a heading repeated above
+   *  it. `heading` is still required/kept (the TOC still uses `navLabel`,
+   *  not this) so nothing downstream that might read `heading` breaks. */
+  hideHeading?: boolean;
 }
 
 export interface CaseStudyMeta {
@@ -336,6 +369,13 @@ export const caseStudies: CaseStudy[] = [
             alt: "Screenshot of pre-selected cohort category pools by project type",
             width: 1422,
             height: 553,
+          },
+          {
+            type: "image",
+            src: "/images/Web3/filter-3.png",
+            alt: "Advanced filter conditions applied on top of a selected cohort category",
+            width: 2566,
+            height: 1304,
           },
           { type: "heading", level: 3, text: "Keep the estimate visible while filtering" },
           {
@@ -1028,6 +1068,171 @@ export const caseStudies: CaseStudy[] = [
             alt: "GA4 funnel analysis from landing page to checkout",
             width: 2298,
             height: 1174,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "german-learning-app",
+    title: "AI German learning app",
+    year: "2026",
+    subtitle:
+      "Built an AI-powered app that turns my German class notes into vocabulary cards and real-life scenario practice I can do anywhere.",
+    tags: ["AI", "Mobile App", "0 to 1"],
+    heroImage: "/images/German/Slide.png",
+    meta: {
+      role: "Designed, built, and shipped this app.",
+      team: [{ initials: "YH", label: "Me (solo)" }],
+      timeline: "2026",
+      tools: "Claude, Figma, Mobbin, Paper, VS Code, ChatGPT, Supabase, Vercel, GitHub",
+    },
+    sections: [
+      {
+        id: "goal",
+        navLabel: "Goal",
+        heading: "I want to speak German confidently in daily scenarios by the end of 2026",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "I started German classes to learn with a community and stay motivated. But most of my learning stayed inside the classroom. I wanted an easy way to practice what I learned on the go, even while waiting for a delayed train in Berlin.",
+          },
+        ],
+      },
+      {
+        id: "product-overview",
+        navLabel: "Features",
+        // hideHeading: true — no visible <h2> for this section (removed on
+        // request); heading text still set since it's the only thing the
+        // TOC's section-jump target has to refer to if something else ever
+        // reads it (e.g. an aria-label), not because it renders anywhere.
+        heading: "Product overview",
+        hideHeading: true,
+        blocks: [
+          {
+            type: "featureShowcase",
+            items: [
+              {
+                video: "/videos/german-app/organize-notes.mp4",
+                accent: "sky",
+                title: "Organize notes with AI",
+                description: "Turn messy German notes, translations, and new vocabulary into structured learning cards.",
+              },
+              {
+                video: "/videos/german-app/browse-scenarios.mp4",
+                accent: "mint",
+                title: "Browse by real-life scenarios",
+                description: "Explore content by situations like cafés, supermarkets, and public transport.",
+              },
+              {
+                video: "/videos/german-app/practice.mp4",
+                accent: "salmon",
+                title: "Practice what I learned",
+                description: "Practice vocabulary, grammar, speaking, and listening based on my notes and real-life scenarios.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "build-process",
+        navLabel: "Process",
+        heading: "Build Process",
+        blocks: [
+          { type: "heading", level: 3, text: "1. Frame the problem: I want to practice German on the go" },
+          {
+            type: "paragraph",
+            text: "I asked AI to interview me about how I study German, my learning goals, and where I struggle.",
+          },
+          {
+            type: "paragraph",
+            text: "This helped me narrow the first version down to two jobs:",
+          },
+          {
+            type: "bulletList",
+            items: [
+              "**Turn class notes into reusable vocabulary and sentence cards.**",
+              "**Practice what I learned** so I can remember words and use sentences more naturally.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The goal was not to build a full language learning platform. It was to solve the small problem I had every week after class.",
+          },
+          { type: "heading", level: 3, text: "2. Explore common mobile patterns with Mobbin MCP" },
+          {
+            type: "image",
+            src: "/images/German/mobbin-exploration.png",
+            alt: "Tools used to explore and refine the design — Mobbin, Figma, Claude, and Paper for exploring, then VS Code, Figma, Claude, Paper, and ChatGPT for refining",
+            width: 3850,
+            height: 1600,
+          },
+          {
+            type: "paragraph",
+            text: "I connected Mobbin MCP and used Claude to explore common patterns for saving, browsing, and reviewing content. This gave me several options to compare before choosing a structure.",
+          },
+          { type: "heading", level: 3, text: "3. Iterate with AI to build the first interactive prototype" },
+          {
+            type: "paragraph",
+            text: "Once the main jobs were clear, I mapped the app by hand.",
+          },
+          {
+            type: "paragraph",
+            text: "The first version focused on four areas:",
+          },
+          {
+            type: "bulletList",
+            items: [
+              "**Home**: see saved material and learning groups.",
+              "**Add**: turn class notes into vocabulary and sentences.",
+              "**Cards**: browse saved vocabulary and sentences.",
+              "**Practice**: review cards and mark what I remember and what needs more practice.",
+            ],
+          },
+          {
+            type: "image",
+            src: "/images/German/paper-sketch.jpeg",
+            alt: "Hand-drawn sketch mapping the app's four main areas: Home, Add, Cards, and Practice",
+            width: 3788,
+            height: 2525,
+          },
+          {
+            type: "paragraph",
+            text: "Claude Code turned my paper sketch into screens and added some interactions I had missed.",
+          },
+          {
+            type: "paragraph",
+            text: "After a few iterations with Claude and Figma, I reached the final design.",
+          },
+          { type: "heading", level: 3, text: "4. Building the real product was the easiest part" },
+          {
+            type: "paragraph",
+            text: "Once the structure and interactions were clear, I used Supabase, Vercel, and GitHub to turn the prototype into a working product.",
+          },
+          {
+            type: "paragraph",
+            text: "Surprisingly, implementation was the easiest part. Most of the hard work happened earlier: understanding the problem and deciding what to build.",
+          },
+        ],
+      },
+      {
+        id: "takeaways",
+        navLabel: "Takeaways",
+        heading: "Takeaways",
+        blocks: [
+          {
+            type: "cardList",
+            items: [
+              {
+                title: "AI helped me fill a gap in my German learning",
+                description: "I used AI to turn what I learned in class into something I could easily practice in daily life.",
+              },
+              {
+                title: "Building a reusable AI design workflow",
+                description:
+                  "I reused the Design Skills I had created while building my portfolio website and tested them on a different product. Each iteration helped me refine how I work with AI across projects.",
+              },
+            ],
           },
         ],
       },

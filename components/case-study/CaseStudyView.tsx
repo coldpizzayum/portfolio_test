@@ -163,9 +163,11 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
               className={`scroll-mt-24 ${index === 0 ? "pt-0" : "pt-cs-section-gap md:pt-cs-section-gap-lg"}`}
               amount="some"
             >
-              <h2 className="mb-heading-gap-h3 text-h3 tracking-[-0.02em] text-fg">
-                {section.heading}
-              </h2>
+              {!section.hideHeading && (
+                <h2 className="mb-heading-gap-h3 text-h3 tracking-[-0.02em] text-fg">
+                  {section.heading}
+                </h2>
+              )}
               {section.blocks.map((block, blockIndex) => (
                 <CaseStudyBlock key={blockIndex} block={block} />
               ))}

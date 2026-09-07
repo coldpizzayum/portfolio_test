@@ -12,7 +12,7 @@ interface RailItem {
 // `workItems` in data/caseStudies.ts by *position*, not by id — the two
 // arrays must stay in the same order. Add an entry here (and to workItems)
 // if a 4th work item is ever added.
-const RAIL_LABELS = ["1", "2", "3"];
+const RAIL_LABELS = ["1", "2", "3", "4"];
 
 export default function WorkIndexRail({ items }: { items: RailItem[] }) {
   const [activeId, setActiveId] = useState<string | undefined>(items[0]?.id);
