@@ -178,10 +178,11 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
 
     case "videoFile":
       // Same white-card/aspect-video framing as videoGrid/embed above, just
-      // a native <video controls> instead of a YouTube iframe — no
-      // autoplay/loop/mute, this is real content the reader plays on
-      // purpose, not a decorative background loop (see GridVideo for that
-      // pattern instead).
+      // a native <video controls> instead of a YouTube iframe — this is
+      // real content the reader plays on purpose, not a decorative
+      // background loop (see GridVideo for that pattern instead). No
+      // loop either way; autoPlay (opt-in per block, see the type) also
+      // mutes, since browsers refuse to autoplay video with sound.
       return (
         <figure className="my-8 rounded-2xl bg-white p-card-compact md:p-card-compact-lg">
           <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
@@ -189,6 +190,8 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
               src={block.src}
               controls
               playsInline
+              autoPlay={block.autoPlay}
+              muted={block.autoPlay}
               aria-label={block.alt}
               className="absolute inset-0 h-full w-full object-contain"
             />

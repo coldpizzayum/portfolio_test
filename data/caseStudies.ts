@@ -87,13 +87,18 @@ export type CaseStudyBlock =
    *  Omit them and it falls back to the old fixed 16:9 frame. */
   | { type: "image"; src: string; alt: string; caption?: string; width?: number; height?: number }
   | { type: "videoGrid"; videos: { youtubeId: string; title: string; caption?: string }[] }
-  /** A locally-hosted video file (native `<video controls>`, no autoplay/
-   *  loop — a real content video the reader plays on purpose), same
+  /** A locally-hosted video file (native `<video controls>`), same
    *  white-card/aspect-video framing as videoGrid/embed. Every other video
    *  block on the site is a YouTube embed (youtubeId); this is the one
    *  exception for a video that only exists as a local file, not uploaded
-   *  anywhere. */
-  | { type: "videoFile"; src: string; alt: string; caption?: string }
+   *  anywhere. Default: no autoplay/loop, a real content video the reader
+   *  plays on purpose. `autoPlay` opts a specific instance into playing as
+   *  soon as the page loads (native `<video autoPlay>`, no
+   *  viewport-gating — that's GridVideo's job for looping background
+   *  decoration, not this) — browsers only allow autoplay when muted, so
+   *  this also mutes the video (controls stay on, so the reader
+   *  can pause/unmute/replay). */
+  | { type: "videoFile"; src: string; alt: string; caption?: string; autoPlay?: boolean }
   /** Embeds a live iframe (e.g. a Figma/FigJam board) — same aspect-video
    *  card framing as videoGrid, just without the YouTube-specific params. */
   | { type: "embed"; src: string; title: string; caption?: string }
@@ -228,6 +233,24 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     sections: [
+      {
+        id: "wallet-selector-demo",
+        navLabel: "Wallet Selector",
+        // hideHeading — just the video, no <h2> of its own; hideFromToc —
+        // doesn't need a separate TOC entry, it's a lead-in sitting right
+        // above "Problems", not a section in its own right.
+        heading: "Wallet Selector demo",
+        hideHeading: true,
+        hideFromToc: true,
+        blocks: [
+          {
+            type: "videoFile",
+            src: "/videos/web3/wallet-selector.mp4",
+            alt: "Wallet Selector walkthrough",
+            autoPlay: true,
+          },
+        ],
+      },
       {
         id: "problems",
         navLabel: "Problems",
