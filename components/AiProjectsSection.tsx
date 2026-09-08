@@ -11,7 +11,7 @@ export default function AiProjectsSection() {
       <GlassCard>
         <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
           <div className="max-w-[480px] shrink-0">
-            <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">Building with AI</h2>
+            <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">Build with AI</h2>
             <p className="mb-8 text-body-sm text-fg">
               I&apos;ve been using AI to go beyond prototypes and build working products myself.
               <br />

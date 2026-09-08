@@ -8,10 +8,10 @@ import WorkImageCard from "./WorkImageCard";
 /** Fixed taxonomy for the filter row — not derived from `workItems.tags`
  *  (those are free-form, case-study-specific labels shown as chips on each
  *  card, e.g. "Pre-seed", "AB Testing"). This list only grows when a new
- *  category is genuinely needed, same reasoning as WorkIndexRail's
- *  YEAR_LABELS: a fixed array, not something to keep in sync automatically.
- *  A category with no matching case study yet (e.g. "AI", "FinTech") just
- *  shows an empty grid when selected — that's accurate, not a bug. */
+ *  category is genuinely needed, not automatically kept in sync with
+ *  whatever tags happen to exist. A category with no matching case study
+ *  yet (e.g. "AI", "FinTech") just shows an empty grid when selected —
+ *  that's accurate, not a bug. */
 const CATEGORIES = ["AI", "B2B", "B2C", "eCommerce", "FinTech", "Data Heavy", "Blockchain & Web3"];
 
 /**

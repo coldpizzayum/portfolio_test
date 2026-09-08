@@ -116,9 +116,9 @@ const HOVER_CLASSES: Record<ButtonVariant, { self: string; group: string }> = {
   primary: { self: "hover:bg-cta-hover", group: "group-hover:bg-cta-hover" },
   secondary: { self: "hover:bg-fg-hover", group: "group-hover:bg-fg-hover" },
   // Border darkens AND gets a solid fill (bg-bg-alt) — same hover-color
-  // group as Header's NavPills, JourneyTimeline's accordion rows,
-  // CaseStudySideNav's TOC links, and WorkIndexRail's rail items, meant to
-  // read as the same hover color sitewide. NavPills renders this as its
+  // group as Header's NavPills, JourneyTimeline's accordion rows, and
+  // CaseStudySideNav's TOC links, meant to read as the same hover color
+  // sitewide. NavPills renders this as its
   // own separate sliding pill rather than a static background (see
   // NavPills in Header.tsx) — same color, different delivery mechanism.
   third: { self: "hover:border-fg hover:bg-bg-alt", group: "group-hover:border-fg group-hover:bg-bg-alt" },
