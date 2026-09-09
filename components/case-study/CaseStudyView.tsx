@@ -101,6 +101,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                     alt={caseStudy.overviewVideo.alt}
                     className="mt-8"
                     bg="bg"
+                    padding="x"
                   />
                 )}
 

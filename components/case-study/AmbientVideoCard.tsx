@@ -17,15 +17,23 @@ export default function AmbientVideoCard({
   // uses the same bg-bg treatment as that card's own Impact Overview
   // block instead, for the same reason that one isn't white either.
   bg = "white",
+  // "all" — padding on every side (CaseStudyBlock's usage). "x" — the
+  // Overview-card usage: no top/bottom padding (on request, that read as
+  // an unwanted frame above/below the video there), horizontal padding
+  // only, so the video still sits inset from the card's left/right edges.
+  padding = "all",
 }: {
   src: string;
   alt: string;
   className?: string;
   bg?: "white" | "bg";
+  padding?: "all" | "x";
 }) {
   return (
     <figure
-      className={`rounded-2xl ${bg === "white" ? "bg-white" : "bg-bg"} p-card-compact md:p-card-compact-lg ${className ?? ""}`}
+      className={`rounded-2xl ${bg === "white" ? "bg-white" : "bg-bg"} ${
+        padding === "all" ? "p-card-compact md:p-card-compact-lg" : "px-card-compact md:px-card-compact-lg"
+      } ${className ?? ""}`}
     >
       <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
         <video
