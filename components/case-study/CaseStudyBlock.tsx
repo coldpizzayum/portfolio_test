@@ -6,6 +6,7 @@ import ToggleBlock from "./ToggleBlock";
 import SpotlightCard from "./SpotlightCard";
 import FeedbackStack from "./FeedbackStack";
 import FeatureShowcase from "./FeatureShowcase";
+import AmbientVideoCard from "./AmbientVideoCard";
 import { renderInline } from "../renderInline";
 
 export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType }) {
@@ -176,13 +177,15 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
         </div>
       );
 
-    case "videoFile":
-      // Same white-card/aspect-video framing as videoGrid/embed above, just
-      // a native <video controls> instead of a YouTube iframe — this is
-      // real content the reader plays on purpose, not a decorative
-      // background loop (see GridVideo for that pattern instead). No
-      // loop either way; autoPlay (opt-in per block, see the type) also
-      // mutes, since browsers refuse to autoplay video with sound.
+    case "videoFile": {
+      // Default: `controls`, no autoplay/loop — real content the reader
+      // plays on purpose. `autoPlay: true` instead delegates to
+      // AmbientVideoCard — no controls, loops silently, reads like a
+      // looping background image/GIF (see that component's own doc
+      // comment; shared with CaseStudyView's Overview-card video slot).
+      if (block.autoPlay) {
+        return <AmbientVideoCard src={block.src} alt={block.alt} className="my-8" />;
+      }
       return (
         <figure className="my-8 rounded-2xl bg-white p-card-compact md:p-card-compact-lg">
           <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
@@ -190,8 +193,6 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
               src={block.src}
               controls
               playsInline
-              autoPlay={block.autoPlay}
-              muted={block.autoPlay}
               aria-label={block.alt}
               className="absolute inset-0 h-full w-full object-contain"
             />
@@ -201,6 +202,7 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
           )}
         </figure>
       );
+    }
 
     case "embed":
       return (

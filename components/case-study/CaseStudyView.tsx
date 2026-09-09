@@ -4,6 +4,7 @@ import { caseStudies, type CaseStudy } from "@/data/caseStudies";
 import { Reveal, RevealGroup, RevealItem } from "../Reveal";
 import CaseStudySideNav from "./CaseStudySideNav";
 import CaseStudyBlock from "./CaseStudyBlock";
+import AmbientVideoCard from "./AmbientVideoCard";
 import MoreCaseStudies from "./MoreCaseStudies";
 import TagChip from "../TagChip";
 import { renderInline } from "../renderInline";
@@ -93,6 +94,15 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
                     </div>
                   </div>
                 </div>
+
+                {caseStudy.overviewVideo && (
+                  <AmbientVideoCard
+                    src={caseStudy.overviewVideo.src}
+                    alt={caseStudy.overviewVideo.alt}
+                    className="mt-8"
+                    bg="bg"
+                  />
+                )}
 
                 {caseStudy.impactStats && (
                   <div className="mt-8 rounded-xl bg-bg p-6">

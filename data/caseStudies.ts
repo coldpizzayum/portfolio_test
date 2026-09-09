@@ -87,17 +87,21 @@ export type CaseStudyBlock =
    *  Omit them and it falls back to the old fixed 16:9 frame. */
   | { type: "image"; src: string; alt: string; caption?: string; width?: number; height?: number }
   | { type: "videoGrid"; videos: { youtubeId: string; title: string; caption?: string }[] }
-  /** A locally-hosted video file (native `<video controls>`), same
-   *  white-card/aspect-video framing as videoGrid/embed. Every other video
-   *  block on the site is a YouTube embed (youtubeId); this is the one
-   *  exception for a video that only exists as a local file, not uploaded
-   *  anywhere. Default: no autoplay/loop, a real content video the reader
-   *  plays on purpose. `autoPlay` opts a specific instance into playing as
-   *  soon as the page loads (native `<video autoPlay>`, no
-   *  viewport-gating — that's GridVideo's job for looping background
-   *  decoration, not this) — browsers only allow autoplay when muted, so
-   *  this also mutes the video (controls stay on, so the reader
-   *  can pause/unmute/replay). */
+  /** A locally-hosted video file, same white-card/aspect-video framing as
+   *  videoGrid/embed. Every other video block on the site is a YouTube
+   *  embed (youtubeId); this is the one exception for a video that only
+   *  exists as a local file, not uploaded anywhere.
+   *
+   *  Default: `controls`, no autoplay/loop — real content the reader
+   *  plays on purpose.
+   *
+   *  `autoPlay: true` flips to the opposite treatment (on request,
+   *  referenced from benshih.design's ai-translation-review page): no
+   *  controls at all — nothing to drag/scrub/pause — loops continuously
+   *  and plays silently (muted, since browsers refuse unmuted autoplay),
+   *  reading like a looping background image/GIF rather than a video the
+   *  reader operates. Not GridVideo's viewport-gated pattern either — no
+   *  IntersectionObserver, this just always plays once mounted. */
   | { type: "videoFile"; src: string; alt: string; caption?: string; autoPlay?: boolean }
   /** Embeds a live iframe (e.g. a Figma/FigJam board) — same aspect-video
    *  card framing as videoGrid, just without the YouTube-specific params. */
@@ -198,6 +202,13 @@ export interface CaseStudy {
    *  note (see web3-marketing-dashboard/influencer-marketing-tool), use
    *  ImpactStat.text per-card instead. */
   impactStatsNote?: string;
+  /** An always-playing, controls-free video (see AmbientVideoCard) shown
+   *  inside the Overview card, above the Impact Overview stats block (or
+   *  at the card's bottom, if there are no impact stats) — on request,
+   *  referenced from benshih.design's ai-translation-review page. Only
+   *  renders when `meta` is also set (it lives inside the #overview
+   *  card, which itself only exists then). */
+  overviewVideo?: { src: string; alt: string };
   sections: CaseStudySection[];
 }
 
@@ -222,6 +233,10 @@ export const caseStudies: CaseStudy[] = [
       timeline: "2023 — 2024",
       tools: "Figma, Notion, ChatGPT, MidJourney",
     },
+    overviewVideo: {
+      src: "/videos/web3/wallet-selector.mp4",
+      alt: "Wallet Selector walkthrough",
+    },
     impactStats: [
       {
         label: "$1.2M seed round",
@@ -233,24 +248,6 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     sections: [
-      {
-        id: "wallet-selector-demo",
-        navLabel: "Wallet Selector",
-        // hideHeading — just the video, no <h2> of its own; hideFromToc —
-        // doesn't need a separate TOC entry, it's a lead-in sitting right
-        // above "Problems", not a section in its own right.
-        heading: "Wallet Selector demo",
-        hideHeading: true,
-        hideFromToc: true,
-        blocks: [
-          {
-            type: "videoFile",
-            src: "/videos/web3/wallet-selector.mp4",
-            alt: "Wallet Selector walkthrough",
-            autoPlay: true,
-          },
-        ],
-      },
       {
         id: "problems",
         navLabel: "Problems",
