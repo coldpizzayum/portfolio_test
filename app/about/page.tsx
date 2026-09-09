@@ -10,8 +10,18 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: "About",
   description: DESCRIPTION,
-  openGraph: { description: DESCRIPTION },
-  twitter: { description: DESCRIPTION },
+  // openGraph/twitter here shallow-replace layout.tsx's (not deep-merge),
+  // so image/card have to be restated per page — see app/page.tsx's
+  // comment on the same pattern.
+  openGraph: {
+    description: DESCRIPTION,
+    images: [{ url: "/images/summary_large_image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    description: DESCRIPTION,
+    images: ["/images/summary_large_image.png"],
+  },
 };
 
 export default function AboutPage() {

@@ -9,8 +9,20 @@ const DESCRIPTION =
 
 export const metadata: Metadata = {
   description: DESCRIPTION,
-  openGraph: { description: DESCRIPTION },
-  twitter: { description: DESCRIPTION },
+  // Next.js shallow-replaces (not deep-merges) openGraph/twitter when a
+  // page defines its own — so this has to restate images/card itself, not
+  // just description, or it silently drops layout.tsx's image and
+  // "summary_large_image" card (that's exactly what was live: no
+  // og:image at all, and twitter:card had fallen back to "summary").
+  openGraph: {
+    description: DESCRIPTION,
+    images: [{ url: "/images/summary_large_image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    description: DESCRIPTION,
+    images: ["/images/summary_large_image.png"],
+  },
 };
 
 export default function Home() {

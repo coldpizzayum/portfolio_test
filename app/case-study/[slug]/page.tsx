@@ -27,7 +27,9 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
       images: [{ url: caseStudy.heroImage, width: 1000, height: 734 }],
     },
     twitter: {
+      card: "summary_large_image",
       description,
+      images: [caseStudy.heroImage],
     },
   };
 }
