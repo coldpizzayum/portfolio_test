@@ -99,7 +99,7 @@ const FAN_CARDS: FanCard[] = [
     rotation: 6.5,
     href: "/#works",
     title: "Recent work",
-    description: "I've designed B2B and B2C products, mostly in FinTech and blockchain.",
+    description: "I've designed B2B and B2C products, with a focus on FinTech and complex digital products.",
     cta: "Recent case studies",
   },
   {
@@ -163,7 +163,7 @@ export default function Hero() {
             </h1>
 
             <p className="mb-8 font-source-sans-pro text-[clamp(18px,13.86px+1.10vw,28px)] leading-[1.2] font-normal text-fg">
-              5+ years in startups, from pre-seed to Series B. I design, prototype, and build.
+              5+ years in startups, from pre-seed to Series B. I design, build, and market.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row md:hidden">
