@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Caveat, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -85,6 +86,14 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        {/* Fixed-position, renders nothing until opened — safe to mount
+         *  once here for every page. Positioned bottom-right (z-40); the
+         *  only other fixed bottom-of-screen element is Header's mobile
+         *  NavPills, which is bottom-center on mobile and top-center on
+         *  desktop (see Header.tsx) — ChatWidget sits higher up on mobile
+         *  (bottom-24, not bottom-8) specifically so the two don't crowd
+         *  the same corner/row on narrow screens. */}
+        <ChatWidget />
       </body>
     </html>
   );
