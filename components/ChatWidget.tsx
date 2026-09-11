@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Button from "./Button";
 
 // Keep these two in sync by hand with their server-side counterparts —
@@ -17,16 +18,28 @@ const CONTACT_EMAIL = "yitinghuang.design@gmail.com"; // same address Footer.tsx
 const STREAM_ERROR_MARKER = " CHAT_ERROR "; // must match app/api/chat/route.ts
 const EASE = [0.22, 1, 0.36, 1] as const; // same easing Reveal.tsx uses sitewide
 
+// Empty-state quick-start prompts (on request, referenced from
+// benshih.design's chat widget) — shown once, before the first message.
+const SUGGESTED_PROMPTS = [
+  "What kind of roles are you open to?",
+  "I'd love to hire you",
+  "Which case study should I start with?",
+  "How did you build this portfolio?",
+];
+
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
-function ChatIcon() {
+// Same avatar image as the browser tab favicon (app/icon.png) — and same
+// rounded-full/object-cover/object-top treatment Header.tsx already uses
+// for this exact image, not a new avatar-shape convention.
+function AvatarIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
-      <path d="M2 4.5A2.5 2.5 0 0 1 4.5 2h11A2.5 2.5 0 0 1 18 4.5v7a2.5 2.5 0 0 1-2.5 2.5H9.06l-3.8 3.24a.75.75 0 0 1-1.24-.57V14h-.02A2.5 2.5 0 0 1 2 11.5v-7Z" />
-    </svg>
+    <span className="relative block h-full w-full overflow-hidden rounded-full">
+      <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
+    </span>
   );
 }
 
@@ -104,14 +117,18 @@ export default function ChatWidget() {
   const trimmedInput = input.trim();
   const canSend = sessionReady && !isStreaming && !turnLimitReached && trimmedInput.length > 0 && input.length <= MAX_INPUT_LENGTH;
 
-  async function handleSend() {
-    if (!canSend) return;
+  /** `overrideText` lets the suggested-prompt buttons send directly
+   *  without round-tripping through the input field's own state. */
+  async function handleSend(overrideText?: string) {
+    const text = overrideText ?? trimmedInput;
+    if (!overrideText && !canSend) return;
+    if (overrideText && (!sessionReady || isStreaming || turnLimitReached)) return;
     if (turnCount >= MAX_TURNS) {
       setTurnLimitReached(true);
       return;
     }
 
-    const nextMessages: Message[] = [...messages, { role: "user", content: trimmedInput }];
+    const nextMessages: Message[] = [...messages, { role: "user", content: text }];
     setMessages([...nextMessages, { role: "assistant", content: "" }]);
     setInput("");
     setError(null);
@@ -186,16 +203,24 @@ export default function ChatWidget() {
 
   return (
     <>
-      <Button
-        as="button"
-        variant="secondary"
-        square
-        ariaLabel={isOpen ? "Close chat" : "Chat about Yiting"}
-        onClick={() => setIsOpen((v) => !v)}
-        className="fixed right-4 bottom-24 z-40 shadow-hover md:right-8 md:bottom-8"
-      >
-        {isOpen ? <CloseIcon /> : <ChatIcon />}
-      </Button>
+      {/* Disappears once the panel is open, rather than swapping to a
+       *  close icon (on request, referenced from benshih.design) — the
+       *  panel has its own close button in its header. */}
+      {!isOpen && (
+        // Custom circular button, not <Button>'s locked rounded-lg/40px
+        // square shape (same reasoning as the panel's close/send buttons
+        // below) — 56px, rounded-full, shadow-float (this site's
+        // "floating fixed UI chrome" token, not shadow-hover's card-lift
+        // one), plus a faint border-border outline.
+        <button
+          type="button"
+          aria-label="Chat about Yiting"
+          onClick={() => setIsOpen(true)}
+          className="fixed right-4 bottom-24 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-border bg-fg shadow-float md:right-8 md:bottom-8"
+        >
+          <AvatarIcon />
+        </button>
+      )}
 
       <AnimatePresence>
         {isOpen && (
@@ -214,20 +239,63 @@ export default function ChatWidget() {
             // shadow-card, backdrop-blur, rounded-2xl) recomposed at a
             // padding scale that fits a compact panel instead — no new
             // colors/shadows, just different existing spacing values.
-            className="bg-dot-grid fixed right-4 bottom-40 z-40 flex h-[70vh] max-h-[560px] w-[calc(100vw-2rem)] max-w-[380px] flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 shadow-card backdrop-blur-[12px] md:right-8 md:bottom-24 md:w-[400px]"
+            // Anchored at the same right/bottom offsets as the trigger
+            // button above (bottom-24/md:bottom-8, not further up at
+            // bottom-40/md:bottom-24) — now that the button disappears
+            // while open, the panel can sit flush in that same corner
+            // instead of leaving empty space below it for a button
+            // that's no longer there.
+            className="bg-dot-grid fixed right-4 bottom-24 z-40 flex h-[70vh] max-h-[560px] w-[calc(100vw-2rem)] max-w-[560px] flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 shadow-card backdrop-blur-[12px] md:right-8 md:bottom-8 md:w-[560px]"
           >
             <div className="relative z-[1] flex items-center justify-between border-b border-border px-4 py-3">
-              <p className="text-body-sm font-semibold text-fg">Ask about Yiting</p>
-              <Button as="button" variant="secondary" square ariaLabel="Close chat" onClick={() => setIsOpen(false)}>
+              <div>
+                <p className="text-h4 tracking-[-0.01em] text-fg">Yiting AI</p>
+                <p className="text-caption text-fg-secondary">Ask anything about Yiting</p>
+              </div>
+              {/* Round, not Button's locked rounded-lg square — on request,
+                  referenced from the same benshih.design widget. Existing
+                  neutral tokens (bg-bg-alt/text-fg-secondary, same pairing
+                  as Button's "third" hover state), just a different shape
+                  than the shared component offers. */}
+              <button
+                type="button"
+                aria-label="Close chat"
+                onClick={() => setIsOpen(false)}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bg-alt text-fg-secondary transition-colors duration-200 hover:bg-border hover:text-fg"
+              >
                 <CloseIcon />
-              </Button>
+              </button>
             </div>
 
             <div ref={scrollRef} className="relative z-[1] flex-1 space-y-3 overflow-y-auto px-4 py-4">
               {messages.length === 0 && (
-                <p className="text-body-sm text-fg-secondary">
-                  Hi! Ask me anything about Yiting&apos;s background, case studies, or how to get in touch.
-                </p>
+                <div className="flex flex-col gap-4">
+                  <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-card-sand">
+                    <div className="relative h-16 w-16 overflow-hidden rounded-full">
+                      <Image
+                        src="/images/yiting_pixelart.png"
+                        alt=""
+                        fill
+                        sizes="64px"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  </div>
+                  <p className="text-h4 tracking-[-0.01em] text-fg">What would you like to know about Yiting?</p>
+                  <div className="flex flex-col gap-2">
+                    {SUGGESTED_PROMPTS.map((prompt) => (
+                      <button
+                        key={prompt}
+                        type="button"
+                        onClick={() => void handleSend(prompt)}
+                        disabled={!sessionReady || isStreaming}
+                        className="rounded-full border border-border bg-bg-alt px-4 py-2.5 text-left text-body-sm text-fg transition-colors duration-200 hover:border-fg disabled:opacity-60"
+                      >
+                        {prompt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               )}
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -273,6 +341,9 @@ export default function ChatWidget() {
               ) : (
                 <>
                   <div className="flex items-end gap-2">
+                    {/* rounded-full pill, not Button/textarea's usual
+                        rounded-lg — on request, matching the reference's
+                        pill-shaped input row. */}
                     <textarea
                       value={input}
                       onChange={(e) => setInput(e.target.value.slice(0, MAX_INPUT_LENGTH))}
@@ -282,27 +353,24 @@ export default function ChatWidget() {
                           void handleSend();
                         }
                       }}
-                      placeholder={sessionReady ? "Type a message…" : "Starting chat…"}
+                      placeholder={sessionReady ? "Ask anything about Yiting…" : "Starting chat…"}
                       rows={1}
                       disabled={!sessionReady || isStreaming}
-                      className="max-h-24 flex-1 resize-none rounded-lg border border-border bg-white px-3 py-2 text-body-sm text-fg outline-none focus:border-fg disabled:opacity-60"
+                      className="max-h-24 flex-1 resize-none rounded-full border border-border bg-white px-4 py-2.5 text-body-sm text-fg outline-none focus:border-fg disabled:opacity-60"
                     />
-                    <Button
-                      as="button"
-                      variant="primary"
-                      square
-                      ariaLabel="Send message"
-                      // Button has no native `disabled` prop — gate the
-                      // action itself here rather than via a real
-                      // disabled attribute (see className below for the
-                      // matching visual state, using the sanctioned
-                      // layout/position className escape hatch, not a
-                      // new color).
+                    {/* Round send button — --color-available (the site's
+                        existing muted sage-green token) reused here for
+                        its color, not the low-key-status-indicator role it
+                        normally plays elsewhere; still no new color. */}
+                    <button
+                      type="button"
+                      aria-label="Send message"
                       onClick={() => void handleSend()}
-                      className={canSend ? "" : "pointer-events-none opacity-50"}
+                      disabled={!canSend}
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-available text-bg transition-opacity duration-200 disabled:opacity-50"
                     >
                       <SendIcon />
-                    </Button>
+                    </button>
                   </div>
                   <p className="mt-1.5 text-caption text-fg-secondary">
                     {input.length}/{MAX_INPUT_LENGTH}

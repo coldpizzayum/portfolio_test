@@ -150,7 +150,7 @@ export default function Header() {
             {/* group-hover:text-fg-hover on the logo text is its own
                 one-off hover color — not part of the bg-bg-alt hover group
                 used elsewhere in this file. */}
-            <span className="font-serif text-[20px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
+            <span className="font-serif text-[28px] font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
               Yiting H.
             </span>
           </Link>
