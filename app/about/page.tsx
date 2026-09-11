@@ -30,9 +30,29 @@ export default function AboutPage() {
       <section className="px-shell pt-hero-top pb-section md:px-shell-lg md:pt-hero-top-lg md:pb-section-lg">
         <GlassCard>
           <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-            <div className="max-w-[640px]">
+            {/* Card treatment referenced from another site's contact-section
+                card (rounded-[20px], bg-white/75, generous padding, its
+                own shadow) — recreated with this site's own tokens rather
+                than the reference's literal (unknown-to-us) classes:
+                rounded-2xl/md:rounded-[20px] is GlassCard's own corner
+                pattern, shadow-card is the same "glass card family"
+                shadow every other card here uses, and p-card-compact/-lg
+                is deliberately smaller than GlassCard's own p-card-glass/
+                -lg — this card nests inside that one, so its padding
+                should read as a step down, not equal or bigger.
+                "Cute" pass (on request, referenced from Ben's playful
+                style): bold border-fg outline + a slight tilt, same
+                hand-drawn-sticker language as the Based-in-Berlin badge
+                and Hero's sticky-note tags, not a new visual idiom — plus
+                a small 👋 sticker badge overlapping the top-right corner,
+                same badge shape as those. overflow-visible (was hidden)
+                so the badge can actually poke past the card's edge. */}
+            <div className="relative max-w-[640px] -rotate-1 overflow-visible rounded-2xl border-2 border-fg bg-white/75 p-card-compact shadow-card md:rounded-[20px] md:p-card-compact-lg">
+              <span className="absolute -top-3 -right-3 flex h-10 w-10 items-center justify-center rounded-full border-2 border-fg bg-card-sand text-lg">
+                👋
+              </span>
               <p className="mb-5 text-body-sm text-fg">
-                👋 Hi, I&apos;m Yiting.
+                Hi, I&apos;m Yiting.
                 <br />
                 I&apos;m a Product Designer from Taiwan 🇹🇼, now based in Berlin 🇩🇪.
               </p>
