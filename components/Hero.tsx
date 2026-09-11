@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { Palette, Hammer, Megaphone } from "lucide-react";
 import Button from "./Button";
 import GlassCard from "./GlassCard";
 import HeroVideoCard from "./HeroVideoCard";
+import HeroTagCard, { type HeroTagCardProps } from "./HeroTagCard";
 
 interface FanCard {
   key: string;
@@ -92,6 +94,29 @@ function SketchNote({ text, className }: { text: string; className: string }) {
   );
 }
 
+// Referenced from creatiie.framer.website's hero — 3 rotated "sticky note"
+// tags scattered around the headline (see HeroTagCard, which is
+// desktop-only — see its own comment). Positions are a first guess (px
+// offsets from the headline wrapper's own corners), not tuned against the
+// real render yet — nudge these once there's a screenshot to check
+// against.
+// Hidden for now, on request — code/positions kept as-is so this is a
+// one-line flip to bring them back, not a redo.
+const HERO_TAGS_VISIBLE = false;
+
+const HERO_TAGS: HeroTagCardProps[] = [
+  { label: "Design", icon: Palette, badgeBg: "bg-card-sand", rotate: -10, position: "top-[-32px] left-[-16px]" },
+  // Sits in the gap beside the shorter first line ("Hi, I'm Yiting.") —
+  // vertically aligned with that line's own row (not poking above it),
+  // since Header's fixed top-10 nav pill floats just above this whole
+  // block and there isn't enough clearance to sit above the headline on
+  // this side the way Design does on the left.
+  { label: "Build", icon: Hammer, badgeBg: "bg-card-jade", rotate: 7, position: "top-[16px] right-[220px]" },
+  // Below-left of the block, in the same left margin Design pokes into
+  // above — clear of both lines' text instead of sitting mid-word.
+  { label: "Market", icon: Megaphone, badgeBg: "bg-card-salmon", rotate: -6, position: "top-[145px] left-[-28px]" },
+];
+
 const FAN_CARDS: FanCard[] = [
   {
     key: "work",
@@ -156,11 +181,19 @@ export default function Hero() {
 
           {/* Left: headline + sub */}
           <div className="max-w-full pb-12 md:pb-0">
-            <h1 className="mb-7 text-h1 tracking-[-0.05em] text-fg">
-              Hi, I&apos;m Yiting.
-              <br />
-              Product Designer &amp; Builder.
-            </h1>
+            {/* relative wrapper around the h1 itself (not a separate empty
+                sibling) — its size comes entirely from the h1's own
+                normal-flow content, so the absolutely-positioned tags
+                below resolve their top/left/right against the headline's
+                real rendered box, not a collapsed zero-size container. */}
+            <div className="relative mb-7">
+              <h1 className="text-h1 tracking-[-0.05em] text-fg">
+                Hi, I&apos;m Yiting.
+                <br />
+                Product Designer &amp; Builder.
+              </h1>
+              {HERO_TAGS_VISIBLE && HERO_TAGS.map((tag) => <HeroTagCard key={tag.label} {...tag} />)}
+            </div>
 
             <p className="mb-8 font-source-sans-pro text-[clamp(18px,13.86px+1.10vw,28px)] leading-[1.2] font-normal text-fg">
               5+ years in startups, from pre-seed to Series B. I design, build, and market.
