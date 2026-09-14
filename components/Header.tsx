@@ -66,7 +66,7 @@ function LinkedInIcon() {
  * a single shared instance can't correctly track two separate DOM
  * positions at once.
  */
-function NavPills({ className }: { className: string }) {
+function NavPills({ className, bare = false }: { className: string; bare?: boolean }) {
   const pathname = usePathname();
   const activeHref = NAV_LINKS.find((l) => pathname === l.href || pathname.startsWith(`${l.href}/`))?.href ?? null;
 
@@ -99,8 +99,13 @@ function NavPills({ className }: { className: string }) {
     setHoverIndicator(hoveredHref && hoveredHref !== activeHref ? measure(hoveredHref) : null);
   }, [hoveredHref, activeHref]);
 
+  // bare=true skips the pill surface/`<nav>` wrapper — used when this is
+  // embedded inside another element that already provides both (the
+  // desktop unified nav bar), so the links don't sit inside a nested pill.
+  const Wrapper = bare ? "div" : "nav";
+
   return (
-    <nav className={`${PILL_SURFACE} ${className}`}>
+    <Wrapper className={bare ? className : `${PILL_SURFACE} ${className}`}>
       {/* onMouseLeave lives on the track, not on individual links — moving
           from one link to another inside the nav shouldn't hide the hover
           pill in between; only leaving the nav entirely should. */}
@@ -131,7 +136,7 @@ function NavPills({ className }: { className: string }) {
           </Link>
         ))}
       </div>
-    </nav>
+    </Wrapper>
   );
 }
 
@@ -142,7 +147,11 @@ export default function Header() {
     // padding, so the doubled value stays flat across breakpoints too.
     <div className="px-shell pt-10 md:px-shell-lg">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-3 md:flex-row md:justify-between">
-        <div className="flex w-full items-center justify-between gap-3 md:contents">
+        {/* Mobile-only top row: logo + icon buttons. Desktop renders its own
+            copy of the logo/buttons inside the unified nav bar below instead
+            of reflowing this row, so it's fully hidden at md+ rather than
+            participating via `md:contents` the way it used to. */}
+        <div className="flex w-full items-center justify-between gap-3 md:hidden">
           <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
             <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
               <Image src="/images/yiting_pixelart.png" alt="" fill sizes="40px" className="object-cover object-top" />
@@ -155,7 +164,7 @@ export default function Header() {
             </span>
           </Link>
 
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2">
             <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
               <LinkedInIcon />
             </Button>
@@ -170,21 +179,38 @@ export default function Header() {
            of the screen (clear of the iOS home-indicator safe area). */}
         <NavPills className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] left-1/2 z-[100] flex -translate-x-1/2 items-center px-2 py-1 md:hidden" />
 
-        {/* Desktop: its own independently fixed, top-centered instance.
-            top-10 is doubled the same way pt-section→pt-10 was on the
-            wrapper below, so the pill sits proportionally the same
-            distance below the page's top padding. */}
-        <NavPills className="fixed top-10 left-1/2 z-[100] hidden -translate-x-1/2 items-center px-2 py-1 md:flex" />
+        {/* Desktop: logo + nav links + buttons merged into one fixed,
+            top-centered pill bar (on request, referenced from bevel.health's
+            nav) instead of three independently-floating pieces. Width is
+            content-fit (not stretched to the page's max-w-[1200px]), same
+            as bevel.health's — it floats centered on its own, not aligned to
+            the hero card's edges below it. top-10 is doubled the same way
+            pt-section→pt-10 was on the wrapper below, so it sits
+            proportionally the same distance below the page's top padding. */}
+        <nav
+          className={`${PILL_SURFACE} fixed top-10 left-1/2 z-[100] hidden -translate-x-1/2 items-center gap-8 py-2 pr-2 pl-5 md:flex`}
+        >
+          <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
+            <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
+              <Image src="/images/yiting_pixelart.png" alt="" fill sizes="36px" className="object-cover object-top" />
+            </span>
+            <span className="font-serif text-xl font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
+              Yiting H.
+            </span>
+          </Link>
 
-        <div className="hidden shrink-0 items-center gap-2 md:flex">
-          <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
-            <LinkedInIcon />
-          </Button>
-          <Button href="/#contact" variant="secondary">
-            <EnvelopeIcon />
-            Say Hello
-          </Button>
-        </div>
+          <NavPills bare className="flex items-center" />
+
+          <div className="flex shrink-0 items-center gap-2">
+            <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
+              <LinkedInIcon />
+            </Button>
+            <Button href="/#contact" variant="secondary">
+              <EnvelopeIcon />
+              Say Hello
+            </Button>
+          </div>
+        </nav>
       </div>
     </div>
   );
