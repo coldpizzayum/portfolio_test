@@ -208,9 +208,9 @@ export default function Hero() {
                   real rendered box, not a collapsed zero-size container. */}
               <div className="relative mb-7">
                 <h1 className="text-h1 tracking-[-0.05em] text-fg">
-                  Hi, I&apos;m Yiting.
+                  Hi, I&apos;m a
                   <br />
-                  Product Designer &amp; Builder.
+                  Designer &amp; Builder.
                 </h1>
                 {HERO_TAGS_VISIBLE && HERO_TAGS.map((tag) => <HeroTagCard key={tag.label} {...tag} />)}
               </div>
