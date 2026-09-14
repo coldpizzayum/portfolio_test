@@ -96,30 +96,34 @@ function SketchNote({ text, className }: { text: string; className: string }) {
 
 // Referenced from creatiie.framer.website's hero — 3 rotated "sticky note"
 // tags scattered around the headline (see HeroTagCard, which is
-// desktop-only — see its own comment). Positions are a first guess (px
-// offsets from the headline wrapper's own corners), not tuned against the
-// real render yet — nudge these once there's a screenshot to check
-// against.
-// Hidden for now, on request — code/positions kept as-is so this is a
-// one-line flip to bring them back, not a redo.
+// desktop-only — see its own comment). Positions are tuned against a real
+// render (measured element bounding boxes, not eyeballed) — re-check these
+// if the headline's line count/wrap changes.
 const HERO_TAGS_VISIBLE = false;
 
 const HERO_TAGS: HeroTagCardProps[] = [
   { label: "Design", icon: Palette, badgeBg: "bg-card-sand", rotate: -10, position: "top-[-32px] left-[-16px]" },
   // Sits in the gap beside the shorter first line ("Hi, I'm Yiting.") —
-  // vertically aligned with that line's own row (not poking above it),
-  // since Header's fixed top-10 nav pill floats just above this whole
-  // block and there isn't enough clearance to sit above the headline on
-  // this side the way Design does on the left.
-  { label: "Build", icon: Hammer, badgeBg: "bg-card-jade", rotate: 7, position: "top-[16px] right-[220px]" },
-  // Below-left of the block, in the same left margin Design pokes into
-  // above — clear of both lines' text instead of sitting mid-word.
-  { label: "Market", icon: Megaphone, badgeBg: "bg-card-salmon", rotate: -6, position: "top-[145px] left-[-28px]" },
+  // vertically aligned with that line's own row. right-290 (not the
+  // smaller offset that'd match Design's left-16) clears the avatar's
+  // narrower headline column *and* the "Based in Berlin" badge floating
+  // top-right of the whole Hero block — both eat into this side's
+  // available space in a way the left side doesn't have to deal with.
+  { label: "Build", icon: Hammer, badgeBg: "bg-card-jade", rotate: 7, position: "top-[16px] right-[290px]" },
+  // Below the avatar circle, in the empty margin to the headline's left —
+  // not "below the headline block" (measured: there's only ~30px between
+  // the sub-paragraph's bottom and the card row's top at this width, not
+  // enough to tuck a rotated tag into without clipping one or the other).
+  { label: "Market", icon: Megaphone, badgeBg: "bg-card-salmon", rotate: -6, position: "top-[162px] left-[-168px]" },
 ];
 
 // Fanned/rotated deck superseded by a flat 3-up row (on request) — flip
 // back to true for a one-line revert instead of redoing the deck.
 const FAN_DECK_VISIBLE = false;
+
+// Flat 3-up row hidden too (on request) — same flip-to-revert convention,
+// not a delete.
+const FLAT_CARDS_VISIBLE = false;
 
 const FAN_CARDS: FanCard[] = [
   {
@@ -228,7 +232,9 @@ export default function Hero() {
               overlapping/rotated look below) — plain equal-width cards, no
               rotation, no overlap, no hover preview tiles/sketch notes.
               Reuses FAN_CARDS' non-photo entries so copy stays in one
-              place. */}
+              place. Hidden for now (on request) behind FLAT_CARDS_VISIBLE,
+              same flip-to-revert convention as FAN_DECK_VISIBLE below. */}
+          {FLAT_CARDS_VISIBLE && (
           <div className="grid w-full grid-cols-1 gap-5 pt-4 sm:grid-cols-3 sm:gap-6">
             {FLAT_CARDS.map((card) => (
               <Link
@@ -248,6 +254,7 @@ export default function Hero() {
               </Link>
             ))}
           </div>
+          )}
 
           {/* Fanned card deck — superseded by the flat row above (on
               request), kept disabled rather than deleted so it's a
