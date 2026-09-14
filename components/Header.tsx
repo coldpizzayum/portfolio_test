@@ -188,7 +188,7 @@ export default function Header() {
             pt-section→pt-10 was on the wrapper below, so it sits
             proportionally the same distance below the page's top padding. */}
         <nav
-          className={`${PILL_SURFACE} fixed top-10 left-1/2 z-[100] hidden -translate-x-1/2 items-center gap-8 py-2 pr-2 pl-5 md:flex`}
+          className={`${PILL_SURFACE} fixed top-10 left-1/2 z-[100] hidden -translate-x-1/2 items-center gap-8 px-5 py-2 md:flex`}
         >
           <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
             <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
@@ -199,17 +199,9 @@ export default function Header() {
             </span>
           </Link>
 
+          {/* LinkedIn and Say Hello both removed (on request) — nav is just
+              logo + links for now. */}
           <NavPills bare className="flex items-center" />
-
-          <div className="flex shrink-0 items-center gap-2">
-            <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
-              <LinkedInIcon />
-            </Button>
-            <Button href="/#contact" variant="secondary">
-              <EnvelopeIcon />
-              Say Hello
-            </Button>
-          </div>
         </nav>
       </div>
     </div>
