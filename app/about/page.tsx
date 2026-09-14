@@ -48,9 +48,7 @@ export default function AboutPage() {
                 same badge shape as those. overflow-visible (was hidden)
                 so the badge can actually poke past the card's edge. */}
             <div className="relative max-w-[640px] -rotate-1 overflow-visible rounded-2xl border-2 border-fg bg-white/75 p-card-compact shadow-card md:rounded-[20px] md:p-card-compact-lg">
-              <span className="absolute -top-3 -right-3 flex h-10 w-10 items-center justify-center rounded-full border-2 border-fg bg-card-sand text-lg">
-                👋
-              </span>
+              
               <p className="mb-5 text-body-sm text-fg">
                 Hi, I&apos;m Yiting.
                 <br />

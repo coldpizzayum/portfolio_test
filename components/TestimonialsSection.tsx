@@ -1,74 +1,58 @@
-import type { CSSProperties } from "react";
 import { testimonials } from "@/data/testimonials";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 import TestimonialCard from "./TestimonialCard";
 
-// Mobile shows a curated 4-card subset instead of the full 9-card deck —
-// same ids the design picked out of the desktop fan (2 avatar cards each
-// side of the row's midpoint, no photo card, no star cards).
-const MOBILE_IDS = ["maxine", "bill", "kei", "james"];
-
-// Whole section hidden on request — flip back to true to bring it back,
-// same one-line-revert convention as Hero's HERO_TAGS_VISIBLE/
-// FAN_DECK_VISIBLE/FLAT_CARDS_VISIBLE and ChatWidget's CHAT_ENTRY_VISIBLE.
-const TESTIMONIALS_VISIBLE = false;
+// Wall layout (on request, referenced from an Intercom testimonial-wall
+// screenshot) — two upright rows on a solid color band instead of the old
+// rotated/absolute-positioned collage. Only the 7 real quote testimonials
+// (not the "photo" entry, which was collage-only filler with no quote —
+// doesn't fit a customer-feedback wall) get split across the two rows.
+// Split is a plain array slice, not curated ids like the collage's
+// MOBILE_IDS was — there's no "which 4 look best together" concern here,
+// every quote testimonial earns its place in the wall.
+const quoteTestimonials = testimonials.filter((t) => t.type === "quote");
+const ROW_SPLIT = Math.ceil(quoteTestimonials.length / 2);
+const topRow = quoteTestimonials.slice(0, ROW_SPLIT);
+const bottomRow = quoteTestimonials.slice(ROW_SPLIT);
 
 export default function TestimonialsSection() {
-  const mobileTestimonials = testimonials.filter((testimonial) => MOBILE_IDS.includes(testimonial.id));
-
-  if (!TESTIMONIALS_VISIBLE) return null;
-
   return (
-    <section id="testimonials" className="overflow-hidden bg-bg py-section md:py-section-lg">
+    // No background band (on request) — sits on the page's own bg-bg like
+    // every other section.
+    <section id="testimonials" className="py-section md:py-section-lg">
       <div className="mx-auto max-w-[1200px] px-shell md:px-shell-lg">
-        {/* mb-5 (20px) — deliberately smaller than the sitewide
-            --spacing-heading-gap-h2 token would suggest, and not itself a
-            shared token. This wrapper's gap is to the *next content region*
-            below it (the card collage), not h2-to-its-own-paragraph (that's
-            still `mb-heading-gap-h2` on the <h2> itself, unchanged) — no
-            other section on the site has the exact same shape (a heading
-            block sitting above a scattered/floating card area rather than a
-            flat content block), so there's no existing token this could
-            reuse outright. The cards themselves start with their own small
-            top offset inside the collage box (`position.top`, e.g. 31px for
-            maxine), which stacks with this margin — so the *effective*
-            visual gap above the first card ends up in the same ballpark as
-            AiProjectsSection's `mt-12` (48px) or OutsideWork's `mb-10`
-            (40px), even though this literal value (20px) looks smaller in
-            isolation. Confirmed against a live DOM edit, not guessed. */}
-        <Reveal className="mb-5 text-center">
-          <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">What&apos;s it like working with me?</h2>
+        <Reveal className="mb-8 text-center md:mb-10">
+          <h2 className="text-h2 tracking-[-0.03em] text-fg">Don&apos;t just take my word for it</h2>
         </Reveal>
+      </div>
 
-        {/* Desktop / tablet: scattered collage, absolute positioning per
-            card (`testimonial.position`) within a centered `max-w-[1040px]`
-            box — matches the production layout (yiting.space).
-            Height is sized to the lowest card's bottom edge (currently
-            james: position.top 280 + its own rendered height), confirmed
-            visually against the live page, not just computed. If any
-            card's position or content changes, re-check this against
-            whichever card sits lowest afterward; a stale height here just
-            shows up as dead space before Footer, not a broken layout. */}
-        <Reveal className="relative mx-auto hidden h-[550px] max-w-[1040px] md:block">
-          {testimonials.map((testimonial) => {
-            const position: CSSProperties = {
-              top: testimonial.position.top,
-              left: testimonial.position.left,
-              right: testimonial.position.right,
-            };
-            return <TestimonialCard key={testimonial.id} testimonial={testimonial} position={position} />;
-          })}
-        </Reveal>
-
-        {/* Mobile: curated 4-card stack, top to bottom, no horizontal
-            scroll — replaces the old snap-scroll strip. */}
-        <RevealGroup className="flex flex-col items-center gap-6 md:hidden" stagger={0.08}>
-          {mobileTestimonials.map((testimonial) => (
-            <RevealItem key={testimonial.id}>
-              <TestimonialCard testimonial={testimonial} />
-            </RevealItem>
-          ))}
-        </RevealGroup>
+      {/* Two rows of upright cards (TestimonialCard with no `position` prop
+          renders unrotated/relative — the same code path the old mobile
+          stack used), each its own horizontal scroller so the row can hold
+          more cards than fit one screen without wrapping mid-quote. Rows
+          are full-bleed (outside the max-w-[1200px] text column above) so
+          a card can sit flush at the viewport edge instead of stopping at
+          the shell's own padding.
+          py-3 on each row — setting `overflow-x-auto` without an explicit
+          overflow-y forces the browser to compute overflow-y as `auto`
+          too (a CSS spec quirk, not a bug in this rule), so a card's own
+          hover:scale-[1.03] (in TestimonialCard) was clipping top/bottom
+          against the row's own box with no vertical breathing room. This
+          padding is that breathing room, not a spacing choice. */}
+      <div className="flex flex-col gap-6">
+        {[topRow, bottomRow].map((row, rowIndex) => (
+          <RevealGroup
+            key={rowIndex}
+            className="scrollbar-hide flex justify-center gap-6 overflow-x-auto px-shell py-3 md:px-shell-lg"
+            stagger={0.08}
+          >
+            {row.map((testimonial) => (
+              <RevealItem key={testimonial.id} className="shrink-0">
+                <TestimonialCard testimonial={testimonial} />
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        ))}
       </div>
     </section>
   );

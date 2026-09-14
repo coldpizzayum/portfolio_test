@@ -167,7 +167,7 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
           `hidden` below md, but omitting the grid there too so the content
           column doesn't reserve dead gap space for a column that isn't
           shown). */}
-      <div className="mx-auto max-w-[1040px] px-shell pt-10 md:px-shell-lg">
+      <div className="mx-auto max-w-[1040px] px-shell pt-10 pb-cs-section-gap md:px-shell-lg md:pb-cs-section-gap-lg">
         <div className="md:flex md:items-start md:gap-16">
           <CaseStudySideNav sections={caseStudy.sections} hasOverview={!!caseStudy.meta} />
 
@@ -190,10 +190,11 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
               </Reveal>
             ))}
 
-            <MoreCaseStudies items={otherCaseStudies} />
           </article>
         </div>
       </div>
+
+      <MoreCaseStudies items={otherCaseStudies} />
     </>
   );
 }

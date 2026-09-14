@@ -4,6 +4,11 @@ import WorkCard from "./WorkCard";
 
 const ACCENT_BACKGROUNDS = ["bg-card-sand", "bg-card-salmon", "bg-card-jade"];
 
+// Homepage only shows a curated subset — hideFromHome items (see WorkItem in
+// data/caseStudies.ts) still list on the full /case-study index, just not
+// featured here.
+const homeItems = workItems.filter((item) => !item.hideFromHome);
+
 export default function WorkSection() {
   return (
     <section id="works" className="bg-bg py-section md:py-section-lg">
@@ -22,7 +27,7 @@ export default function WorkSection() {
         {/* No wrapping flex row here anymore — that was to sit WorkIndexRail
             (removed on request) alongside this column. */}
         <RevealGroup className="flex flex-col gap-6 md:gap-20" stagger={0.12}>
-          {workItems.map((item, index) => (
+          {homeItems.map((item, index) => (
             <WorkCard
               key={item.slug}
               item={item}

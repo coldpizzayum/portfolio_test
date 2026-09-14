@@ -42,11 +42,13 @@ function CloseIcon() {
  * work" rendering on top of and clickable through the open lightbox.
  *
  * `shape="avatar"` (on request, for the circular headshot spot next to the
- * Hero headline) swaps the rotated rectangle for a small static circle —
+ * Hero headline) and `shape="square"` (on request, a later redesign of
+ * that same spot — bigger, square with large rounded corners instead of a
+ * circle) both swap the rotated rectangle for a small static shape —
  * `hover-tilt` (same family as the "Based in Berlin" badge) instead of
  * `fan-card-rotate`, which needs a `.fan-card-item`/`.fan-card-deck`
  * ancestor for its push-apart choreography that doesn't exist outside the
- * deck. `rotation` is ignored in this shape.
+ * deck. `rotation` is ignored in both shapes.
  */
 export default function HeroVideoCard({
   bg,
@@ -55,7 +57,7 @@ export default function HeroVideoCard({
 }: {
   bg: string;
   rotation: number;
-  shape?: "card" | "avatar";
+  shape?: "card" | "avatar" | "square";
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -94,9 +96,11 @@ export default function HeroVideoCard({
         className={
           shape === "avatar"
             ? `hover-tilt relative h-[120px] w-[120px] shrink-0 overflow-hidden rounded-full shadow-float md:h-[150px] md:w-[150px] ${bg}`
-            : `fan-card-rotate relative h-[286px] w-[256px] overflow-hidden rounded-[20px] shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] ${bg}`
+            : shape === "square"
+              ? `hover-tilt relative h-[220px] w-[220px] shrink-0 overflow-hidden rounded-[32px] shadow-float md:h-[260px] md:w-[260px] ${bg}`
+              : `fan-card-rotate relative h-[286px] w-[256px] overflow-hidden rounded-[20px] shadow-[0_4px_16px_rgba(16,24,40,0.08),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-hover xl:h-[360px] xl:w-[320px] xl:rounded-[24px] ${bg}`
         }
-        style={shape === "avatar" ? undefined : ({ "--rotate": `${rotation}deg` } as CSSProperties)}
+        style={shape === "avatar" || shape === "square" ? undefined : ({ "--rotate": `${rotation}deg` } as CSSProperties)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -111,7 +115,7 @@ export default function HeroVideoCard({
           preload="metadata"
           aria-label="Yiting Huang — self intro"
           className={`h-full w-full object-cover transition-[filter] duration-300 ${
-            shape === "avatar" ? "rounded-full" : "rounded-[20px] xl:rounded-[24px]"
+            shape === "avatar" ? "rounded-full" : shape === "square" ? "rounded-[32px]" : "rounded-[20px] xl:rounded-[24px]"
           } ${showOverlay ? "blur-[4px]" : "blur-none"}`}
         />
 

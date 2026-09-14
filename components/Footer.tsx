@@ -97,12 +97,11 @@ export default function Footer() {
         <div className="relative z-[1] flex flex-col gap-14 md:flex-row md:justify-between">
           <div>
             <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
-              Got something to build?
+              Get in touch
             </h2>
             <p className="mb-8 max-w-[480px] text-body-sm text-fg">
               Always happy to chat about product design, tech, or something you&apos;re building.
             </p>
-
             <div className="flex flex-wrap items-center gap-3">
               {/* variant="secondary", not "primary" — an explicit one-off
                   choice for this specific button, not a new pattern (every
