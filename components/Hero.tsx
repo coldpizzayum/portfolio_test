@@ -117,6 +117,10 @@ const HERO_TAGS: HeroTagCardProps[] = [
   { label: "Market", icon: Megaphone, badgeBg: "bg-card-salmon", rotate: -6, position: "top-[145px] left-[-28px]" },
 ];
 
+// Fanned/rotated deck superseded by a flat 3-up row (on request) — flip
+// back to true for a one-line revert instead of redoing the deck.
+const FAN_DECK_VISIBLE = false;
+
 const FAN_CARDS: FanCard[] = [
   {
     key: "work",
@@ -157,6 +161,11 @@ const FAN_CARDS: FanCard[] = [
   },
 ];
 
+// Flat 3-up row's cards — same 3 non-photo entries as FAN_CARDS (the
+// "photo" self-intro video now lives as the avatar next to the headline
+// instead), filtered rather than duplicated so copy stays single-sourced.
+const FLAT_CARDS = FAN_CARDS.filter((card) => !card.isPhoto);
+
 export default function Hero() {
   return (
     <section id="hero" className="px-shell pt-hero-top pb-section md:px-shell-lg md:pt-hero-top-lg md:pb-section-lg">
@@ -179,39 +188,73 @@ export default function Hero() {
             className="hover-tilt mb-4 w-[160px] md:absolute md:top-0 md:right-8 md:mb-0 md:w-[180px] lg:w-[220px]"
           />
 
-          {/* Left: headline + sub */}
-          <div className="max-w-full pb-12 md:pb-0">
-            {/* relative wrapper around the h1 itself (not a separate empty
-                sibling) — its size comes entirely from the h1's own
-                normal-flow content, so the absolutely-positioned tags
-                below resolve their top/left/right against the headline's
-                real rendered box, not a collapsed zero-size container. */}
-            <div className="relative mb-7">
-              <h1 className="text-h1 tracking-[-0.05em] text-fg">
-                Hi, I&apos;m Yiting.
-                <br />
-                Product Designer &amp; Builder.
-              </h1>
-              {HERO_TAGS_VISIBLE && HERO_TAGS.map((tag) => <HeroTagCard key={tag.label} {...tag} />)}
-            </div>
+          {/* Avatar + headline row (on request, reusing the fan deck's
+              self-intro video as a circular avatar next to the headline
+              instead of adding a new static photo — see HeroVideoCard's
+              shape="avatar"). Stacked on mobile, side by side from md+;
+              left-aligned at every size, no centering. */}
+          <div className="flex w-full flex-col items-start gap-6 md:flex-row md:gap-8">
+            <HeroVideoCard bg="bg-card-photo" rotation={0} shape="avatar" />
 
-            <p className="mb-8 font-source-sans-pro text-[clamp(18px,13.86px+1.10vw,28px)] leading-[1.2] font-normal text-fg">
-              5+ years in startups, from pre-seed to Series B. I design, build, and market.
-            </p>
+            <div className="max-w-full pb-12 md:pb-0">
+              {/* relative wrapper around the h1 itself (not a separate empty
+                  sibling) — its size comes entirely from the h1's own
+                  normal-flow content, so the absolutely-positioned tags
+                  below resolve their top/left/right against the headline's
+                  real rendered box, not a collapsed zero-size container. */}
+              <div className="relative mb-7">
+                <h1 className="text-h1 tracking-[-0.05em] text-fg">
+                  Hi, I&apos;m Yiting.
+                  <br />
+                  Product Designer &amp; Builder.
+                </h1>
+                {HERO_TAGS_VISIBLE && HERO_TAGS.map((tag) => <HeroTagCard key={tag.label} {...tag} />)}
+              </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row md:hidden">
-              <Button href="#works">Check out recent work</Button>
-              <Button href="/about" variant="secondary">
-                Learn more about me
-              </Button>
+              <p className="mb-8 font-source-sans-pro text-[clamp(18px,13.86px+1.10vw,28px)] leading-[1.2] font-normal text-fg">
+                5+ years in startups, from pre-seed to Series B. I design, build, and market.
+              </p>
+
+              <div className="flex flex-col gap-3 sm:flex-row md:hidden">
+                <Button href="#works">Check out recent work</Button>
+                <Button href="/about" variant="secondary">
+                  Learn more about me
+                </Button>
+              </div>
             </div>
           </div>
 
-          {/* Fanned card deck. -ml-6/xl:-ml-10 shifts the whole row left a
-              bit relative to the h1/paragraph above it (on request) —
-              deliberate offset from the intro text's left edge, not a
-              centering fix. */}
-          <div className="fan-card-deck relative -ml-4 hidden h-[340px] w-full items-center md:flex xl:-ml-8 xl:h-[420px]">
+          {/* Flat 3-up card row (on request, replacing the fanned deck's
+              overlapping/rotated look below) — plain equal-width cards, no
+              rotation, no overlap, no hover preview tiles/sketch notes.
+              Reuses FAN_CARDS' non-photo entries so copy stays in one
+              place. */}
+          <div className="grid w-full grid-cols-1 gap-5 pt-4 sm:grid-cols-3 sm:gap-6">
+            {FLAT_CARDS.map((card) => (
+              <Link
+                key={card.key}
+                href={card.href}
+                aria-label={card.title}
+                className={`group relative flex flex-col justify-between gap-8 overflow-hidden rounded-[20px] p-6 shadow-[0_4px_16px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-hover ${card.bg}`}
+              >
+                <span className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/24 to-[60%] to-transparent" />
+                <div className="relative">
+                  <h2 className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">{card.title}</h2>
+                  <p className="text-caption text-fg">{card.description}</p>
+                </div>
+                <Button as="span" variant="secondary" hoverTrigger="group" className="relative self-start">
+                  {card.cta}
+                </Button>
+              </Link>
+            ))}
+          </div>
+
+          {/* Fanned card deck — superseded by the flat row above (on
+              request), kept disabled rather than deleted so it's a
+              one-line flip back instead of a redo, same convention as
+              HERO_TAGS_VISIBLE. */}
+          {FAN_DECK_VISIBLE && (
+          <div className="fan-card-deck relative hidden h-[340px] w-full items-center md:flex xl:h-[420px]">
             {FAN_CARDS.map((card, index) => (
               <div
                 key={card.key}
@@ -287,6 +330,7 @@ export default function Hero() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </GlassCard>
     </section>
