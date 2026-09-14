@@ -8,8 +8,15 @@ import TestimonialCard from "./TestimonialCard";
 // side of the row's midpoint, no photo card, no star cards).
 const MOBILE_IDS = ["maxine", "bill", "kei", "james"];
 
+// Whole section hidden on request — flip back to true to bring it back,
+// same one-line-revert convention as Hero's HERO_TAGS_VISIBLE/
+// FAN_DECK_VISIBLE/FLAT_CARDS_VISIBLE and ChatWidget's CHAT_ENTRY_VISIBLE.
+const TESTIMONIALS_VISIBLE = false;
+
 export default function TestimonialsSection() {
   const mobileTestimonials = testimonials.filter((testimonial) => MOBILE_IDS.includes(testimonial.id));
+
+  if (!TESTIMONIALS_VISIBLE) return null;
 
   return (
     <section id="testimonials" className="overflow-hidden bg-bg py-section md:py-section-lg">
