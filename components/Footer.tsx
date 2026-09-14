@@ -97,7 +97,7 @@ export default function Footer() {
         <div className="relative z-[1] flex flex-col gap-14 md:flex-row md:justify-between">
           <div>
             <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
-              Let&apos;s connect!
+              Got something to build?
             </h2>
             <p className="mb-8 max-w-[480px] text-body-sm text-fg">
               Always happy to chat about product design, tech, or something you&apos;re building.

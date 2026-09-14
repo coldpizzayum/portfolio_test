@@ -18,12 +18,12 @@ export interface MoreCaseStudyItem {
  *  without wrapping to a second row and eating into the card's height. */
 const MAX_TAGS = 3;
 
-// Single flat card color (on request, replacing an earlier rotating
-// card-* palette) — bg-bg-alt, the site's existing light-gray surface
-// token (same one Button's third-variant hover and NavPills' hover pill
-// use), not a new color. bg-white was the other option offered but reads
-// invisible against this section's own bg-white wrapper.
-const CARD_BG = "bg-bg-alt";
+// Single flat card color — bg-white (on request), now that the section's
+// own outer bg-white/rounded/padding "big frame" is gone (see the
+// <section> below): the cards sit directly on the page's bg-bg like
+// WorkCard elsewhere, so white reads as a real card again instead of
+// disappearing into a same-color wrapper the way it would have before.
+const CARD_BG = "bg-white";
 
 const WHEEL_COOLDOWN_MS = 400;
 
@@ -91,7 +91,10 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
   };
 
   return (
-    <section id="next" className="mt-cs-section-gap mb-cs-section-gap scroll-mt-24 rounded-2xl bg-white p-card-work text-center md:mt-cs-section-gap-lg md:mb-cs-section-gap-lg md:rounded-[20px] md:p-card-work-lg">
+    // Outer "big frame" (bg-white/rounded/p-card-work box) removed on
+    // request — sits directly on the page's bg-bg now, same as every
+    // other section on this page, instead of its own boxed card.
+    <section id="next" className="mt-cs-section-gap mb-cs-section-gap scroll-mt-24 text-center md:mt-cs-section-gap-lg md:mb-cs-section-gap-lg">
       <h3 className="mb-heading-gap-h3 text-left text-h3 tracking-[-0.02em] text-fg">More case studies</h3>
 
       <div
@@ -104,7 +107,7 @@ export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] 
             key={item.slug}
             className={`flex w-[86%] shrink-0 snap-start flex-col gap-5 overflow-hidden rounded-2xl p-6 text-left sm:w-[560px] sm:flex-row sm:items-center sm:gap-6 sm:p-8 ${CARD_BG}`}
           >
-            <div className="relative h-[160px] w-full shrink-0 overflow-hidden rounded-xl bg-white sm:h-[180px] sm:w-[42%]">
+            <div className="relative h-[160px] w-full shrink-0 overflow-hidden rounded-xl bg-bg-alt sm:h-[180px] sm:w-[42%]">
               <Image src={item.image} alt={item.title} fill sizes="(min-width: 640px) 240px, 90vw" className="object-cover" />
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-3">

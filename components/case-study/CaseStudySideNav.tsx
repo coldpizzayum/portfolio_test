@@ -32,10 +32,6 @@ function CloseIcon() {
  *  sub-headings under top-level items. Derived from the section's own
  *  content instead of a separate data field, so a heading/toggle only needs
  *  its `id` set once to show up here automatically. */
-/** Desktop-only (`hidden md:flex` / `hidden md:block` below) — this is
- *  `position: fixed`, so on mobile it would float on top of the page
- *  content with nowhere to sit; rather than rely on the user to collapse
- *  it, it's off entirely below `md`. */
 function getSubItems(section: CaseStudySection) {
   return section.blocks.flatMap((block) => {
     if (block.type === "heading" && block.id) return [{ id: block.id, label: block.text }];
@@ -44,12 +40,20 @@ function getSubItems(section: CaseStudySection) {
   });
 }
 
-// Hidden sitewide on request — flip back to true to bring it back, same
-// one-line-revert convention as Hero's HERO_TAGS_VISIBLE/FAN_DECK_VISIBLE/
-// FLAT_CARDS_VISIBLE, TestimonialsSection's TESTIMONIALS_VISIBLE, and
-// ChatWidget's CHAT_ENTRY_VISIBLE.
-const TOC_VISIBLE = false;
-
+/**
+ * Left-column TOC (on request, replacing an earlier fixed/floating-overlay
+ * version) — a sticky sidebar, part of the page's normal two-column layout
+ * (see CaseStudyView) instead of `position: fixed` chrome pinned over the
+ * content. Still collapsible (on request) — closed state shrinks to a
+ * small icon button instead of the full list, and since the aside's own
+ * width shrinks with it, the article column next to it (flex-1) grows to
+ * fill the freed space rather than leaving a blank gap. No more
+ * hero-scroll-triggered fade-in though — a sidebar that's already sitting
+ * in its own column doesn't need to hide itself on load the way the old
+ * floating overlay did. Desktop-only (`hidden md:flex`/`hidden md:block`
+ * below) — mobile has no room for a second column, and CaseStudyView
+ * doesn't reserve this column's flex track below `md` either.
+ */
 export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySideNavProps) {
   // What actually renders in the TOC: sections marked `hideFromToc` keep
   // their content/heading on the page but are left out here, and an
@@ -61,12 +65,11 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
   ];
 
   const [activeId, setActiveId] = useState(tocItems[0]?.id);
-  // Always shown by default, even where it overlaps narrow content — the
-  // user can collapse it to a small tab instead of it being hidden outright.
+  // Collapses to a small icon button (on request) — the aside's own width
+  // shrinks with it, so the article column next to it (flex-1 in
+  // CaseStudyView) grows to fill the freed space instead of leaving a
+  // blank gap.
   const [isOpen, setIsOpen] = useState(true);
-  // Mirrors benshih.design: hidden while still in the hero, fades in once
-  // the reader scrolls past the "#toc-trigger" marker into the content.
-  const [hasReachedContent, setHasReachedContent] = useState(false);
 
   useEffect(() => {
     const elements = tocItems
@@ -93,42 +96,13 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sections, hasOverview]);
 
-  useEffect(() => {
-    const trigger = document.getElementById("toc-trigger");
-    if (!trigger) return;
-
-    // Same "sentinel scrolls past the fixed nav's own offset" trick used
-    // for sticky sub-navs: visible once the marker scrolls above that line,
-    // hidden again if the reader scrolls back up past it. isIntersecting
-    // alone can't tell those two states apart from "hasn't reached the
-    // marker yet" (still below the fold on initial load) — both read
-    // false — so the marker's own position disambiguates which case it is.
-    const observer = new IntersectionObserver(
-      ([entry]) => setHasReachedContent(entry.isIntersecting ? false : entry.boundingClientRect.top < 100),
-      { rootMargin: "-100px 0px 0px 0px", threshold: 0 }
-    );
-
-    observer.observe(trigger);
-    return () => observer.disconnect();
-  }, []);
-
-  // Hooks above still run unconditionally every render (TOC_VISIBLE never
-  // changes mid-lifecycle, so this doesn't violate the rules of hooks) —
-  // this just bails before rendering anything once they're done.
-  if (!TOC_VISIBLE) return null;
-
-  const visibilityClass = hasReachedContent
-    ? "opacity-100 translate-y-0 pointer-events-auto"
-    : "pointer-events-none -translate-y-2 opacity-0";
-
   if (!isOpen) {
     return (
       <button
         type="button"
         onClick={() => setIsOpen(true)}
         aria-label="Show on-this-page navigation"
-        aria-hidden={!hasReachedContent}
-        className={`fixed top-[100px] left-[48px] z-40 hidden h-10 w-10 items-center justify-center rounded-full border border-border bg-white/75 text-fg shadow-float backdrop-blur-sm transition-all duration-300 hover:bg-white md:flex ${visibilityClass}`}
+        className="sticky top-24 hidden h-10 w-10 shrink-0 items-center justify-center self-start rounded-full border border-border text-fg transition-colors duration-300 hover:bg-bg-alt md:flex"
       >
         <ListIcon />
       </button>
@@ -136,17 +110,12 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
   }
 
   return (
-    // Pinned to the screen's left edge like benshih.design's TOC. On
-    // narrower viewports this can overlap the article — that's accepted
-    // here, with the toggle button above as the escape hatch.
-    <aside
-      aria-hidden={!hasReachedContent}
-      // p-5 here — floating UI chrome, not a card, so it's deliberately off
-      // the shared card-padding tokens.
-      className={`fixed top-[100px] left-[48px] z-40 hidden w-[252px] rounded-2xl border border-border bg-white/75 p-5 shadow-float backdrop-blur-sm transition-all duration-300 md:block ${visibilityClass}`}
-    >
-      <div className="mb-1 flex items-center justify-between gap-2">
-        <p className="text-[11px] font-semibold tracking-[0.1em] text-fg uppercase">On This Page</p>
+    // top-24 — clears the fixed header nav the same way scroll-mt-24
+    // elsewhere on this page does; self-start so it doesn't stretch to the
+    // article column's full height in the parent grid.
+    <aside className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-[220px] shrink-0 self-start overflow-y-auto md:block">
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <p className="text-[11px] font-semibold tracking-[0.1em] text-fg-secondary uppercase">On This Page</p>
         <button
           type="button"
           onClick={() => setIsOpen(false)}
@@ -156,7 +125,7 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
           <CloseIcon />
         </button>
       </div>
-      <nav className="mt-3 flex flex-col gap-2 text-sm">
+      <nav className="flex flex-col gap-2 text-sm">
         {tocItems.map((item) => {
           const isActive = activeId === item.id;
           const subItems = item.subItems;

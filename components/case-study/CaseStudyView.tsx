@@ -157,36 +157,42 @@ export default function CaseStudyView({ caseStudy }: { caseStudy: CaseStudy }) {
         </header>
       </div>
 
-      <CaseStudySideNav sections={caseStudy.sections} hasOverview={!!caseStudy.meta} />
+      {/* Left-right two-column layout (on request, replacing an earlier
+          fixed/floating TOC overlay) — TOC as a normal sticky column
+          alongside the reading column, not chrome pinned over it. gap-16
+          between the ~220px TOC column and the content gives the reading
+          column roughly the same width (~760px within this 1040px shell)
+          as it had before this was a grid. Single column below md — the
+          TOC track only exists at md+ (CaseStudySideNav itself is also
+          `hidden` below md, but omitting the grid there too so the content
+          column doesn't reserve dead gap space for a column that isn't
+          shown). */}
+      <div className="mx-auto max-w-[1040px] px-shell pt-10 md:px-shell-lg">
+        <div className="md:flex md:items-start md:gap-16">
+          <CaseStudySideNav sections={caseStudy.sections} hasOverview={!!caseStudy.meta} />
 
-      {/* Narrower than the hero above (1100px) so the fixed left-side TOC
-          (visible from here down) has clear room and never overlaps the
-          reading column, mirroring benshih.design's layout. */}
-      <div className="mx-auto max-w-[760px] px-shell pt-10 md:px-shell-lg">
-        {/* Marks where the hero ends and section content begins — the side
-            nav fades in once this scrolls out of view (see CaseStudySideNav). */}
-        <div id="toc-trigger" aria-hidden="true" className="h-px" />
-        <article className="min-w-0">
-          {caseStudy.sections.map((section, index) => (
-            <Reveal
-              key={section.id}
-              id={section.id}
-              className={`scroll-mt-24 ${index === 0 ? "pt-0" : "pt-cs-section-gap md:pt-cs-section-gap-lg"}`}
-              amount="some"
-            >
-              {!section.hideHeading && (
-                <h2 className="mb-heading-gap-h3 text-h3 tracking-[-0.02em] text-fg">
-                  {section.heading}
-                </h2>
-              )}
-              {section.blocks.map((block, blockIndex) => (
-                <CaseStudyBlock key={blockIndex} block={block} />
-              ))}
-            </Reveal>
-          ))}
+          <article className="min-w-0 flex-1">
+            {caseStudy.sections.map((section, index) => (
+              <Reveal
+                key={section.id}
+                id={section.id}
+                className={`scroll-mt-24 ${index === 0 ? "pt-0" : "pt-cs-section-gap md:pt-cs-section-gap-lg"}`}
+                amount="some"
+              >
+                {!section.hideHeading && (
+                  <h2 className="mb-heading-gap-h3 text-h3 tracking-[-0.02em] text-fg">
+                    {section.heading}
+                  </h2>
+                )}
+                {section.blocks.map((block, blockIndex) => (
+                  <CaseStudyBlock key={blockIndex} block={block} />
+                ))}
+              </Reveal>
+            ))}
 
-          <MoreCaseStudies items={otherCaseStudies} />
-        </article>
+            <MoreCaseStudies items={otherCaseStudies} />
+          </article>
+        </div>
       </div>
     </>
   );
