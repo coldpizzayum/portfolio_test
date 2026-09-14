@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import type { CSSProperties, WheelEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { WheelEvent } from "react";
 import Button from "../Button";
 import TagChip from "../TagChip";
 
@@ -14,131 +14,127 @@ export interface MoreCaseStudyItem {
   tags: string[];
 }
 
-// base 288 (was 182 — a ×0.7 cut off the pre-tags 260 that turned out too
-// aggressive once actually rendered: title clipped to 2 lines, description
-// to 3, and the new tags row got cut off entirely with no room left for
-// the "Read case study" button. Recomputed from real worst-case content
-// instead of guessing again — longest title (3 lines) + longest
-// description (3 lines) + a full tags row + the button, at mobile's ~300px
-// text column (no image competing for width there, but it's also narrower
-// than desktop's ~397px text column, so it needs more wrapped lines, not
-// fewer — the two roughly cancel out, hence base and sm ending up close).
-// Both the per-card height class below and the stage-height math derive
-// from this same constant, so they stay in sync.
-const CARD_HEIGHT = { base: 288, sm: 300 };
 /** How many tags to show — enough to cover a typical 3-4 tag case study
- *  without wrapping to a second row and eating into the height budget above. */
+ *  without wrapping to a second row and eating into the card's height. */
 const MAX_TAGS = 3;
-/** Vertical rise and shrink per layer behind the front card. */
-const PEEK_STEP = 16;
-const SCALE_STEP = 0.04;
+
+// Single flat card color (on request, replacing an earlier rotating
+// card-* palette) — bg-bg-alt, the site's existing light-gray surface
+// token (same one Button's third-variant hover and NavPills' hover pill
+// use), not a new color. bg-white was the other option offered but reads
+// invisible against this section's own bg-white wrapper.
+const CARD_BG = "bg-bg-alt";
+
 const WHEEL_COOLDOWN_MS = 400;
 
 /**
- * Stacked-card "More case studies" carousel, styled after benshih.design's
- * case study page (peeking card stack), with our own Back/Next pagination
- * instead of their shuffle button. Also pages via mouse-wheel scroll.
+ * "More case studies" carousel — referenced from podia.com's testimonial
+ * carousel (on request): colored cards side by side instead of a vertical
+ * peek-stack, the next card cut off at the right edge instead of peeking
+ * out behind the front one, dot-only pagination instead of Back/Next
+ * buttons. Content model unchanged (image/title/description/tags/CTA) —
+ * only the carousel mechanics and card chrome changed.
  *
- * The "stage" height is computed from the actual number of visible layers
- * (not a fixed constant) so there's no dead space above the stack when
- * there are fewer than 3 other case studies to show.
+ * Built on native horizontal scroll-snap rather than a measured/animated
+ * transform — the browser handles touch/trackpad swipe for free this way,
+ * and the active dot is derived from `scrollLeft` (rAF-throttled) instead
+ * of tracked in a separate "current index" that could drift out of sync
+ * with an actual swipe.
  */
 export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] }) {
+  const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
-  const count = items.length;
   const lastWheelAt = useRef(0);
+  const count = items.length;
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const card = track.children[0] as HTMLElement | undefined;
+        if (!card) return;
+        const step = card.offsetWidth + 24; // 24 = gap-6
+        setIndex(Math.round(track.scrollLeft / step));
+      });
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      track.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   if (count === 0) return null;
 
-  const goBack = () => setIndex((i) => (i - 1 + count) % count);
-  const goNext = () => setIndex((i) => (i + 1) % count);
-
-  const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
-    if (count <= 1) return;
-    const now = Date.now();
-    if (now - lastWheelAt.current < WHEEL_COOLDOWN_MS) return;
-    if (Math.abs(e.deltaY) < 10) return;
-    lastWheelAt.current = now;
-    if (e.deltaY > 0) goNext();
-    else goBack();
+  const goTo = (i: number) => {
+    const track = trackRef.current;
+    const card = track?.children[0] as HTMLElement | undefined;
+    if (!track || !card) return;
+    const step = card.offsetWidth + 24;
+    track.scrollTo({ left: i * step, behavior: "smooth" });
   };
 
-  // Reorder so the current selection is always the front card; the stack
-  // behind cycles along with it as the user pages through.
-  const ordered = items.map((_, i) => items[(index + i) % count]);
-  const visible = ordered.slice(0, Math.min(3, count));
-  const maxDepth = visible.length - 1;
-  const backScale = 1 - maxDepth * SCALE_STEP;
-  const stageHeightBase = Math.round(maxDepth * PEEK_STEP + CARD_HEIGHT.base * backScale);
-  const stageHeightSm = Math.round(maxDepth * PEEK_STEP + CARD_HEIGHT.sm * backScale);
+  // Translate vertical wheel/trackpad input into horizontal scroll — most
+  // pointing devices don't have an easy horizontal-scroll gesture, and this
+  // carousel otherwise only responds to an explicit swipe or dot click.
+  const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track || Math.abs(e.deltaY) < 10) return;
+    const now = Date.now();
+    if (now - lastWheelAt.current < WHEEL_COOLDOWN_MS) return;
+    lastWheelAt.current = now;
+    e.preventDefault();
+    goTo(Math.min(Math.max(index + (e.deltaY > 0 ? 1 : -1), 0), count - 1));
+  };
 
   return (
     <section id="next" className="mt-cs-section-gap mb-cs-section-gap scroll-mt-24 rounded-2xl bg-white p-card-work text-center md:mt-cs-section-gap-lg md:mb-cs-section-gap-lg md:rounded-[20px] md:p-card-work-lg">
       <h3 className="mb-heading-gap-h3 text-left text-h3 tracking-[-0.02em] text-fg">More case studies</h3>
 
       <div
+        ref={trackRef}
         onWheel={handleWheel}
-        className="relative mx-auto h-[var(--stage-h-base)] w-full max-w-[720px] sm:h-[var(--stage-h-sm)]"
-        style={
-          {
-            "--stage-h-base": `${stageHeightBase}px`,
-            "--stage-h-sm": `${stageHeightSm}px`,
-          } as CSSProperties
-        }
+        className="scrollbar-hide -mx-1 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 pb-2"
       >
-        {visible.map((item, i) => {
-          const isFront = i === 0;
-          const y = -i * PEEK_STEP;
-          const scale = 1 - i * SCALE_STEP;
-          return (
-            // Upward shadow (negative y-offset) — this stack casts its
-            // shadow up, not down, the opposite of every other card on the
-            // site. Deliberate, not a shadow-hover/shadow-card fit.
-            // p-6 (24px), no responsive step — matches FeedbackStack's
-            // desktop deck card padding, the closest sibling in footprint.
-            // Was p-4 sm:p-5 (16/20px), not aligned with any other card on
-            // the site.
-            <div
-              key={item.slug}
-              aria-hidden={!isFront}
-              className="absolute inset-x-0 bottom-0 flex h-[288px] origin-bottom overflow-hidden rounded-2xl border border-border bg-white p-6 shadow-[0_-2px_24px_rgba(16,24,40,0.07)] transition-transform duration-300 sm:h-[300px]"
-              style={{
-                zIndex: visible.length - i,
-                transform: `translateY(${y}px) scale(${scale})`,
-              }}
-            >
-              <div className="relative hidden w-[38%] shrink-0 overflow-hidden rounded-xl bg-bg-alt sm:block">
-                <Image src={item.image} alt={item.title} fill sizes="320px" className="object-cover" />
-              </div>
-              <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 text-left sm:pl-5">
-                <div className="flex-1 space-y-2">
-                  <p className="text-h4 leading-tight tracking-[-0.01em] text-fg">{item.title}</p>
-                  <p className="text-caption text-fg">{item.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {item.tags.slice(0, MAX_TAGS).map((tag) => (
-                      <TagChip key={tag}>{tag}</TagChip>
-                    ))}
-                  </div>
-                </div>
-                {isFront && (
-                  <Button href={`/case-study/${item.slug}`}>
-                    Read case study
-                  </Button>
-                )}
-              </div>
+        {items.map((item) => (
+          <div
+            key={item.slug}
+            className={`flex w-[86%] shrink-0 snap-start flex-col gap-5 overflow-hidden rounded-2xl p-6 text-left sm:w-[560px] sm:flex-row sm:items-center sm:gap-6 sm:p-8 ${CARD_BG}`}
+          >
+            <div className="relative h-[160px] w-full shrink-0 overflow-hidden rounded-xl bg-white sm:h-[180px] sm:w-[42%]">
+              <Image src={item.image} alt={item.title} fill sizes="(min-width: 640px) 240px, 90vw" className="object-cover" />
             </div>
-          );
-        })}
+            <div className="flex min-w-0 flex-1 flex-col gap-3">
+              <p className="text-h4 leading-tight tracking-[-0.01em] text-fg">{item.title}</p>
+              <p className="text-caption text-fg">{item.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {item.tags.slice(0, MAX_TAGS).map((tag) => (
+                  <TagChip key={tag}>{tag}</TagChip>
+                ))}
+              </div>
+              <Button href={`/case-study/${item.slug}`} className="mt-1 self-start">
+                Read case study
+              </Button>
+            </div>
+          </div>
+        ))}
       </div>
 
       {count > 1 && (
-        <div className="relative z-10 mt-6 flex items-center justify-center gap-3">
-          <Button as="button" variant="third" onClick={goBack}>
-            Back
-          </Button>
-          <Button as="button" variant="secondary" onClick={goNext}>
-            Next
-          </Button>
+        <div className="mt-6 flex items-center justify-center gap-2">
+          {items.map((item, i) => (
+            <button
+              key={item.slug}
+              type="button"
+              aria-label={`Go to case study ${i + 1}`}
+              aria-current={i === index}
+              onClick={() => goTo(i)}
+              className={`h-2 rounded-full transition-all duration-300 ${i === index ? "w-6 bg-fg" : "w-2 bg-border hover:bg-fg-hover"}`}
+            />
+          ))}
         </div>
       )}
     </section>
