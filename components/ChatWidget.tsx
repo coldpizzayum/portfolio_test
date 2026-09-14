@@ -18,6 +18,13 @@ const CONTACT_EMAIL = "yitinghuang.design@gmail.com"; // same address Footer.tsx
 const STREAM_ERROR_MARKER = " CHAT_ERROR "; // must match app/api/chat/route.ts
 const EASE = [0.22, 1, 0.36, 1] as const; // same easing Reveal.tsx uses sitewide
 
+// Entry point hidden on request while the widget's redesign is in
+// progress (elsewhere, not yet merged here) — this is the only way to
+// open the widget, so hiding it takes the whole feature off the live site
+// without pulling the component itself. Flip back to true to bring it
+// back, same one-line-revert convention as Hero's HERO_TAGS_VISIBLE.
+const CHAT_ENTRY_VISIBLE = false;
+
 // Empty-state quick-start prompts (on request, referenced from
 // benshih.design's chat widget) — shown once, before the first message.
 const SUGGESTED_PROMPTS = [
@@ -206,7 +213,7 @@ export default function ChatWidget() {
       {/* Disappears once the panel is open, rather than swapping to a
        *  close icon (on request, referenced from benshih.design) — the
        *  panel has its own close button in its header. */}
-      {!isOpen && (
+      {CHAT_ENTRY_VISIBLE && !isOpen && (
         // Custom circular button, not <Button>'s locked rounded-lg/40px
         // square shape (same reasoning as the panel's close/send buttons
         // below) — 56px, rounded-full, shadow-float (this site's
