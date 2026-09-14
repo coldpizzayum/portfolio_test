@@ -71,9 +71,9 @@ function ExternalLinkIcon() {
  *  rounded corners / photo positioning), so a normal `absolute` tooltip
  *  risked being clipped. Portaling escapes that entirely, same reasoning as
  *  HeroVideoCard's lightbox. Style follows the reference screenshot: dark
- *  rounded-full pill, bold white label, thin brand-accent gradient glow
- *  along the bottom edge (`--color-cta` → `--color-cta-hover`, not an
- *  invented color). `aria-hidden` on the tooltip — the link's own
+ *  rounded-full pill, bold white label — the gradient glow along the
+ *  bottom edge from that reference is gone (on request). `aria-hidden` on
+ *  the tooltip — the link's own
  *  `aria-label` already gives it an accessible name, so this is purely a
  *  sighted-user affordance, not something a screen reader should announce twice. */
 function PressLinkArrow({ href, ariaLabel }: { href: string; ariaLabel: string }) {
@@ -103,7 +103,6 @@ function PressLinkArrow({ href, ariaLabel }: { href: string; ariaLabel: string }
             style={{ top: coords.top, left: coords.left }}
           >
             Read press news
-            <span className="absolute bottom-0 left-1/2 h-[3px] w-2/3 -translate-x-1/2 translate-y-full rounded-full bg-gradient-to-r from-cta/0 via-cta to-cta-hover" />
           </div>,
           document.body
         )}
