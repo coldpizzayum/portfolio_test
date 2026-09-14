@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import type { WheelEvent } from "react";
+import Link from "next/link";
 import Button from "../Button";
 import TagChip from "../TagChip";
 
@@ -18,128 +15,56 @@ export interface MoreCaseStudyItem {
  *  without wrapping to a second row and eating into the card's height. */
 const MAX_TAGS = 3;
 
-// Single flat card color — bg-white (on request), now that the section's
-// own outer bg-white/rounded/padding "big frame" is gone (see the
-// <section> below): the cards sit directly on the page's bg-bg like
-// WorkCard elsewhere, so white reads as a real card again instead of
-// disappearing into a same-color wrapper the way it would have before.
-const CARD_BG = "bg-white";
-
-const WHEEL_COOLDOWN_MS = 400;
-
 /**
- * "More case studies" carousel — referenced from podia.com's testimonial
- * carousel (on request): colored cards side by side instead of a vertical
- * peek-stack, the next card cut off at the right edge instead of peeking
- * out behind the front one, dot-only pagination instead of Back/Next
- * buttons. Content model unchanged (image/title/description/tags/CTA) —
- * only the carousel mechanics and card chrome changed.
- *
- * Built on native horizontal scroll-snap rather than a measured/animated
- * transform — the browser handles touch/trackpad swipe for free this way,
- * and the active dot is derived from `scrollLeft` (rAF-throttled) instead
- * of tracked in a separate "current index" that could drift out of sync
- * with an actual swipe.
+ * "More case studies" — referenced from antimetal.com's blog "Related
+ * posts" footer section (on request): a full-width, dashed-top-border
+ * section sitting directly below the case study content, outside the
+ * TOC/article two-column layout (rendered as a sibling in CaseStudyView,
+ * not nested inside <article> the way the old carousel version was) —
+ * plain static grid instead of a scroll-snap carousel, no pagination.
+ * Cards mirror WorkImageCard's mobile stacked layout (image on top, plain
+ * content block below) at every breakpoint, rather than that component's
+ * desktop dark-scrim-overlay treatment — closer to a blog-preview card
+ * than a hero card, matching the reference.
  */
 export default function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] }) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [index, setIndex] = useState(0);
-  const lastWheelAt = useRef(0);
-  const count = items.length;
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const card = track.children[0] as HTMLElement | undefined;
-        if (!card) return;
-        const step = card.offsetWidth + 24; // 24 = gap-6
-        setIndex(Math.round(track.scrollLeft / step));
-      });
-    };
-    track.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      track.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  if (count === 0) return null;
-
-  const goTo = (i: number) => {
-    const track = trackRef.current;
-    const card = track?.children[0] as HTMLElement | undefined;
-    if (!track || !card) return;
-    const step = card.offsetWidth + 24;
-    track.scrollTo({ left: i * step, behavior: "smooth" });
-  };
-
-  // Translate vertical wheel/trackpad input into horizontal scroll — most
-  // pointing devices don't have an easy horizontal-scroll gesture, and this
-  // carousel otherwise only responds to an explicit swipe or dot click.
-  const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
-    const track = trackRef.current;
-    if (!track || Math.abs(e.deltaY) < 10) return;
-    const now = Date.now();
-    if (now - lastWheelAt.current < WHEEL_COOLDOWN_MS) return;
-    lastWheelAt.current = now;
-    e.preventDefault();
-    goTo(Math.min(Math.max(index + (e.deltaY > 0 ? 1 : -1), 0), count - 1));
-  };
+  if (items.length === 0) return null;
 
   return (
-    // Outer "big frame" (bg-white/rounded/p-card-work box) removed on
-    // request — sits directly on the page's bg-bg now, same as every
-    // other section on this page, instead of its own boxed card.
-    <section id="next" className="mt-cs-section-gap mb-cs-section-gap scroll-mt-24 text-center md:mt-cs-section-gap-lg md:mb-cs-section-gap-lg">
-      <h3 className="mb-heading-gap-h3 text-left text-h3 tracking-[-0.02em] text-fg">More case studies</h3>
+    <section className="w-full border-t border-dashed border-border">
+      <div className="mx-auto max-w-[1040px] px-shell py-cs-section-gap md:px-shell-lg md:py-cs-section-gap-lg">
+        <div className="mb-8 flex items-center justify-between gap-4 md:mb-10">
+          <h3 className="text-h3 tracking-[-0.02em] text-fg">More case studies</h3>
+          <Button href="/case-study" variant="third">
+            View all
+          </Button>
+        </div>
 
-      <div
-        ref={trackRef}
-        onWheel={handleWheel}
-        className="scrollbar-hide -mx-1 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 pb-2"
-      >
-        {items.map((item) => (
-          <div
-            key={item.slug}
-            className={`flex w-[86%] shrink-0 snap-start flex-col gap-5 overflow-hidden rounded-2xl p-6 text-left sm:w-[560px] sm:flex-row sm:items-center sm:gap-6 sm:p-8 ${CARD_BG}`}
-          >
-            <div className="relative h-[160px] w-full shrink-0 overflow-hidden rounded-xl bg-bg-alt sm:h-[180px] sm:w-[42%]">
-              <Image src={item.image} alt={item.title} fill sizes="(min-width: 640px) 240px, 90vw" className="object-cover" />
-            </div>
-            <div className="flex min-w-0 flex-1 flex-col gap-3">
-              <p className="text-h4 leading-tight tracking-[-0.01em] text-fg">{item.title}</p>
-              <p className="text-caption text-fg">{item.description}</p>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {items.map((item) => (
+            <Link key={item.slug} href={`/case-study/${item.slug}`} className="group flex flex-col gap-4">
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-bg-alt">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
               <div className="flex flex-wrap gap-2">
                 {item.tags.slice(0, MAX_TAGS).map((tag) => (
                   <TagChip key={tag}>{tag}</TagChip>
                 ))}
               </div>
-              <Button href={`/case-study/${item.slug}`} className="mt-1 self-start">
-                Read case study
-              </Button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {count > 1 && (
-        <div className="mt-6 flex items-center justify-center gap-2">
-          {items.map((item, i) => (
-            <button
-              key={item.slug}
-              type="button"
-              aria-label={`Go to case study ${i + 1}`}
-              aria-current={i === index}
-              onClick={() => goTo(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${i === index ? "w-6 bg-fg" : "w-2 bg-border hover:bg-fg-hover"}`}
-            />
+              <div>
+                <p className="mb-heading-gap-h4 text-h4 tracking-[-0.01em] text-fg">{item.title}</p>
+                <p className="text-body-sm text-fg">{item.description}</p>
+              </div>
+            </Link>
           ))}
         </div>
-      )}
+      </div>
     </section>
   );
 }

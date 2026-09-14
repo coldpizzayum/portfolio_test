@@ -94,6 +94,40 @@ function SketchNote({ text, className }: { text: string; className: string }) {
   );
 }
 
+// Hand-drawn marker-style underline under a single subhead word (on
+// request, referenced from a screenshot). No purple token exists in the
+// design system for this (the reference's own color), so this reuses the
+// card-sand/jade/salmon trio already sitting unused behind
+// HERO_TAGS_VISIBLE=false instead of inventing a new one. viewBox +
+// preserveAspectRatio="none" lets one path stretch to match each word's
+// own rendered width instead of needing a separate path per word.
+//
+// First pass (multi-wave S-curve, no vector-effect) read as "weak" — two
+// compounding causes, not one: (1) several small bumps read as a shaky
+// hand, not a confident mark, and (2) `preserveAspectRatio="none"`
+// stretches x and y independently per word width, and a plain stroke's
+// width scales with that same transform — so on a wide word like "market"
+// the line got stretched thin along its length, actually thinner than a
+// short word's line, not a fixed weight. Fixed by cutting the path down to
+// one continuous sweep (a single dip, not a wave train) and adding
+// `vectorEffect="non-scaling-stroke"`, which locks strokeWidth to real
+// screen pixels regardless of that per-word stretch.
+function UnderlineWord({ children, colorClassName }: { children: string; colorClassName: string }) {
+  return (
+    <span className="relative inline-block whitespace-nowrap">
+      {children}
+      <svg
+        viewBox="0 0 100 16"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-x-0 -bottom-2 h-[0.4em] w-full ${colorClassName}`}
+      >
+        <path d="M2 12 Q 50 3, 98 9" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+      </svg>
+    </span>
+  );
+}
+
 // Referenced from creatiie.framer.website's hero — 3 rotated "sticky note"
 // tags scattered around the headline (see HeroTagCard, which is
 // desktop-only — see its own comment). Positions are tuned against a real
@@ -170,6 +204,11 @@ const FAN_CARDS: FanCard[] = [
 // instead), filtered rather than duplicated so copy stays single-sourced.
 const FLAT_CARDS = FAN_CARDS.filter((card) => !card.isPhoto);
 
+// Skill/domain tags under the subhead (on request) — plain decorative
+// labels, not case-study filter tags, so this is its own list rather than
+// deriving from data/caseStudies.ts's tag set.
+const HERO_SKILL_TAGS = ["B2B", "FinTech", "Blockchain", "eCom"];
+
 export default function Hero() {
   return (
     <section id="hero" className="px-shell pt-hero-top pb-section md:px-shell-lg md:pt-hero-top-lg md:pb-section-lg">
@@ -177,28 +216,14 @@ export default function Hero() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-bg" />
 
         <div className="relative z-[1] flex flex-col items-start gap-0">
-          {/* Mobile (Ben's does this too): plain stacked block, in normal
-              flow above the headline, not floating.
-              md+: switches to a floating badge pulled out of flow, top-right
-              of the hero content, right-8 (not flush to the edge).
-              hover-tilt (globals.css) needs real pointer events to fire, so
-              no pointer-events-none here — same rotate-on-hover family as
-              CaseStudyView's hero image. */}
-          <Image
-            src="/images/Based in Berlin.png"
-            alt="Now based in Berlin"
-            width={514}
-            height={134}
-            className="hover-tilt mb-4 w-[160px] md:absolute md:top-0 md:right-8 md:mb-0 md:w-[180px] lg:w-[220px]"
-          />
-
-          {/* Avatar + headline row (on request, reusing the fan deck's
-              self-intro video as a circular avatar next to the headline
-              instead of adding a new static photo — see HeroVideoCard's
-              shape="avatar"). Stacked on mobile, side by side from md+;
-              left-aligned at every size, no centering. */}
-          <div className="flex w-full flex-col items-start gap-6 md:flex-row md:gap-8">
-            <HeroVideoCard bg="bg-card-photo" rotation={0} shape="avatar" />
+          {/* Avatar + headline row — photo is HeroVideoCard's square shape
+              (on request, a redesign of the circular avatar spot: bigger,
+              square with large rounded corners) — still the fan deck's
+              self-intro video underneath (hover-pause/click-lightbox), not
+              a plain static image, just reshaped. Stacked on mobile, side
+              by side from md+; left-aligned at every size, no centering. */}
+          <div className="flex w-full flex-col items-start gap-6 md:flex-row-reverse md:gap-8">
+            <HeroVideoCard bg="bg-card-photo" rotation={0} shape="square" />
 
             <div className="max-w-full pb-12 md:pb-0">
               {/* relative wrapper around the h1 itself (not a separate empty
@@ -208,23 +233,36 @@ export default function Hero() {
                   real rendered box, not a collapsed zero-size container. */}
               <div className="relative mb-7">
                 <h1 className="text-h1 tracking-[-0.05em] text-fg">
-                  Hi, I&apos;m a
+                  Hi, I&apos;m Yiting.
                   <br />
-                  Designer &amp; Builder.
+                  A Product Designer.
                 </h1>
                 {HERO_TAGS_VISIBLE && HERO_TAGS.map((tag) => <HeroTagCard key={tag.label} {...tag} />)}
               </div>
 
               <p className="mb-8 font-source-sans-pro text-[clamp(18px,13.86px+1.10vw,28px)] leading-[1.2] font-normal text-fg">
-                5+ years in startups, from pre-seed to Series B. I design, build, and market.
+                5+ years in startups, from pre-seed to Series B. I{" "}
+                <UnderlineWord colorClassName="text-card-sand">design</UnderlineWord>,{" "}
+                <UnderlineWord colorClassName="text-card-jade">build</UnderlineWord>, and bring products to{" "}
+                <UnderlineWord colorClassName="text-card-salmon">market</UnderlineWord>.
               </p>
 
-              <div className="flex flex-col gap-3 sm:flex-row md:hidden">
-                <Button href="#works">Check out recent work</Button>
-                <Button href="/about" variant="secondary">
-                  Learn more about me
-                </Button>
+              {/* Skill/domain tags (on request) — plain decorative labels,
+                  not links: same bordered-pill shape as TagChip but a size
+                  up (text-body-sm, more padding) to match this mockup, not
+                  a new TagChip variant since nothing else on the site needs
+                  this exact size yet. */}
+              <div className="mb-8 flex flex-wrap gap-3">
+                {HERO_SKILL_TAGS.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-border px-4 py-2 text-body-sm font-medium text-fg"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
+
             </div>
           </div>
 

@@ -6,6 +6,12 @@ export interface WorkItem {
   image: string;
   /** If set, the work card links to /case-study/[caseStudySlug]. */
   caseStudySlug?: string;
+  /** Set true to keep this item out of the homepage's "Selected work"
+   *  section (see WorkSection.tsx's filter) while still listing it on the
+   *  full /case-study index (CaseStudyIndex.tsx reads the unfiltered
+   *  array) — for a case study that should stay reachable, just not
+   *  featured on the homepage. */
+  hideFromHome?: boolean;
 }
 
 // Order matters: paired positionally (not by id) with WorkIndexRail's
@@ -47,6 +53,7 @@ export const workItems: WorkItem[] = [
     tags: ["AI"],
     image: "/images/German/Slide.png",
     caseStudySlug: "german-learning-app",
+    hideFromHome: true,
   },
 ];
 
@@ -1068,16 +1075,6 @@ export const caseStudies: CaseStudy[] = [
         heading: "Outcome",
         blocks: [
           { type: "heading", level: 3, text: "From a storefront to a growth platform." },
-          {
-            type: "statRow",
-            stats: [
-              { value: "+416%", label: "Revenue" },
-              { value: "+34.9%", label: "AOV" },
-              { value: "+16.97%", label: "Cart conversion" },
-              { value: "+124.9%", label: "Traffic" },
-              { value: "-29.6%", label: "Bounce rate" },
-            ],
-          },
           {
             type: "paragraph",
             text: "The new architecture later supported further expansion into Korea and Turkey without needing to be rebuilt.",

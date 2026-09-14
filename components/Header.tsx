@@ -179,29 +179,34 @@ export default function Header() {
            of the screen (clear of the iOS home-indicator safe area). */}
         <NavPills className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] left-1/2 z-[100] flex -translate-x-1/2 items-center px-2 py-1 md:hidden" />
 
-        {/* Desktop: logo + nav links + buttons merged into one fixed,
-            top-centered pill bar (on request, referenced from bevel.health's
-            nav) instead of three independently-floating pieces. Width is
-            content-fit (not stretched to the page's max-w-[1200px]), same
-            as bevel.health's — it floats centered on its own, not aligned to
-            the hero card's edges below it. top-10 is doubled the same way
-            pt-section→pt-10 was on the wrapper below, so it sits
-            proportionally the same distance below the page's top padding. */}
-        <nav
-          className={`${PILL_SURFACE} fixed top-10 left-1/2 z-[100] hidden -translate-x-1/2 items-center gap-8 px-5 py-2 md:flex`}
-        >
-          <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
-            <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
-              <Image src="/images/yiting_pixelart.png" alt="" fill sizes="36px" className="object-cover object-top" />
-            </span>
-            <span className="font-serif text-xl font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
-              Yiting H.
-            </span>
-          </Link>
+        {/* Desktop: full-width fixed bar pinned to the very top edge (on
+            request, replacing the earlier centered floating pill bar) —
+            plain bg-bg strip instead of a translucent/blurred pill, content
+            row inside matches the page's own max-w-[1200px]/px-shell-lg
+            rhythm instead of being sized to its own content. LinkedIn is
+            back (on request — it had been dropped in the pill-bar version). */}
+        <nav className="fixed inset-x-0 top-0 z-[100] hidden bg-bg shadow-[0_1px_0_rgba(0,0,0,0.06)] md:block">
+          <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-8 px-shell-lg py-4">
+            <Link href="/" className="group flex shrink-0 items-center gap-2.5 text-fg">
+              <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
+                <Image src="/images/yiting_pixelart.png" alt="" fill sizes="36px" className="object-cover object-top" />
+              </span>
+              <span className="font-serif text-xl font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
+                Yiting H.
+              </span>
+            </Link>
 
-          {/* LinkedIn and Say Hello both removed (on request) — nav is just
-              logo + links for now. */}
-          <NavPills bare className="flex items-center" />
+            <NavPills bare className="flex items-center" />
+
+            <div className="flex shrink-0 items-center gap-2">
+              <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
+                <LinkedInIcon />
+              </Button>
+              <Button href="/#contact" variant="secondary">
+                Say Hello
+              </Button>
+            </div>
+          </div>
         </nav>
       </div>
     </div>
