@@ -25,6 +25,16 @@ const PADDING_CLASSES: Record<NonNullable<GlassCardProps["padding"]>, string> = 
   "no-bottom": "px-card-glass pt-9 md:px-card-glass-lg md:pt-14",
 };
 
+// Sitewide experiment (on request, "try removing this everywhere and see"):
+// drops the boxed-card visual treatment (dot-grid, gradient, shadow, blur,
+// rounded corners) from every GlassCard call site at once, while keeping
+// the shared max-width/centering/padding structure intact so layout and
+// spacing don't shift. One central flag rather than editing each of Hero,
+// Footer, JourneyTimeline, OutsideWork, AiProjectsSection, and the
+// About/case-study page intros individually — flip back to true to fully
+// revert, same convention as Hero's HERO_TAGS_VISIBLE/FAN_DECK_VISIBLE.
+const CARD_STYLE_ENABLED = false;
+
 /**
  * The site's recurring "glass card" surface — dot-grid texture, soft
  * gradient, hairline ring + ambient shadow, backdrop blur. Used for Hero,
@@ -37,7 +47,9 @@ export default function GlassCard({ children, padding = "default", className = "
   return (
     <div
       className={cn(
-        "bg-dot-grid relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 shadow-card backdrop-blur-[12px] md:rounded-[20px]",
+        "relative mx-auto max-w-[1200px] overflow-hidden",
+        CARD_STYLE_ENABLED &&
+          "bg-dot-grid rounded-2xl bg-gradient-to-br from-white/88 via-white/76 to-white/70 shadow-card backdrop-blur-[12px] md:rounded-[20px]",
         PADDING_CLASSES[padding],
         className
       )}

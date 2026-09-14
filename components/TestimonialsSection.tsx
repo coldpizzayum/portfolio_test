@@ -31,7 +31,6 @@ export default function TestimonialsSection() {
             isolation. Confirmed against a live DOM edit, not guessed. */}
         <Reveal className="mb-5 text-center">
           <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">What&apos;s it like working with me?</h2>
-          <p className="text-body text-fg">I believe that if you work hard and stay kind, amazing things happen. :)</p>
         </Reveal>
 
         {/* Desktop / tablet: scattered collage, absolute positioning per
