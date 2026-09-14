@@ -170,7 +170,7 @@ export default function Header() {
             </Button>
             <Button href="/#contact" variant="secondary">
               <EnvelopeIcon />
-              Say Hello
+              Contact
             </Button>
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function Header() {
               <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-card-salmon transition-transform duration-300 group-hover:scale-110">
                 <Image src="/images/yiting_pixelart.png" alt="" fill sizes="36px" className="object-cover object-top" />
               </span>
-              <span className="font-serif text-xl font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
+              <span className="font-serif text-2xl font-bold tracking-tight whitespace-nowrap transition-colors duration-[180ms] group-hover:text-fg-hover">
                 Yiting H.
               </span>
             </Link>
@@ -203,7 +203,7 @@ export default function Header() {
                 <LinkedInIcon />
               </Button>
               <Button href="/#contact" variant="secondary">
-                Say Hello
+                Contact
               </Button>
             </div>
           </div>
