@@ -44,6 +44,12 @@ function getSubItems(section: CaseStudySection) {
   });
 }
 
+// Hidden sitewide on request — flip back to true to bring it back, same
+// one-line-revert convention as Hero's HERO_TAGS_VISIBLE/FAN_DECK_VISIBLE/
+// FLAT_CARDS_VISIBLE, TestimonialsSection's TESTIMONIALS_VISIBLE, and
+// ChatWidget's CHAT_ENTRY_VISIBLE.
+const TOC_VISIBLE = false;
+
 export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySideNavProps) {
   // What actually renders in the TOC: sections marked `hideFromToc` keep
   // their content/heading on the page but are left out here, and an
@@ -105,6 +111,11 @@ export default function CaseStudySideNav({ sections, hasOverview }: CaseStudySid
     observer.observe(trigger);
     return () => observer.disconnect();
   }, []);
+
+  // Hooks above still run unconditionally every render (TOC_VISIBLE never
+  // changes mid-lifecycle, so this doesn't violate the rules of hooks) —
+  // this just bails before rendering anything once they're done.
+  if (!TOC_VISIBLE) return null;
 
   const visibilityClass = hasReachedContent
     ? "opacity-100 translate-y-0 pointer-events-auto"
