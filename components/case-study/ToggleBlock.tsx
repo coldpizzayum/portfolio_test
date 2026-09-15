@@ -94,7 +94,7 @@ export default function ToggleBlock({
       >
         <span className="flex items-center gap-2">
           <InfoIcon />
-          <span className="text-body-sm text-fg">{summary}. Tap to read</span>
+          <span className="text-body-sm text-fg">{summary}</span>
         </span>
         <ChevronDownIcon open={open} />
       </button>
