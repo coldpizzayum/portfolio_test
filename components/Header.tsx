@@ -203,6 +203,7 @@ export default function Header() {
                 <LinkedInIcon />
               </Button>
               <Button href="/#contact" variant="secondary">
+                <EnvelopeIcon />
                 Contact
               </Button>
             </div>
