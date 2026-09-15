@@ -72,7 +72,7 @@ export default function JourneyTimeline() {
         <div className="relative z-[1] flex flex-col gap-10 md:flex-row md:items-start md:gap-16">
           <div className="md:max-w-[300px] md:shrink-0 md:self-start">
             <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
-              My journey
+              My story
             </h2>
             <Button href={RESUME_URL} target="_blank" rel="noreferrer" variant="secondary">
               My Resume
