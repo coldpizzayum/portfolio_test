@@ -207,8 +207,25 @@ export default function CaseStudyBlock({ block }: { block: CaseStudyBlockType })
     case "embed":
       return (
         <figure className="my-8 rounded-2xl bg-white p-card-compact md:p-card-compact-lg">
-          <div className="relative aspect-video overflow-hidden rounded-xl bg-bg-alt">
+          <div
+            className={
+              block.device === "phone"
+                ? "group relative mx-auto aspect-[39/80] w-full max-w-sm overflow-hidden rounded-xl bg-bg-alt"
+                : "relative aspect-video overflow-hidden rounded-xl bg-bg-alt"
+            }
+          >
             <iframe className="absolute inset-0 h-full w-full" src={block.src} title={block.title} allowFullScreen />
+            {/* Hover hint for the live app — decorative, pointer-events-none
+                so it never blocks taps/clicks into the iframe underneath. */}
+            {block.device === "phone" && (
+              <Button
+                as="span"
+                variant="secondary"
+                className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 transition-opacity group-hover:opacity-100"
+              >
+                Try the live demo
+              </Button>
+            )}
           </div>
           {block.caption && (
             <figcaption className="mt-6 text-center text-caption text-fg">{renderInline(block.caption)}</figcaption>
