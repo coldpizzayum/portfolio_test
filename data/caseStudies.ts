@@ -111,8 +111,10 @@ export type CaseStudyBlock =
    *  IntersectionObserver, this just always plays once mounted. */
   | { type: "videoFile"; src: string; alt: string; caption?: string; autoPlay?: boolean }
   /** Embeds a live iframe (e.g. a Figma/FigJam board) — same aspect-video
-   *  card framing as videoGrid, just without the YouTube-specific params. */
-  | { type: "embed"; src: string; title: string; caption?: string }
+   *  card framing as videoGrid, just without the YouTube-specific params.
+   *  `device: "phone"` swaps the 16:9 frame for a centered portrait one,
+   *  for embedding a live mobile web app. */
+  | { type: "embed"; src: string; title: string; caption?: string; device?: "phone" }
   | {
       type: "imageCollage";
       items: { src: string; alt: string; top: string; left: string; width: string; rotate: number; z: number }[];
@@ -1148,6 +1150,12 @@ export const caseStudies: CaseStudy[] = [
                 description: "Practice vocabulary, grammar, speaking, and listening based on my notes and real-life scenarios.",
               },
             ],
+          },
+          {
+            type: "embed",
+            src: "https://pretzel-bits.vercel.app/demo",
+            title: "AI German learning app live demo",
+            device: "phone",
           },
         ],
       },
