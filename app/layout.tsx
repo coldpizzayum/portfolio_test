@@ -83,6 +83,16 @@ export default function RootLayout({
         {process.env.NODE_ENV === "development" && (
           <Script src="http://localhost:8097" strategy="beforeInteractive" />
         )}
+        {/* Umami analytics — production-only so local dev visits don't
+         *  pollute the stats. afterInteractive is the next/script
+         *  equivalent of the snippet's `defer`. */}
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            src="https://cloud.umami.is/script.js"
+            data-website-id="cb538ba2-af2f-46d1-8c4c-d1b462c23e48"
+            strategy="afterInteractive"
+          />
+        )}
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
