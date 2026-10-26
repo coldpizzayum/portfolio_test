@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
+import { trackEvent } from "@/lib/analytics";
 import Button from "./Button";
 import GlassCard from "./GlassCard";
 
@@ -74,7 +75,13 @@ export default function JourneyTimeline() {
             <h2 className="mb-heading-gap-h2 text-h2 tracking-[-0.03em] text-fg">
               My story
             </h2>
-            <Button href={RESUME_URL} target="_blank" rel="noreferrer" variant="secondary">
+            <Button
+              href={RESUME_URL}
+              target="_blank"
+              rel="noreferrer"
+              variant="secondary"
+              onClick={() => trackEvent("cv_download", { location: "about" })}
+            >
               My Resume
             </Button>
           </div>

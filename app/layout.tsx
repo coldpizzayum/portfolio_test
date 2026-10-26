@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import { Caveat, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -104,6 +105,7 @@ export default function RootLayout({
          *  (bottom-24, not bottom-8) specifically so the two don't crowd
          *  the same corner/row on narrow screens. */}
         <ChatWidget />
+        <Analytics />
       </body>
     </html>
   );

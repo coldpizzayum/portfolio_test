@@ -4,6 +4,7 @@ import Button from "./Button";
 import TagChip from "./TagChip";
 import { renderInline } from "./renderInline";
 import { RevealItem } from "./Reveal";
+import CaseStudyLinkButton from "./CaseStudyLinkButton";
 
 interface WorkCardProps {
   item: WorkItem;
@@ -64,9 +65,7 @@ export default function WorkCard({ item, reversed, accentBg, id }: WorkCardProps
        *  the tags above — same "bottom-pinned via mt-auto" convention as
        *  FeedbackStack's PressCardContent date row (see that component). */}
       {href ? (
-        <Button href={href} className="mt-auto">
-          Read case study
-        </Button>
+        <CaseStudyLinkButton href={href} caseStudy={item.caseStudySlug ?? item.slug} className="mt-auto" />
       ) : (
         <Button as="span" className="mt-auto">
           Read case study

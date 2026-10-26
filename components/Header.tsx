@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "./Button";
+import { trackEvent } from "@/lib/analytics";
 
 interface NavLink {
   label: string;
@@ -165,10 +166,18 @@ export default function Header() {
           </Link>
 
           <div className="flex items-center gap-2">
-            <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
+            <Button
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noreferrer"
+              variant="secondary"
+              square
+              ariaLabel="LinkedIn"
+              onClick={() => trackEvent("linkedin_click", { location: "header" })}
+            >
               <LinkedInIcon />
             </Button>
-            <Button href="/#contact" variant="secondary">
+            <Button href="/#contact" variant="secondary" onClick={() => trackEvent("contact_click", { location: "header" })}>
               <EnvelopeIcon />
               Contact
             </Button>
@@ -199,10 +208,18 @@ export default function Header() {
             <NavPills bare className="flex items-center" />
 
             <div className="flex shrink-0 items-center gap-2">
-              <Button href={LINKEDIN_URL} target="_blank" rel="noreferrer" variant="secondary" square ariaLabel="LinkedIn">
+              <Button
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noreferrer"
+                variant="secondary"
+                square
+                ariaLabel="LinkedIn"
+                onClick={() => trackEvent("linkedin_click", { location: "header" })}
+              >
                 <LinkedInIcon />
               </Button>
-              <Button href="/#contact" variant="secondary">
+              <Button href="/#contact" variant="secondary" onClick={() => trackEvent("contact_click", { location: "header" })}>
                 <EnvelopeIcon />
                 Contact
               </Button>

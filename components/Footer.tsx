@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import GlassCard from "./GlassCard";
+import { trackEvent } from "@/lib/analytics";
 
 const CONTACT_EMAIL = "yitinghuang.design@gmail.com";
 const CAL_URL = "https://cal.com/yiting-huang";
@@ -21,8 +22,8 @@ const LINK_COLUMNS = [
   {
     heading: "Links",
     items: [
-      { label: "Resume", href: RESUME_URL },
-      { label: "LinkedIn", href: LINKEDIN_URL },
+      { label: "Resume", href: RESUME_URL, event: "cv_download" as const },
+      { label: "LinkedIn", href: LINKEDIN_URL, event: "linkedin_click" as const },
       { label: "GitHub", href: GITHUB_URL },
     ],
   },
@@ -80,6 +81,7 @@ export default function Footer() {
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = async () => {
+    trackEvent("contact_click", { location: "footer", method: "copy_email" });
     await navigator.clipboard.writeText(CONTACT_EMAIL);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -107,7 +109,13 @@ export default function Footer() {
                   choice for this specific button, not a new pattern (every
                   other CTA-worthy action still follows the variant table in
                   Button.tsx). */}
-              <Button href={CAL_URL} target="_blank" rel="noreferrer" variant="secondary">
+              <Button
+                href={CAL_URL}
+                target="_blank"
+                rel="noreferrer"
+                variant="secondary"
+                onClick={() => trackEvent("contact_click", { location: "footer", method: "schedule_chat" })}
+              >
                 <CalendarIcon />
                 Schedule a chat
               </Button>
@@ -139,6 +147,9 @@ export default function Footer() {
                         href={item.href}
                         target={item.href.startsWith("http") ? "_blank" : undefined}
                         rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                        onClick={() => {
+                          if ("event" in item && item.event) trackEvent(item.event, { location: "footer" });
+                        }}
                       >
                         {item.label}
                       </Button>
